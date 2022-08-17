@@ -1,0 +1,1614 @@
+@import config
+/* App styles */
+// App
+.app
+	width: 100%
+	min-height: 100vh
+	display: flex
+	flex-direction: column
+	position: relative
+	overflow: hidden
+// Header
+.header
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	z-index: 9
+	transition: background-color 0.3s
+	&__container
+		display: flex
+		align-items: center
+		justify-content: space-between
+		height: 96px
+	&__hamburger
+		display: none
+	&__logo
+		margin-right: 50px
+		img
+			max-width: 100%
+			height: auto
+	&__menus
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+	&__main-menu
+		margin-right: 50px
+	&__user-menu
+		margin-right: 50px
+	&__search
+		margin-left: auto
+		.btn
+			font-size: 18px
+			padding: .547rem .667rem
+	&.sticky
+		background-color: rgba($c6,0.95)
+// hamburger
+.hamburger
+	padding: 5px
+	margin: -5px 10px -5px -5px
+	border: 0
+	background: none
+	font-size: 0
+	border-radius: 0
+	&__body
+		width: 30px
+		height: 20px
+		display: block
+		position: relative
+	&__inner
+		position: absolute
+		top: 50%
+		left: 0
+		width: 30px
+		height: 3px
+		border-radius: 4px
+		background-color: $c1
+		margin-top: -2px
+		&::before
+			content: ''
+			position: absolute
+			top: -8px
+			left: 0
+			width: 30px
+			height: 3px
+			border-radius: 4px
+			background-color: $c1
+			transition: top .1s ease .1s,transform .1s cubic-bezier(.165,.84,.44,1)
+		&::after
+			content: ''
+			position: absolute
+			bottom: -8px
+			left: 0
+			width: 30px
+			height: 3px
+			border-radius: 4px
+			background-color: $c1
+			transition: bottom .1s ease .1s,transform .1s cubic-bezier(.165,.84,.44,1)
+// main-menu
+.main-menu
+	&__list
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+		padding: 0
+		margin: 0 -7.5px
+		list-style: none
+	&__item
+		> a
+			display: block
+			padding: 5px 7.5px
+			color: $c11
+			text-decoration: none
+			&:hover
+				color: $c1
+		&_active
+			> a
+				color: $c1
+// user-menu
+.user-menu
+	&__list
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+		padding: 0
+		margin: 0 -7.5px
+		list-style: none
+	&__item
+		> a
+			display: block
+			padding: 5px 7.5px
+			color: $c11
+			text-decoration: none
+			&:hover
+				color: $c1
+// header-loginza
+.header-loginza
+	display: flex
+	align-items: center
+	&__login
+		font-size: 18px
+		min-width: 130px
+		margin-left: 30px
+	&__user
+		display: inline-flex
+		align-items: center
+		position: relative
+		padding: 0
+		border: 0
+		z-index: 2
+		margin-left: 30px
+		&::after
+			content: '\e910'
+			font-family: icomoon !important
+			font-size: 10px
+			margin-left: 13px
+			color: $c1
+			transition: transform 0.3s
+	&__user-ava
+		position: relative
+		width: 50px
+		height: 50px
+		min-width: 50px
+		background-color: $c3
+		border-radius: 6px
+		background-repeat: no-repeat
+		background-position: 50% 50%
+		background-size: cover
+		line-height: 50px
+		text-align: center
+		color: $c15
+		font-size: 40px
+		font-weight: 500
+		margin-right: 15px
+		img
+			@include imgfitcover
+	&__user-name
+		font-size: 18px
+		color: $cw
+	// &.is-logged
+	// 	.header-loginza__login
+	// 		display: none
+	// 	.header-loginza__user
+	// 		display: inline-flex
+	&__user-sidebar
+		position: fixed
+		top: 0
+		right: 0
+		bottom: 0
+		z-index: 1
+// user-sidebar
+.user-sidebar
+	width: 314px
+	background-color: rgba($c6,0.95)
+	margin-right: -314px
+	transition: margin-right 0.3s
+	display: flex
+	flex-direction: column
+	align-items: center
+	padding-top: 140px
+	padding-bottom: 15px
+	overflow: auto
+	&__user-sidebar-menu
+		padding: 15px
+	&__mobile-app
+		margin-top: auto
+		padding: 15px
+		.mobile-app__list
+			flex-direction: column
+			align-items: center
+			margin-left: 0
+		.mobile-app__item
+			margin-bottom: 8px
+			margin-left: 0
+			> a
+				min-width: 194px
+				padding: 10px 15px
+				.icon
+					font-size: 34px
+.user-sidebar-open
+	.user-sidebar
+		margin-right: 0
+	.header-loginza__user
+		&::after
+			transform: scale(-1)
+// user-sidebar-menu
+.user-sidebar-menu
+	&__list
+		padding: 0
+		margin: 0
+		list-style: none
+	&__item
+		margin-bottom: 33px
+		> a
+			text-decoration: none
+			display: flex
+			align-items: flex-start
+			color: $cw
+			font-size: 18px
+			line-height: 22px
+			.icon
+				font-size: 22px
+				margin-right: 33px
+				color: $c1
+		&.hus-sub-list
+			> a
+				&::after
+					content: '\e910'
+					font-family: icomoon !important
+					font-size: 10px
+					margin-left: 13px
+					color: $c1
+					transition: transform 0.3s
+				&.open
+					&::after
+						transform: scale(-1)
+	&__sub-list
+		display: none
+		padding: 0
+		margin: 0 0 0 55px
+		list-style: none
+	&__sub-item
+		margin-top: 15px
+		&:first-child
+			margin-top: 20px
+		> a
+			text-decoration: none
+			font-size: 18px
+			color: $c13
+			display: flex
+			align-items: flex-start
+			line-height: 30px
+			.ava
+				margin-right: 9px
+				width: 30px
+				min-width: 30px
+				height: 30px
+				background-color: $c3
+				border-radius: 6px
+				text-align: center
+				line-height: 30px
+				background-repeat: no-repeat
+				background-position: 50% 50%
+				background-size: cover
+				font-size: 20px
+				font-weight: 500
+				color: $c15
+				img
+					@include imgfitcover
+// Content
+.content
+	flex: 1 1 auto
+	padding-top: 141px
+	padding-bottom: 50px
+// movie-slider
+.movie-slider
+	margin-bottom: -226px
+	&__swiper
+		z-index: inherit
+		.swiper-wrapper
+			z-index: inherit
+	&__item
+		position: relative
+		min-height: 940px
+		display: flex
+		align-items: center
+		height: auto
+	&__img
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		background-repeat: no-repeat
+		background-position: 50% 0%
+		background-size: cover
+		&::after
+			content: ''
+			height: 345px
+			position: absolute
+			left: 0
+			bottom: 0
+			right: 0
+			background: linear-gradient(rgba(0,0,0,0),$c6)
+	&__container
+		position: relative
+		padding-top: 96px
+		padding-bottom: 96px
+		display: flex
+		align-items: flex-end
+		justify-content: space-between
+	&__text
+		max-width: 570px
+	&__name
+		margin-bottom: 45px
+		img
+			max-width: 100%
+			height: auto
+	&__desc
+		margin-bottom: 45px
+	&__btns
+		display: flex
+		flex-wrap: wrap
+		margin-left: -15px
+		margin-bottom: -15px
+		.btn
+			margin-left: 15px
+			min-width: 190px
+			font-size: 18px
+			min-height: 60px
+			margin-bottom: 15px
+			.icon
+				font-size: 24px
+	&__movie-trailer
+		.btn
+			font-size: 20px
+			min-width: 190px
+			min-height: 60px
+			.icon
+				font-size: 24px
+			&:hover, &:focus
+				background: rgba($cw, 0.1)
+// movie-carousel
+.movie-carousel
+	position: relative
+	margin-bottom: 35px
+	&:nth-child(odd)
+		&::before
+			content: ''
+			position: absolute
+			top: 50%
+			left: 0
+			right: 0
+			transform: translateY(-50%)
+			height: 768px
+			background: url(../public/img/dist/movie-carousel-light.png) no-repeat 50% 50% / auto 100%
+			pointer-events: none
+			z-index: -1
+	&__header
+		display: flex
+		align-items: center
+		position: relative
+	&__title
+		font-weight: 400
+		color: $c11
+		margin-bottom: 25px
+		a
+			color: $c11
+			text-decoration: none
+	&__title-info
+		margin-left: 15px
+		margin-bottom: 25px
+		margin-top: 4px
+		.icon
+			font-size: 26px
+			color: $c1
+	&__swiper
+		padding-top: 18px
+		overflow: inherit
+	&__item
+		height: auto
+		width: 287px
+		margin-right: 12px
+	&__nav_prev
+		color: $cw
+		top: 18px
+		bottom: 64px
+		left: 0
+		width: 50px
+		display: flex
+		align-items: center
+		justify-content: center
+		margin-top: 0
+		height: auto
+		background: linear-gradient(-90deg,rgba(0,0,0,0),$c6)
+		&::after
+			font-size: 40px
+		&:hover
+			color: $c1
+	&__nav_next
+		color: $cw
+		top: 18px
+		bottom: 64px
+		right: 0
+		width: 50px
+		display: flex
+		align-items: center
+		justify-content: center
+		margin-top: 0
+		height: auto
+		background: linear-gradient(90deg,rgba(0,0,0,0),$c6)
+		&::after
+			font-size: 40px
+		&:hover
+			color: $c1
+	&__pagination.swiper-pagination
+		position: absolute
+		top: 0
+		right: 60px
+		bottom: auto
+		left: auto
+		display: flex
+		width: auto
+		.swiper-pagination-bullet
+			width: 10px
+			height: 4px
+			border-radius: 50rem
+			background-color: $cw
+			opacity: 0.5
+			margin: 0 1.5px
+			transition: width 0.3s, opacity 0.3s
+			&:hover
+				opacity: 1
+			&.swiper-pagination-bullet-active
+				opacity: 1
+				width: 20px
+// movie-card
+.movie-card
+	position: relative
+	&__body
+		position: relative
+	&__img
+		width: 100%
+		padding-top: 70%
+		background-color: $c6
+		background-repeat: no-repeat
+		background-position: 50% 50%
+		background-size: cover
+		border-radius: 6px
+		&::after
+			content: ''
+			position: absolute
+			bottom: 0
+			left: 0
+			right: 0
+			height: 60px
+			background: linear-gradient(rgba(0,0,0,0),$c6)
+			border-radius: 0 0 6px 6px
+	&__labels
+		position: absolute
+		top: 10px
+		left: -7px
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+	&__label
+		margin-bottom: 3px
+		border-radius: 50rem
+		padding: 6px 6px
+		font-size: 14px
+		&.bg-primary
+			color: $c8
+		&.bg-secondary
+			color: $c1
+		&.bg-danger
+			color: $c8
+	&__ratings
+		position: absolute
+		bottom: 10px
+		left: 10px
+		right: 0
+		display: flex
+	&__rating
+		margin-right: 10px
+		font-size: 18px
+		color: $cw
+		display: flex
+		align-items: center
+		line-height: 17px
+		.icon
+			font-size: 17px
+			margin-right: 5px
+			color: $c1
+	&__name
+		margin: 10px
+		font-size: 18px
+		color: $c13
+		height: 44px
+		overflow: hidden
+		display: -webkit-box
+		-webkit-line-clamp: 2
+		-webkit-box-orient: vertical
+	&__link
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+	&__more-info
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%,-50%) scale(0.4)
+		background-color: $c6
+		border-radius: 6px
+		width: 610px
+		box-shadow: 0 0 50px rgba($cb,1)
+		opacity: 0
+		visibility: hidden
+		transition: transform 0.3s, opacity 0.3s, visibility 0.3s
+	&:hover
+		z-index: 2
+		.movie-card__more-info
+			opacity: 1
+			visibility: visible
+			transform: translate(-50%,-50%) scale(1)
+.movie-card-more-info
+	&__video
+		position: relative
+		width: 100%
+		padding-top: 38%
+		border-radius: 6px
+		video
+			@include imgfitcover
+			border-radius: 6px
+		.video-js
+			@include imgfitcover
+			border-radius: 6px
+			.vjs-text-track-display
+				position: absolute
+				top: 0
+				left: 0
+				right: 0
+				bottom: 0
+				pointer-events: none
+			.vjs-big-play-button
+				position: absolute
+				top: 50%
+				left: 50%
+				margin-top: -30px
+				margin-left: -30px
+				padding: 0
+				border: 0
+				background-color: rgba($c6,0.5)
+				display: flex
+				align-items: center
+				justify-content: center
+				width: 60px
+				height: 60px
+				border-radius: 50%
+				color: #fff
+				font-size: 30px
+				z-index: 1
+				transition: transform 0.3s
+				&:hover
+					transform: scale(1.1)
+				.vjs-icon-placeholder
+					display: none
+				.vjs-control-text
+					display: none
+				&::after
+					margin-right: -5px
+					font-family: icomoon !important
+					content: '\e922'
+			.vjs-loading-spinner, .vjs-hidden, .vjs-control-bar > *
+				display: none
+			.vjs-control-bar 
+				> .vjs-progress-control
+					position: absolute
+					bottom: 15px
+					left: 35px
+					right: 35px
+					z-index: 1
+					font-size: 0
+					height: 6px
+					border-radius: 6px
+					.vjs-progress-holder
+						position: absolute
+						top: 0
+						bottom: 0
+						right: 0
+						left: 0
+						border-radius: 6px
+						background-color: rgba($cw,0.5)
+					.vjs-load-progress
+						position: absolute
+						top: 0
+						bottom: 0
+						right: 0
+						left: 0
+						background-color: rgba($cw,0.2)
+						border-radius: 6px
+					.vjs-mouse-display
+						position: absolute
+						top: 0
+						left: 0
+						bottom: 0
+						right: 0
+					.vjs-play-progress
+						position: absolute
+						top: 1px
+						left: 1px
+						right: 1px
+						height: 4px
+						border-radius: 6px
+						background: linear-gradient(90deg,#fec901,#e82f3b)
+				> .vjs-volume-panel
+					display: block
+					.vjs-volume-control
+						display: none
+					.vjs-mute-control
+						position: absolute
+						top: 15px
+						right: 15px
+						z-index: 1
+						width: 30px
+						height: 30px
+						border-radius: 50rem
+						border: 0
+						background-color: rgba($c6,0.5)
+						display: flex
+						align-items: center
+						justify-content: center
+						padding: 0
+						font-size: 18px
+						color: $cw
+						transition: color 0.3s
+						&:hover
+							color: $c1
+						&::after
+							font-family: icomoon !important
+						&[title="Mute"]
+							&::after
+								content: '\e92d'
+						&[title="Unmute"]
+							&::after
+								content: '\e92c'
+						.vjs-control-text
+							display: none
+						.vjs-icon-placeholder
+							display: none
+			&.vjs-has-started
+				.vjs-progress-control
+					display: block
+				.vjs-big-play-button
+					display: none
+	&__body
+		padding: 12px 35px 35px
+	&__header
+		display: flex
+		justify-content: space-between
+		padding-bottom: 35px
+	&__title
+		margin-right: auto
+		font-size: 25px
+		font-weight: 400
+		margin-bottom: 0
+	&__bookmark
+		padding: 5px
+		margin: 0 -5px 0 15px
+		border-radius: 50rem
+		width: 30px
+		height: 30px
+		min-width: 30px
+		border: 0
+		color: $c1
+		.icon
+			font-size: 20px
+	&__ratings
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+		padding-bottom: 7px
+		margin-left: -5px
+	&__rating
+		margin-bottom: 5px
+		display: flex
+		align-items: center
+		margin-left: 5px
+		font-size: 18px
+		line-height: 17px
+		color: $cw
+		.icon
+			font-size: 17px
+			margin-right: 7px
+			color: $c1
+	&__info
+		font-size: 16px
+		color: $c11
+		margin-bottom: 30px
+	&__btns
+		display: flex
+		flex-wrap: wrap
+		margin-left: -15px
+		margin-bottom: -10px
+		.btn
+			margin-left: 15px
+			margin-bottom: 10px
+			font-size: 17px
+			font-weight: 700
+			.icon
+				font-size: 24px
+// movie list
+.movie-list
+	position: relative
+	margin-bottom: 35px
+	&__header
+		display: flex
+		align-items: center
+		position: relative
+		flex-wrap: wrap
+		padding-bottom: 25px
+	&__header-title
+		display: flex
+		align-items: center
+		margin-right: 30px
+	&__title
+		font-weight: 400
+		color: $c11
+		margin-bottom: 15px
+	&__title-info
+		margin-left: 15px
+		margin-bottom: 15px
+		margin-top: 4px
+		.icon
+			font-size: 26px
+			color: $c1
+	&__sort-n-filter
+		margin-left: auto
+		display: flex
+		align-items: center
+	&__sort
+		margin-bottom: 15px
+	&__filter
+		margin-bottom: 15px
+		margin-left: 60px
+	&__list
+		display: flex
+		flex-wrap: wrap
+		position: relative
+		z-index: 1
+		margin-left: -6px
+		margin-right: -6px
+	&__item
+		width: 16.666%
+		padding: 0 6px
+		&:nth-child(6n+1)
+			.movie-card
+				&:hover
+					.movie-card__more-info
+						transform: translate(-28%,-50%) scale(1)
+		&:nth-child(6n+6)
+			.movie-card
+				&:hover
+					.movie-card__more-info
+						transform: translate(-72%,-50%) scale(1)
+// filter
+.filter
+	&__btn
+		font-size: 17px
+		color: $c1
+		min-width: 144px
+		border: 0
+		position: relative
+		&::after
+			display: none
+		&:hover, &:focus
+			color: $c1
+	&__dropdown
+		background-color: $c6
+		max-width: 345px
+		margin-top: 0
+		border: 0
+		box-shadow: 0 0 50px rgba($cb,1)
+		padding: 15px
+	&__quality
+		display: flex
+		align-items: center
+		padding: 0 15px
+		.title
+			font-size: 13px
+			color: $c13
+			margin-right: 10px
+		.list
+			display: flex
+			align-items: center
+			flex-wrap: wrap
+			.form-check
+				margin: 0 0 0 10px
+				padding-left: 10px
+				min-height: 0
+				.form-check-input
+					width: 7px
+					height: 7px
+					border-color: $c13
+					margin-right: 3px
+					margin-left: -10px
+					margin-top: 6px
+					cursor: pointer
+					&:focus
+						box-shadow: none
+				.form-check-label
+					cursor: pointer
+					font-size: 13px
+					color: $c1
+// page-movie
+.page-movie-card
+	min-height: 940px
+	position: relative
+	display: flex
+	align-items: center
+	margin-bottom: -185px
+	&__img
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		background-repeat: no-repeat
+		background-position: 50% 0%
+		background-size: cover
+		&::before
+			content: ''
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			background-color: rgba($c6,0.5)
+		&::after
+			content: ''
+			height: 345px
+			position: absolute
+			left: 0
+			bottom: 0
+			right: 0
+			background: linear-gradient(rgba(0,0,0,0),$c6)
+	&__container
+		position: relative
+		padding-top: 96px
+		padding-bottom: 96px
+		display: flex
+		align-items: flex-end
+		justify-content: space-between
+	&__title
+		font-size: 72px
+		font-weight: 400
+		color: $cw
+		margin-bottom: 40px
+	&__ratings
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+		padding-bottom: 20px
+		margin-left: -18px
+	&__rating
+		margin-bottom: 5px
+		display: flex
+		align-items: center
+		margin-left: 18px
+		font-size: 30px
+		line-height: 26px
+		color: $c1
+		.icon
+			font-size: 26px
+			margin-right: 10px
+			color: $cw
+	&__info
+		font-size: 18px
+		margin-bottom: 25px
+	&__btns
+		display: flex
+		flex-wrap: wrap
+		margin-left: -15px
+		padding-bottom: 15px
+		.btn
+			margin-left: 15px
+			margin-bottom: 10px
+			min-height: 60px
+			font-size: 18px
+			.icon
+				font-size: 24px
+			&.btn-primary
+				min-width: 190px
+			&.btn-outline-light
+				min-width: 157px
+				border-width: 3px
+			&.btn-bookmark
+				width: 60px
+				min-width: 60px
+			.badge
+				font-size: 15px
+				color: $c8
+				font-weight: 400
+				min-width: 49px
+				padding: 3px 5px
+				transform: translate(-100%,-60%) !important
+	&__quality
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+		margin-left: -13px
+		.form-check
+			margin: 0 0 0 13px
+			padding-left: 17px
+			min-height: 0
+			.form-check-input
+				width: 7px
+				height: 7px
+				border-color: $c13
+				margin-right: 3px
+				margin-left: -17px
+				margin-top: 5px
+				cursor: pointer
+				&:focus
+					box-shadow: none
+			.form-check-label
+				cursor: pointer
+				font-size: 16px
+				color: $c1
+	&__description
+		font-size: 17px
+		color: $cw
+		p
+			line-height: 27px
+	&__description-title
+		font-size: 40px
+		font-weight: 400
+		margin-bottom: 25px
+		color: $c1
+// actor carousel
+.actor-carousel
+	position: relative
+	margin-bottom: 45px
+	&__title
+		font-weight: 400
+		color: $c11
+		margin-bottom: 30px
+	&__item
+		height: auto
+	&__nav_prev
+		color: $cw
+		top: 0
+		bottom: 0
+		left: 0
+		width: 50px
+		display: flex
+		align-items: center
+		justify-content: center
+		margin-top: 0
+		height: auto
+		background: linear-gradient(-90deg,rgba(0,0,0,0),$c6)
+		&::after
+			font-size: 40px
+		&:hover
+			color: $c1
+	&__nav_next
+		color: $cw
+		top: 0
+		bottom: 0
+		right: 0
+		width: 50px
+		display: flex
+		align-items: center
+		justify-content: center
+		margin-top: 0
+		height: auto
+		background: linear-gradient(90deg,rgba(0,0,0,0),$c6)
+		&::after
+			font-size: 40px
+		&:hover
+			color: $c1
+// actor-card
+.actor-card
+	position: relative
+	&__img
+		width: 100%
+		padding-top: 124%
+		background-color: $c6
+		background-repeat: no-repeat
+		background-position: 50% 50%
+		background-size: cover
+		border-radius: 6px
+		&::after
+			content: ''
+			position: absolute
+			bottom: 0
+			left: 0
+			right: 0
+			height: 60px
+			background: linear-gradient(rgba(0,0,0,0),$c6)
+			border-radius: 0 0 6px 6px
+	&__name
+		position: absolute
+		bottom: 0
+		left: 0
+		right: 0
+		padding: 10px 15px
+		font-size: 18px
+		color: $cw
+	&__link
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+// Footer
+.footer
+	background: $c14 url('../img/dist/footer-bg.png') no-repeat center bottom / auto 100%
+	&__container
+		display: flex
+		align-items: center
+		justify-content: space-between
+		min-height: 276px
+		padding-top: 45px
+		padding-bottom: 45px
+	&__info
+		margin-right: auto
+	&__logo
+		margin-bottom: 25px
+		img
+			max-width: 100%
+			height: auto
+	&__copy
+		font-size: 16px
+		color: $c11
+		span
+			color: $c2
+	&__menu
+		margin-left: 30px
+	&__mobile-app
+		margin-left: 30px
+// footer-menu
+.footer-menu
+	&__list
+		padding: 0
+		margin: 0 0 0 -40px
+		list-style: none
+		display: grid
+		grid-template-columns: repeat(2, auto)
+	&__item
+		margin: 15px 0 15px 40px
+		> a
+			font-size: 16px
+			color: $cw
+			text-decoration: none
+			display: flex
+			align-items: center
+			.icon
+				font-size: 22px
+				color: $c1
+				margin-right: 15px
+				width: 27px
+				text-align: center
+			&:hover
+				color: $c1
+// mobile-app
+.mobile-app
+	&__list
+		padding: 0
+		margin: 0 0 0 -30px
+		list-style: none
+		display: flex
+	&__item
+		margin-left: 30px
+		display: flex
+		> a
+			min-width: 263px
+			padding: 11.5px 15px
+			background: rgba($cw, 0.1)
+			display: flex
+			align-items: center
+			justify-content: center
+			text-align: center
+			.icon
+				font-size: 50px
+			&:hover
+				background: rgba($cw, 0.05)
+// account-editing
+.account-editing
+	margin-bottom: 75px
+	.form-control
+		min-height: 50px
+	&__balance
+		font-size: 20px
+		padding: 0 20px
+	&__balance-title
+		color: $c1
+	&__balance-total
+		color: $cw
+	&__balance-subscription
+		font-size: 15px
+		color: $c13
+.profiles
+	&__item
+		margin-bottom: 30px
+	&__header-btn
+		&::after
+			margin-left: 15px
+	&__editing
+		margin-left: auto
+		font-size: 14px
+		color: $c1
+	&__profile
+		margin-right: 20px
+	&__body
+		.form-control
+			min-height: 50px
+		.btn.btn-secondary
+			min-width: 196px
+			min-height: 50px
+			color: $cw
+			.icon
+				color: $c1
+.accordion-profile
+	display: flex
+	align-items: center
+	&__ava
+		width: 60px
+		min-width: 60px
+		height: 60px
+		margin-right: 20px
+		border-radius: 50rem
+		text-align: center
+		line-height: 60px
+		font-size: 50px
+		background-color: $c6
+		color: $c1
+	&__name
+		font-size: 25px
+		color: $cw
+	&__desc
+		font-size: 14px
+		font-weight: 300
+		color: $c13
+.add-new-profile
+	.content-blue-body
+		.form-control
+			min-height: 50px
+		.btn
+			&.btn-secondary
+				min-width: 130px
+				min-height: 50px
+				color: $cw
+				.icon
+					font-size: 20px
+					color: $c1
+			&.btn-primary
+				min-width: 130px
+				min-height: 50px
+				.icon
+					font-size: 20px
+// Modals
+// movie-info
+.modal-dialog-movieInfo
+	max-width: 800px
+	.modal-header
+		padding: 0
+		.btn-close
+			position: absolute
+			top: 30px
+			right: 30px
+			margin: 0
+			z-index: 1
+			border-radius: 50rem
+			color: $c13
+			display: flex
+			align-items: center
+			justify-content: center
+			opacity: 1
+			&::after
+				font-size: 12px
+			&:hover
+				color: $c1
+.movie-info
+	margin: -15px
+	&__header
+		position: relative
+	&__video
+		width: 100%
+		padding-top: 63.8%
+		border-radius: 6px
+		position: relative
+		video
+			@include imgfitcover
+			border-radius: 6px
+		.video-js
+			@include imgfitcover
+			border-radius: 6px
+			.vjs-text-track-display
+				position: absolute
+				top: 0
+				left: 0
+				right: 0
+				bottom: 0
+				pointer-events: none
+			.vjs-big-play-button
+				position: absolute
+				top: 50%
+				left: 50%
+				margin-top: -30px
+				margin-left: -30px
+				padding: 0
+				border: 0
+				background-color: rgba($c6,0.5)
+				display: flex
+				align-items: center
+				justify-content: center
+				width: 60px
+				height: 60px
+				border-radius: 50%
+				color: #fff
+				font-size: 30px
+				z-index: 1
+				transition: transform 0.3s
+				&:hover
+					transform: scale(1.1)
+				.vjs-icon-placeholder
+					display: none
+				.vjs-control-text
+					display: none
+				&::after
+					margin-right: -5px
+					font-family: icomoon !important
+					content: '\e922'
+			.vjs-loading-spinner, .vjs-hidden, .vjs-control-bar > *
+				display: none
+			.vjs-control-bar 
+				> .vjs-volume-panel
+					display: block
+					.vjs-volume-control
+						display: none
+					.vjs-mute-control
+						position: absolute
+						bottom: 35px
+						right: 30px
+						z-index: 1
+						width: 30px
+						height: 30px
+						border-radius: 50rem
+						border: 0
+						background-color: rgba($c6,0.5)
+						display: flex
+						align-items: center
+						justify-content: center
+						padding: 0
+						font-size: 18px
+						color: $cw
+						transition: color 0.3s
+						&:hover
+							color: $c1
+						&::after
+							font-family: icomoon !important
+						&[title="Mute"]
+							&::after
+								content: '\e92d'
+						&[title="Unmute"]
+							&::after
+								content: '\e92c'
+						.vjs-control-text
+							display: none
+						.vjs-icon-placeholder
+							display: none
+			&.vjs-has-started
+				.vjs-big-play-button
+					display: none
+		&::after
+			content: ''
+			position: absolute
+			bottom: 0
+			left: 0
+			right: 0
+			border-radius: 0 0 6px 6px
+			height: 340px
+			background: linear-gradient(rgba(0,0,0,0),$c6)
+			pointer-events: none
+	&__bx
+		position: absolute
+		bottom: 0
+		left: 0
+		right: 0
+		padding: 30px
+	&__title
+		font-size: 40px
+		font-weight: 400
+		color: $cw
+		margin-bottom: 20px
+	&__btns
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+		margin-left: -15px
+		.btn
+			margin-left: 15px
+			font-size: 18px
+			min-width: 160px
+			.icon
+				font-size: 24px
+			&.btn-bookmark
+				min-width: 0
+				color: $c1
+				border: 0
+				padding: 5px
+				height: 40px
+				width: 40px
+				min-width: 40px
+				.icon
+					font-size: 20px
+				&:hover, &:focus
+					background-color: rgba(255,255,255,0.1)
+	&__body
+		padding: 30px 30px 5px
+	&__ratings
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+		padding-bottom: 20px
+		margin-left: -5px
+	&__rating
+		margin-bottom: 5px
+		display: flex
+		align-items: center
+		margin-left: 5px
+		font-size: 20px
+		line-height: 17px
+		color: $cw
+		.icon
+			font-size: 17px
+			margin-right: 7px
+			color: $c1
+	&__info
+		margin-bottom: 25px
+		font-size: 14px
+		color: $c11
+	&__info-item
+		margin-bottom: 25px
+.movie-info-item
+	&__title
+		font-size: 14px
+		color: $c1
+		margin-bottom: 10px
+	&__desc
+		font-size: 14px
+		color: $c11
+// modal-login
+.modal-login
+	&__fast-login
+		margin-top: 45px
+.fast-login
+	&__title
+		font-size: 27px
+		font-weight: 700
+		color: $c13
+		margin-bottom: 10px
+	&__list
+		display: flex
+		flex-wrap: wrap
+		padding: 10px 5px 0
+		background-color: $c7
+		border-radius: 6px
+	&__item
+		width: 50%
+		padding: 0 5px 10px
+		display: flex
+	&__link
+		width: 100%
+		display: flex
+		align-items: center
+		justify-content: center
+		text-align: center
+		text-decoration: none
+		background-color: $cw
+		color: $c15
+		border-radius: 6px
+		padding: 8px 15px
+		font-size: 16px
+		transition: background-color 0.3s
+		&:hover
+			background-color: darken($cw, 10%)
+		&.link-fb
+			background-color: #2e4f8b
+			color: $cw
+			&:hover
+				background-color: darken(#2e4f8b, 5%)
+		&.link-google
+			color: $c15
+		.icon
+			margin-right: 10px
+			font-size: 24px
+			color: $cw
+// search modal
+.modal-search
+	padding: 15px
+	margin: -15px
+	background-image: url('../img/dist/movie-carousel-light.png')
+	background-repeat: no-repeat
+	background-position: 50% 50%
+	background-size: 150% auto
+	&__search
+		position: relative
+		.form-control
+			padding-right: 48px
+		.btn
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			padding: 0
+			width: 48px
+			.icon
+				font-size: 19px
+				color: $c1
+				&:hover
+					color: $cw
+	&__quality
+		display: flex
+		align-items: center
+		min-height: 40px
+		.title
+			font-size: 16px
+			color: $c13
+			margin-right: 8px
+		.list
+			display: flex
+			align-items: center
+			flex-wrap: wrap
+			.form-check
+				margin: 0 0 0 10px
+				padding-left: 10px
+				min-height: 0
+				.form-check-input
+					width: 7px
+					height: 7px
+					border-color: $c13
+					margin-right: 3px
+					margin-left: -10px
+					margin-top: 6px
+					cursor: pointer
+					&:focus
+						box-shadow: none
+				.form-check-label
+					cursor: pointer
+					font-size: 16px
+					color: $c1
+	&__result
+		margin-top: 45px
+.modal-search-result
+	&__header
+		display: flex
+		align-items: flex-start
+		justify-content: space-between
+		flex-wrap: wrap
+		padding-bottom: 25px
+	&__body
+		padding: 15px
+		margin: -15px
+		position: relative
+	&__title
+		font-size: 42px
+		font-weight: 700
+		color: $cw
+		margin-bottom: 0
+		margin-right: 30px
+	&__sort
+		min-height: 50px
+	&__sort-item
+		display: inline-flex
+		align-items: center
+		font-size: 16px
+		color: $c13
+		border: 0
+		.icon
+			margin-right: 5px
+			font-size: 15px
+			color: $c1
+		.ico-sort
+			font-size: 15px
+			color: $c13
+			margin-right: 0
+			margin-left: 7px
+	&__more
+		position: absolute
+		bottom: 0
+		left: 0
+		right: 0
+		display: flex
+		padding: 40px 15px
+		align-items: flex-end
+		justify-content: center
+		width: 100%
+		height: 290px
+		background: linear-gradient(rgba(0,0,0,0),$c6)
+		border-radius: 0 0 6px 6px
+		.btn
+			padding: 10px 15px
+			border: 0
+			.icon
+				font-size: 15px
+				color: $c13
+// movie-sort
+.movie-sort
+	display: flex
+	flex-wrap: wrap
+	margin-right: -15px
+	margin-left: -15px
+	margin-bottom: 0
+	&__item
+		display: inline-flex
+		align-items: center
+		font-size: 16px
+		color: $c13
+		border: 0
+		.icon
+			margin-right: 5px
+			font-size: 15px
+			color: $c1
+		.ico-sort
+			font-size: 15px
+			color: $c13
+			margin-right: 0
+			margin-left: 7px
+// movie-comments
+.movie-comments
+	&__body
+		padding: 5px
+		background-color: $c7
+		margin-bottom: 15px
+		border-radius: 6px
+	&__list
+		padding: 25px 25px 0
+		max-height: 700px
+		overflow: auto
+		scrollbar-color: $c2 transparent
+		scrollbar-width: thin
+		&::-webkit-scrollbar
+			width: 4px
+		&::-webkit-scrollbar-track
+			background-color: transparent
+			border-radius: 4px
+		&::-webkit-scrollbar-thumb
+			background-color: $c2
+			border-radius: 4px
+			width: 4px
+	&__item
+		padding-bottom: 25px
+	&__name
+		font-size: 18px
+		color: $cw
+		display: flex
+		align-items: flex-start
+		line-height: 30px
+		margin-bottom: 12px
+	&__name-ava
+		margin-right: 9px
+		width: 30px
+		min-width: 30px
+		height: 30px
+		background-color: $c3
+		border-radius: 6px
+		text-align: center
+		line-height: 30px
+		background-repeat: no-repeat
+		background-position: 50% 50%
+		background-size: cover
+		font-size: 20px
+		font-weight: 400
+		color: $c15
+		img
+			@include imgfitcover
+	&__date
+		font-size: 14px
+		font-weight: $c13
+		margin-bottom: 10px
+	&__comment
+		font-size: 14px
+		font-weight: $cw
+	&__add-comment
+		position: relative
+	&__textarea
+		resize: none
+		min-height: 40px !important
+		height: 40px
+	&__btn
+		position: absolute
+		bottom: 0
+		right: 0
+		width: 50px
+		height: 40px
+		font-size: 19px
+		display: flex
+		align-items: center
+		justify-content: center
+		text-decoration: none
+		padding: 5px
+@import media
