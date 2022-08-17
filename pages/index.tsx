@@ -3,9 +3,114 @@ import Head from 'next/head'
 import {Footer, Header} from '../components/Main'
 import Image from 'next/image';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Autoplay, EffectFade, Navigation, Pagination} from 'swiper';
+import {Autoplay, EffectFade} from 'swiper';
+import {MovieSlider} from '../components/Home';
+
+const slides = [
+    {
+        img: './img/dist/movie-card-img1.jpg',
+        rating: {
+            imdb: 7.2,
+            kinopoisk: 6.8,
+        },
+        movieName: 'Название фильма',
+        video: {
+            src: 'video/dune.mp4',
+            poster: 'img/dist/main-slider-img.jpg'
+        }
+    },
+    {
+        img: './img/dist/movie-card-img2.jpg',
+        rating: {
+            imdb: 7.2,
+            kinopoisk: 6.8,
+        },
+        movieName: 'Название фильма',
+        video: {
+            src: 'video/dune.mp4',
+            poster: 'img/dist/main-slider-img.jpg'
+        }
+    },
+    {
+        img: './img/dist/movie-card-img3.jpg',
+        rating: {
+            imdb: 7.2,
+            kinopoisk: 6.8,
+        },
+        movieName: 'Название фильма',
+        video: {
+            src: 'video/dune.mp4',
+            poster: 'img/dist/main-slider-img.jpg'
+        }
+    },
+    {
+        img: './img/dist/movie-card-img4.jpg',
+        rating: {
+            imdb: 7.2,
+            kinopoisk: 6.8,
+        },
+        movieName: 'Название фильма',
+        video: {
+            src: 'video/dune.mp4',
+            poster: 'img/dist/main-slider-img.jpg'
+        }
+    },
+    {
+        img: './img/dist/movie-card-img5.jpg',
+        rating: {
+            imdb: 7.2,
+            kinopoisk: 6.8,
+        },
+        movieName: 'Название фильма',
+        video: {
+            src: 'video/dune.mp4',
+            poster: 'img/dist/main-slider-img.jpg'
+        }
+    },
+    {
+        img: './img/dist/movie-card-img6.jpg',
+        rating: {
+            imdb: 7.2,
+            kinopoisk: 6.8,
+        },
+        movieName: 'Название фильма',
+        video: {
+            src: 'video/dune.mp4',
+            poster: 'img/dist/main-slider-img.jpg'
+        }
+    }
+]
+
+const sliders = [
+    {
+        title: 'Фильмы',
+        slides
+    },
+    {
+        title: 'Сериалы',
+        slides
+    },
+    {
+        title: 'Шоу',
+        slides
+    },
+    {
+        title: 'Мультфильмы',
+        slides
+    },
+    {
+        title: 'Аниме',
+        slides
+    }
+]
 
 const Home: NextPage = () => {
+    const renderSliders = () => {
+        return sliders.map((slider, index) => {
+            return <MovieSlider key={index} title={slider.title} slides={slider.slides}/>
+        })
+    }
+
     return (
         <div className="app">
             <Head>
@@ -103,452 +208,7 @@ const Home: NextPage = () => {
                         </SwiperSlide>
                     </Swiper>
                 </section>
-
-                <section className="movie-carousel">
-                    <div className="container-fluid">
-                        <div className="movie-carousel__header">
-                            <h2 className="movie-carousel__title"><a href="#">Фильмы</a></h2>
-                            <a href="#" className="movie-carousel__title-info"><span
-                                className="icon icon-pending"></span></a>
-                        </div>
-                    </div>
-                    <Swiper
-                        modules={[Navigation, Pagination]}
-                        slidesPerView={6}
-                        spaceBetween={12}
-                        watchSlidesProgress
-                        navigation={{enabled: true}}
-                        pagination={
-                            {
-                                el: '.movie-carousel__pagination',
-                                clickable: true,
-                                renderBullet: (index, className) => {
-                                    return '<span class="' + className + '">' + '</span>';
-                                }
-                            }
-                        }
-                        breakpoints={{
-                            0: {
-                                slidesPerView: 1,
-                                spaceBetween: 15,
-                            },
-                            576: {
-                                slidesPerView: 2,
-                                spaceBetween: 15,
-                            },
-                            768: {
-                                slidesPerView: 3,
-                                spaceBetween: 15,
-                            },
-                            992: {
-                                slidesPerView: 4
-                            },
-                            1300: {
-                                slidesPerView: 5
-                            },
-                            1600: {
-                                slidesPerView: 6
-                            }
-                        }}
-                        className="movie-carousel__swiper container-fluid movieCarousel"
-                    >
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img1.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                                <div className="movie-card__more-info movie-card-more-info">
-                                    <div className="movie-card-more-info__video">
-                                        <video className="video-js" controls preload="false"
-                                               poster="img/dist/main-slider-img.jpg" data-setup="{}">
-                                            <source src="video/dune.mp4" type="video/mp4"/>
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </div>
-                                    <div className="movie-card-more-info__body">
-                                        <div className="movie-card-more-info__header">
-                                            <div className="movie-card-more-info__title">Название фильма</div>
-                                            <button className="movie-card-more-info__bookmark btn btn-bookmark"
-                                                    type="button"
-                                                    data-bs-toggle="tooltip" data-bs-placement="right"
-                                                    title="добавить в «моя подборка»"><span
-                                                className="icon icon-bookmark_border"></span></button>
-                                        </div>
-                                        <div className="movie-card-more-info__desc">
-                                            <div className="movie-card-more-info__ratings">
-                                                <div className="movie-card-more-info__rating"><span
-                                                    className="icon icon-imdb"></span>7.2
-                                                </div>
-                                                <div className="movie-card-more-info__rating"><span
-                                                    className="icon icon-kinopoisk"></span>6.8
-                                                </div>
-                                            </div>
-                                            <div className="movie-card-more-info__info">2021 <span
-                                                className="text-primary">I</span>
-                                                фантастика, боевик <span className="text-primary">I</span> США <span
-                                                    className="text-primary">I</span> 145 минут <span
-                                                    className="text-primary">I</span> <span
-                                                    className="text-primary">16+</span>
-                                            </div>
-                                            <div className="movie-card-more-info__btns">
-                                                <button className="btn btn-secondary btn-icon rounded-pill"
-                                                        data-bs-toggle="modal" data-bs-target="#movieInfoModal-1">
-                                                    подробнее<span className="icon icon-library_books"></span>
-                                                </button>
-                                                <button
-                                                    className="btn btn-primary btn-icon rounded-pill">смотреть<span
-                                                    className="icon icon-play_circle"></span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img2.jpg\')'}}></div>
-                                    <div className="movie-card__labels">
-                                        <div className="movie-card__label bg-primary">FullHD</div>
-                                        <div className="movie-card__label bg-secondary">HD</div>
-                                        <div className="movie-card__label bg-danger">NEW</div>
-                                    </div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма не одну, <br/>а даже в две строки
-                                    WoW
-                                </div>
-                                <a href="#" className="movie-card__link"></a>
-                                <div className="movie-card__more-info movie-card-more-info">
-                                    <div className="movie-card-more-info__video">
-                                        <video className="video-js" controls preload="false"
-                                               poster="img/dist/main-slider-img.jpg" data-setup="{}">
-                                            <source src="video/dune.mp4" type="video/mp4"/>
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </div>
-                                    <div className="movie-card-more-info__body">
-                                        <div className="movie-card-more-info__header">
-                                            <div className="movie-card-more-info__title">Название фильма</div>
-                                            <button className="movie-card-more-info__bookmark btn btn-bookmark"
-                                                    type="button"
-                                                    data-bs-toggle="tooltip" data-bs-placement="right"
-                                                    title="добавить в «моя подборка»"><span
-                                                className="icon icon-bookmark_border"></span></button>
-                                        </div>
-                                        <div className="movie-card-more-info__desc">
-                                            <div className="movie-card-more-info__ratings">
-                                                <div className="movie-card-more-info__rating"><span
-                                                    className="icon icon-imdb"></span>7.2
-                                                </div>
-                                                <div className="movie-card-more-info__rating"><span
-                                                    className="icon icon-kinopoisk"></span>6.8
-                                                </div>
-                                            </div>
-                                            <div className="movie-card-more-info__info">2021 <span
-                                                className="text-primary">I</span>
-                                                фантастика, боевик <span className="text-primary">I</span> США <span
-                                                    className="text-primary">I</span> 145 минут <span
-                                                    className="text-primary">I</span> <span
-                                                    className="text-primary">16+</span>
-                                            </div>
-                                            <div className="movie-card-more-info__btns">
-                                                <button className="btn btn-secondary btn-icon rounded-pill"
-                                                        data-bs-toggle="modal" data-bs-target="#movieInfoModal-1">
-                                                    подробнее<span className="icon icon-library_books"></span>
-                                                </button>
-                                                <button
-                                                    className="btn btn-primary btn-icon rounded-pill">смотреть<span
-                                                    className="icon icon-play_circle"></span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img3.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                                <div className="movie-card__more-info movie-card-more-info"
-                                     id="movieCardMoreInfo-1">
-                                    <div className="movie-card-more-info__video">
-                                        <video id="movieCardVideo-1" className="video-js" controls preload="false"
-                                               poster="img/dist/main-slider-img.jpg" data-setup="{}">
-                                            <source src="video/dune.mp4" type="video/mp4"/>
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </div>
-                                    <div className="movie-card-more-info__body">
-                                        <div className="movie-card-more-info__header">
-                                            <div className="movie-card-more-info__title">Название фильма</div>
-                                            <button className="movie-card-more-info__bookmark btn btn-bookmark"
-                                                    type="button"
-                                                    data-bs-toggle="tooltip" data-bs-placement="right"
-                                                    title="добавить в «моя подборка»"><span
-                                                className="icon icon-bookmark_border"></span></button>
-                                        </div>
-                                        <div className="movie-card-more-info__desc">
-                                            <div className="movie-card-more-info__ratings">
-                                                <div className="movie-card-more-info__rating"><span
-                                                    className="icon icon-imdb"></span>7.2
-                                                </div>
-                                                <div className="movie-card-more-info__rating"><span
-                                                    className="icon icon-kinopoisk"></span>6.8
-                                                </div>
-                                            </div>
-                                            <div className="movie-card-more-info__info">2021 <span
-                                                className="text-primary">I</span>
-                                                фантастика, боевик <span className="text-primary">I</span> США <span
-                                                    className="text-primary">I</span> 145 минут <span
-                                                    className="text-primary">I</span> <span
-                                                    className="text-primary">16+</span>
-                                            </div>
-                                            <div className="movie-card-more-info__btns">
-                                                <button className="btn btn-secondary btn-icon rounded-pill"
-                                                        data-bs-toggle="modal" data-bs-target="#movieInfoModal-1">
-                                                    подробнее<span className="icon icon-library_books"></span>
-                                                </button>
-                                                <button
-                                                    className="btn btn-primary btn-icon rounded-pill">смотреть<span
-                                                    className="icon icon-play_circle"></span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img4.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img5.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img6.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img2.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма не одну, <br/>а даже в две строки
-                                    WoW
-                                </div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img1.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img2.jpg\')'}}></div>
-                                    <div className="movie-card__labels">
-                                        <div className="movie-card__label bg-primary">FullHD</div>
-                                        <div className="movie-card__label bg-secondary">HD</div>
-                                        <div className="movie-card__label bg-danger">NEW</div>
-                                    </div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма не одну, <br/>а даже в две строки
-                                    WoW
-                                </div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img3.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img4.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img5.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img6.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма</div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="movie-carousel__item">
-                            <div className="movie-card">
-                                <div className="movie-card__body">
-                                    <div className="movie-card__img"
-                                         style={{backgroundImage: 'url(\'./img/dist/movie-card-img2.jpg\')'}}></div>
-                                    <div className="movie-card__ratings">
-                                        <div className="movie-card__rating"><span className="icon icon-imdb"></span>7.2
-                                        </div>
-                                        <div className="movie-card__rating"><span
-                                            className="icon icon-kinopoisk"></span>6.8
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="movie-card__name">Название фильма не одну, <br/>а даже в две строки
-                                    WoW
-                                </div>
-                                <a href="#" className="movie-card__link"></a>
-                            </div>
-                        </SwiperSlide>
-                        <div className="movie-carousel__pagination swiper-pagination"></div>
-                        <div className="movie-carousel__nav_prev swiper-button-prev"></div>
-                        <div className="movie-carousel__nav_next swiper-button-next"></div>
-                    </Swiper>
-                </section>
+                {renderSliders()}
             </main>
             <Footer/>
         </div>
