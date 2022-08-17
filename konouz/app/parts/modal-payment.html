@@ -1,0 +1,45 @@
+<!-- payment -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="paymentModalLabel">Способы оплаты:</h5>
+				<button type="button" class="btn-close rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="payment-modal">
+					<div class="registration-modal__form row gy-3">
+						<div class="col-12">
+							<select class="form-select form-control-ico form-control-payment">
+								<option selected value="1">Click</option>
+								<option value="2">Uzcard</option>
+								<option value="3">Humo</option>
+								<option value="4">Visa</option>
+								<option value="5">Mastercard</option>
+							</select>
+						</div>
+						<div class="col-12">
+							<input type="text" class="form-control form-control-ico form-control-phone" placeholder="Номер телефона">
+						</div>
+						<div class="col-12">
+							<input type="text" class="form-control form-control-ico form-control-price" placeholder="Укажите сумму">
+						</div>
+						<div class="col-12">
+							<div class="row justify-content-end mt-3">
+								<div class="col-auto align-self-center">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+										<label class="form-check-label" for="flexCheckDefault1">Автоплатеж</label>
+									</div>
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary rounded-pill" type="button">Подтвердить</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

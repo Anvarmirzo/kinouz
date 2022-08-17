@@ -1,0 +1,25 @@
+@mixin font($fname, $fstyle, $fweight, $fdisplay, $furl1, $furl2)
+	@font-face
+		font-family: $fname
+		font-style: $fstyle
+		font-weight: $fweight
+		font-display: $fdisplay
+		src: local(''), url($furl1) format('woff2'), url($furl2) format('woff')
+
+// Mont
+@include font('Mont', normal, 100, swap, '../../public/fonts/Mont-Thin.woff2', '../../public/fonts/Mont-Thin.woff')
+@include font('Mont', italic, 100, swap, '../../public/fonts/Mont-ThinItalic.woff2', '../../public/fonts/Mont-ThinItalic.woff')
+@include font('Mont', normal, 200, swap, '../../public/fonts/Mont-ExtraLight.woff2', '../../public/fonts/Mont-ExtraLight.woff')
+@include font('Mont', italic, 200, swap, '../../public/fonts/Mont-ExtraLightItalic.woff2', '../../public/fonts/Mont-ExtraLightItalic.woff')
+@include font('Mont', normal, 300, swap, '../../public/fonts/Mont-Light.woff2', '../../public/fonts/Mont-Light.woff')
+@include font('Mont', italic, 300, swap, '../../public/fonts/Mont-LightItalic.woff2', '../../public/fonts/Mont-LightItalic.woff')
+@include font('Mont', normal, 400, swap, '../../public/fonts/Mont-Regular.woff2', '../../public/fonts/Mont-Regular.woff')
+@include font('Mont', italic, 400, swap, '../../public/fonts/Mont-RegularItalic.woff2', '../../public/fonts/Mont-RegularItalic.woff')
+@include font('Mont', normal, 600, swap, '../../public/fonts/Mont-SemiBold.woff2', '../../public/fonts/Mont-SemiBold.woff')
+@include font('Mont', italic, 600, swap, '../../public/fonts/Mont-SemiBoldItalic.woff2', '../../public/fonts/Mont-SemiBoldItalic.woff')
+@include font('Mont', normal, 700, swap, '../../public/fonts/Mont-Bold.woff2', '../../public/fonts/Mont-Bold.woff')
+@include font('Mont', italic, 700, swap, '../../public/fonts/Mont-BoldItalic.woff2', '../../public/fonts/Mont-BoldItalic.woff')
+@include font('Mont', normal, 800, swap, '../../public/fonts/Mont-Heavy.woff2', '../../public/fonts/Mont-Heavy.woff')
+@include font('Mont', italic, 800, swap, '../../public/fonts/Mont-HeavyItalic.woff2', '../../public/fonts/Mont-HeavyItalic.woff')
+@include font('Mont', normal, 900, swap, '../../public/fonts/Mont-Black.woff2', '../../public/fonts/Mont-Black.woff')
+@include font('Mont', italic, 900, swap, '../../public/fonts/Mont-BlackItalic.woff2', '../../public/fonts/Mont-BlackItalic.woff')

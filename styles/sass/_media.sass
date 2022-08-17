@@ -1,0 +1,413 @@
+/* Media breakpoint */
+/////////////////////////////////////////////////////////////////////////////// ≤1600px
++media-breakpoint-down(xxl)
+	.footer-menu__list
+		display: block
+	.movie-list__item
+		width: 20%
+		&:nth-child(5n+1)
+			.movie-card
+				&:hover
+					.movie-card__more-info
+						transform: translate(-28%,-50%) scale(1)
+		&:nth-child(5n+5)
+			.movie-card
+				&:hover
+					.movie-card__more-info
+						transform: translate(-72%,-50%) scale(1)
+/////////////////////////////////////////////////////////////////////////////// ≤1300px
++media-breakpoint-down(xl)
+	.mobile-app__list
+		display: flex
+		flex-direction: column
+		margin-bottom: -15px
+	.mobile-app__item
+		margin-bottom: 15px
+	.movie-list__item
+		width: 25%
+		&:nth-child(4n+1)
+			.movie-card
+				&:hover
+					.movie-card__more-info
+						transform: translate(-28%,-50%) scale(1)
+		&:nth-child(4n+4)
+			.movie-card
+				&:hover
+					.movie-card__more-info
+						transform: translate(-72%,-50%) scale(1)
+/////////////////////////////////////////////////////////////////////////////// ≤992px
++media-breakpoint-down(lg)
+	.container-fluid, .container, .container-lg, .container-md, .container-sm, .container-xl
+		padding-left: 15px
+		padding-right: 15px
+	.header
+		position: fixed
+		top: 0
+		left: 0
+		right: 0
+		background-color: rgba($c6,0.95)
+		&__container
+			min-height: 50px
+			height: 50px
+		&__hamburger
+			display: block
+	.header__logo
+		max-width: 120px
+	.header__search .btn
+		padding: 5px
+		width: 30px
+		height: 30px
+		min-width: 30px
+		font-size: 15px
+	.header-loginza__login
+		min-width: 0
+		font-size: 16px
+		padding: 5px 15px
+	.header-loginza__user-ava
+		width: 30px
+		height: 30px
+		min-width: 30px
+		font-size: 18px
+		line-height: 30px
+	.header-loginza__user-name
+		font-size: 16px
+	.header__menus
+		position: fixed
+		top: 50px
+		left: 0
+		bottom: 0
+		width: 300px
+		overflow: auto
+		background-color: rgba($c6,0.95)
+		display: block
+		padding-top: 30px
+		margin-left: -300px
+		transition: margin-left 0.3s
+	.header__main-menu, .header__user-menu
+		margin: 0
+		padding-bottom: 30px
+	.main-menu
+		&__list
+			margin: 0
+			display: block
+		&__item
+			> a
+				padding: 10px 15px
+	.user-menu
+		&__list
+			margin: 0
+			display: block
+		&__item
+			> a
+				padding: 10px 15px
+	.user-sidebar
+		width: 300px
+		margin-right: -300px
+		padding-top: 80px
+	.user-sidebar__user-sidebar-menu
+		width: 100%
+	.mobile-app__item > a
+		min-width: 0
+		padding: 10px 15px
+	.mobile-app__item > a .icon
+		font-size: 30px
+	.movie-slider
+		margin-bottom: -100px
+	.movie-slider__item
+		min-height: 0
+	.movie-slider__container
+		padding-top: 100px
+		padding-bottom: 150px
+	.movie-slider__text
+		max-width: 320px
+	.movie-slider__desc
+		br
+			display: none
+	.movie-slider__name
+		margin-bottom: 30px
+	.movie-slider__movie-trailer
+		.btn
+			min-width: 0
+			min-height: 0
+	.movie-slider__desc
+		margin-bottom: 30px
+	.movie-slider__btns .btn
+		min-width: 0
+		font-size: 16px
+		min-height: 0
+	.movie-card__more-info
+		display: none
+	.movie-carousel__swiper
+		padding-top: 0
+		padding-bottom: 30px
+	.movie-carousel__pagination.swiper-pagination
+		top: auto
+		bottom: 13px
+		left: 15px
+		right: 75px
+	.movie-carousel__nav_prev, .movie-carousel__nav_next
+		width: 30px
+		&::after
+			font-size: 20px
+	.movie-carousel__nav_next
+		top: auto
+		right: 15px
+		background: none
+		bottom: 0
+		height: 30px
+	.movie-carousel__nav_prev
+		top: auto
+		right: 45px
+		left: auto
+		background: none
+		bottom: 0
+		height: 30px
+	.movie-carousel__title
+		margin-bottom: 20px
+	.movie-carousel__title-info
+		margin-bottom: 20px
+	.header-loginza__user
+		margin-left: 15px
+	.header-loginza__login
+		margin-left: 15px
+	.header__logo
+		margin-right: 15px
+	.menu-open
+		.header
+			&__menus
+				margin-left: 0
+		.hamburger
+			&__inner
+				&::before
+					top: 0
+					transition: top .1s ease,transform .1s cubic-bezier(.895,.03,.685,.22) .1s
+					transform: translate3d(-6px,7px,0) rotate(45deg) scaleX(.7)
+				&::after
+					bottom: 0
+					transition: bottom .1s ease,transform .1s cubic-bezier(.895,.03,.685,.22) .1s
+					transform: translate3d(-6px,-7px,0) rotate(-45deg) scaleX(.7)
+	.user-sidebar-open 
+		.user-sidebar
+			margin-left: 0
+	.movie-list__item
+		width: 33.333%
+	.movie-list__sort-n-filter
+		margin-left: 0
+		flex: 1 1 auto
+		justify-content: space-between
+	.movie-list__filter
+		margin-left: 30px
+	.page-movie-card
+		margin-bottom: -100px
+	.page-movie-card__title
+		font-size: 46px
+		margin-bottom: 30px
+	.actor-carousel__title
+		margin-bottom: 20px
+	.actor-carousel__swiper
+		padding-top: 0
+		padding-bottom: 45px
+	.actor-carousel__pagination.swiper-pagination
+		top: auto
+		bottom: 13px
+		left: 15px
+		right: 75px
+	.actor-carousel__nav_prev, .actor-carousel__nav_next
+		width: 30px
+		&::after
+			font-size: 20px
+	.actor-carousel__nav_next
+		top: auto
+		right: 15px
+		background: none
+		bottom: 0
+		height: 30px
+	.actor-carousel__nav_prev
+		top: auto
+		right: 45px
+		left: auto
+		background: none
+		bottom: 0
+		height: 30px
+	.content
+		padding-top: 95px
+	.margin-under-header
+		margin-top: -95px
+/////////////////////////////////////////////////////////////////////////////// ≤768px
++media-breakpoint-down(md)
+	.footer__container
+		flex-wrap: wrap
+	.footer__info
+		width: 100%
+		order: 3
+		text-align: center
+	.footer__menu
+		margin-left: 0
+	.footer__menu, .footer__mobile-app
+		margin-bottom: 30px
+	.movie-list__item
+		width: 50%
+	.page-movie-card
+		min-height: 0
+	.page-movie-card__title
+		font-size: 32px
+	.page-movie-card__rating
+		font-size: 18px
+		line-height: 20px
+		.icon
+			font-size: 20px
+	.page-movie-card__info
+		font-size: 16px
+	.page-movie-card__btns 
+		.btn
+			min-height: 40px
+			font-size: 16px
+			.icon
+				font-size: 20px
+			&.btn-primary
+				min-width: 0
+			&.btn-outline-light
+				min-width: 0
+			&.btn-bookmark
+				padding: 5px
+				min-width: 42px
+				min-height: 42px
+				width: 42px
+	.page-movie-card__description
+		font-size: 15px
+		p
+			line-height: 1.1
+	.page-movie-card__description-title
+		font-size: 28px
+		margin-bottom: 15px
+/////////////////////////////////////////////////////////////////////////////// ≤576px
++media-breakpoint-down(sm)
+	.header-loginza__user-ava
+		margin-right: 5px
+	.header-loginza__user-name
+		font-size: 14px
+	.header-loginza__user::after
+		margin-left: 5px
+		font-size: 8px
+	.movie-slider__container
+		display: block
+	.movie-slider__text
+		max-width: 100%
+		padding-bottom: 15px
+	.movie-slider__name
+		max-width: 200px
+	.movie-slider__btns .btn
+		font-size: 14px
+		.icon
+			font-size: 20px
+	.movie-slider__movie-trailer
+		.btn
+			font-size: 16px
+			.icon
+				font-size: 20px
+	.footer__menu
+		width: 100%
+		display: flex
+		justify-content: center
+	.footer__mobile-app
+		width: 100%
+		margin-left: 0
+	.mobile-app__list
+		flex-direction: row
+		margin-left: -10px
+		justify-content: center
+	.mobile-app__item
+		margin-left: 10px
+	.modal-search__result
+		margin-top: 30px
+	.modal-search-result__title
+		font-size: 30px
+		margin-bottom: 10px
+	.modal-search-result__sort
+		flex: 1 1 auto
+	.movie-sort
+		margin-left: -10px
+		margin-right: -10px
+	.movie-sort__item
+		padding: 5px 10px
+		font-size: 12px
+	.movie-info__bx
+		padding: 15px
+	.movie-info__body
+		padding: 15px 15px 0
+	.modal-dialog-movieInfo .modal-header .btn-close
+		right: 15px
+		top: 15px
+	.movie-info__video .video-js .vjs-control-bar > .vjs-volume-panel .vjs-mute-control
+		bottom: 20px
+		right: 15px
+	.movie-info__btns .btn
+		min-width: 0
+		font-size: 16px
+		.icon
+			font-size: 20px
+	.movie-info__title
+		font-size: 30px
+	.movie-list__item
+		width: 100%
+	.movie-list__sort-n-filter
+		flex-wrap: wrap
+	.movie-list__sort
+		flex: 1 1 auto
+	.movie-list__filter
+		margin-left: auto
+	.mb-35
+		margin-bottom: 20px
+	.account-editing__balance
+		padding: 0
+	.account-editing
+		.input-group-left-text 
+			.input-group-text
+				background: none
+				padding-left: 0
+				width: 100%
+				+ .form-control
+					border-radius: 6px 0 0 6px !important
+	.btn.btn-edit
+		font-size: 0
+		.icon
+			font-size: 16px
+			margin-left: 0
+	.account-editing
+		margin-bottom: 30px
+	.accordion-profile__ava
+		width: 36px
+		height: 36px
+		min-width: 36px
+		font-size: 24px
+		line-height: 36px
+		margin-right: 10px
+	.accordion-button
+		padding: 10px 15px
+	.accordion-body
+		padding: 20px 15px
+	.accordion-profile__name
+		font-size: 18px
+	.accordion-profile__desc
+		font-size: 12px
+	.profiles__editing
+		display: none
+	.accordion-profile
+		margin-right: 0
+	.profiles__header-btn::after
+		margin-left: auto
+	.accordion-profile
+		margin-right: 10px
+	.content-blue-body
+		padding: 15px
+	.input-group-radio
+		background-color: transparent
+		.form-control
+			width: 100%
+			border-radius: 6px !important
+		.btn
+			font-size: 14px
+	.add-new-profile .content-blue-body 
+		.btn.btn-secondary, .btn.btn-primary
+			min-width: 0
+			min-height: 0

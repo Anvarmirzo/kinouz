@@ -1,0 +1,135 @@
+<!--#set var="title" value="Аккаунт" -->
+<!--#include virtual="/parts/header.html" -->
+	<!-- Content -->
+	<main class="content">
+		<!-- page account -->
+		<div class="container">
+			<h1 class="h2 page-title fw-normal mb-35">Аккаунт:</h1>
+			<div class="account-editing">
+				<div class="input-group input-group-btn input-group-left-text mb-2">
+					<span class="input-group-text">E-mail:</span>
+					<input type="email" class="form-control" value="arkein_gg@gmail.com">
+					<button class="btn btn-edit btn-icon" type="button">изменить<span class="icon icon-edit"></span></button>
+				</div>
+				<div class="input-group input-group-btn input-group-left-text mb-2">
+					<span class="input-group-text">Пароль:</span>
+					<input type="password" class="form-control" value="*************">
+					<button class="btn btn-edit btn-icon" type="button">изменить<span class="icon icon-edit"></span></button>
+				</div>
+				<div class="input-group input-group-btn input-group-left-text mb-4">
+					<span class="input-group-text">Способы оплаты: <img src="img/dist/humo-logo.png" alt="humo"></span>
+					<input type="email" class="form-control" value="**** **** 1212">
+					<button class="btn btn-edit btn-icon" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal">изменить<span class="icon icon-edit"></span></button>
+				</div>
+				<div class="account-editing__balance">
+					<span class="account-editing__balance-title">Баланс: </span>
+					<span class="account-editing__balance-total">152 000</span>
+					<span class="account-editing__balance-subscription">(стоимость абонненской платы 15 000 сум/месяц)</span>
+				</div>
+			</div>
+			<!-- profiles -->
+			<h2 class="page-title fw-normal mb-35">Профили:</h2>
+			<div class="profiles">
+				<div class="profiles__accordion accordion" id="accordionExample">
+					<div class="profiles__item accordion-item">
+						<h2 class="profiles__header accordion-header" id="headingOne">
+							<button class="profiles__header-btn accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								<div class="profiles__profile accordion-profile">
+									<div class="accordion-profile__ava">A</div>
+									<div class="accordion-profile__text">
+										<div class="accordion-profile__name">Arkein</div>
+										<div class="accordion-profile__desc">без ворастных ограничений</div>
+									</div>
+								</div>
+								<div class="profiles__editing">Редактировать</div>
+							</button>
+						</h2>
+						<div id="collapseOne" class="profiles__collapse accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+							<div class="profiles__body accordion-body">
+								<div class="input-group input-group-btn mb-2">
+									<input type="email" class="form-control form-control-ico form-control-email" value="arkein_gg@gmail.com">
+									<button class="btn btn-edit btn-icon" type="button">изменить<span class="icon icon-edit"></span></button>
+								</div>
+								<div class="input-group input-group-radio mb-4">
+									<input type="text" class="form-control form-control-ico form-control-restrictions" value="Возрастные ограничения">
+									<input type="radio" class="btn-check" name="options" id="option1" autocomplete="off">
+									<label class="btn" for="option1">Применить</label>
+									<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" checked>
+									<label class="btn" for="option2">Не применять</label>
+								</div>
+								<button type="submit" class="btn btn-secondary rounded-pill btn-icon-left"><span class="icon icon-delete"></span>Удалить профиль</button>
+							</div>
+						</div>
+					</div>
+					<div class="profiles__item accordion-item">
+						<h2 class="profiles__header accordion-header" id="headingTwo">
+							<button class="profiles__header-btn accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								<div class="profiles__profile accordion-profile">
+									<div class="accordion-profile__ava">A</div>
+									<div class="accordion-profile__text">
+										<div class="accordion-profile__name">Arkein</div>
+										<div class="accordion-profile__desc">без ворастных ограничений</div>
+									</div>
+								</div>
+								<div class="profiles__editing">Редактировать</div>
+							</button>
+						</h2>
+						<div id="collapseTwo" class="profiles__collapse accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+							<div class="profiles__body accordion-body">
+								<div class="input-group input-group-btn mb-2">
+									<input type="email" class="form-control form-control-ico form-control-email" value="arkein_gg@gmail.com">
+									<button class="btn btn-edit btn-icon" type="button">изменить<span class="icon icon-edit"></span></button>
+								</div>
+								<div class="input-group input-group-radio mb-4">
+									<input type="text" class="form-control form-control-ico form-control-restrictions" value="Возрастные ограничения">
+									<input type="radio" class="btn-check" name="options1" id="option11" autocomplete="off">
+									<label class="btn" for="option11">Применить</label>
+									<input type="radio" class="btn-check" name="options1" id="option12" checked autocomplete="off">
+									<label class="btn" for="option12">Не применять</label>
+								</div>
+								<button type="submit" class="btn btn-secondary rounded-pill btn-icon-left"><span class="icon icon-delete"></span>Удалить профиль</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- add new profile -->
+			<div class="add-new-profile">
+				<button class="btn btn-add mb-4" type="button"><span class="ico-plus"></span>Добавить профиль</button>
+				<div class="content-blue-body">
+					<div class="mb-2">
+						<input type="text" class="form-control form-control-ico form-control-user" placeholder="Имя">
+					</div>
+					<div class="mb-2">
+						<input type="email" class="form-control form-control-ico form-control-email" placeholder="E-mail">
+					</div>
+					<div class="input-group input-group-radio mb-4">
+						<input type="text" class="form-control form-control-ico form-control-restrictions" value="Возрастные ограничения">
+						<input type="radio" class="btn-check" name="options2" id="option21" autocomplete="off">
+						<label class="btn" for="option21">Применить</label>
+						<input type="radio" class="btn-check" name="options2" id="option22" checked autocomplete="off">
+						<label class="btn" for="option22">Не применять</label>
+					</div>
+					<div class="row g-3">
+						<div class="col-auto">
+							<button type="submit" class="btn btn-secondary rounded-pill btn-icon-left"><span class="icon icon-cancel"></span>Отмена</button>
+						</div>
+						<div class="col-auto">
+							<button type="submit" class="btn btn-primary rounded-pill btn-icon-left"><span class="icon icon-check_circle"></span>Создать</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<!--#include virtual="/parts/footer.html" -->
+	<!-- Modals -->
+	<!--#include virtual="/parts/modal-login.html" -->
+	<!--#include virtual="/parts/modal-registration.html" -->
+	<!--#include virtual="/parts/modal-search.html" -->
+	<!--#include virtual="/parts/modal-payment.html" -->
+</div>
+<!-- Scripts -->
+<script src="js/app.min.js"></script>
+</body>
+</html>
