@@ -1,7 +1,7 @@
 import React from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
-import {Footer, Header} from '../../components/Main';
+import {CommentModal, Footer, Header} from '../../components/Main';
 import {ActorCarouselSlider} from '../../components/Movie';
 import {MovieSlider} from '../../components/Home';
 import {movieSlides} from '../../fake-data';
@@ -49,13 +49,7 @@ const Movie = () => {
                                     <button className="btn btn-primary btn-icon rounded-pill"
                                             type="button">смотреть<span
                                         className="icon icon-play_circle"></span></button>
-                                    <button
-                                        className="btn btn-outline-light btn-icon rounded-pill position-relative"
-                                        type="button" data-bs-toggle="modal" data-bs-target="#commentsModal">
-                                        отзывы<span className="icon icon-sms"></span>
-                                        <span
-                                            className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">1203</span>
-                                    </button>
+                                    <CommentModal/>
                                     <button className="btn btn-secondary btn-bookmark rounded-pill" type="button">
                                         <span className="icon icon-bookmark_border"></span></button>
                                 </div>
