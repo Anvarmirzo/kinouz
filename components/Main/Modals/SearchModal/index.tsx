@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
+import {AppSelect} from '../../Select';
+
 interface SearchModalProps {
 
 }
@@ -31,49 +33,64 @@ export const SearchModal = (props: SearchModalProps) => {
                                 </div>
                             </div>
                             <div className="modal-search__item col-12 col-sm-6 col-md-4 mb-2">
-                                <select className="form-select js-choice">
-                                    <option selected>категория</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                                <AppSelect
+                                    options={[
+                                        {label: 'One', value: '1'},
+                                        {label: 'Two', value: '2'},
+                                        {label: 'Three', value: '3'},
+                                    ]}
+                                    defaultValue={{label: 'категория', value: ''}}
+                                    className="form-select-react"
+                                />
                             </div>
                             <div className="modal-search__item col-12 col-sm-6 col-md-4 mb-2">
-                                <select className="form-select js-choice">
-                                    <option selected>жанр (все)</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                                <AppSelect
+                                    options={[
+                                        {label: 'One', value: '1'},
+                                        {label: 'Two', value: '2'},
+                                        {label: 'Three', value: '3'},
+                                    ]}
+                                    defaultValue={{label: 'жанр (все)', value: ''}}
+                                    className="form-select-react"
+                                />
                             </div>
                             <div className="modal-search__item col-12 col-sm-6 col-md-4 mb-2">
-                                <select className="form-select js-choice-img" placeholder="актер">
-                                    <option value="">актер</option>
-                                    <option value="img/dist/actor-ava1.jpg">Том Харди</option>
-                                    <option value="img/dist/actor-ava2.jpg">Дженнифер Лопес</option>
-                                    <option value="img/dist/actor-ava3.jpg">Сара Джессика Паркер</option>
-                                    <option value="img/dist/actor-ava4.jpg">Стивен Сигал</option>
-                                    <option value="img/dist/actor-ava5.jpg">Роберт Паттинсон</option>
-                                    <option value="img/dist/actor-ava1.jpg">Том Харди</option>
-                                    <option value="img/dist/actor-ava2.jpg">Дженнифер Лопес</option>
-                                    <option value="img/dist/actor-ava3.jpg">Сара Джессика Паркер</option>
-                                </select>
+                                <AppSelect
+                                    options={[
+                                        {label: 'Том Харди', value: '1'},
+                                        {label: 'Дженнифер Лопес', value: '2'},
+                                        {label: 'Сара Джессика Паркер', value: '3'},
+                                        {label: 'Стивен Сигал', value: '3'},
+                                        {label: 'Роберт Паттинсон', value: '3'},
+                                        {label: 'Том Харди', value: '3'},
+                                        {label: 'Дженнифер Лопес', value: '3'},
+                                        {label: 'Сара Джессика Паркер', value: '3'},
+                                    ]}
+                                    defaultValue={{label: 'актер', value: ''}}
+                                    className="form-select-react"
+                                />
                             </div>
                             <div className="modal-search__item col-12 col-sm-6 col-md-4 mb-2 mb-md-0">
-                                <select className="form-select js-choice">
-                                    <option selected>страна</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                                <AppSelect
+                                    options={[
+                                        {label: 'One', value: '1'},
+                                        {label: 'Two', value: '2'},
+                                        {label: 'Three', value: '3'},
+                                    ]}
+                                    defaultValue={{label: 'страна', value: ''}}
+                                    className="form-select-react"
+                                />
                             </div>
                             <div className="modal-search__item col-12 col-sm-4 col-md-2 mb-2 mb-sm-0">
-                                <select className="form-select js-choice">
-                                    <option selected>год</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                                <AppSelect
+                                    options={[
+                                        {label: 'One', value: '1'},
+                                        {label: 'Two', value: '2'},
+                                        {label: 'Three', value: '3'},
+                                    ]}
+                                    defaultValue={{label: 'год', value: ''}}
+                                    className="form-select-react"
+                                />
                             </div>
                             <div className="modal-search__item col-12 col-sm-8 col-md-6">
                                 <div className="modal-search__quality">

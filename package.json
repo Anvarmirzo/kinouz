@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.0",
-    "choices.js": "^10.1.0",
     "lightgallery": "2.6.0-beta.2",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "18.2.0",
+    "react-select": "^5.4.0",
     "swiper": "^8.3.2"
   },
   "devDependencies": {

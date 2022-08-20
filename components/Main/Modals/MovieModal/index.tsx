@@ -20,7 +20,7 @@ export const MovieModal = ({movie: {title, rating, video}}: MovieModalProps) => 
     const [show, setShow] = useState(false);
     return (
         <>
-            <Button variant="primary" className="btn-icon rounded-pill" onClick={() => setShow(true)}>
+            <Button variant="secondary" className="btn-icon rounded-pill" onClick={() => setShow(true)}>
                 подробнее<span className="icon icon-info"></span>
             </Button>
             <Modal
