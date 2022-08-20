@@ -1,6 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import {Swiper, SwiperProps, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination} from 'swiper';
+import {useSwiperRef} from '../../../../hooks';
 
 interface MovieSliderProps extends SwiperProps {
     slides: {
@@ -158,16 +159,3 @@ export const MovieSlider = ({title, slides, ...props}: MovieSliderProps) => {
     );
 };
 
-const useSwiperRef = <T extends HTMLElement>(): [T | null, React.Ref<T>] => {
-    // react hooks
-    const [wrapper, setWrapper] = useState<T | null>(null)
-    const ref = useRef<T>(null)
-
-    useEffect(() => {
-        if (ref.current) {
-            setWrapper(ref.current)
-        }
-    }, [])
-
-    return [wrapper, ref]
-}

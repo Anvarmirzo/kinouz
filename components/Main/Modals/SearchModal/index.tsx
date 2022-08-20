@@ -2,11 +2,7 @@ import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {AppSelect} from '../../Select';
 
-interface SearchModalProps {
-
-}
-
-export const SearchModal = (props: SearchModalProps) => {
+export const SearchModal = () => {
     // react hooks
     const [show, setShow] = useState(false);
 
@@ -152,7 +148,7 @@ export const SearchModal = (props: SearchModalProps) => {
                                         <div className="movie-card">
                                             <div className="movie-card__body">
                                                 <div className="movie-card__img"
-                                                     style={{backgroundImage: 'url(\'./img/dist/movie-card-img1.jpg\')'}}></div>
+                                                     style={{backgroundImage: 'url("/img/dist/movie-card-img1.jpg")'}}></div>
                                                 <div className="movie-card__ratings">
                                                     <div className="movie-card__rating"><span
                                                         className="icon icon-imdb"></span>7.2
@@ -170,7 +166,7 @@ export const SearchModal = (props: SearchModalProps) => {
                                         <div className="movie-card">
                                             <div className="movie-card__body">
                                                 <div className="movie-card__img"
-                                                     style={{backgroundImage: 'url(\'./img/dist/movie-card-img2.jpg\')'}}></div>
+                                                     style={{backgroundImage: 'url("/img/dist/movie-card-img2.jpg")'}}></div>
                                                 <div className="movie-card__ratings">
                                                     <div className="movie-card__rating"><span
                                                         className="icon icon-imdb"></span>7.2
@@ -192,7 +188,7 @@ export const SearchModal = (props: SearchModalProps) => {
                                         <div className="movie-card">
                                             <div className="movie-card__body">
                                                 <div className="movie-card__img"
-                                                     style={{backgroundImage: 'url(\'./img/dist/movie-card-img3.jpg\')'}}></div>
+                                                     style={{backgroundImage: 'url("/img/dist/movie-card-img3.jpg")'}}></div>
                                                 <div className="movie-card__ratings">
                                                     <div className="movie-card__rating"><span
                                                         className="icon icon-imdb"></span>7.2
@@ -210,7 +206,7 @@ export const SearchModal = (props: SearchModalProps) => {
                                         <div className="movie-card">
                                             <div className="movie-card__body">
                                                 <div className="movie-card__img"
-                                                     style={{backgroundImage: 'url(\'./img/dist/movie-card-img4.jpg\')'}}></div>
+                                                     style={{backgroundImage: 'url("/img/dist/movie-card-img4.jpg")'}}></div>
                                                 <div className="movie-card__ratings">
                                                     <div className="movie-card__rating"><span
                                                         className="icon icon-imdb"></span>7.2
@@ -228,7 +224,7 @@ export const SearchModal = (props: SearchModalProps) => {
                                         <div className="movie-card">
                                             <div className="movie-card__body">
                                                 <div className="movie-card__img"
-                                                     style={{backgroundImage: 'url(\'./img/dist/movie-card-img5.jpg\')'}}></div>
+                                                     style={{backgroundImage: 'url("/img/dist/movie-card-img5.jpg")'}}></div>
                                                 <div className="movie-card__ratings">
                                                     <div className="movie-card__rating"><span
                                                         className="icon icon-imdb"></span>7.2
@@ -250,7 +246,7 @@ export const SearchModal = (props: SearchModalProps) => {
                                         <div className="movie-card">
                                             <div className="movie-card__body">
                                                 <div className="movie-card__img"
-                                                     style={{backgroundImage: 'url(\'./img/dist/movie-card-img6.jpg\')'}}></div>
+                                                     style={{backgroundImage: 'url("/img/dist/movie-card-img6.jpg")'}}></div>
                                                 <div className="movie-card__ratings">
                                                     <div className="movie-card__rating"><span
                                                         className="icon icon-imdb"></span>7.2
