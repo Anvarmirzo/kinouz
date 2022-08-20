@@ -1,2 +1,7 @@
 export * from './Header'
 export * from './Footer'
+export * from './Modals/MovieModal'
+export * from './Modals/AuthModals/LoginModal'
+export * from './Modals/AuthModals/SignUpModal'
+export * from './Modals/SearchModal'
+export * from './Select'

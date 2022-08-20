@@ -4,18 +4,18 @@ import {Navigation, Pagination} from 'swiper';
 
 interface MovieSliderProps extends SwiperProps {
     slides: {
-        img: string,
+        img: string;
         rating: {
-            imdb: string | number,
-            kinopoisk: string | number,
+            imdb: string | number;
+            kinopoisk: string | number;
         }
-        movieName: string,
+        movieName: string;
         video: {
             src: string;
             poster: string;
         }
     }[]
-    title: string
+    title: string;
 }
 
 export const MovieSlider = ({title, slides, ...props}: MovieSliderProps) => {

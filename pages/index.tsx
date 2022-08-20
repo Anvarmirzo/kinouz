@@ -1,6 +1,6 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
-import {Footer, Header} from '../components/Main'
+import {Footer, Header, MovieModal} from '../components/Main'
 import Image from 'next/image';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay, EffectFade} from 'swiper';
@@ -160,17 +160,21 @@ const Home: NextPage = () => {
                                         <a href="movie.html"
                                            className="btn btn-primary btn-icon rounded-pill">смотреть<span
                                             className="icon icon-play_circle"></span></a>
-                                        <button className="btn btn-secondary btn-icon rounded-pill"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#movieInfoModal-1">подробнее<span
-                                            className="icon icon-info"></span></button>
+                                        <MovieModal movie={{
+                                            rating: {
+                                                imdb: 7.2,
+                                                kinopoisk: 6.8,
+                                            },
+                                            title: 'Название фильма',
+                                            video: {poster: 'img/dist/main-slider-img.jpg', src: 'video/dune.mp4'}
+                                        }}/>
                                     </div>
                                 </div>
                                 <div className="movie-slider__movie-trailer lg-video-gallery">
-                                    <a className="btn btn-icon rounded-pill" type="button" data-lg-size="1280-720"
-                                       data-video='{"source": [{"src":"./video/dune.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true}}'
-                                       data-poster="./img/dist/main-slider-img.jpg">Трейлер<span
-                                        className="icon icon-play_circle"></span></a>
+                                    <button className="btn btn-icon rounded-pill" type="button" data-lg-size="1280-720"
+                                            data-video='{"source": [{"src":"./video/dune.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true}}'
+                                            data-poster="./img/dist/main-slider-img.jpg">Трейлер<span
+                                        className="icon icon-play_circle"></span></button>
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -192,14 +196,18 @@ const Home: NextPage = () => {
                                     <div className="movie-slider__btns">
                                         <a href="#" className="btn btn-primary btn-icon rounded-pill">смотреть<span
                                             className="icon icon-play_circle"></span></a>
-                                        <button className="btn btn-secondary btn-icon rounded-pill"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#movieInfoModal-2">подробнее<span
-                                            className="icon icon-info"></span></button>
+                                        <MovieModal movie={{
+                                            rating: {
+                                                imdb: 7.2,
+                                                kinopoisk: 6.8,
+                                            },
+                                            title: 'Название фильма',
+                                            video: {poster: 'img/dist/main-slider-img2.jpg', src: 'video/uncharted.mp4'}
+                                        }}/>
                                     </div>
                                 </div>
                                 <div className="movie-slider__movie-trailer lg-video-gallery">
-                                    <a className="btn btn-icon rounded-pill" type="button" data-lg-size="1280-720"
+                                    <a className="btn btn-icon rounded-pill" data-lg-size="1280-720"
                                        data-video='{"source": [{"src":"./video/uncharted.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true}}'
                                        data-poster="./img/dist/main-slider-img2.jpg">Трейлер<span
                                         className="icon icon-play_circle"></span></a>
