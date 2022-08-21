@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import Select from 'react-select';
+import React, {ReactNode, useState} from 'react';
+import Select, {FormatOptionLabelMeta} from 'react-select';
 
 interface Option {
     value: string;
     label: string;
+    img?: string;
     isFixed?: boolean;
     isDisabled?: boolean;
 }
@@ -20,9 +21,16 @@ interface AppSelectProps extends Partial<State> {
     options: Option[];
     defaultValue?: Option;
     className?: string;
+    formatOptionLabel?: ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => ReactNode) | undefined;
 }
 
-export const AppSelect = ({options, defaultValue = options[0], className = '', ...props}: AppSelectProps) => {
+export const AppSelect = ({
+                              options,
+                              defaultValue = options[0],
+                              formatOptionLabel,
+                              className = '',
+                              ...props
+                          }: AppSelectProps) => {
     const [{isClearable, isSearchable, isDisabled, isLoading, isRtl}, setState] = useState<State>({
         isClearable: props.isClearable ?? false,
         isDisabled: props.isDisabled ?? false,
@@ -58,6 +66,7 @@ export const AppSelect = ({options, defaultValue = options[0], className = '', .
             isSearchable={isSearchable}
             options={options}
             styles={styles}
+            formatOptionLabel={formatOptionLabel}
         />
     );
 }

@@ -105,8 +105,9 @@ export const MovieSlider = ({title, slides, ...props}: MovieSliderProps) => {
             <div className="container-fluid">
                 <div className="movie-carousel__header">
                     <h2 className="movie-carousel__title"><a href="#">{title}</a></h2>
-                    <a href="#" className="movie-carousel__title-info"><span
-                        className="icon icon-pending"></span></a>
+                    <a href="#" className="movie-carousel__title-info">
+                        <span className="icon icon-pending"></span>
+                    </a>
                 </div>
             </div>
             <Swiper

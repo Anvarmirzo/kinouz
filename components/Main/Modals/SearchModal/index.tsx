@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {AppSelect} from '../../Select';
+import Image from 'next/image';
 
 export const SearchModal = () => {
     // react hooks
@@ -52,18 +53,28 @@ export const SearchModal = () => {
                             </div>
                             <div className="modal-search__item col-12 col-sm-6 col-md-4 mb-2">
                                 <AppSelect
-                                    options={[
-                                        {label: 'Том Харди', value: '1'},
-                                        {label: 'Дженнифер Лопес', value: '2'},
-                                        {label: 'Сара Джессика Паркер', value: '3'},
-                                        {label: 'Стивен Сигал', value: '3'},
-                                        {label: 'Роберт Паттинсон', value: '3'},
-                                        {label: 'Том Харди', value: '3'},
-                                        {label: 'Дженнифер Лопес', value: '3'},
-                                        {label: 'Сара Джессика Паркер', value: '3'},
-                                    ]}
+                                    className="form-select-react-img"
                                     defaultValue={{label: 'актер', value: ''}}
-                                    className="form-select-react"
+                                    options={[
+                                        {value: 'TH', label: 'Том Харди', img: '/img/dist/actor-ava1.jpg'},
+                                        {value: 'TH', label: 'Дженнифер Лопес', img: '/img/dist/actor-ava2.jpg'},
+                                        {value: 'TH', label: 'Сара Джессика Паркер', img: '/img/dist/actor-ava3.jpg'},
+                                        {value: 'TH', label: 'Стивен Сигал', img: '/img/dist/actor-ava4.jpg'},
+                                        {value: 'TH', label: 'Роберт Паттинсон', img: '/img/dist/actor-ava5.jpg'},
+                                    ]}
+                                    formatOptionLabel={(option) => (
+                                        <div className="form-select-react-img__item">
+                                            {option.img &&
+					                            <Image
+						                            src={option.img}
+						                            width={30}
+						                            height={30}
+						                            alt={option.label}
+					                            />
+                                            }
+                                            <span>{option.label}</span>
+                                        </div>
+                                    )}
                                 />
                             </div>
                             <div className="modal-search__item col-12 col-sm-6 col-md-4 mb-2 mb-md-0">
