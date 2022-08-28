@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import Head from 'next/head';
 import {CommentModal, Footer, Header} from '../../components/Main';
 import {ActorCarouselSlider} from '../../components/Movie';
-import {MovieSlider} from '../../components/Home';
+import {MovieSlider} from '../../components/Main';
 import {movieSlides} from '../../fake-data';
 
 const actorSlides = [

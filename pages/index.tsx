@@ -1,10 +1,7 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
-import {Footer, Header, HeroMovieSliders, MovieModal} from '../components/Main'
-import Image from 'next/image';
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {Autoplay, EffectFade} from 'swiper';
-import {MovieSlider} from '../components/Home';
+import {Footer, Header, HeroLargeSlider} from '../components/Main'
+import {MovieSlider} from '../components/Main';
 import {movieSlides} from '../fake-data';
 
 
@@ -57,7 +54,7 @@ const Home: NextPage = () => {
 
             <Header/>
             <main className="content">
-                <HeroMovieSliders/>
+                <HeroLargeSlider/>
                 {renderSliders()}
             </main>
             <Footer/>

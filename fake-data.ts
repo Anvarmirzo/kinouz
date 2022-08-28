@@ -7,7 +7,7 @@ export const movieSlides = [
         },
         movieName: 'Название фильма',
         video: {
-            src: 'video/dune.mp4',
+            src: '/video/dune.mp4',
             poster: '/img/dist/main-slider-img.jpg'
         }
     },
@@ -19,7 +19,7 @@ export const movieSlides = [
         },
         movieName: 'Название фильма',
         video: {
-            src: 'video/dune.mp4',
+            src: '/video/dune.mp4',
             poster: '/img/dist/main-slider-img.jpg'
         }
     },
@@ -31,7 +31,7 @@ export const movieSlides = [
         },
         movieName: 'Название фильма',
         video: {
-            src: 'video/dune.mp4',
+            src: '/video/dune.mp4',
             poster: '/img/dist/main-slider-img.jpg'
         }
     },
@@ -43,7 +43,7 @@ export const movieSlides = [
         },
         movieName: 'Название фильма',
         video: {
-            src: 'video/dune.mp4',
+            src: '/video/dune.mp4',
             poster: '/img/dist/main-slider-img.jpg'
         }
     },
@@ -55,7 +55,7 @@ export const movieSlides = [
         },
         movieName: 'Название фильма',
         video: {
-            src: 'video/dune.mp4',
+            src: '/video/dune.mp4',
             poster: '/img/dist/main-slider-img.jpg'
         }
     },
@@ -67,7 +67,7 @@ export const movieSlides = [
         },
         movieName: 'Название фильма',
         video: {
-            src: 'video/dune.mp4',
+            src: '/video/dune.mp4',
             poster: '/img/dist/main-slider-img.jpg'
         }
     }

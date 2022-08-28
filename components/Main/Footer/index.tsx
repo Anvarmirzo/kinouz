@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const Footer = () => {
     return (
@@ -17,8 +18,13 @@ export const Footer = () => {
                             className="icon icon-account_balance_wallet"></span>Подписка и оплата</a></li>
                         <li className="footer-menu__item"><a href="#" className="footer-menu__link"><span
                             className="icon icon-ondemand_video"></span>Устройства</a></li>
-                        <li className="footer-menu__item"><a href="#" className="footer-menu__link"><span
-                            className="icon icon-portrait"></span>Профиль</a></li>
+                        <li className="footer-menu__item">
+                            <Link href='/account'>
+                                <a className="footer-menu__link">
+                                    <span className="icon icon-portrait"></span>Профиль
+                                </a>
+                            </Link>
+                        </li>
                         <li className="footer-menu__item"><a href="#" className="footer-menu__link"><span
                             className="icon icon-logout"></span>Выйти из учетной записи</a></li>
                     </ul>
