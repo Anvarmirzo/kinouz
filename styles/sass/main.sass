@@ -583,7 +583,7 @@
 					content: '\e922'
 			.vjs-loading-spinner, .vjs-hidden, .vjs-control-bar > *
 				display: none
-			.vjs-control-bar 
+			.vjs-control-bar
 				> .vjs-progress-control
 					position: absolute
 					bottom: 15px
@@ -1245,7 +1245,7 @@
 					content: '\e922'
 			.vjs-loading-spinner, .vjs-hidden, .vjs-control-bar > *
 				display: none
-			.vjs-control-bar 
+			.vjs-control-bar
 				> .vjs-volume-panel
 					display: block
 					.vjs-volume-control
@@ -1612,4 +1612,32 @@
 		justify-content: center
 		text-decoration: none
 		padding: 5px
+// tabs
+.mynav
+	display: flex
+	gap: 4px
+	.nav-link
+		background-color: #ffde00
+		border-color: #ffde00
+		color: #000
+		@extend .btn, .btn-primary
+
+		&.active
+			background-color: #998502
+			border-color: #998502
+			color: #fff
+
+.forms
+	display: flex
+	max-width: 400px
+
+	input.form-control
+		margin: 0 10px 0 0
+
+#nav-4
+	display: flex
+	flex-wrap: wrap
+	.card
+		margin: 0 20px 20px 0
+		width: calc(50% - 20px)
 @import media

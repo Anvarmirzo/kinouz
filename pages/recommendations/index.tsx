@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import {FilterModal, Footer, Header, HeroMovieSliders} from '../../components/Main';
+import {FilterModal, Footer, Header, HeroLargeSlider} from '../../components/Main';
 import {movieSlides} from '../../fake-data';
 
 const Recommendations = () => {
@@ -76,7 +76,7 @@ const Recommendations = () => {
             </Head>
             <Header/>
             <main className="content">
-                <HeroMovieSliders/>
+                <HeroLargeSlider/>
                 <div className="movie-list">
                     <div className="container-fluid">
                         <div className="movie-list__header">

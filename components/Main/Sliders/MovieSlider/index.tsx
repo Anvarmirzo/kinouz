@@ -46,7 +46,7 @@ export const MovieSlider = ({title, slides, ...props}: MovieSliderProps) => {
                         </div>
                     </div>
                     <div className="movie-card__name">{slide.movieName}</div>
-                    <a href="#" className="movie-card__link"></a>
+                    <a href="components/Main/Sliders/MovieSlider/index#" className="movie-card__link"></a>
                     <div className="movie-card__more-info movie-card-more-info">
                         <div className="movie-card-more-info__video">
                             <video className="video-js" controls preload="false"
@@ -104,8 +104,8 @@ export const MovieSlider = ({title, slides, ...props}: MovieSliderProps) => {
         <section className="movie-carousel">
             <div className="container-fluid">
                 <div className="movie-carousel__header">
-                    <h2 className="movie-carousel__title"><a href="#">{title}</a></h2>
-                    <a href="#" className="movie-carousel__title-info">
+                    <h2 className="movie-carousel__title"><a href="components/Main/Sliders/MovieSlider/index#">{title}</a></h2>
+                    <a href="components/Main/Sliders/MovieSlider/index#" className="movie-carousel__title-info">
                         <span className="icon icon-pending"></span>
                     </a>
                 </div>

@@ -4,11 +4,7 @@ import {Autoplay, EffectFade} from 'swiper';
 import Image from 'next/image';
 import {MovieModal} from '../../Modals/MovieModal';
 
-interface HeroMovieSlidersProps {
-
-}
-
-export const HeroMovieSliders = (props: HeroMovieSlidersProps) => {
+export const HeroLargeSlider = () => {
     return (
         <section className="movie-slider margin-under-header">
             <Swiper
@@ -20,7 +16,8 @@ export const HeroMovieSliders = (props: HeroMovieSlidersProps) => {
                     delay: 5000,
                     disableOnInteraction: false,
                 }}
-                className="movie-slider__swiper movieSlider">
+                className="movie-slider__swiper movieSlider"
+            >
                 <SwiperSlide className="movie-slider__item">
                     <div className="movie-slider__img"
                          style={{backgroundImage: 'url("/img/dist/main-slider-img.jpg")'}}></div>
