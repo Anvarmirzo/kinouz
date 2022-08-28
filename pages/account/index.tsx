@@ -289,37 +289,6 @@ const Account = () => {
 											</div>
 										</div>
 									</div>
-									<div
-										className='tab-pane fade'
-										id='nav-profile'
-										role='tabpanel'
-										aria-labelledby='nav-profile-tab'
-									>
-										<p>
-											Placeholder content for the tab panel. This one relates to the profile tab.
-											You got the finest architecture. Passport stamps, she's cosmopolitan. Fine,
-											fresh, fierce, we got it on lock. Never planned that one day I'd be losing
-											you. She eats your heart out. Your kiss is cosmic, every move is magic. I mean
-											the ones, I mean like she's the one. Greetings loved ones let's take a
-											journey. Just own the night like the 4th of July! But you'd rather get wasted.
-										</p>
-									</div>
-									<div
-										className='tab-pane fade'
-										id='nav-contact'
-										role='tabpanel'
-										aria-labelledby='nav-contact-tab'
-									>
-										<p>
-											Placeholder content for the tab panel. This one relates to the contact tab.
-											Her love is like a drug. All my girls vintage Chanel baby. Got a motel and
-											built a fort out of sheets. 'Cause she's the muse and the artist. (This is how
-											we do) So you wanna play with magic. So just be sure before you give it all to
-											me. I'm walking, I'm walking on air (tonight). Skip the talk, heard it all,
-											time to walk the walk. Catch her if you can. Stinging like a bee I earned my
-											stripes.
-										</p>
-									</div>
 								</div>
 							</Tab>
 							<Tab eventKey='payment' title='Оплата'>
