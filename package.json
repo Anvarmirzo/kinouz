@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "prettier": "prettier --config .prettierrc ./**/*.{ts,tsx,js,jsx} --write"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
@@ -29,6 +29,7 @@
     "@types/react-dom": "18.0.6",
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
+    "prettier": "^2.7.1",
     "sass": "^1.54.4",
     "typescript": "4.7.4"
   }
