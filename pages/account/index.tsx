@@ -30,42 +30,23 @@ const Account = () => {
 										<div className='account-editing'>
 											<div className='input-group input-group-btn input-group-left-text mb-2'>
 												<span className='input-group-text'>E-mail:</span>
-												<input
-													type='email'
-													className='form-control'
-													value='arkein_gg@gmail.com'
-												/>
-												<button
-													className='btn btn-edit btn-icon'
-													type='button'
-												>
+												<input type='email' className='form-control' value='arkein_gg@gmail.com' />
+												<button className='btn btn-edit btn-icon' type='button'>
 													изменить<span className='icon icon-edit'></span>
 												</button>
 											</div>
 											<div className='input-group input-group-btn input-group-left-text mb-2'>
 												<span className='input-group-text'>Пароль:</span>
-												<input
-													type='password'
-													className='form-control'
-													value='*************'
-												/>
-												<button
-													className='btn btn-edit btn-icon'
-													type='button'
-												>
+												<input type='password' className='form-control' value='*************' />
+												<button className='btn btn-edit btn-icon' type='button'>
 													изменить<span className='icon icon-edit'></span>
 												</button>
 											</div>
 											<div className='input-group input-group-btn input-group-left-text mb-4'>
 												<span className='input-group-text'>
-													Способы оплаты:{' '}
-													<img src='img/dist/humo-logo.png' alt='humo' />
+													Способы оплаты: <img src='img/dist/humo-logo.png' alt='humo' />
 												</span>
-												<input
-													type='email'
-													className='form-control'
-													value='**** **** 1212'
-												/>
+												<input type='email' className='form-control' value='**** **** 1212' />
 												<button
 													className='btn btn-edit btn-icon'
 													type='button'
@@ -76,12 +57,8 @@ const Account = () => {
 												</button>
 											</div>
 											<div className='account-editing__balance'>
-												<span className='account-editing__balance-title'>
-													Баланс:{' '}
-												</span>
-												<span className='account-editing__balance-total'>
-													152 000
-												</span>
+												<span className='account-editing__balance-title'>Баланс: </span>
+												<span className='account-editing__balance-total'>152 000</span>
 												<span className='account-editing__balance-subscription'>
 													(стоимость абонненской платы 15 000 сум/месяц)
 												</span>
@@ -90,30 +67,20 @@ const Account = () => {
 										<h2 className='page-title fw-normal mb-35'>Профили:</h2>
 										<div className='profiles'>
 											<Accordion defaultActiveKey='0'>
-												<Accordion.Item
-													className='profiles__item'
-													eventKey='0'
-												>
+												<Accordion.Item className='profiles__item' eventKey='0'>
 													<Accordion.Header>
 														<h2 className='profiles__header accordion-header flex-fill'>
 															<div className='d-flex align-items-center pe-3'>
 																<div className='profiles__profile accordion-profile'>
-																	<div className='accordion-profile__ava'>
-																		A
-																	</div>
+																	<div className='accordion-profile__ava'>A</div>
 																	<div className='accordion-profile__text'>
-																		<div className='accordion-profile__name'>
-																			Arkein
-																		</div>
+																		<div className='accordion-profile__name'>Arkein</div>
 																		<div className='accordion-profile__desc'>
-																			без ворастных
-																			ограничений
+																			без ворастных ограничений
 																		</div>
 																	</div>
 																</div>
-																<div className='profiles__editing'>
-																	Редактировать
-																</div>
+																<div className='profiles__editing'>Редактировать</div>
 															</div>
 														</h2>
 													</Accordion.Header>
@@ -125,10 +92,7 @@ const Account = () => {
 																	className='form-control form-control-ico form-control-email'
 																	value='arkein_gg@gmail.com'
 																/>
-																<button
-																	className='btn btn-edit btn-icon'
-																	type='button'
-																>
+																<button className='btn btn-edit btn-icon' type='button'>
 																	изменить
 																	<span className='icon icon-edit'></span>
 																</button>
@@ -146,10 +110,7 @@ const Account = () => {
 																	id='option1'
 																	autoComplete='off'
 																/>
-																<label
-																	className='btn'
-																	htmlFor='option1'
-																>
+																<label className='btn' htmlFor='option1'>
 																	Применить
 																</label>
 																<input
@@ -160,10 +121,7 @@ const Account = () => {
 																	autoComplete='off'
 																	checked
 																/>
-																<label
-																	className='btn'
-																	htmlFor='option2'
-																>
+																<label className='btn' htmlFor='option2'>
 																	Не применять
 																</label>
 															</div>
@@ -193,22 +151,15 @@ const Account = () => {
 														<h2 className='profiles__header accordion-header flex-fill'>
 															<div className='d-flex align-items-center pe-3'>
 																<div className='profiles__profile accordion-profile'>
-																	<div className='accordion-profile__ava'>
-																		A
-																	</div>
+																	<div className='accordion-profile__ava'>A</div>
 																	<div className='accordion-profile__text'>
-																		<div className='accordion-profile__name'>
-																			Arkein
-																		</div>
+																		<div className='accordion-profile__name'>Arkein</div>
 																		<div className='accordion-profile__desc'>
-																			без ворастных
-																			ограничений
+																			без ворастных ограничений
 																		</div>
 																	</div>
 																</div>
-																<div className='profiles__editing'>
-																	Редактировать
-																</div>
+																<div className='profiles__editing'>Редактировать</div>
 															</div>
 														</h2>
 													</Accordion.Header>
@@ -221,10 +172,7 @@ const Account = () => {
 																		className='form-control form-control-ico form-control-email'
 																		value='arkein_gg@gmail.com'
 																	/>
-																	<button
-																		className='btn btn-edit btn-icon'
-																		type='button'
-																	>
+																	<button className='btn btn-edit btn-icon' type='button'>
 																		изменить
 																		<span className='icon icon-edit'></span>
 																	</button>
@@ -242,10 +190,7 @@ const Account = () => {
 																		id='option11'
 																		autoComplete='off'
 																	/>
-																	<label
-																		className='btn'
-																		htmlFor='option11'
-																	>
+																	<label className='btn' htmlFor='option11'>
 																		Применить
 																	</label>
 																	<input
@@ -256,10 +201,7 @@ const Account = () => {
 																		checked
 																		autoComplete='off'
 																	/>
-																	<label
-																		className='btn'
-																		htmlFor='option12'
-																	>
+																	<label className='btn' htmlFor='option12'>
 																		Не применять
 																	</label>
 																</div>
@@ -352,17 +294,10 @@ const Account = () => {
 							<Tab eventKey='payment' title='Оплата'>
 								<div role='tabpanel' aria-labelledby='payment'>
 									<div className='tab-content' id='nav-tabContent'>
-										<div
-											className='nav mynav mb-3'
-											id='nav-tab1'
-											role='tablist'
-										>
-											<div
-												className='alert alert-primary alert-dismissible fade show'
-												role='alert'
-											>
-												При оплате седства попадают на баланс аккаунта после
-												чего Вы можете приобрести подписку.
+										<div className='nav mynav mb-3' id='nav-tab1' role='tablist'>
+											<div className='alert alert-primary alert-dismissible fade show' role='alert'>
+												При оплате седства попадают на баланс аккаунта после чего Вы можете
+												приобрести подписку.
 												<button
 													type='button'
 													className='btn-close'
@@ -486,8 +421,8 @@ const Account = () => {
 										<Card.Body>
 											<Card.Title>Мультсериалы</Card.Title>
 											<Card.Text>
-												Мировые хиты и блокбастеры производства HBO, CBS и
-												других от сервиса Amediateka.ru
+												Мировые хиты и блокбастеры производства HBO, CBS и других от сервиса
+												Amediateka.ru
 											</Card.Text>
 											<a href='#' className='btn btn-primary me-1'>
 												Купить
@@ -508,8 +443,8 @@ const Account = () => {
 										<Card.Body>
 											<Card.Title>Amediateka</Card.Title>
 											<Card.Text>
-												Мировые хиты и блокбастеры производства HBO, CBS и
-												других от сервиса Amediateka.ru
+												Мировые хиты и блокбастеры производства HBO, CBS и других от сервиса
+												Amediateka.ru
 											</Card.Text>
 											<a href='#' className='btn btn-primary me-1'>
 												Купить
@@ -526,14 +461,12 @@ const Account = () => {
 												'url(https://www.apple.com/tv-pr/articles/2022/03/apple-original-films-to-premiere-exhilarating-slate-of-new-films-from-award-winning-storytellers-in-2022-and-beyond/images/big-image/big-image-01/030822_Apple_Original_Films_Premiere_New_Films_in_2022_Argylle_big_image_post.jpg.large.jpg) 0 0 no-repeat;',
 										}}
 									>
-										<Card.Header className='card-header'>
-											30 дней за 17000 сум
-										</Card.Header>
+										<Card.Header className='card-header'>30 дней за 17000 сум</Card.Header>
 										<Card.Body className='card-body'>
 											<Card.Title>Amediateka</Card.Title>
 											<Card.Text>
-												Мировые хиты и блокбастеры производства HBO, CBS и
-												других от сервиса Amediateka.ru
+												Мировые хиты и блокбастеры производства HBO, CBS и других от сервиса
+												Amediateka.ru
 											</Card.Text>
 											<a href='#' className='btn btn-primary me-1'>
 												Купить
