@@ -3,6 +3,8 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay, EffectFade} from 'swiper';
 import Image from 'next/image';
 import {MovieModal} from '../../Modals/MovieModal';
+import LightGallery from 'lightgallery/react';
+import lgVideo from 'lightgallery/plugins/video';
 
 export const HeroLargeSlider = () => {
 	return (
@@ -54,15 +56,20 @@ export const HeroLargeSlider = () => {
 							</div>
 						</div>
 						<div className='movie-slider__movie-trailer lg-video-gallery'>
-							<button
-								className='btn btn-icon rounded-pill'
-								type='button'
-								data-lg-size='1280-720'
-								data-video='{"source": [{"src":"./video/dune.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true}}'
-								data-poster='/img/dist/main-slider-img.jpg'
+							<LightGallery
+								licenseKey={process.env.NEXT_PUBLIC_LIGHT_GALLERY_KEY}
+								plugins={[lgVideo]}
+								mode='lg-fade'
 							>
-								Трейлер<span className='icon icon-play_circle'></span>
-							</button>
+								<a
+									className='btn btn-icon rounded-pill'
+									data-lg-size='1280-720'
+									data-video='{"source": [{"src":"./video/dune.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true}}'
+									data-poster='/img/dist/main-slider-img.jpg'
+								>
+									Трейлер<span className='icon icon-play_circle'></span>
+								</a>
+							</LightGallery>
 						</div>
 					</div>
 				</SwiperSlide>
@@ -101,14 +108,20 @@ export const HeroLargeSlider = () => {
 							</div>
 						</div>
 						<div className='movie-slider__movie-trailer lg-video-gallery'>
-							<a
-								className='btn btn-icon rounded-pill'
-								data-lg-size='1280-720'
-								data-video='{"source": [{"src":"./video/uncharted.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true}}'
-								data-poster='/img/dist/main-slider-img2.jpg'
+							<LightGallery
+								licenseKey={process.env.NEXT_PUBLIC_LIGHT_GALLERY_KEY}
+								plugins={[lgVideo]}
+								mode='lg-fade'
 							>
-								Трейлер<span className='icon icon-play_circle'></span>
-							</a>
+								<a
+									className='btn btn-icon rounded-pill'
+									data-lg-size='1280-720'
+									data-video='{"source": [{"src":"./video/uncharted.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true}}'
+									data-poster='/img/dist/main-slider-img2.jpg'
+								>
+									Трейлер<span className='icon icon-play_circle'></span>
+								</a>
+							</LightGallery>
 						</div>
 					</div>
 				</SwiperSlide>

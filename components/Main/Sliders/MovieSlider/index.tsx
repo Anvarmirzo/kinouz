@@ -168,8 +168,14 @@ export const MovieSlider = ({title, slides, ...props}: MovieSliderProps) => {
 			>
 				{renderSlides()}
 				<div ref={paginationElRef} className='movie-carousel__pagination swiper-pagination'></div>
-				<button ref={prevElRef} className='movie-carousel__nav_prev swiper-button-prev'></button>
-				<button ref={nextElRef} className='movie-carousel__nav_next swiper-button-next'></button>
+				<button
+					ref={prevElRef}
+					className='movie-carousel__nav_prev swiper-button-prev border-0'
+				></button>
+				<button
+					ref={nextElRef}
+					className='movie-carousel__nav_next swiper-button-next border-0'
+				></button>
 			</Swiper>
 		</section>
 	);

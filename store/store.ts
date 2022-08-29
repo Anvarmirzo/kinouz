@@ -2,7 +2,7 @@ import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import {createWrapper} from 'next-redux-wrapper';
 
 const store = configureStore({
-	reducer: {},
+	reducer: {test: () => ''},
 	devTools: true,
 });
 
