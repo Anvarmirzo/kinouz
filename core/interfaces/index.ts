@@ -19,8 +19,8 @@ export interface IType {
 	updatedAt?: string;
 }
 
-export interface ILogin {
-	phone: string;
+export interface ILogIn {
+	email: string;
 	password: string;
 }
 
@@ -36,19 +36,12 @@ export interface IAutoComplete {
 	filter?: string[];
 }
 
-export interface IUser {
-	id: number;
-	name: string;
-	phone?: string;
-	role?: IRole;
-}
-
 export interface IRole {
 	id: number;
 	title: string;
 }
 
-export interface IActer {
+export interface IActor {
 	id: number;
 	avatar: IFile;
 	name: string;
@@ -104,7 +97,7 @@ export interface IMovie {
 	year: number;
 	genres?: IGenre[];
 	countries?: ICountry[];
-	acters?: IActer[];
+	actors?: IActor[];
 	comments?: IComment[];
 	categories?: ICategory[];
 	producers?: IProducer[];

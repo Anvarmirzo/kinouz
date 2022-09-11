@@ -2,23 +2,31 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IUser} from '../../interfaces';
 
 interface IState {
+	jwt: string | null;
 	user: IUser | null;
 }
 
 const initialState: IState = {
+	jwt: null,
 	user: null,
 };
 
 export const {
-	actions: {setUserAction},
-	reducer: usersReducer,
+	actions: {logOutAction, logInAction},
+	reducer: authReducer,
 } = createSlice({
-	name: 'users',
+	name: 'auth',
 	initialState,
 	reducers: {
-		setUserAction: (state, action: PayloadAction<IUser | null>) => ({
+		logInAction: (state, action: PayloadAction<IState>) => ({
 			...state,
 			...action.payload,
+		}),
+
+		logOutAction: (state: IState) => ({
+			...state,
+			token: null,
+			user: null,
 		}),
 	},
 });

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import {LoginButtonWithMenu, LoginModal} from '../index';
 import {SearchModal} from '../Modals/SearchModal';
 import cn from 'classnames';
-import {useOnClickOutside} from '../../../core/hooks';
+import {useAppSelector, useOnClickOutside} from '../../../core/hooks';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 
@@ -11,6 +11,10 @@ export const Header = () => {
 	// next router
 	const router = useRouter();
 	const currentRoute = router.pathname;
+
+	// redux hooks
+	const user = useAppSelector(({auth}) => auth.user);
+
 	// react hooks
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isSticky, setIsSticky] = useState(false);
@@ -130,8 +134,7 @@ export const Header = () => {
 						<SearchModal />
 					</div>
 					<div className='header__loginza header-loginza'>
-						<LoginModal />
-						<LoginButtonWithMenu />
+						{user ? <LoginButtonWithMenu user={user} /> : <LoginModal />}
 					</div>
 				</div>
 			</header>

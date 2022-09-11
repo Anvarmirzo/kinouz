@@ -1,47 +1,47 @@
-import {usersAction} from './user.slices';
+import {actorsAction} from './actor.slices';
+import {IActor} from '../../interfaces';
 import {getAllService, getOneService} from '../../services';
-import {IUser} from '../../interfaces';
 import {Toast} from '../../utils';
 
 export const getAll =
 	(skip: number = 0, params: any = {}) =>
 	(dispatch: any) => {
-		return getAllService(skip, params, 'user')
+		return getAllService(skip, params, 'actor')
 			.then((res) => {
-				dispatch(setUsers(res.count, res.data));
+				dispatch(setActors(res.count, res.data));
 			})
 			.catch((e) => {
 				Toast.error(e);
 			});
 	};
 
-export const setUsers =
-	(count: number = 0, users: IUser[] = []) =>
+export const setActors =
+	(count: number = 0, actors: IActor[] = []) =>
 	(dispatch: any) => {
 		return dispatch(
-			usersAction.setUsers({
-				users,
+			actorsAction.setActors({
+				actors,
 				count,
 			})
 		);
 	};
 
 export const getOne = (id: number) => (dispatch: any) => {
-	return getOneService(id, 'user')
-		.then((user) => {
-			dispatch(setUser(user));
+	return getOneService(id, 'actor')
+		.then((actor) => {
+			dispatch(setActor(actor));
 		})
 		.catch((e) => {
 			Toast.error(e);
 		});
 };
 
-export const setUser =
-	(user: IUser | null = null) =>
+export const setActor =
+	(actor: IActor | null = null) =>
 	(dispatch: any) => {
 		return dispatch(
-			usersAction.setUser({
-				user,
+			actorsAction.setActor({
+				actor,
 			})
 		);
 	};

@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(function (config: AxiosRequestConfig) {
-	const token = window.localStorage.getItem('token');
+	const token = window.localStorage.getItem('jwt');
 
 	if (token) {
 		if (config.headers) {
@@ -24,7 +24,7 @@ api.interceptors.response.use(
 		if (error.response?.status === 401 && window.location.pathname !== '/login') {
 			window.location.href = window.location.href.replace(window.location.pathname, '/login');
 
-			localStorage.removeItem('token');
+			localStorage.removeItem('jwt');
 			return;
 		}
 
