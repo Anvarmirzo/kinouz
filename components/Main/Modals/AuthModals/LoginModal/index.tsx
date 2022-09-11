@@ -6,6 +6,7 @@ interface LoginModalProps {}
 
 export const LoginModal = (props: LoginModalProps) => {
 	const [show, setShow] = useState(false);
+
 	return (
 		<>
 			<Button

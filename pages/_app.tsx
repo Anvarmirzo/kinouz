@@ -1,6 +1,6 @@
 import type {AppProps} from 'next/app';
 import '../styles/sass/main.sass';
-import {wrapper} from '../store/store';
+import {wrapper} from '../core/store/store';
 
 function MyApp({Component, pageProps}: AppProps) {
 	return (

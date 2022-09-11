@@ -1,7 +1,7 @@
 import React from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation} from 'swiper';
-import {useSwiperRef} from '../../../../hooks';
+import {useSwiperRef} from '../../../../core/hooks';
 
 interface Data {
 	title: string;

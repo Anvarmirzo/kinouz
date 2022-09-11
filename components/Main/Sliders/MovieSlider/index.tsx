@@ -1,7 +1,7 @@
 import React from 'react';
 import {Swiper, SwiperProps, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination} from 'swiper';
-import {useSwiperRef} from '../../../../hooks';
+import {useSwiperRef} from '../../../../core/hooks';
 
 interface MovieSliderProps extends SwiperProps {
 	slides: {
