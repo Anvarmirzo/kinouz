@@ -3,7 +3,7 @@ import Image from 'next/image';
 import {LoginButtonWithMenu, LoginModal} from '../index';
 import {SearchModal} from '../Modals/SearchModal';
 import cn from 'classnames';
-import {useOnClickOutside} from '../../../hooks';
+import {useOnClickOutside} from '../../../core/hooks';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 
