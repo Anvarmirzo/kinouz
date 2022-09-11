@@ -1,47 +1,47 @@
-import {actorsAction} from './acter.slices';
-import {IActer} from '../../interfaces';
+import {actorsAction} from './actor.slices';
+import {IActor} from '../../interfaces';
 import {getAllService, getOneService} from '../../services';
 import {Toast} from '../../utils';
 
 export const getAll =
 	(skip: number = 0, params: any = {}) =>
 	(dispatch: any) => {
-		return getAllService(skip, params, 'acter')
+		return getAllService(skip, params, 'actor')
 			.then((res) => {
-				dispatch(setActers(res.count, res.data));
+				dispatch(setActors(res.count, res.data));
 			})
 			.catch((e) => {
 				Toast.error(e);
 			});
 	};
 
-export const setActers =
-	(count: number = 0, acters: IActer[] = []) =>
+export const setActors =
+	(count: number = 0, actors: IActor[] = []) =>
 	(dispatch: any) => {
 		return dispatch(
-			actorsAction.setActers({
-				acters,
+			actorsAction.setActors({
+				actors,
 				count,
 			})
 		);
 	};
 
 export const getOne = (id: number) => (dispatch: any) => {
-	return getOneService(id, 'acter')
-		.then((acter) => {
-			dispatch(setActer(acter));
+	return getOneService(id, 'actor')
+		.then((actor) => {
+			dispatch(setActor(actor));
 		})
 		.catch((e) => {
 			Toast.error(e);
 		});
 };
 
-export const setActer =
-	(acter: IActer | null = null) =>
+export const setActor =
+	(actor: IActor | null = null) =>
 	(dispatch: any) => {
 		return dispatch(
-			actorsAction.setActer({
-				acter,
+			actorsAction.setActor({
+				actor,
 			})
 		);
 	};

@@ -48,7 +48,7 @@ export interface IRole {
 	title: string;
 }
 
-export interface IActer {
+export interface IActor {
 	id: number;
 	avatar: IFile;
 	name: string;
@@ -104,7 +104,7 @@ export interface IMovie {
 	year: number;
 	genres?: IGenre[];
 	countries?: ICountry[];
-	acters?: IActer[];
+	actors?: IActor[];
 	comments?: IComment[];
 	categories?: ICategory[];
 	producers?: IProducer[];

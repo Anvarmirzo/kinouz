@@ -5,7 +5,7 @@ import {
 	Reducer,
 	StateFromReducersMapObject,
 } from '@reduxjs/toolkit';
-import {actorsReducer} from './acter/acter.slices';
+import {actorsReducer} from './actor/actor.slices';
 import {categoriesReducer} from './category/category.slices';
 import {genresReducer} from './genre/genre.slices';
 import {globalReducer} from './global/global.slices';
@@ -18,7 +18,7 @@ import {usersReducer} from './user/user.slices';
 const State = {
 	global: globalReducer,
 	genres: genresReducer,
-	acters: actorsReducer,
+	actors: actorsReducer,
 	producers: producersReducer,
 	categories: categoriesReducer,
 	users: usersReducer,
