@@ -1,11 +1,31 @@
-import React, {useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {SignUpModal} from '../SignUpModal';
+import {useForm} from 'react-hook-form';
+import {ILogIn} from '../../../../../core/interfaces';
+import {useAppDispatch} from '../../../../../core/hooks';
+import {loginThunk} from '../../../../../core/store/auth/auth.thunks';
 
-interface LoginModalProps {}
+export const LoginModal = () => {
+	// redux hooks
+	const dispatch = useAppDispatch();
 
-export const LoginModal = (props: LoginModalProps) => {
+	// react hooks
 	const [show, setShow] = useState(false);
+
+	// react hook form
+	const {
+		register,
+		handleSubmit,
+		formState: {errors},
+	} = useForm<ILogIn>();
+
+	const onSubmit = (e: FormEvent) => {
+		e.preventDefault();
+		handleSubmit((data) => {
+			dispatch(loginThunk(data));
+		})();
+	};
 
 	return (
 		<>
@@ -29,12 +49,13 @@ export const LoginModal = (props: LoginModalProps) => {
 				</Modal.Header>
 				<Modal.Body>
 					<div className='modal-login'>
-						<form action='#' className='modal-login__form row gy-3'>
+						<form onSubmit={onSubmit} className='modal-login__form row gy-3'>
 							<div className='col-12'>
 								<input
 									type='email'
 									className='form-control form-control-ico form-control-email'
 									placeholder='E-mail'
+									{...register('email', {required: true})}
 								/>
 							</div>
 							<div className='col-12'>
@@ -42,6 +63,7 @@ export const LoginModal = (props: LoginModalProps) => {
 									type='password'
 									className='form-control form-control-ico form-control-password'
 									placeholder='Пароль'
+									{...register('password', {required: true})}
 								/>
 							</div>
 							<div className='col-6 d-flex align-items-center justify-content-center'>
@@ -58,9 +80,7 @@ export const LoginModal = (props: LoginModalProps) => {
 								</div>
 							</div>
 							<div className='col-6 d-grid'>
-								<button className='btn btn-primary' type='submit'>
-									Войти
-								</button>
+								<button className='btn btn-primary'>Войти</button>
 							</div>
 						</form>
 						<div className='modal-login__fast-login fast-login'>

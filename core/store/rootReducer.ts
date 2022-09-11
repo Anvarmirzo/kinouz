@@ -8,7 +8,7 @@ import {
 import {actorsReducer} from './actor/actor.slices';
 import {categoriesReducer} from './category/category.slices';
 import {genresReducer} from './genre/genre.slices';
-import {globalReducer} from './global/global.slices';
+import {authReducer} from './auth/auth.slices';
 import {moviesReducer} from './movie/movie.slices';
 import {producersReducer} from './producer/producer.slices';
 import {usersReducer} from './user/user.slices';
@@ -16,7 +16,7 @@ import {usersReducer} from './user/user.slices';
 // export type RootState = ReturnType<typeof combinedReducer>;
 
 const State = {
-	global: globalReducer,
+	auth: authReducer,
 	genres: genresReducer,
 	actors: actorsReducer,
 	producers: producersReducer,

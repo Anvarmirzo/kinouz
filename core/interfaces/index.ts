@@ -19,8 +19,8 @@ export interface IType {
 	updatedAt?: string;
 }
 
-export interface ILogin {
-	phone: string;
+export interface ILogIn {
+	email: string;
 	password: string;
 }
 
@@ -34,13 +34,6 @@ export interface IAutoComplete {
 	index: string;
 	search: string;
 	filter?: string[];
-}
-
-export interface IUser {
-	id: number;
-	name: string;
-	phone?: string;
-	role?: IRole;
 }
 
 export interface IRole {

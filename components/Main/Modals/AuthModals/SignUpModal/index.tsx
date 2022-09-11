@@ -1,7 +1,7 @@
 import React, {FormEvent, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
-import {signUp} from '../../../../../core/store/global/global.thunks';
+import {signUpThunk} from '../../../../../core/store/auth/auth.thunks';
 import {ISignUp} from '../../../../../core/interfaces';
 import {useAppDispatch} from '../../../../../core/hooks';
 
@@ -22,7 +22,7 @@ export const SignUpModal = () => {
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		handleSubmit((data) => {
-			dispatch(signUp(data));
+			dispatch(signUpThunk(data));
 		})();
 	};
 

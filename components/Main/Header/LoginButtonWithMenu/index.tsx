@@ -1,14 +1,18 @@
 import React, {useRef, useState} from 'react';
-import {useOnClickOutside} from '../../../../core/hooks';
+import {useAppDispatch, useOnClickOutside} from '../../../../core/hooks';
 import cn from 'classnames';
 import Link from 'next/link';
 import AnimateHeight from 'react-animate-height';
+import {IUser} from '../../../../core/interfaces';
+import {LogoutThunk} from '../../../../core/store/auth/auth.thunks';
 
-export const LoginButtonWithMenu = () => {
+export const LoginButtonWithMenu = ({user}: {user: IUser}) => {
+	// redux hooks
+	const dispatch = useAppDispatch();
+
 	// react hooks
 	const [isMenuOpen, setIsMenuOpen] = useState({mainMenu: false, profilesDropdown: false});
 	const [height, setHeight] = useState<'auto' | number>(0);
-
 	const userMenuRef = useRef<HTMLDivElement>(null);
 
 	// custom hooks
@@ -23,6 +27,11 @@ export const LoginButtonWithMenu = () => {
 			setIsMenuOpen((prev) => ({...prev, [key]: !prev[key]}));
 		};
 
+	const onLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
+		e.preventDefault();
+		dispatch(LogoutThunk());
+	};
+
 	return (
 		<div
 			className={cn({
@@ -31,8 +40,8 @@ export const LoginButtonWithMenu = () => {
 			ref={userMenuRef}
 		>
 			<button className='header-loginza__user btn' onClick={toggleOpenFlag('mainMenu')}>
-				<div className='header-loginza__user-ava'>A</div>
-				<div className='header-loginza__user-name'>Arkein</div>
+				<div className='header-loginza__user-ava'>{user.name?.charAt(0)}</div>
+				<div className='header-loginza__user-name'>{user.name}</div>
 			</button>
 			<div className='header-loginza__user-sidebar user-sidebar'>
 				<nav className='user-sidebar__user-sidebar-menu user-sidebar-menu'>
@@ -85,7 +94,7 @@ export const LoginButtonWithMenu = () => {
 							</AnimateHeight>
 						</li>
 						<li className='user-sidebar-menu__item'>
-							<a href='components/Main/Header/index#' className='user-sidebar-menu__link'>
+							<a onClick={onLogout} href='#' className='user-sidebar-menu__link'>
 								<span className='icon icon-logout'></span>Выйти из аккаунта
 							</a>
 						</li>

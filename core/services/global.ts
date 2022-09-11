@@ -1,6 +1,6 @@
 import {AxiosError} from 'axios';
 import {toast} from 'react-toastify';
-import {IAutoComplete, ILogin, ISignUp} from '../interfaces';
+import {IAutoComplete} from '../interfaces';
 import api from '../api';
 
 class ToastClass {
@@ -26,18 +26,6 @@ class ToastClass {
 }
 
 export const Toast = new ToastClass();
-
-export const loginService = (params: ILogin) => {
-	return api.post('/auth/login', params).then((res) => res.data);
-};
-
-export const signUpService = (params: ISignUp) => {
-	return api.post('/auth/regis', params).then((res) => res.data);
-};
-
-export const getUserByToken = () => {
-	return api.get('/user/token').then((res) => res.data);
-};
 
 export const autoComplete = (params: IAutoComplete) => {
 	return api
