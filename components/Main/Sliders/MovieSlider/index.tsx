@@ -2,69 +2,63 @@ import React from 'react';
 import {Swiper, SwiperProps, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination} from 'swiper';
 import {useSwiperRef} from '../../../../core/hooks';
+import {MovieModel} from '../../../../core/interfaces';
+import Link from 'next/link';
 
 interface MovieSliderProps extends SwiperProps {
-	slides: {
-		img: string;
-		rating: {
-			imdb: string | number;
-			kinopoisk: string | number;
-		};
-		movieName: string;
-		video: {
-			src: string;
-			poster: string;
-		};
-	}[];
+	list: MovieModel[];
 	title: string;
 }
 
-export const MovieSlider = ({title, slides, ...props}: MovieSliderProps) => {
+export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 	// custom hooks
 	const [nextEl, nextElRef] = useSwiperRef<HTMLButtonElement>();
 	const [prevEl, prevElRef] = useSwiperRef<HTMLButtonElement>();
 	const [paginationEl, paginationElRef] = useSwiperRef<HTMLDivElement>();
 
 	const renderSlides = () => {
-		return slides.map((slide, index) => (
-			<SwiperSlide key={index}>
+		return list.map((movie) => (
+			<SwiperSlide className='transform-none' key={movie.id}>
 				<div className='movie-card'>
 					<div className='movie-card__body'>
-						<div className='movie-card__img' style={{backgroundImage: `url('${slide.img}')`}}></div>
+						<div
+							className='movie-card__img'
+							style={{backgroundImage: `url('${movie.poster?.url ?? ''}')`}}
+						></div>
 						<div className='movie-card__labels'>
 							<div className='movie-card__label bg-primary'>FullHD</div>
 							<div className='movie-card__label bg-secondary'>HD</div>
-							<div className='movie-card__label bg-danger'>NEW</div>
+							{movie.isNew && <div className='movie-card__label bg-danger'>NEW</div>}
 						</div>
 						<div className='movie-card__ratings'>
 							<div className='movie-card__rating'>
 								<span className='icon icon-imdb'></span>
-								{slide.rating.imdb}
+								{movie.imdb}
 							</div>
 							<div className='movie-card__rating'>
 								<span className='icon icon-kinopoisk'></span>
-								{slide.rating.kinopoisk}
+								{movie.rating}
 							</div>
 						</div>
 					</div>
-					<div className='movie-card__name'>{slide.movieName}</div>
-					<a href='components/Main/Sliders/MovieSlider/index#' className='movie-card__link'></a>
+					<div className='movie-card__name'>{movie.title}</div>
+					<a href='#' className='movie-card__link'></a>
 					<div className='movie-card__more-info movie-card-more-info'>
 						<div className='movie-card-more-info__video'>
 							<video
 								className='video-js'
 								controls
 								preload='false'
-								poster={slide.video.poster}
+								poster={movie.poster?.url ?? ''}
 								data-setup='{}'
 							>
-								<source src={slide.video.src} type='video/mp4' />
+								<source src={movie.file?.cd?.url ?? ''} type='video/mp4' />
 								Your browser does not support the video tag.
 							</video>
 						</div>
 						<div className='movie-card-more-info__body'>
 							<div className='movie-card-more-info__header'>
-								<div className='movie-card-more-info__title'>{slide.movieName}</div>
+								<div className='movie-card-more-info__title'>{movie.title}</div>
 								<button
 									className='movie-card-more-info__bookmark btn btn-bookmark'
 									type='button'
@@ -79,18 +73,19 @@ export const MovieSlider = ({title, slides, ...props}: MovieSliderProps) => {
 								<div className='movie-card-more-info__ratings'>
 									<div className='movie-card-more-info__rating'>
 										<span className='icon icon-imdb'></span>
-										{slide.rating.imdb}
+										{movie.imdb}
 									</div>
 									<div className='movie-card-more-info__rating'>
 										<span className='icon icon-kinopoisk'></span>
-										{slide.rating.kinopoisk}
+										{movie.rating}
 									</div>
 								</div>
 								<div className='movie-card-more-info__info'>
-									2021 <span className='text-primary'>I</span>
-									фантастика, боевик <span className='text-primary'>I</span> США{' '}
-									<span className='text-primary'>I</span> 145 минут{' '}
-									<span className='text-primary'>I</span> <span className='text-primary'>16+</span>
+									{movie.year} <span className='text-primary'>I</span>
+									{movie.categoriesTitle} <span className='text-primary'>I</span>{' '}
+									{movie.countriesTitle} <span className='text-primary'>I</span> 145 минут{' '}
+									<span className='text-primary'>I</span>{' '}
+									<span className='text-primary'>{movie.ageRemark}+</span>
 								</div>
 								<div className='movie-card-more-info__btns'>
 									<button
@@ -100,9 +95,11 @@ export const MovieSlider = ({title, slides, ...props}: MovieSliderProps) => {
 									>
 										подробнее<span className='icon icon-library_books'></span>
 									</button>
-									<button className='btn btn-primary btn-icon rounded-pill'>
-										смотреть<span className='icon icon-play_circle'></span>
-									</button>
+									<Link href={`/movies/${movie.id}`}>
+										<a className='btn btn-primary btn-icon rounded-pill'>
+											смотреть<span className='icon icon-play_circle'></span>
+										</a>
+									</Link>
 								</div>
 							</div>
 						</div>

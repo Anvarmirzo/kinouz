@@ -30,7 +30,7 @@ const sliders = [
 const Home: NextPage = () => {
 	const renderSliders = () => {
 		return sliders.map((slider, index) => {
-			return <MovieSlider key={index} title={slider.title} slides={slider.slides} />;
+			return <MovieSlider key={index} title={slider.title} list={slider.slides} />;
 		});
 	};
 

@@ -46,22 +46,19 @@ export interface IActor {
 	avatar: IFile;
 	name: string;
 	slug: string;
-	movies?: IMovie[];
+	movies?: MovieModel[];
 	createdAt: string;
 }
 
 export interface ICategory {
 	id: number;
 	title: string;
-	slug: string;
-	movies?: IMovie[];
-	createdAt: string;
 }
 
 export interface IComment {
 	id: number;
 	user: any;
-	movie?: IMovie;
+	movie?: MovieModel;
 	text: string;
 	createdAt: string;
 }
@@ -70,7 +67,7 @@ export interface ICountry {
 	id: number;
 	title: string;
 	slug: string;
-	movie?: IMovie[];
+	movie?: MovieModel[];
 	createdAt: string;
 }
 
@@ -78,15 +75,16 @@ export interface IGenre {
 	id: number;
 	title: string;
 	slug: string;
-	movie?: IMovie[];
+	movie?: MovieModel[];
 	createdAt: string;
 }
 
-export interface IMovie {
+export class MovieModel {
+	createdAt: Date;
 	id: number;
 	title: string;
 	slug: string;
-	poster: IFile;
+	poster?: IFile;
 	description?: string;
 	isNew: boolean;
 	isSerial: boolean;
@@ -104,11 +102,71 @@ export interface IMovie {
 	seasons?: ISeason[];
 	treiler?: IFile;
 	file?: IMovieFile;
+
+	constructor(movie: MovieModel) {
+		this.id = movie.id;
+		this.slug = movie.slug;
+		this.title = movie.title;
+		this.isNew = movie.isNew;
+		this.year = movie.year;
+		this.isSerial = movie.isSerial;
+		this.ageRemark = movie.ageRemark;
+		this.bySubscription = movie.bySubscription;
+		this.createdAt = new Date(movie.createdAt);
+
+		if (movie.countries) {
+			this.countries = movie.countries;
+		}
+		if (movie.poster) {
+			this.poster = movie.poster;
+		}
+		if (movie.description) {
+			this.description = movie.description;
+		}
+		if (movie.imdb) {
+			this.imdb = movie.imdb;
+		}
+		if (movie.rating) {
+			this.rating = movie.rating;
+		}
+		if (movie.genres) {
+			this.genres = movie.genres;
+		}
+		if (movie.actors) {
+			this.actors = movie.actors;
+		}
+		if (movie.comments) {
+			this.comments = movie.comments;
+		}
+		if (movie.categories) {
+			this.categories = movie.categories;
+		}
+		if (movie.treiler) {
+			this.treiler = movie.treiler;
+		}
+		if (movie.file) {
+			this.file = movie.file;
+		}
+		if (movie.seasons) {
+			this.seasons = movie.seasons;
+		}
+		if (movie.producers) {
+			this.producers = movie.producers;
+		}
+	}
+
+	get countriesTitle() {
+		return this.countries?.map((c) => c.title);
+	}
+
+	get categoriesTitle() {
+		return this.categories?.map((c) => c.title);
+	}
 }
 
 export interface IMovieFile {
 	id: number;
-	movie?: IMovie;
+	movie?: MovieModel;
 	cd?: IFile;
 	hd?: IFile;
 	fullHD?: IFile;
@@ -121,14 +179,14 @@ export interface IProducer {
 	avatar: IFile;
 	name: string;
 	slug: string;
-	movie?: IMovie[];
+	movie?: MovieModel[];
 	createdAt: string;
 }
 
 export interface ISeason {
 	id: number;
 	season: number;
-	movie?: IMovie;
+	movie?: MovieModel;
 	episodes: IEpisode[];
 	createdAt: string;
 }
