@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ICategory} from '../../interfaces/global';
+import {ICategory} from '../../models';
 
 interface IState {
 	categories: ICategory[];

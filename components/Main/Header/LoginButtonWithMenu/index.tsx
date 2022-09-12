@@ -3,10 +3,10 @@ import {useAppDispatch, useOnClickOutside} from '../../../../core/hooks';
 import cn from 'classnames';
 import Link from 'next/link';
 import AnimateHeight from 'react-animate-height';
-import {IUser} from '../../../../core/interfaces/global';
 import {LogoutThunk} from '../../../../core/store/auth/auth.thunks';
+import {UserModel} from '../../../../core/models/user';
 
-export const LoginButtonWithMenu = ({user}: {user: IUser}) => {
+export const LoginButtonWithMenu = ({user}: {user: UserModel}) => {
 	// redux hooks
 	const dispatch = useAppDispatch();
 
@@ -66,27 +66,27 @@ export const LoginButtonWithMenu = ({user}: {user: IUser}) => {
 							<AnimateHeight duration={300} height={height}>
 								<ul className='user-sidebar-menu__sub-list' style={{display: 'block'}}>
 									<li className='user-sidebar-menu__sub-item'>
-										<a href='components/Main/Header/index#' className='user-sidebar-menu__sub-link'>
+										<a href='#' className='user-sidebar-menu__sub-link'>
 											<span className='ava bg-danger'>A</span>Arkein
 										</a>
 									</li>
 									<li className='user-sidebar-menu__sub-item'>
-										<a href='components/Main/Header/index#' className='user-sidebar-menu__sub-link'>
+										<a href='#' className='user-sidebar-menu__sub-link'>
 											<span className='ava bg-success'>T</span>Trall
 										</a>
 									</li>
 									<li className='user-sidebar-menu__sub-item'>
-										<a href='components/Main/Header/index#' className='user-sidebar-menu__sub-link'>
+										<a href='#' className='user-sidebar-menu__sub-link'>
 											<span className='ava bg-warning'>G</span>Gerson
 										</a>
 									</li>
 									<li className='user-sidebar-menu__sub-item'>
-										<a href='components/Main/Header/index#' className='user-sidebar-menu__sub-link'>
+										<a href='#' className='user-sidebar-menu__sub-link'>
 											<span className='ava bg-info'>D</span>Dryoma
 										</a>
 									</li>
 									<li className='user-sidebar-menu__sub-item'>
-										<a href='components/Main/Header/index#' className='user-sidebar-menu__sub-link'>
+										<a href='#' className='user-sidebar-menu__sub-link'>
 											<span className='ava bg-secondary'>B</span>Butcher
 										</a>
 									</li>
@@ -103,12 +103,12 @@ export const LoginButtonWithMenu = ({user}: {user: IUser}) => {
 				<div className='user-sidebar__mobile-app mobile-app'>
 					<ul className='mobile-app__list'>
 						<li className='mobile-app__item'>
-							<a href='components/Main/Header/index#' className='mobile-app__link btn'>
+							<a href='#' className='mobile-app__link btn'>
 								<span className='icon icon-google-play'></span>
 							</a>
 						</li>
 						<li className='mobile-app__item'>
-							<a href='components/Main/Header/index#' className='mobile-app__link btn'>
+							<a href='#' className='mobile-app__link btn'>
 								<span className='icon icon-app-store'></span>
 							</a>
 						</li>

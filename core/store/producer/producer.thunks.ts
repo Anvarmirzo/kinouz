@@ -1,7 +1,7 @@
 import {producersAction} from './producer.slices';
 import {getAllService, getOneService} from '../../services';
-import {IProducer} from '../../interfaces/global';
 import {Toast} from '../../utils';
+import {ProducerModel} from '../../models';
 
 export const getAll =
 	(skip: number = 0, params: any = {}) =>
@@ -16,7 +16,7 @@ export const getAll =
 	};
 
 export const setproducers =
-	(count: number = 0, producers: IProducer[] = []) =>
+	(count: number = 0, producers: ProducerModel[] = []) =>
 	(dispatch: any) => {
 		return dispatch(
 			producersAction.setProducers({
@@ -37,7 +37,7 @@ export const getOne = (id: number) => (dispatch: any) => {
 };
 
 export const setProducer =
-	(producer: IProducer | null = null) =>
+	(producer: ProducerModel | null = null) =>
 	(dispatch: any) => {
 		return dispatch(
 			producersAction.setProducer({

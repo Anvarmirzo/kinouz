@@ -1,7 +1,7 @@
 import {genresAction} from './genre.slices';
 import {getAllService, getOneService} from '../../services';
-import {IGenre} from '../../interfaces/global';
 import {Toast} from '../../utils';
+import {GenreModel} from '../../models';
 
 export const getAll =
 	(skip: number = 0, params: any = {}) =>
@@ -16,7 +16,7 @@ export const getAll =
 	};
 
 export const setGenres =
-	(count: number = 0, genres: IGenre[] = []) =>
+	(count: number = 0, genres: GenreModel[] = []) =>
 	(dispatch: any) => {
 		return dispatch(
 			genresAction.setGenres({
@@ -37,7 +37,7 @@ export const getOne = (id: number) => (dispatch: any) => {
 };
 
 export const setGenre =
-	(genre: IGenre | null = null) =>
+	(genre: GenreModel | null = null) =>
 	(dispatch: any) => {
 		return dispatch(
 			genresAction.setGenre({

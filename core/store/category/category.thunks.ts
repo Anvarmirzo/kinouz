@@ -1,7 +1,7 @@
 import {categoriesAction} from './category.slices';
-import {ICategory} from '../../interfaces/global';
 import {getAllService, getOneService} from '../../services';
 import {Toast} from '../../utils';
+import {ICategory} from '../../models';
 
 export const getAll =
 	(skip: number = 0, params: any = {}) =>

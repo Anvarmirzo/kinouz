@@ -1,5 +1,4 @@
 import {MovieService} from '../../services';
-import {MovieModel} from '../../interfaces';
 import {setMovieAction, setMoviesAction} from './movie.slices';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
@@ -13,23 +12,12 @@ export const getMoviesThunk = createAsyncThunk<
 	});
 
 	if (movies) {
-		thunkAPI.dispatch(setMovies(movies.count, movies.data));
+		thunkAPI.dispatch(setMoviesAction({movies: movies.data, count: movies.count}));
 	}
 });
 
-export const setMovies =
-	(count: number = 0, movies: MovieModel[] = []) =>
-	(dispatch: any) => {
-		return dispatch(
-			setMoviesAction({
-				movies,
-				count,
-			})
-		);
-	};
-
 export const getMovieThunk = createAsyncThunk<void, number>(
-	'movie/getAll',
+	'movie/getOne',
 	async (payload, thunkAPI) => {
 		const movie = await MovieService.getById(payload);
 

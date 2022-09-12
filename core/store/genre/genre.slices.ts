@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IGenre} from '../../interfaces/global';
+import {GenreModel} from '../../models';
 
 interface IState {
-	genres: IGenre[];
-	genre: IGenre | null;
+	genres: GenreModel[];
+	genre: GenreModel | null;
 	count: number;
 }
 
@@ -17,15 +17,15 @@ export const {actions: genresAction, reducer: genresReducer} = createSlice({
 	name: 'genres',
 	initialState,
 	reducers: {
-		setMoreGenres: (state, action: PayloadAction<{genres: IGenre[]}>) => ({
+		setMoreGenres: (state, action: PayloadAction<{genres: GenreModel[]}>) => ({
 			...state,
 			...action.payload,
 		}),
-		setGenres: (state, action: PayloadAction<{genres: IGenre[]; count: number}>) => ({
+		setGenres: (state, action: PayloadAction<{genres: GenreModel[]; count: number}>) => ({
 			...state,
 			...action.payload,
 		}),
-		setGenre: (state, action: PayloadAction<{genre: IGenre | null}>) => ({
+		setGenre: (state, action: PayloadAction<{genre: GenreModel | null}>) => ({
 			...state,
 			...action.payload,
 		}),

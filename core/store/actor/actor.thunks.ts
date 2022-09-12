@@ -1,47 +1,30 @@
-import {actorsAction} from './actor.slices';
-import {ActorModel} from '../../interfaces';
-import {getAllService, getOneService} from '../../services';
-import {Toast} from '../../utils';
+import {setActorAction, setActorsAction} from './actor.slices';
+import {ActorService} from '../../services';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export const getAll =
-	(skip: number = 0, params: any = {}) =>
-	(dispatch: any) => {
-		return getAllService(skip, params, 'actor')
-			.then((res) => {
-				dispatch(setActors(res.count, res.data));
-			})
-			.catch((e) => {
-				Toast.error(e);
-			});
-	};
+export const getActorsThunk = createAsyncThunk<
+	void,
+	{skip: number; params: Record<string, string | number>}
+>('actor/getAll', async (params = {skip: 0, params: {}}, thunkAPI) => {
+	const res = await ActorService.getAll(params);
 
-export const setActors =
-	(count: number = 0, actors: ActorModel[] = []) =>
-	(dispatch: any) => {
-		return dispatch(
-			actorsAction.setActors({
-				actors,
-				count,
+	if (res) {
+		thunkAPI.dispatch(
+			setActorsAction({
+				actors: res.data,
+				count: res.count,
 			})
 		);
-	};
+	}
+});
 
-export const getOne = (id: number) => (dispatch: any) => {
-	return getOneService(id, 'actor')
-		.then((actor) => {
-			dispatch(setActor(actor));
-		})
-		.catch((e) => {
-			Toast.error(e);
-		});
-};
+export const getActorThunk = createAsyncThunk<void, number>(
+	'actor/getOne',
+	async (id, thunkAPI) => {
+		const res = await ActorService.getById(id);
 
-export const setActor =
-	(actor: ActorModel | null = null) =>
-	(dispatch: any) => {
-		return dispatch(
-			actorsAction.setActor({
-				actor,
-			})
-		);
-	};
+		if (res) {
+			thunkAPI.dispatch(setActorAction(res));
+		}
+	}
+);

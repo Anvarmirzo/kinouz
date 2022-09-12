@@ -2,7 +2,7 @@ import React from 'react';
 import {Swiper, SwiperProps, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination} from 'swiper';
 import {useSwiperRef} from '../../../../core/hooks';
-import {MovieModel} from '../../../../core/interfaces';
+import {MovieModel} from '../../../../core/models';
 import Link from 'next/link';
 
 interface MovieSliderProps extends SwiperProps {
@@ -116,10 +116,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 					<h2 className='movie-carousel__title'>
 						<a href='components/Main/Sliders/MovieSlider/index#'>{title}</a>
 					</h2>
-					<a
-						href='components/Main/Sliders/MovieSlider/index#'
-						className='movie-carousel__title-info'
-					>
+					<a href='#' className='movie-carousel__title-info'>
 						<span className='icon icon-pending'></span>
 					</a>
 				</div>

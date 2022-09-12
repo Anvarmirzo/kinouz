@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {MovieModel} from '../../interfaces';
+import {MovieModel} from '../../models';
 
 interface IState {
 	list: MovieModel[];

@@ -76,7 +76,7 @@ export const Header = () => {
 						<nav className='header__main-menu main-menu'>
 							<ul className='main-menu__list'>
 								<li className='main-menu__item'>
-									<a href='components/Main/Header/index#' className='main-menu__link'>
+									<a href='#' className='main-menu__link'>
 										TV
 									</a>
 								</li>
@@ -99,17 +99,17 @@ export const Header = () => {
 									</Link>
 								</li>
 								<li className='main-menu__item'>
-									<a href='components/Main/Header/index#' className='main-menu__link'>
+									<a href='#' className='main-menu__link'>
 										Шоу
 									</a>
 								</li>
 								<li className='main-menu__item'>
-									<a href='components/Main/Header/index#' className='main-menu__link'>
+									<a href='#' className='main-menu__link'>
 										Мультфильмы
 									</a>
 								</li>
 								<li className='main-menu__item'>
-									<a href='components/Main/Header/index#' className='main-menu__link'>
+									<a href='#' className='main-menu__link'>
 										Аниме
 									</a>
 								</li>
@@ -118,12 +118,12 @@ export const Header = () => {
 						<nav className='header__user-menu user-menu'>
 							<ul className='user-menu__list'>
 								<li className='user-menu__item'>
-									<a href='components/Main/Header/index#' className='user-menu__link'>
+									<a href='#' className='user-menu__link'>
 										Моя подборка
 									</a>
 								</li>
 								<li className='user-menu__item'>
-									<a href='components/Main/Header/index#' className='user-menu__link'>
+									<a href='#' className='user-menu__link'>
 										История просмотров
 									</a>
 								</li>

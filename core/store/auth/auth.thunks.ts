@@ -1,8 +1,8 @@
-import {ILogIn, ISignUp} from '../../interfaces/global';
 import {UserService, AuthService} from '../../services';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {logInAction, logOutAction} from './auth.slices';
 import {setUserAction} from '../user/user.slices';
+import {ILogIn, ISignUp} from '../../models/auth';
 
 export const signUpThunk = createAsyncThunk<void, ISignUp>(
 	'auth/signUp',
