@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  front:
+    container_name: kinouz_front
+    image: kinouz_front
+    build: .
+    ports:
+      - 3002:70
