@@ -1,15 +1,15 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IActor} from '../../interfaces';
+import {ActorModel} from '../../interfaces';
 
 interface IState {
-	actors: IActor[];
-	actor: IActor | null;
+	list: ActorModel[];
+	current: ActorModel | null;
 	count: number;
 }
 
 const initialState: IState = {
-	actors: [],
-	actor: null,
+	list: [],
+	current: null,
 	count: 0,
 };
 
@@ -17,15 +17,15 @@ export const {actions: actorsAction, reducer: actorsReducer} = createSlice({
 	name: 'actors',
 	initialState,
 	reducers: {
-		setMoreActors: (state, action: PayloadAction<{actors: IActor[]}>) => ({
+		setMoreActors: (state, action: PayloadAction<{actors: ActorModel[]}>) => ({
 			...state,
 			...action.payload,
 		}),
-		setActors: (state, action: PayloadAction<{actors: IActor[]; count: number}>) => ({
+		setActors: (state, action: PayloadAction<{actors: ActorModel[]; count: number}>) => ({
 			...state,
 			...action.payload,
 		}),
-		setActor: (state, action: PayloadAction<{actor: IActor | null}>) => ({
+		setActor: (state, action: PayloadAction<{actor: ActorModel | null}>) => ({
 			...state,
 			...action.payload,
 		}),

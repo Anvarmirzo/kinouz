@@ -2,7 +2,7 @@ import React, {FormEvent, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
 import {signUpThunk} from '../../../../../core/store/auth/auth.thunks';
-import {ISignUp} from '../../../../../core/interfaces';
+import {ISignUp} from '../../../../../core/interfaces/global';
 import {useAppDispatch} from '../../../../../core/hooks';
 
 export const SignUpModal = () => {

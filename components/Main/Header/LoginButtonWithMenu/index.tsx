@@ -3,7 +3,7 @@ import {useAppDispatch, useOnClickOutside} from '../../../../core/hooks';
 import cn from 'classnames';
 import Link from 'next/link';
 import AnimateHeight from 'react-animate-height';
-import {IUser} from '../../../../core/interfaces';
+import {IUser} from '../../../../core/interfaces/global';
 import {LogoutThunk} from '../../../../core/store/auth/auth.thunks';
 
 export const LoginButtonWithMenu = ({user}: {user: IUser}) => {

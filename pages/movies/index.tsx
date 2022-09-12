@@ -2,37 +2,19 @@ import type {NextPage} from 'next';
 import Head from 'next/head';
 import {Footer, Header, HeroLargeSlider} from '../../components/Main';
 import {MovieSlider} from '../../components/Main';
-import {movieSlides} from '../../fake-data';
+import {useEffect} from 'react';
+import {getMoviesThunk} from '../../core/store/movie/movie.thunks';
+import {useAppDispatch, useAppSelector} from '../../core/hooks';
 
-const sliders = [
-	{
-		title: 'Фильмы',
-		slides: movieSlides,
-	},
-	{
-		title: 'Сериалы',
-		slides: movieSlides,
-	},
-	{
-		title: 'Шоу',
-		slides: movieSlides,
-	},
-	{
-		title: 'Мультфильмы',
-		slides: movieSlides,
-	},
-	{
-		title: 'Аниме',
-		slides: movieSlides,
-	},
-];
+const Movies: NextPage = () => {
+	// redux hooks
+	const dispatch = useAppDispatch();
+	const movies = useAppSelector(({movies}) => movies);
 
-const Home: NextPage = () => {
-	const renderSliders = () => {
-		return sliders.map((slider, index) => {
-			return <MovieSlider key={index} title={slider.title} slides={slider.slides} />;
-		});
-	};
+	// react hooks
+	useEffect(() => {
+		dispatch(getMoviesThunk());
+	}, []);
 
 	return (
 		<>
@@ -43,11 +25,11 @@ const Home: NextPage = () => {
 			<Header />
 			<main className='content'>
 				<HeroLargeSlider />
-				{renderSliders()}
+				<MovieSlider title='Фильмы' list={movies.list} />
 			</main>
 			<Footer />
 		</>
 	);
 };
 
-export default Home;
+export default Movies;

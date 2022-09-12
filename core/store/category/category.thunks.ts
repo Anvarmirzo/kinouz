@@ -1,5 +1,5 @@
 import {categoriesAction} from './category.slices';
-import {ICategory} from '../../interfaces';
+import {ICategory} from '../../interfaces/global';
 import {getAllService, getOneService} from '../../services';
 import {Toast} from '../../utils';
 

@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IProducer} from '../../interfaces';
+import {IProducer} from '../../interfaces/global';
 
 interface IState {
 	producers: IProducer[];

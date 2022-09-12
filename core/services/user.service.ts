@@ -1,6 +1,6 @@
 import api from '../api';
 import {Toast} from '../utils';
-import {IUser} from '../interfaces';
+import {IUser} from '../interfaces/global';
 import {LogoutThunk} from '../store/auth/auth.thunks';
 import {store} from '../store';
 

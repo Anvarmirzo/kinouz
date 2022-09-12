@@ -2,7 +2,7 @@ import React, {FormEvent, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {SignUpModal} from '../SignUpModal';
 import {useForm} from 'react-hook-form';
-import {ILogIn} from '../../../../../core/interfaces';
+import {ILogIn} from '../../../../../core/interfaces/global';
 import {useAppDispatch} from '../../../../../core/hooks';
 import {loginThunk} from '../../../../../core/store/auth/auth.thunks';
 

@@ -29,7 +29,7 @@ export const formatNumber = (number: number = 0, currency: string, fixed: number
 	return new Intl.NumberFormat('ru-RU', {
 		style: 'currency',
 		currency: currency,
-	}).format(Number(typeof number === 'number' ? number?.toFixed(fixed) : 0));
+	}).format(Number(number?.toFixed(fixed)));
 };
 
 export function classNames(...classes: any) {
@@ -42,21 +42,17 @@ class ToastClass {
 	info(info: string) {
 		toast.info(info, this.options);
 	}
-
 	success(message: string) {
 		toast.success(message, this.options);
 	}
-
-	error(error: AxiosError) {
-		let message = error.message || error.response?.statusText || 'Server Side Error';
-
+	error(error: AxiosError<{message?: string} | undefined>) {
+		let message = error.response?.data?.message || error.message || 'Server Side Error';
 		if (Array.isArray(message)) {
 			message = message.join(', ');
 		}
 
 		toast.error(message, this.options);
 	}
-
 	warning(warning: string) {
 		toast.warn(warning, this.options);
 	}

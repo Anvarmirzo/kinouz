@@ -1,6 +1,6 @@
 import {genresAction} from './genre.slices';
 import {getAllService, getOneService} from '../../services';
-import {IGenre} from '../../interfaces';
+import {IGenre} from '../../interfaces/global';
 import {Toast} from '../../utils';
 
 export const getAll =

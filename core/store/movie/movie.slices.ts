@@ -1,33 +1,37 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IMovie} from '../../interfaces';
+import {MovieModel} from '../../interfaces';
 
 interface IState {
-	movies: IMovie[];
-	movie: IMovie | null;
+	list: MovieModel[];
+	current: MovieModel | null;
 	count: number;
 }
 
 const initialState: IState = {
-	movies: [],
-	movie: null,
+	list: [],
+	current: null,
 	count: 0,
 };
 
-export const {actions: moviesAction, reducer: moviesReducer} = createSlice({
+export const {
+	actions: {setMoviesAction, setMovieAction, setMoreMovies},
+	reducer: moviesReducer,
+} = createSlice({
 	name: 'movies',
 	initialState,
 	reducers: {
-		setMoreMovies: (state, action: PayloadAction<{movies: IMovie[]}>) => ({
+		setMoreMovies: (state, action: PayloadAction<MovieModel[]>) => ({
 			...state,
-			...action.payload,
+			list: action.payload,
 		}),
-		setMovies: (state, action: PayloadAction<{movies: IMovie[]; count: number}>) => ({
+		setMoviesAction: (state, action: PayloadAction<{movies: MovieModel[]; count: number}>) => ({
 			...state,
-			...action.payload,
+			count: action.payload.count,
+			list: action.payload.movies,
 		}),
-		setMovie: (state, action: PayloadAction<{movie: IMovie | null}>) => ({
+		setMovieAction: (state, action: PayloadAction<MovieModel | null>) => ({
 			...state,
-			...action.payload,
+			current: action.payload,
 		}),
 	},
 });

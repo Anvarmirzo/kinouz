@@ -14,3 +14,4 @@ export * from './Modals/FilterModal';
 
 export * from './Sliders/HeroLargeSlider';
 export * from './Sliders/MovieSlider';
+export * from './Player';

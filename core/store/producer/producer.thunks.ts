@@ -1,6 +1,6 @@
 import {producersAction} from './producer.slices';
 import {getAllService, getOneService} from '../../services';
-import {IProducer} from '../../interfaces';
+import {IProducer} from '../../interfaces/global';
 import {Toast} from '../../utils';
 
 export const getAll =

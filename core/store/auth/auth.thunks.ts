@@ -1,4 +1,4 @@
-import {ILogIn, ISignUp} from '../../interfaces';
+import {ILogIn, ISignUp} from '../../interfaces/global';
 import {UserService, AuthService} from '../../services';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {logInAction, logOutAction} from './auth.slices';
