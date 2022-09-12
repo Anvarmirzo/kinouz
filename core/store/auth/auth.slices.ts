@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IUser} from '../../interfaces/global';
+import {UserModel} from '../../models/user';
 
 interface IState {
 	jwt: string | null;
-	user: IUser | null;
+	user: UserModel | null;
 }
 
 const initialState: IState = {

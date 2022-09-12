@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {MovieModel} from '../../interfaces';
+import {MovieModel} from '../../models';
 
 interface IState {
 	list: MovieModel[];
@@ -14,20 +14,15 @@ const initialState: IState = {
 };
 
 export const {
-	actions: {setMoviesAction, setMovieAction, setMoreMovies},
+	actions: {setMoviesAction, setMovieAction},
 	reducer: moviesReducer,
 } = createSlice({
 	name: 'movies',
 	initialState,
 	reducers: {
-		setMoreMovies: (state, action: PayloadAction<MovieModel[]>) => ({
-			...state,
-			list: action.payload,
-		}),
 		setMoviesAction: (state, action: PayloadAction<{movies: MovieModel[]; count: number}>) => ({
 			...state,
-			count: action.payload.count,
-			list: action.payload.movies,
+			...action.payload,
 		}),
 		setMovieAction: (state, action: PayloadAction<MovieModel | null>) => ({
 			...state,

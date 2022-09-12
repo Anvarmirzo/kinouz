@@ -1,6 +1,6 @@
 import api from '../api';
 import {Toast} from '../utils';
-import {MovieModel} from '../interfaces';
+import {MovieModel} from '../models';
 
 export const MovieService = {
 	getAll(params: {skip: number; params: Record<string, number | string>}) {

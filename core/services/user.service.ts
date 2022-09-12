@@ -1,13 +1,13 @@
 import api from '../api';
 import {Toast} from '../utils';
-import {IUser} from '../interfaces/global';
 import {LogoutThunk} from '../store/auth/auth.thunks';
 import {store} from '../store';
+import {UserModel} from '../models';
 
 export const UserService = {
 	getByToken() {
 		return api
-			.get<IUser>('/user/token')
+			.get<UserModel>('/user/token')
 			.then((res) => {
 				const jwt = localStorage.getItem('jwt');
 				return {user: res.data, jwt};

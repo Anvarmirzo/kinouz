@@ -14,10 +14,16 @@ export class ActorModel {
 		this.name = actor.name;
 		this.slug = actor.slug;
 		this.createdAt = new Date(actor.createdAt);
-		this.avatar = actor.avatar ?? {id: 0, url: '/img/placeholder/user.png', name: 'Anonymous'};
+		this.avatar = actor.avatar
+			? new FileModel(actor.avatar)
+			: {
+					id: 0,
+					url: '/img/placeholder/user.png',
+					name: 'Anonymous',
+			  };
 
 		if (actor.movies) {
-			this.movies = actor.movies;
+			this.movies = actor.movies.map((m) => new MovieModel(m));
 		}
 	}
 }

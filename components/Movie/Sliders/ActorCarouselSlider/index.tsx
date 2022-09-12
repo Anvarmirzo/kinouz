@@ -2,7 +2,7 @@ import React from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation} from 'swiper';
 import {useSwiperRef} from '../../../../core/hooks';
-import {ActorModel} from '../../../../core/interfaces';
+import {ActorModel} from '../../../../core/models';
 
 interface Data {
 	title: string;
