@@ -1,5 +1,5 @@
 import api from '../api';
-import {ILogIn, ISignUp, IUser} from '../interfaces';
+import {ILogIn, ISignUp, IUser} from '../interfaces/global';
 import {Toast} from '../utils';
 
 export const AuthService = {

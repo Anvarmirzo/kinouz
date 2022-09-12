@@ -1,4 +1,4 @@
-import {IAutoComplete} from '../interfaces';
+import {IAutoComplete} from '../interfaces/global';
 import api from '../api';
 
 export const autoComplete = (params: IAutoComplete) => {

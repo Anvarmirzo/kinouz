@@ -1,6 +1,5 @@
-import {getOneService, MovieService} from '../../services';
+import {MovieService} from '../../services';
 import {MovieModel} from '../../interfaces';
-import {Toast} from '../../utils';
 import {setMovieAction, setMoviesAction} from './movie.slices';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
@@ -35,13 +34,7 @@ export const getMovieThunk = createAsyncThunk<void, number>(
 		const movie = await MovieService.getById(payload);
 
 		if (movie) {
-			thunkAPI.dispatch(setMovie(movie));
+			thunkAPI.dispatch(setMovieAction(movie));
 		}
 	}
 );
-
-export const setMovie =
-	(movie: MovieModel | null = null) =>
-	(dispatch: any) => {
-		return dispatch(setMovieAction(movie));
-	};

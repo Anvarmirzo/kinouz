@@ -1,5 +1,5 @@
 import {actorsAction} from './actor.slices';
-import {IActor} from '../../interfaces';
+import {ActorModel} from '../../interfaces';
 import {getAllService, getOneService} from '../../services';
 import {Toast} from '../../utils';
 
@@ -16,7 +16,7 @@ export const getAll =
 	};
 
 export const setActors =
-	(count: number = 0, actors: IActor[] = []) =>
+	(count: number = 0, actors: ActorModel[] = []) =>
 	(dispatch: any) => {
 		return dispatch(
 			actorsAction.setActors({
@@ -37,7 +37,7 @@ export const getOne = (id: number) => (dispatch: any) => {
 };
 
 export const setActor =
-	(actor: IActor | null = null) =>
+	(actor: ActorModel | null = null) =>
 	(dispatch: any) => {
 		return dispatch(
 			actorsAction.setActor({

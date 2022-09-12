@@ -2,29 +2,29 @@ import React from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation} from 'swiper';
 import {useSwiperRef} from '../../../../core/hooks';
+import {ActorModel} from '../../../../core/interfaces';
 
 interface Data {
 	title: string;
-	slides: {
-		name: string;
-		img: string;
-	}[];
+	actors: ActorModel[];
 }
 
-export const ActorCarouselSlider = ({title, slides}: Data) => {
+export const ActorCarouselSlider = ({title, actors}: Data) => {
 	// custom hooks
 	const [nextEl, nextElRef] = useSwiperRef<HTMLButtonElement>();
 	const [prevEl, prevElRef] = useSwiperRef<HTMLButtonElement>();
 
 	const renderSlides = () => {
-		// TODO: change key from index to id
-		return slides.map((slide, index) => (
-			<SwiperSlide key={index}>
+		return actors.map((actor) => (
+			<SwiperSlide key={actor.id}>
 				<div className='actor-carousel__item'>
 					<div className='actor-card'>
-						<div className='actor-card__img' style={{backgroundImage: `url(${slide.img})`}}></div>
+						<div
+							className='actor-card__img'
+							style={{backgroundImage: `url(${actor.avatar.url})`}}
+						></div>
 						{/* TODO: removed <br/>, check after receiving data from API*/}
-						<div className='actor-card__name'>{title}</div>
+						<div className='actor-card__name'>{actor.name}</div>
 						<a href='#' className='actor-card__link'></a>
 					</div>
 				</div>

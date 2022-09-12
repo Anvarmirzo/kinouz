@@ -52,7 +52,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 								poster={movie.poster?.url ?? ''}
 								data-setup='{}'
 							>
-								<source src={movie.file?.cd?.url ?? ''} type='video/mp4' />
+								<source src={movie.trailer?.url ?? ''} type='video/mp4' />
 								Your browser does not support the video tag.
 							</video>
 						</div>
@@ -129,6 +129,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 				slidesPerView={6}
 				spaceBetween={12}
 				watchSlidesProgress
+				centeredSlides={list.length < 6}
 				navigation={{prevEl, nextEl}}
 				pagination={{
 					el: paginationEl,

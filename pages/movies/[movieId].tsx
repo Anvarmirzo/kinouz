@@ -1,19 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
-import {CommentModal, Footer, Header} from '../../components/Main';
+import {CommentModal, Footer, Header, Player} from '../../components/Main';
 import {ActorCarouselSlider} from '../../components/Movie';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {getMovieThunk} from '../../core/store/movie/movie.thunks';
-
-const actorSlides = [
-	{name: 'Имя актера', img: '/img/dist/actor-carousel-img1.jpg'},
-	{name: 'Имя актера', img: '/img/dist/actor-carousel-img2.jpg'},
-	{name: 'Имя актера', img: '/img/dist/actor-carousel-img3.jpg'},
-	{name: 'Имя актера', img: '/img/dist/actor-carousel-img4.jpg'},
-	{name: 'Имя актера', img: '/img/dist/actor-carousel-img5.jpg'},
-	{name: 'Имя актера', img: '/img/dist/actor-carousel-img6.jpg'},
-];
 
 const Movie = () => {
 	// next hooks
@@ -26,9 +17,12 @@ const Movie = () => {
 	const movie = useAppSelector(({movies}) => movies.current);
 
 	// react hooks
+	const [isPlaying, setIsPlaying] = useState(false);
+
 	useEffect(() => {
 		if (movieId) {
 			const id = +movieId;
+
 			if (!isNaN(id)) {
 				dispatch(getMovieThunk(id));
 			}
@@ -71,7 +65,16 @@ const Movie = () => {
 											<span className='text-primary'>{movie.ageRemark}+</span>
 										</div>
 										<div className='page-movie-card__btns'>
-											<button className='btn btn-primary btn-icon rounded-pill' type='button'>
+											<Player
+												isPlaying={isPlaying}
+												thumbnail={movie.poster?.url}
+												url={movie.file?.cd?.url ?? ''}
+											/>
+											<button
+												onClick={() => setIsPlaying((prev) => !prev)}
+												className='btn btn-primary btn-icon rounded-pill'
+												type='button'
+											>
 												смотреть<span className='icon icon-play_circle'></span>
 											</button>
 											<CommentModal />
@@ -143,7 +146,7 @@ const Movie = () => {
 						''
 					)}
 				</section>
-				<ActorCarouselSlider slides={actorSlides} title='В ролях' />
+				{movie ? <ActorCarouselSlider actors={movie.actors ?? []} title='В ролях' /> : null}
 				{/*<MovieSlider list={movieSlides} title='Коллекция:' />*/}
 				{/*<MovieSlider list={movieSlides} title='Похожие:' />*/}
 			</main>

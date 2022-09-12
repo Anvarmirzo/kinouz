@@ -2,35 +2,47 @@ import type {NextPage} from 'next';
 import Head from 'next/head';
 import {Footer, Header, HeroLargeSlider} from '../components/Main';
 import {MovieSlider} from '../components/Main';
-import {movieSlides} from '../fake-data';
-
-const sliders = [
-	{
-		title: 'Фильмы',
-		slides: movieSlides,
-	},
-	{
-		title: 'Сериалы',
-		slides: movieSlides,
-	},
-	{
-		title: 'Шоу',
-		slides: movieSlides,
-	},
-	{
-		title: 'Мультфильмы',
-		slides: movieSlides,
-	},
-	{
-		title: 'Аниме',
-		slides: movieSlides,
-	},
-];
+import {useAppDispatch, useAppSelector} from '../core/hooks';
+import {useEffect} from 'react';
+import {getMoviesThunk} from '../core/store/movie/movie.thunks';
 
 const Home: NextPage = () => {
+	// redux hooks
+	const movies = useAppSelector(({movies}) => movies.list);
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(getMoviesThunk());
+	}, []);
+
+	const sliders = [
+		{
+			title: 'Фильмы',
+			slides: movies.filter((m) => !m.isSerial),
+		},
+		{
+			title: 'Сериалы',
+			slides: movies.filter((m) => m.isSerial),
+		},
+		{
+			title: 'Шоу',
+			slides: movies,
+		},
+		{
+			title: 'Мультфильмы',
+			slides: movies,
+		},
+		{
+			title: 'Аниме',
+			slides: movies,
+		},
+	];
+
 	const renderSliders = () => {
 		return sliders.map((slider, index) => {
-			return <MovieSlider key={index} title={slider.title} list={slider.slides} />;
+			return slider.slides.length ? (
+				<MovieSlider key={index} title={slider.title} list={slider.slides} />
+			) : null;
 		});
 	};
 
