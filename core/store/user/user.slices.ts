@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {UserModel} from '../../models/user';
+import {UserModel} from '../../models';
 
 interface IState {
 	user: UserModel | null;
