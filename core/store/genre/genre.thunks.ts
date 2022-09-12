@@ -1,47 +1,25 @@
-import {genresAction} from './genre.slices';
-import {getAllService, getOneService} from '../../services';
-import {Toast} from '../../utils';
-import {GenreModel} from '../../models';
+import {setGenreAction, setGenresAction} from './genre.slices';
+import {GenreService} from '../../services';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export const getAll =
-	(skip: number = 0, params: any = {}) =>
-	(dispatch: any) => {
-		return getAllService(skip, params, 'genre')
-			.then((res) => {
-				dispatch(setGenres(res.count, res.data));
-			})
-			.catch((e) => {
-				Toast.error(e);
-			});
-	};
+export const getGenresThunk = createAsyncThunk<
+	void,
+	{skip: number; params: Record<string, string | number>}
+>('genres/getAll', async (params = {skip: 0, params: {}}, thunkAPI) => {
+	const res = await GenreService.getAll(params);
 
-export const setGenres =
-	(count: number = 0, genres: GenreModel[] = []) =>
-	(dispatch: any) => {
-		return dispatch(
-			genresAction.setGenres({
-				genres,
-				count,
-			})
-		);
-	};
+	if (res) {
+		thunkAPI.dispatch(setGenresAction({count: res.count, genres: res.data}));
+	}
+});
 
-export const getOne = (id: number) => (dispatch: any) => {
-	return getOneService(id, 'genre')
-		.then((genre) => {
-			dispatch(setGenre(genre));
-		})
-		.catch((e) => {
-			Toast.error(e);
-		});
-};
+export const getGenreThunk = createAsyncThunk<void, number>(
+	'genres/getOne',
+	async (id, thunkAPI) => {
+		const res = await GenreService.getById(id);
 
-export const setGenre =
-	(genre: GenreModel | null = null) =>
-	(dispatch: any) => {
-		return dispatch(
-			genresAction.setGenre({
-				genre,
-			})
-		);
-	};
+		if (res) {
+			thunkAPI.dispatch(setGenreAction(res));
+		}
+	}
+);

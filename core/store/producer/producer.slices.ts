@@ -2,32 +2,34 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ProducerModel} from '../../models';
 
 interface IState {
-	producers: ProducerModel[];
-	producer: ProducerModel | null;
+	list: ProducerModel[];
+	current: ProducerModel | null;
 	count: number;
 }
 
 const initialState: IState = {
-	producers: [],
-	producer: null,
+	list: [],
+	current: null,
 	count: 0,
 };
 
-export const {actions: producersAction, reducer: producersReducer} = createSlice({
+export const {
+	actions: {setProducersAction, setProducerAction},
+	reducer: producersReducer,
+} = createSlice({
 	name: 'producers',
 	initialState,
 	reducers: {
-		setMoreProducers: (state, action: PayloadAction<{producers: ProducerModel[]}>) => ({
+		setProducersAction: (
+			state,
+			action: PayloadAction<{producers: ProducerModel[]; count: number}>
+		) => ({
 			...state,
 			...action.payload,
 		}),
-		setProducers: (state, action: PayloadAction<{producers: ProducerModel[]; count: number}>) => ({
+		setProducerAction: (state, action: PayloadAction<ProducerModel | null>) => ({
 			...state,
-			...action.payload,
-		}),
-		setProducer: (state, action: PayloadAction<{producer: ProducerModel | null}>) => ({
-			...state,
-			...action.payload,
+			current: action.payload,
 		}),
 	},
 });

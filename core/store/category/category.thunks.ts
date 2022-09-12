@@ -1,47 +1,25 @@
-import {categoriesAction} from './category.slices';
-import {getAllService, getOneService} from '../../services';
-import {Toast} from '../../utils';
-import {ICategory} from '../../models';
+import {createAsyncThunk} from '@reduxjs/toolkit';
+import {CategoryService} from '../../services';
+import {setCategoriesAction, setCategoryAction} from './category.slices';
 
-export const getAll =
-	(skip: number = 0, params: any = {}) =>
-	(dispatch: any) => {
-		return getAllService(skip, params, 'category')
-			.then((res) => {
-				dispatch(setCategories(res.count, res.data));
-			})
-			.catch((e) => {
-				Toast.error(e);
-			});
-	};
+export const getCategoriesThunk = createAsyncThunk<
+	void,
+	{skip: number; params: Record<string, string | number>}
+>('categories/getAll', async (params = {skip: 0, params: {}}, thunkAPI) => {
+	const res = await CategoryService.getAll(params);
 
-export const setCategories =
-	(count: number = 0, categories: ICategory[] = []) =>
-	(dispatch: any) => {
-		return dispatch(
-			categoriesAction.setCategories({
-				categories,
-				count,
-			})
-		);
-	};
+	if (res) {
+		thunkAPI.dispatch(setCategoriesAction(res));
+	}
+});
 
-export const getOne = (id: number) => (dispatch: any) => {
-	return getOneService(id, 'category')
-		.then((category) => {
-			dispatch(setCategory(category));
-		})
-		.catch((e) => {
-			Toast.error(e);
-		});
-};
+export const getCategoryThunk = createAsyncThunk<void, number>(
+	'categories/getOne',
+	async (id, thunkAPI) => {
+		const res = await CategoryService.getById(id);
 
-export const setCategory =
-	(category: ICategory | null = null) =>
-	(dispatch: any) => {
-		return dispatch(
-			categoriesAction.setCategory({
-				category,
-			})
-		);
-	};
+		if (res) {
+			thunkAPI.dispatch(setCategoryAction(res));
+		}
+	}
+);

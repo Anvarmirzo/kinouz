@@ -5,7 +5,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 export const getActorsThunk = createAsyncThunk<
 	void,
 	{skip: number; params: Record<string, string | number>}
->('actor/getAll', async (params = {skip: 0, params: {}}, thunkAPI) => {
+>('actors/getAll', async (params = {skip: 0, params: {}}, thunkAPI) => {
 	const res = await ActorService.getAll(params);
 
 	if (res) {
@@ -19,7 +19,7 @@ export const getActorsThunk = createAsyncThunk<
 });
 
 export const getActorThunk = createAsyncThunk<void, number>(
-	'actor/getOne',
+	'actors/getOne',
 	async (id, thunkAPI) => {
 		const res = await ActorService.getById(id);
 

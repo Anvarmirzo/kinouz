@@ -5,7 +5,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 export const getMoviesThunk = createAsyncThunk<
 	void,
 	{skip?: number; params?: Record<string, number | string>} | void
->('movie/getAll', async (payload, thunkAPI) => {
+>('movies/getAll', async (payload, thunkAPI) => {
 	const movies = await MovieService.getAll({
 		params: payload?.params ?? {},
 		skip: payload?.skip ?? 0,
@@ -17,7 +17,7 @@ export const getMoviesThunk = createAsyncThunk<
 });
 
 export const getMovieThunk = createAsyncThunk<void, number>(
-	'movie/getOne',
+	'movies/getOne',
 	async (payload, thunkAPI) => {
 		const movie = await MovieService.getById(payload);
 

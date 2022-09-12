@@ -1,47 +1,25 @@
-import {producersAction} from './producer.slices';
-import {getAllService, getOneService} from '../../services';
-import {Toast} from '../../utils';
-import {ProducerModel} from '../../models';
+import {createAsyncThunk} from '@reduxjs/toolkit';
+import {ProducerService} from '../../services';
+import {setProducerAction, setProducersAction} from './producer.slices';
 
-export const getAll =
-	(skip: number = 0, params: any = {}) =>
-	(dispatch: any) => {
-		return getAllService(skip, params, 'producer')
-			.then((res) => {
-				dispatch(setproducers(res.count, res.data));
-			})
-			.catch((e) => {
-				Toast.error(e);
-			});
-	};
+export const getProducersThunk = createAsyncThunk<
+	void,
+	{skip: number; params: Record<string, string | number>}
+>('producers/getAll', async (params = {skip: 0, params: {}}, thunkAPI) => {
+	const res = await ProducerService.getAll(params);
 
-export const setproducers =
-	(count: number = 0, producers: ProducerModel[] = []) =>
-	(dispatch: any) => {
-		return dispatch(
-			producersAction.setProducers({
-				producers,
-				count,
-			})
-		);
-	};
+	if (res) {
+		thunkAPI.dispatch(setProducersAction(res));
+	}
+});
 
-export const getOne = (id: number) => (dispatch: any) => {
-	return getOneService(id, 'producer')
-		.then((producer) => {
-			dispatch(setProducer(producer));
-		})
-		.catch((e) => {
-			Toast.error(e);
-		});
-};
+export const getProducerThunk = createAsyncThunk<void, number>(
+	'producers/getOne',
+	async (id, thunkAPI) => {
+		const res = await ProducerService.getById(id);
 
-export const setProducer =
-	(producer: ProducerModel | null = null) =>
-	(dispatch: any) => {
-		return dispatch(
-			producersAction.setProducer({
-				producer,
-			})
-		);
-	};
+		if (res) {
+			thunkAPI.dispatch(setProducerAction(res));
+		}
+	}
+);
