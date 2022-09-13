@@ -27,8 +27,6 @@ RUN yarn build
 FROM node:16-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV=production
-
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
@@ -39,11 +37,12 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+FROM nginx:1.20.1
+COPY --from=build-step /usr/src/app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build-step /usr/src/app/build /usr/share/nginx/html
 
 USER nextjs
 
 EXPOSE 4200:70
-
-ENV PORT 4200:70
 
 CMD ["node", "server.js"]
