@@ -50,6 +50,5 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-EXPOSE 3002
-
+EXPOSE 4200:70
 
