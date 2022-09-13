@@ -50,9 +50,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-FROM nginx:1.20.1
-COPY --from=build-step /usr/src/app/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build-step /usr/src/app/build /usr/share/nginx/html
-EXPOSE 4200:70
+EXPOSE 3002
 
 
