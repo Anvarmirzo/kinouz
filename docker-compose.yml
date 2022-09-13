@@ -4,6 +4,8 @@ services:
   front:
     container_name: kinouz_front
     image: kinouz_front
+    volumes:
+      - staticbuild:/app/out
     build: .
     ports:
       - 3002:70
