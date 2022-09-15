@@ -20,9 +20,10 @@ export const {
 	name: 'actors',
 	initialState,
 	reducers: {
-		setActorsAction: (state, action: PayloadAction<{actors: ActorModel[]; count: number}>) => ({
+		setActorsAction: (state, action: PayloadAction<{list: ActorModel[]; count: number}>) => ({
 			...state,
-			...action.payload,
+			list: action.payload.list,
+			count: action.payload.count,
 		}),
 		setActorAction: (state, action: PayloadAction<ActorModel | null>) => ({
 			...state,
