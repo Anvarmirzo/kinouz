@@ -94,7 +94,7 @@ export const Header = () => {
 										'main-menu__item_active': currentRoute === '/serial/[serialId]',
 									})}
 								>
-									<Link href='/serial/1'>
+									<Link href='/serials/1'>
 										<a className='main-menu__link'>Сериалы</a>
 									</Link>
 								</li>

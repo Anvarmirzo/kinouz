@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import {Footer, Header} from '../../components/Main';
 import {Accordion, Button, Card, Tab, Tabs} from 'react-bootstrap';
+import Image from 'next/image';
 
 const Account = () => {
 	return (
@@ -43,8 +44,9 @@ const Account = () => {
 												</button>
 											</div>
 											<div className='input-group input-group-btn input-group-left-text mb-4'>
-												<span className='input-group-text'>
-													Способы оплаты: <img src='img/dist/humo-logo.png' alt='humo' />
+												<span className='input-group-text gap-3'>
+													Способы оплаты:{' '}
+													<Image width={61} height={15} src='/img/dist/humo-logo.png' alt='humo' />
 												</span>
 												<input type='email' className='form-control' value='**** **** 1212' />
 												<button
@@ -315,9 +317,12 @@ const Account = () => {
 												aria-selected='true'
 												style={{background: 'none', border: 'none'}}
 											>
-												<img
+												<Image
+													width={127}
+													height={50}
 													src='/img/images/click.png'
 													style={{maxHeight: '50px', width: '100%'}}
+													alt=''
 												/>
 											</a>
 											<a
@@ -330,9 +335,12 @@ const Account = () => {
 												aria-selected='false'
 												style={{background: 'none', border: 'none'}}
 											>
-												<img
-													src='img/images/payme.png'
+												<Image
+													width={172}
+													height={50}
 													style={{maxHeight: '50px', width: '100%'}}
+													src='/img/images/payme.png'
+													alt=''
 												/>
 											</a>
 										</div>
@@ -414,7 +422,7 @@ const Account = () => {
 									<Card
 										style={{
 											background:
-												'url(http://155822.selcdn.ru/upload-8bfeca17cf9a3316f68775e6b5e44259/iblock/c7e/750x485.jpeg) 0 0 no-repeat;',
+												'url(http://155822.selcdn.ru/upload-8bfeca17cf9a3316f68775e6b5e44259/iblock/c7e/750x485.jpeg) 0 0 no-repeat',
 										}}
 									>
 										<Card.Header>30 дней за 17000 сум</Card.Header>
@@ -436,7 +444,7 @@ const Account = () => {
 									<Card
 										style={{
 											background:
-												'url(http://155822.selcdn.ru/upload-8bfeca17cf9a3316f68775e6b5e44259/iblock/c7e/750x485.jpeg) 0 0 no-repeat;',
+												'url(http://155822.selcdn.ru/upload-8bfeca17cf9a3316f68775e6b5e44259/iblock/c7e/750x485.jpeg) 0 0 no-repeat',
 										}}
 									>
 										<Card.Header>30 дней за 17000 сум</Card.Header>
@@ -458,7 +466,7 @@ const Account = () => {
 									<Card
 										style={{
 											background:
-												'url(https://www.apple.com/tv-pr/articles/2022/03/apple-original-films-to-premiere-exhilarating-slate-of-new-films-from-award-winning-storytellers-in-2022-and-beyond/images/big-image/big-image-01/030822_Apple_Original_Films_Premiere_New_Films_in_2022_Argylle_big_image_post.jpg.large.jpg) 0 0 no-repeat;',
+												'url(https://www.apple.com/tv-pr/articles/2022/03/apple-original-films-to-premiere-exhilarating-slate-of-new-films-from-award-winning-storytellers-in-2022-and-beyond/images/big-image/big-image-01/030822_Apple_Original_Films_Premiere_New_Films_in_2022_Argylle_big_image_post.jpg.large.jpg) 0 0 no-repeat',
 										}}
 									>
 										<Card.Header className='card-header'>30 дней за 17000 сум</Card.Header>

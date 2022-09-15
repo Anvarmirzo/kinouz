@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ICategory} from '../../models';
+import {CategoryModel} from '../../models';
 
 interface IState {
-	list: ICategory[];
-	current: ICategory | null;
+	list: CategoryModel[];
+	current: CategoryModel | null;
 	count: number;
 }
 
@@ -22,12 +22,12 @@ export const {
 	reducers: {
 		setCategoriesAction: (
 			state,
-			action: PayloadAction<{categories: ICategory[]; count: number}>
+			action: PayloadAction<{list: CategoryModel[]; count: number}>
 		) => ({
 			...state,
 			...action.payload,
 		}),
-		setCategoryAction: (state, action: PayloadAction<ICategory | null>) => ({
+		setCategoryAction: (state, action: PayloadAction<CategoryModel | null>) => ({
 			...state,
 			current: action.payload,
 		}),

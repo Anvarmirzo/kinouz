@@ -12,7 +12,7 @@ export const getMoviesThunk = createAsyncThunk<
 	});
 
 	if (movies) {
-		thunkAPI.dispatch(setMoviesAction({movies: movies.data, count: movies.count}));
+		thunkAPI.dispatch(setMoviesAction({list: movies.data, count: movies.count}));
 	}
 });
 

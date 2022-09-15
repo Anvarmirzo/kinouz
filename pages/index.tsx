@@ -4,46 +4,22 @@ import {Footer, Header, HeroLargeSlider} from '../components/Main';
 import {MovieSlider} from '../components/Main';
 import {useAppDispatch, useAppSelector} from '../core/hooks';
 import {useEffect} from 'react';
-import {getMoviesThunk} from '../core/store/movie/movie.thunks';
+import {getCategoriesMainThunk} from '../core/store/category/category.thunks';
 
 const Home: NextPage = () => {
 	// redux hooks
-	const movies = useAppSelector(({movies}) => movies.list);
+	const categories = useAppSelector(({categories}) => categories.list);
 	const dispatch = useAppDispatch();
 
+	// react hooks
 	useEffect(() => {
-		dispatch(getMoviesThunk());
+		dispatch(getCategoriesMainThunk());
 	}, []);
 
-	const sliders = [
-		{
-			title: 'Фильмы',
-			slides: movies.filter((m) => !m.isSerial),
-		},
-		{
-			title: 'Сериалы',
-			slides: movies.filter((m) => m.isSerial),
-		},
-		{
-			title: 'Шоу',
-			slides: movies,
-		},
-		{
-			title: 'Мультфильмы',
-			slides: movies,
-		},
-		{
-			title: 'Аниме',
-			slides: movies,
-		},
-	];
-
-	const renderSliders = () => {
-		return sliders.map((slider, index) => {
-			return slider.slides.length ? (
-				<MovieSlider key={index} title={slider.title} list={slider.slides} />
-			) : null;
-		});
+	const renderCategories = () => {
+		return categories.map((c) =>
+			c.movies ? <MovieSlider key={c.id} title={c.title} list={c.movies} /> : null
+		);
 	};
 
 	return (
@@ -66,7 +42,7 @@ const Home: NextPage = () => {
 			<Header />
 			<main className='content'>
 				<HeroLargeSlider />
-				{renderSliders()}
+				{renderCategories()}
 			</main>
 			<Footer />
 		</>

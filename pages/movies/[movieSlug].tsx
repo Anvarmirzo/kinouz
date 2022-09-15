@@ -9,66 +9,67 @@ import {getMovieThunk} from '../../core/store/movie/movie.thunks';
 const Movie = () => {
 	// next hooks
 	const {
-		query: {movieId},
+		query: {movieSlug},
 	} = useRouter();
 
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const movie = useAppSelector(({movies}) => movies.current);
+	const movies = useAppSelector(({movies}) => movies);
 
 	// react hooks
 	const [isPlaying, setIsPlaying] = useState(false);
 
 	useEffect(() => {
-		if (movieId) {
-			const id = +movieId;
-
-			if (!isNaN(id)) {
-				dispatch(getMovieThunk(id));
-			}
+		if (movieSlug) {
+			dispatch(getMovieThunk(+movieSlug));
 		}
-	}, [movieId]);
+	}, [movieSlug]);
 
 	return (
 		<div>
 			<Head>
-				<title>{movie?.title ?? ''} | KinoUZ</title>
+				<title>{movies.current?.title ?? ''} | KinoUZ</title>
 			</Head>
 			<Header />
 			<main className='content'>
 				<section className='page-movie-card margin-under-header'>
-					{movie ? (
+					{movies.current ? (
 						<>
 							<div
 								className='page-movie-card__img'
-								style={{backgroundImage: 'url("/img/dist/page-movie-img.jpg")'}}
+								style={{
+									backgroundImage: `url(${
+										movies.current.poster?.url ||
+										process.env.NEXT_PUBLIC_API_URL + (movies.current.file?.cd?.url || '')
+									})`,
+								}}
 							></div>
 							<div className='page-movie-card__container container-fluid'>
 								<div className='page-movie-card__text row w-100'>
 									<div className='col-12 col-lg-6 mb-5'>
-										<h1 className='page-movie-card__title'>{movie.title}</h1>
+										<h1 className='page-movie-card__title'>{movies.current.title}</h1>
 										<div className='page-movie-card__ratings'>
 											<div className='page-movie-card__rating'>
 												<span className='icon icon-imdb'></span>
-												{movie.imdb}
+												{movies.current.imdb}
 											</div>
 											<div className='page-movie-card__rating'>
 												<span className='icon icon-kinopoisk'></span>
-												{movie.rating}
+												{movies.current.rating}
 											</div>
 										</div>
 										<div className='page-movie-card__info'>
-											{movie.year} <span className='text-primary'>I</span> фантастика, боевик{' '}
-											<span className='text-primary'>I</span> {movie.countriesTitle}{' '}
+											{movies.current.year} <span className='text-primary'>I</span> фантастика,
+											боевик <span className='text-primary'>I</span> {movies.current.countriesTitle}{' '}
 											<span className='text-primary'>I</span> 145 минут{' '}
 											<span className='text-primary'>I</span>{' '}
-											<span className='text-primary'>{movie.ageRemark}+</span>
+											<span className='text-primary'>{movies.current.ageRemark}+</span>
 										</div>
 										<div className='page-movie-card__btns'>
 											<Player
 												isPlaying={isPlaying}
-												thumbnail={movie.poster?.url}
-												url={movie.file?.cd?.url ?? ''}
+												thumbnail={movies.current.poster?.url}
+												url={movies.current.file?.cd?.url ?? ''}
 											/>
 											<button
 												onClick={() => setIsPlaying((prev) => !prev)}
@@ -136,7 +137,7 @@ const Movie = () => {
 									<div className='col-12 col-lg-6 mb-5'>
 										<div className='page-movie-card__description'>
 											<div className='page-movie-card__description-title'>Описание:</div>
-											<p>{movie.description}</p>
+											<p>{movies.current.description}</p>
 										</div>
 									</div>
 								</div>
@@ -146,7 +147,9 @@ const Movie = () => {
 						''
 					)}
 				</section>
-				{movie ? <ActorCarouselSlider actors={movie.actors ?? []} title='В ролях' /> : null}
+				{movies.current ? (
+					<ActorCarouselSlider actors={movies.current.actors ?? []} title='В ролях' />
+				) : null}
 				{/*<MovieSlider list={movieSlides} title='Коллекция:' />*/}
 				{/*<MovieSlider list={movieSlides} title='Похожие:' />*/}
 			</main>

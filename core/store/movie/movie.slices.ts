@@ -20,7 +20,7 @@ export const {
 	name: 'movies',
 	initialState,
 	reducers: {
-		setMoviesAction: (state, action: PayloadAction<{movies: MovieModel[]; count: number}>) => ({
+		setMoviesAction: (state, action: PayloadAction<{list: MovieModel[]; count: number}>) => ({
 			...state,
 			...action.payload,
 		}),
