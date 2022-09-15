@@ -9,7 +9,7 @@ export const getCategoriesThunk = createAsyncThunk<
 	const res = await CategoryService.getAll(params);
 
 	if (res) {
-		thunkAPI.dispatch(setCategoriesAction(res));
+		thunkAPI.dispatch(setCategoriesAction({list: res.data, count: res.count}));
 	}
 });
 export const getCategoriesMainThunk = createAsyncThunk<void, {skip: number} | undefined>(
