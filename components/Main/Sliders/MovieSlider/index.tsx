@@ -81,10 +81,18 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 									</div>
 								</div>
 								<div className='movie-card-more-info__info'>
-									{movie.year} <span className='text-primary'>I</span>
-									{movie.categoriesTitle} <span className='text-primary'>I</span>{' '}
-									{movie.countriesTitle} <span className='text-primary'>I</span> 145 минут{' '}
-									<span className='text-primary'>I</span>{' '}
+									{movie.year} <span className='text-primary'>I </span>
+									{movie.categoriesTitle && (
+										<>
+											{movie.categoriesTitle} <span className='text-primary'>I </span>
+										</>
+									)}
+									{movie.countriesTitle && (
+										<>
+											{movie.countriesTitle} <span className='text-primary'>I</span> 145 минут{' '}
+											<span className='text-primary'>I </span>
+										</>
+									)}
 									<span className='text-primary'>{movie.ageRemark}+</span>
 								</div>
 								<div className='movie-card-more-info__btns'>
