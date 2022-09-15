@@ -12,7 +12,7 @@ export const CategoryService = {
 
 	getMain(params?: {skip?: number}) {
 		return api
-			.get<{data: CategoryModel; count: number}>('category/main', {params})
+			.get<{data: CategoryModel[]; count: number}>('category/main', {params})
 			.then((res) => res.data)
 			.catch(Toast.error);
 	},

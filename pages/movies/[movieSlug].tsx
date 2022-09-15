@@ -21,11 +21,7 @@ const Movie = () => {
 
 	useEffect(() => {
 		if (movieSlug) {
-			const movie = movies.list.find((m) => m.slug === movieSlug);
-
-			if (movie) {
-				dispatch(getMovieThunk(movie.id));
-			}
+			dispatch(getMovieThunk(+movieSlug));
 		}
 	}, [movieSlug]);
 
