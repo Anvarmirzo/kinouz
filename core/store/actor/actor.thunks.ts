@@ -11,7 +11,7 @@ export const getActorsThunk = createAsyncThunk<
 	if (res) {
 		thunkAPI.dispatch(
 			setActorsAction({
-				actors: res.data,
+				list: res.data,
 				count: res.count,
 			})
 		);

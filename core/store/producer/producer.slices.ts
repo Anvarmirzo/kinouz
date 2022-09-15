@@ -20,12 +20,10 @@ export const {
 	name: 'producers',
 	initialState,
 	reducers: {
-		setProducersAction: (
-			state,
-			action: PayloadAction<{producers: ProducerModel[]; count: number}>
-		) => ({
+		setProducersAction: (state, action: PayloadAction<{list: ProducerModel[]; count: number}>) => ({
 			...state,
-			...action.payload,
+			list: action.payload.list,
+			count: action.payload.count,
 		}),
 		setProducerAction: (state, action: PayloadAction<ProducerModel | null>) => ({
 			...state,

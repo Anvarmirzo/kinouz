@@ -5,22 +5,28 @@ import {CategoryModel} from '../models';
 export const CategoryService = {
 	getAll(params: {skip: number; params: Record<string, number | string>}) {
 		return api
-			.get('category', {params})
-			.then((res) => res.data)
+			.get<{data: CategoryModel[]; count: number}>('category', {params})
+			.then((res) => ({
+				data: res.data.data.map((c) => new CategoryModel(c)),
+				count: res.data.count,
+			}))
 			.catch(Toast.error);
 	},
 
 	getMain(params?: {skip?: number}) {
 		return api
 			.get<{data: CategoryModel[]; count: number}>('category/main', {params})
-			.then((res) => res.data)
+			.then((res) => ({
+				data: res.data.data.map((c) => new CategoryModel(c)),
+				count: res.data.count,
+			}))
 			.catch(Toast.error);
 	},
 
 	getById(id: number) {
 		return api
-			.get(`/category/${id}`)
-			.then((res) => res.data)
+			.get<CategoryModel>(`/category/${id}`)
+			.then((res) => new CategoryModel(res.data))
 			.catch(Toast.error);
 	},
 };

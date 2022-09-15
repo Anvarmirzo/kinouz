@@ -9,7 +9,7 @@ export const getProducersThunk = createAsyncThunk<
 	const res = await ProducerService.getAll(params);
 
 	if (res) {
-		thunkAPI.dispatch(setProducersAction(res));
+		thunkAPI.dispatch(setProducersAction({list: res.data, count: res.count}));
 	}
 });
 

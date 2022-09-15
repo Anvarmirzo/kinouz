@@ -59,15 +59,22 @@ const Movie = () => {
 											</div>
 										</div>
 										<div className='page-movie-card__info'>
-											{movies.current.year} <span className='text-primary'>I</span> фантастика,
-											боевик <span className='text-primary'>I</span> {movies.current.countriesTitle}{' '}
-											<span className='text-primary'>I</span> 145 минут{' '}
-											<span className='text-primary'>I</span>{' '}
+											{movies.current.year} <span className='text-primary'>I </span>
+											{movies.current.categoriesTitle && (
+												<>
+													{movies.current.categoriesTitle} <span className='text-primary'>I </span>
+												</>
+											)}
+											{movies.current.countriesTitle && (
+												<>
+													{movies.current.countriesTitle} <span className='text-primary'>I</span>{' '}
+													145 минут <span className='text-primary'>I </span>
+												</>
+											)}
 											<span className='text-primary'>{movies.current.ageRemark}+</span>
 										</div>
 										<div className='page-movie-card__btns'>
 											<Player
-												isPlaying={isPlaying}
 												thumbnail={movies.current.poster?.url}
 												url={movies.current.file?.cd?.url ?? ''}
 											/>

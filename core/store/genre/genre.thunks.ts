@@ -9,7 +9,7 @@ export const getGenresThunk = createAsyncThunk<
 	const res = await GenreService.getAll(params);
 
 	if (res) {
-		thunkAPI.dispatch(setGenresAction({count: res.count, genres: res.data}));
+		thunkAPI.dispatch(setGenresAction({count: res.count, list: res.data}));
 	}
 });
 

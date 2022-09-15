@@ -32,6 +32,10 @@ export class MovieFileModel {
 		this.id = file.id;
 		this.createdAt = new Date(file.createdAt);
 
+		if (file.cd) {
+			this.cd = new FileModel(file.cd);
+		}
+
 		if (file.movie) {
 			this.movie = new MovieModel(file.movie);
 		}
@@ -213,7 +217,7 @@ export class MovieModel {
 			this.trailer = new FileModel(movie.treiler);
 		}
 		if (movie.file) {
-			this.file = movie.file;
+			this.file = new MovieFileModel(movie.file);
 		}
 		if (movie.seasons) {
 			this.seasons = movie.seasons;

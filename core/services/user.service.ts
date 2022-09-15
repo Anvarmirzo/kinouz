@@ -10,7 +10,7 @@ export const UserService = {
 			.get<UserModel>('/user/token')
 			.then((res) => {
 				const jwt = localStorage.getItem('jwt');
-				return {user: res.data, jwt};
+				return {user: new UserModel(res.data), jwt};
 			})
 			.catch((e) => {
 				if (e.response?.status === 404) {

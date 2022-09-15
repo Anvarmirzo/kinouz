@@ -4,6 +4,7 @@ import {Navigation, Pagination} from 'swiper';
 import {useSwiperRef} from '../../../../core/hooks';
 import {MovieModel} from '../../../../core/models';
 import Link from 'next/link';
+import {Player} from '../../Player';
 
 interface MovieSliderProps extends SwiperProps {
 	list: MovieModel[];
@@ -45,16 +46,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 					<a href='#' className='movie-card__link'></a>
 					<div className='movie-card__more-info movie-card-more-info'>
 						<div className='movie-card-more-info__video'>
-							<video
-								className='video-js'
-								controls
-								preload='false'
-								poster={movie.poster?.url ?? ''}
-								data-setup='{}'
-							>
-								<source src={movie.trailer?.url ?? ''} type='video/mp4' />
-								Your browser does not support the video tag.
-							</video>
+							<Player url={movie.trailer?.url ?? ''} thumbnail={movie.poster?.url ?? ''} />
 						</div>
 						<div className='movie-card-more-info__body'>
 							<div className='movie-card-more-info__header'>

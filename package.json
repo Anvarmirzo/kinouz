@@ -25,7 +25,8 @@
     "react-redux": "^8.0.2",
     "react-select": "^5.4.0",
     "react-toastify": "^9.0.8",
-    "swiper": "^8.3.2"
+    "swiper": "^8.3.2",
+    "video-player-for-react": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "18.7.6",
