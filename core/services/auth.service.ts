@@ -8,7 +8,7 @@ export const AuthService = {
 			.post<{user: UserModel; jwt: string}>('/auth/login', params)
 			.then((res) => {
 				localStorage.setItem('jwt', res.data.jwt || '');
-				return res.data;
+				return {user: new UserModel(res.data.user), jwt: res.data.jwt};
 			})
 			.catch(Toast.error);
 	},
@@ -17,7 +17,7 @@ export const AuthService = {
 			.post<{user: UserModel; jwt: string}>('/auth/regis', params)
 			.then((res) => {
 				localStorage.setItem('jwt', res.data.jwt || '');
-				return res.data;
+				return {user: new UserModel(res.data.user), jwt: res.data.jwt};
 			})
 			.catch(Toast.error);
 	},

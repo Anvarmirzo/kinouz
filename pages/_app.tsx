@@ -6,6 +6,7 @@ import {useAppDispatch} from '../core/hooks';
 import {autoLoginThunk} from '../core/store/auth/auth.thunks';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'video-player-for-react/dist/index.css';
 
 function MyApp({Component, pageProps}: AppProps) {
 	// redux hooks
