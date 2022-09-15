@@ -95,7 +95,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 									>
 										подробнее<span className='icon icon-library_books'></span>
 									</button>
-									<Link href={`/movies/${movie.id}`}>
+									<Link href={`/movies/${movie.slug}`}>
 										<a className='btn btn-primary btn-icon rounded-pill'>
 											смотреть<span className='icon icon-play_circle'></span>
 										</a>

@@ -12,6 +12,16 @@ export const getCategoriesThunk = createAsyncThunk<
 		thunkAPI.dispatch(setCategoriesAction(res));
 	}
 });
+export const getCategoriesMainThunk = createAsyncThunk<void, {skip: number} | undefined>(
+	'categories/getAll',
+	async (params = {skip: 0}, thunkAPI) => {
+		const res = await CategoryService.getMain(params);
+
+		if (res) {
+			thunkAPI.dispatch(setCategoriesAction({list: res.data, count: res.count}));
+		}
+	}
+);
 
 export const getCategoryThunk = createAsyncThunk<void, number>(
 	'categories/getOne',

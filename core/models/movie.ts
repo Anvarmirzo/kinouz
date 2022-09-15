@@ -2,9 +2,21 @@ import {FileModel} from './global';
 import {ActorModel} from './actor';
 import {CommentModel} from './comment';
 
-export interface ICategory {
+export class CategoryModel {
 	id: number;
 	title: string;
+	slug: string;
+	movies?: MovieModel[];
+
+	constructor(category: CategoryModel) {
+		this.id = category.id;
+		this.title = category.title;
+		this.slug = category.slug;
+
+		if (category.movies) {
+			this.movies = category.movies.map((m) => new MovieModel(m));
+		}
+	}
 }
 
 export class MovieFileModel {
@@ -152,7 +164,7 @@ export class MovieModel {
 	actors?: ActorModel[];
 	acters?: ActorModel[];
 	comments?: CommentModel[];
-	categories?: ICategory[];
+	categories?: CategoryModel[];
 	producers?: ProducerModel[];
 	seasons?: SeasonModel[];
 	treiler?: FileModel;

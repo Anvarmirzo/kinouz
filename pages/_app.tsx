@@ -4,6 +4,8 @@ import {wrapper} from '../core/store';
 import {useEffect} from 'react';
 import {useAppDispatch} from '../core/hooks';
 import {autoLoginThunk} from '../core/store/auth/auth.thunks';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({Component, pageProps}: AppProps) {
 	// redux hooks
@@ -16,6 +18,7 @@ function MyApp({Component, pageProps}: AppProps) {
 
 	return (
 		<div className='app'>
+			<ToastContainer />
 			<Component {...pageProps} />
 		</div>
 	);

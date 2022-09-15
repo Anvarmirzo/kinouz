@@ -1,30 +1,6 @@
 import {AxiosError} from 'axios';
 import {toast} from 'react-toastify';
 
-export * as Enums from './enums';
-
-export function meiliRange(item: any, query: string) {
-	if (item.name) {
-		item.meili = `<div>${item.name.replace(query, `<mark>${query}</mark>`)}${
-			item?.meta ? `<p class="text-gray-500 text-sm">${item?.meta}</p>` : ''
-		}<div>`;
-	}
-
-	if (item.displayName) {
-		item.meili = `<div>${item.displayName.replace(query, `<mark>${query}</mark>`)}${
-			item?.meta ? `<p class="text-gray-500 text-sm">${item?.meta}</p>` : ''
-		}<div>`;
-	}
-
-	if (item.title) {
-		item.meili = `<div>${item.title.replace(query, `<mark>${query}</mark>`)}${
-			item?.meta ? `<p class="text-gray-500 text-sm">${item?.meta}</p>` : ''
-		}<div>`;
-	}
-
-	return item;
-}
-
 export const formatNumber = (number: number = 0, currency: string, fixed: number = 2) => {
 	return new Intl.NumberFormat('ru-RU', {
 		style: 'currency',
@@ -32,33 +8,29 @@ export const formatNumber = (number: number = 0, currency: string, fixed: number
 	}).format(Number(number?.toFixed(fixed)));
 };
 
-export function classNames(...classes: any) {
-	return classes.filter(Boolean).join(' ');
-}
+export class Toast {
+	static options = {delay: 1};
 
-class ToastClass {
-	options = undefined;
-
-	info(info: string) {
+	static info = (info: string) => {
 		toast.info(info, this.options);
-	}
-	success(message: string) {
+	};
+
+	static success = (message: string) => {
 		toast.success(message, this.options);
-	}
-	error(error: AxiosError<{message?: string} | undefined>) {
+	};
+
+	static error = (error: AxiosError<{message?: string} | undefined>) => {
 		let message = error.response?.data?.message || error.message || 'Server Side Error';
 		if (Array.isArray(message)) {
 			message = message.join(', ');
 		}
-
 		toast.error(message, this.options);
-	}
-	warning(warning: string) {
-		toast.warn(warning, this.options);
-	}
-}
+	};
 
-export const Toast = new ToastClass();
+	static warning = (warning: string) => {
+		toast.warn(warning, this.options);
+	};
+}
 
 export const formatData = (formdata: any) => {
 	const postData = new FormData();
@@ -107,25 +79,3 @@ export const imageUpload =
 		};
 		reader.readAsDataURL(file);
 	};
-
-export const pageSwitch = (path: string[]) => {
-	const page = path[0];
-
-	switch (page) {
-		case 'genres':
-			return 'Жанры';
-		case 'actors':
-			return 'Актеры';
-		case 'categories':
-			return 'Категории';
-		case 'producers':
-			return 'Продюсеры';
-		case 'users':
-			return 'Пользователи';
-		case 'movie':
-			return 'Фильмы';
-
-		default:
-			return '';
-	}
-};
