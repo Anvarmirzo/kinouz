@@ -2,7 +2,7 @@ import api from '../api';
 import {Toast} from '../utils';
 import {LogoutThunk} from '../store/auth/auth.thunks';
 import {store} from '../store';
-import {UserModel} from '../models';
+import {ICreateUser, UserModel} from '../models';
 
 export const UserService = {
 	getByToken() {
@@ -18,5 +18,11 @@ export const UserService = {
 				}
 				Toast.error(e);
 			});
+	},
+	createSubUser(params: ICreateUser) {
+		return api
+			.post<UserModel>('/user', params)
+			.then((res) => new UserModel(res.data))
+			.catch(Toast.error);
 	},
 };

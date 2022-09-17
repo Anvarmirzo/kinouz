@@ -220,6 +220,13 @@ body
   &::placeholder
     color: $c13
 
+  &:-webkit-autofill,
+  &:-webkit-autofill:focus
+    transition: background-color 600000s 0s, color 600000s 0s
+
+  &[data-autocompleted]
+    background-color: transparent !important
+
 .input-group-text
   background-color: $c8
   border: 0

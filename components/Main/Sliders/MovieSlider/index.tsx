@@ -126,7 +126,6 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 				slidesPerView={6}
 				spaceBetween={12}
 				watchSlidesProgress
-				centeredSlides={list.length < 6}
 				navigation={{prevEl, nextEl}}
 				pagination={{
 					el: paginationEl,

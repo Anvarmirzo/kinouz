@@ -7,6 +7,14 @@ export interface IContact {
 	email: string;
 }
 
+export interface ICreateUser {
+	name: string;
+	email: string;
+	userId: number;
+	ageRemark?: number;
+	password: string;
+}
+
 export class UserModel {
 	id: number;
 	name: string;

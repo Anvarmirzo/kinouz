@@ -2,23 +2,30 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {UserModel} from '../../models';
 
 interface IState {
+	subUsers: UserModel['subUsers'][];
 	user: UserModel | null;
 }
 
 const initialState: IState = {
+	subUsers: [],
 	user: null,
 };
 
 export const {
-	actions: {setUserAction},
+	actions: {setUserAction, setSubUserAction},
 	reducer: usersReducer,
 } = createSlice({
-	name: 'users',
+	name: 'user',
 	initialState,
 	reducers: {
 		setUserAction: (state, action: PayloadAction<UserModel | null>) => ({
 			...state,
-			...action.payload,
+			user: action.payload,
+		}),
+
+		setSubUserAction: (state, action: PayloadAction<UserModel>) => ({
+			...state,
+			subUsers: [...state.subUsers.concat([action.payload])],
 		}),
 	},
 });
