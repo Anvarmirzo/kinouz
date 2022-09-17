@@ -15,12 +15,13 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 		handleSubmit,
 		setValue,
 		formState: {errors},
-	} = useForm<{email: string; password: string; age?: number}>();
+	} = useForm<{email: string; password: string; ageRemark?: number}>();
 
 	// react hooks
 	useEffect(() => {
 		if (user) {
 			setValue('email', user.contact.email);
+			setValue('ageRemark', user.ageRemark);
 		}
 	}, [user]);
 
@@ -60,10 +61,10 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 							type='text'
 							className='form-control form-control-ico form-control-restrictions'
 							placeholder='Возрастные ограничения'
-							{...register('age', {
+							{...register('ageRemark', {
 								valueAsNumber: true,
 								pattern: /^\d+$/,
-								onChange: (e) => setValue('age', +e.target.value.replace(/\D+/g, '')),
+								onChange: (e) => setValue('ageRemark', +e.target.value.replace(/\D+/g, '')),
 							})}
 						/>
 						<input

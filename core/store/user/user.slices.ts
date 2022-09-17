@@ -2,12 +2,10 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {UserModel} from '../../models';
 
 interface IState {
-	subUsers: UserModel['subUsers'][];
 	user: UserModel | null;
 }
 
 const initialState: IState = {
-	subUsers: [],
 	user: null,
 };
 
@@ -23,9 +21,20 @@ export const {
 			user: action.payload,
 		}),
 
-		setSubUserAction: (state, action: PayloadAction<UserModel>) => ({
-			...state,
-			subUsers: [...state.subUsers.concat([action.payload])],
-		}),
+		setSubUserAction: (state, action: PayloadAction<UserModel>) => {
+			if (state.user) {
+				return {
+					...state,
+					user: {
+						...state.user,
+						subUsers: state.user?.subUsers
+							? [...state.user.subUsers.concat([action.payload])]
+							: [action.payload],
+					},
+				};
+			}
+
+			return state;
+		},
 	},
 });

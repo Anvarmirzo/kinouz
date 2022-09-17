@@ -32,6 +32,15 @@ const Account = () => {
 		));
 	};
 
+	const showNewUserForm = () => {
+		console.log(user?.subUsers);
+		if (user) {
+			if (user.subUsers) {
+				return user.subUsers.length < 5 ? <NewSubUser userId={user.id} /> : null;
+			}
+		}
+	};
+
 	if (!user) return <></>;
 
 	return (
@@ -108,9 +117,7 @@ const Account = () => {
 										<div className='profiles'>
 											<Accordion defaultActiveKey='0'>{renderSubUsers()}</Accordion>
 										</div>
-										{user.subUsers && user.subUsers.length < 5 ? (
-											<NewSubUser userId={user.id} />
-										) : null}
+										{showNewUserForm()}
 									</div>
 								</div>
 							</Tab>
