@@ -10,15 +10,31 @@ const initialState: IState = {
 };
 
 export const {
-	actions: {setUserAction},
+	actions: {setUserAction, setSubUserAction},
 	reducer: usersReducer,
 } = createSlice({
-	name: 'users',
+	name: 'user',
 	initialState,
 	reducers: {
 		setUserAction: (state, action: PayloadAction<UserModel | null>) => ({
 			...state,
-			...action.payload,
+			user: action.payload,
 		}),
+
+		setSubUserAction: (state, action: PayloadAction<UserModel>) => {
+			if (state.user) {
+				return {
+					...state,
+					user: {
+						...state.user,
+						subUsers: state.user?.subUsers
+							? [...state.user.subUsers.concat([action.payload])]
+							: [action.payload],
+					},
+				};
+			}
+
+			return state;
+		},
 	},
 });
