@@ -15,7 +15,7 @@ export const ProducerService = {
 
 	getById(id: number) {
 		return api
-			.get<ProducerModel>(`/producer/${id}`)
+			.get<ProducerModel>(`producer/${id}`)
 			.then((res) => new ProducerModel(res.data))
 			.catch(Toast.error);
 	},

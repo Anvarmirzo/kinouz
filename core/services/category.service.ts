@@ -25,7 +25,7 @@ export const CategoryService = {
 
 	getById(id: number) {
 		return api
-			.get<CategoryModel>(`/category/${id}`)
+			.get<CategoryModel>(`category/${id}`)
 			.then((res) => new CategoryModel(res.data))
 			.catch(Toast.error);
 	},

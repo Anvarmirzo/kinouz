@@ -15,6 +15,10 @@ export interface ICreateUser {
 	password: string;
 }
 
+export interface IPatchUser extends Omit<Partial<ICreateUser>, 'userId'> {
+	userId: number;
+}
+
 export class UserModel {
 	id: number;
 	name: string;

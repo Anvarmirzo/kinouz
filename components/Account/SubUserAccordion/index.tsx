@@ -2,20 +2,31 @@ import React, {useEffect} from 'react';
 import {Accordion} from 'react-bootstrap';
 import {UserModel} from '../../../core/models';
 import {useForm} from 'react-hook-form';
+import {useAppDispatch, useAppSelector} from '../../../core/hooks';
+import {deleteSubUserThunk, patchSubUserThunk} from '../../../core/store/user/user.thunks';
 
 interface SubUserAccordionProps {
 	user: UserModel;
 	eventKey: string;
 }
 
+interface IFormFields {
+	email: string;
+	password: string;
+	ageRemark?: number;
+}
+
 export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) => {
+	// redux hooks
+	const dispatch = useAppDispatch();
+
 	// react hook form
 	const {
 		register,
 		handleSubmit,
 		setValue,
 		formState: {errors},
-	} = useForm<{email: string; password: string; ageRemark?: number}>();
+	} = useForm<IFormFields>();
 
 	// react hooks
 	useEffect(() => {
@@ -24,6 +35,14 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 			setValue('ageRemark', user.ageRemark);
 		}
 	}, [user]);
+
+	const onSubmit = (data: IFormFields) => {
+		dispatch(patchSubUserThunk({...data, userId: user.id}));
+	};
+
+	const deleteUser = async () => {
+		dispatch(deleteSubUserThunk(user.id));
+	};
 
 	return (
 		<Accordion.Item className='profiles__item' eventKey={eventKey}>
@@ -44,14 +63,14 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 				</h2>
 			</Accordion.Header>
 			<Accordion.Body className='profiles__collapse'>
-				<div className='profiles__body'>
+				<form onSubmit={handleSubmit(onSubmit)} className='profiles__body'>
 					<div className='input-group input-group-btn mb-2'>
 						<input
 							type='email'
 							className='form-control form-control-ico form-control-email'
 							{...register('email', {required: true})}
 						/>
-						<button className='btn btn-edit btn-icon' type='button'>
+						<button className='btn btn-edit btn-icon'>
 							изменить
 							<span className='icon icon-edit'></span>
 						</button>
@@ -99,12 +118,16 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 					</div>
 
 					<div className='input-group input-group-radio'>
-						<button type='submit' className='btn btn-secondary rounded-pill btn-icon-left'>
+						<button
+							onClick={deleteUser}
+							type='button'
+							className='btn btn-secondary rounded-pill btn-icon-left'
+						>
 							<span className='icon icon-delete'></span>
 							Удалить профиль
 						</button>
 					</div>
-				</div>
+				</form>
 			</Accordion.Body>
 		</Accordion.Item>
 	);

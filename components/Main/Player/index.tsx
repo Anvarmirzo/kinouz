@@ -8,7 +8,6 @@ interface PlayerProps {
 }
 
 export const Player = ({url, thumbnail}: PlayerProps) => {
-	console.log(url);
 	return (
 		<div className='player-wrapper'>
 			<ReactVideoPlayer width='928px' url={url} type='video/mp4' poster={thumbnail} />

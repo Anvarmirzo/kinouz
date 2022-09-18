@@ -5,7 +5,7 @@ import {UserModel, ILogIn, ISignUp} from '../models';
 export const AuthService = {
 	login(params: ILogIn) {
 		return api
-			.post<{user: UserModel; jwt: string}>('/auth/login', params)
+			.post<{user: UserModel; jwt: string}>('auth/login', params)
 			.then((res) => {
 				localStorage.setItem('jwt', res.data.jwt || '');
 				return {user: new UserModel(res.data.user), jwt: res.data.jwt};
@@ -14,7 +14,7 @@ export const AuthService = {
 	},
 	signUp(params: ISignUp) {
 		return api
-			.post<{user: UserModel; jwt: string}>('/auth/regis', params)
+			.post<{user: UserModel; jwt: string}>('auth/regis', params)
 			.then((res) => {
 				localStorage.setItem('jwt', res.data.jwt || '');
 				return {user: new UserModel(res.data.user), jwt: res.data.jwt};

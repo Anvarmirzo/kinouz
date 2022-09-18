@@ -12,7 +12,7 @@ export const GenreService = {
 
 	getById(id: number) {
 		return api
-			.get<GenreModel>(`/genre/${id}`)
+			.get<GenreModel>(`genre/${id}`)
 			.then((res) => new GenreModel(res.data))
 			.catch(Toast.error);
 	},

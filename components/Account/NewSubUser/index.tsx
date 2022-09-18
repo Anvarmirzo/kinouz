@@ -20,6 +20,7 @@ export const NewSubUser = ({userId}: NewSubUserProps) => {
 		register,
 		handleSubmit,
 		setValue,
+		reset,
 		formState: {errors},
 	} = useForm<Omit<ICreateUser, 'userId'>>();
 
@@ -27,9 +28,13 @@ export const NewSubUser = ({userId}: NewSubUserProps) => {
 		setIsFormVisible(show);
 	};
 
-	const onSubmit = (data: Omit<ICreateUser, 'userId'>) => {
-		console.log(data);
-		dispatch(createSubUserThunk({...data, userId}));
+	const onSubmit = async (data: Omit<ICreateUser, 'userId'>) => {
+		const isCreated = await dispatch(createSubUserThunk({...data, userId}));
+
+		if (isCreated) {
+			reset();
+			setIsFormVisible(false);
+		}
 	};
 
 	return (
@@ -38,12 +43,13 @@ export const NewSubUser = ({userId}: NewSubUserProps) => {
 				<span className='ico-plus'></span>Добавить профиль
 			</button>
 			{isFormVisible && (
-				<form onSubmit={handleSubmit(onSubmit)} className='content-blue-body'>
+				<form onSubmit={handleSubmit(onSubmit)} className='content-blue-body' autoComplete='off'>
 					<div className='mb-2'>
 						<input
 							type='text'
 							className='form-control form-control-ico form-control-user'
 							placeholder='Имя'
+							autoComplete='off'
 							{...register('name', {required: true})}
 						/>
 					</div>
@@ -52,6 +58,7 @@ export const NewSubUser = ({userId}: NewSubUserProps) => {
 							type='email'
 							className='form-control form-control-ico form-control-email'
 							placeholder='E-mail'
+							autoComplete='new-password'
 							{...register('email', {required: true})}
 						/>
 					</div>
@@ -60,6 +67,7 @@ export const NewSubUser = ({userId}: NewSubUserProps) => {
 							type='password'
 							className='form-control form-control-ico form-control-password'
 							placeholder='*******'
+							autoComplete='new-password'
 							{...register('password', {required: true})}
 						/>
 					</div>
@@ -68,9 +76,12 @@ export const NewSubUser = ({userId}: NewSubUserProps) => {
 							type='text'
 							className='form-control form-control-ico form-control-restrictions'
 							placeholder='Возрастные ограничения'
+							autoComplete='off'
 							{...register('ageRemark', {
 								valueAsNumber: true,
 								pattern: /^\d+$/,
+								min: 0,
+								maxLength: 3,
 								onChange: (e) => setValue('ageRemark', +e.target.value.replace(/\D+/g, '')),
 							})}
 						/>

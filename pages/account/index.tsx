@@ -33,11 +33,8 @@ const Account = () => {
 	};
 
 	const showNewUserForm = () => {
-		console.log(user?.subUsers);
-		if (user) {
-			if (user.subUsers) {
-				return user.subUsers.length < 5 ? <NewSubUser userId={user.id} /> : null;
-			}
+		if (user?.subUsers) {
+			return user.subUsers.length < 5 ? <NewSubUser userId={user.id} /> : null;
 		}
 	};
 
