@@ -116,18 +116,20 @@ export const Header = () => {
 							</ul>
 						</nav>
 						<nav className='header__user-menu user-menu'>
-							<ul className='user-menu__list'>
-								<li className='user-menu__item'>
-									<a href='#' className='user-menu__link'>
-										Моя подборка
-									</a>
-								</li>
-								<li className='user-menu__item'>
-									<a href='#' className='user-menu__link'>
-										История просмотров
-									</a>
-								</li>
-							</ul>
+							{user && (
+								<ul className='user-menu__list'>
+									<li className='user-menu__item'>
+										<a href='#' className='user-menu__link'>
+											Моя подборка
+										</a>
+									</li>
+									<li className='user-menu__item'>
+										<a href='#' className='user-menu__link'>
+											История просмотров
+										</a>
+									</li>
+								</ul>
+							)}
 						</nav>
 					</aside>
 					<div className='header__search'>

@@ -4,7 +4,7 @@ import cn from 'classnames';
 import Link from 'next/link';
 import AnimateHeight from 'react-animate-height';
 import {LogoutThunk} from '../../../../core/store/auth/auth.thunks';
-import {UserModel} from '../../../../core/models/user';
+import {UserModel} from '../../../../core/models';
 
 export const LoginButtonWithMenu = ({user}: {user: UserModel}) => {
 	// redux hooks

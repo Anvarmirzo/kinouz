@@ -3,8 +3,8 @@ const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
 	experimental: {
-		outputStandalone: true
-	}
+		outputStandalone: true,
+	},
 };
 
 module.exports = nextConfig;

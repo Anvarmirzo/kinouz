@@ -5,6 +5,7 @@ import {CommentModal, Footer, Header, Player} from '../../components/Main';
 import {ActorCarouselSlider} from '../../components/Movie';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {getMovieThunk} from '../../core/store/movie/movie.thunks';
+import {eMovieQuality} from '../../core/models';
 
 const Movie = () => {
 	// next hooks
@@ -17,13 +18,48 @@ const Movie = () => {
 	const movies = useAppSelector(({movies}) => movies);
 
 	// react hooks
-	const [isPlaying, setIsPlaying] = useState(false);
+	const [isPlayerVisible, setIsPlayerVisible] = useState(false);
+	const [currentQuality, setCurrentQuality] = useState(eMovieQuality.CD);
 
 	useEffect(() => {
 		if (movieSlug) {
 			dispatch(getMovieThunk(+movieSlug));
 		}
 	}, [movieSlug]);
+
+	const changeQuality = (quality: typeof currentQuality) => () => {
+		if (!currentQuality && movies.current?.file?.qualitiesList[0].quality) {
+			setCurrentQuality(movies.current?.file?.qualitiesList[0].quality);
+		} else {
+			setIsPlayerVisible(false);
+
+			setTimeout(() => {
+				setCurrentQuality(quality);
+				setIsPlayerVisible(true);
+			}, 10);
+		}
+	};
+
+	const renderQualities = () => {
+		return movies.current?.file?.qualitiesList.map((q, index) => (
+			<div className='form-check form-check-inline' key={q.file.id}>
+				<label
+					onClick={changeQuality(q.quality)}
+					className='form-check-label'
+					htmlFor={`inlineRadio${q.file.id}`}
+				>
+					<input
+						className='form-check-input'
+						type='radio'
+						name='inlineRadioOptions'
+						id={`inlineRadio${q.file.id}`}
+						defaultChecked={!index}
+					/>
+					{q.quality.toUpperCase()}
+				</label>
+			</div>
+		));
+	};
 
 	return (
 		<div>
@@ -32,18 +68,15 @@ const Movie = () => {
 			</Head>
 			<Header />
 			<main className='content'>
-				<section className='page-movie-card margin-under-header'>
-					{movies.current ? (
-						<>
+				{movies.current ? (
+					<>
+						<section className='page-movie-card margin-under-header'>
 							<div
 								className='page-movie-card__img'
 								style={{
-									backgroundImage: `url(${
-										movies.current.poster?.url ||
-										process.env.NEXT_PUBLIC_API_URL + (movies.current.file?.cd?.url || '')
-									})`,
+									backgroundImage: `url(${movies.current.poster?.url})`,
 								}}
-							></div>
+							/>
 							<div className='page-movie-card__container container-fluid'>
 								<div className='page-movie-card__text row w-100'>
 									<div className='col-12 col-lg-6 mb-5'>
@@ -74,12 +107,8 @@ const Movie = () => {
 											<span className='text-primary'>{movies.current.ageRemark}+</span>
 										</div>
 										<div className='page-movie-card__btns'>
-											<Player
-												thumbnail={movies.current.poster?.url}
-												url={movies.current.file?.cd?.url ?? ''}
-											/>
 											<button
-												onClick={() => setIsPlaying((prev) => !prev)}
+												onClick={() => setIsPlayerVisible((prev) => !prev)}
 												className='btn btn-primary btn-icon rounded-pill'
 												type='button'
 											>
@@ -90,56 +119,7 @@ const Movie = () => {
 												<span className='icon icon-bookmark_border'></span>
 											</button>
 										</div>
-										<div className='page-movie-card__quality'>
-											<div className='form-check form-check-inline'>
-												<input
-													className='form-check-input'
-													type='radio'
-													name='inlineRadioOptions'
-													id='inlineRadio1'
-													value='option1'
-												/>
-												<label className='form-check-label' htmlFor='inlineRadio1'>
-													CD
-												</label>
-											</div>
-											<div className='form-check form-check-inline'>
-												<input
-													className='form-check-input'
-													type='radio'
-													name='inlineRadioOptions'
-													id='inlineRadio2'
-													value='option2'
-												/>
-												<label className='form-check-label' htmlFor='inlineRadio2'>
-													HD
-												</label>
-											</div>
-											<div className='form-check form-check-inline'>
-												<input
-													className='form-check-input'
-													type='radio'
-													name='inlineRadioOptions'
-													id='inlineRadio3'
-													value='option3'
-												/>
-												<label className='form-check-label' htmlFor='inlineRadio3'>
-													FullHD
-												</label>
-											</div>
-											<div className='form-check form-check-inline'>
-												<input
-													className='form-check-input'
-													type='radio'
-													name='inlineRadioOptions'
-													id='inlineRadio4'
-													value='option4'
-												/>
-												<label className='form-check-label' htmlFor='inlineRadio4'>
-													UHD4k
-												</label>
-											</div>
-										</div>
+										<div className='page-movie-card__quality'>{renderQualities()}</div>
 									</div>
 									<div className='col-12 col-lg-6 mb-5'>
 										<div className='page-movie-card__description'>
@@ -149,11 +129,17 @@ const Movie = () => {
 									</div>
 								</div>
 							</div>
-						</>
-					) : (
-						''
-					)}
-				</section>
+						</section>
+						{isPlayerVisible && (
+							<div className='movie-slug-player container-fluid mb-5'>
+								<Player
+									thumbnail={movies.current.poster?.url}
+									url={movies.current.file?.[currentQuality]?.url ?? ''}
+								/>
+							</div>
+						)}
+					</>
+				) : null}
 				{movies.current ? (
 					<ActorCarouselSlider actors={movies.current.actors ?? []} title='В ролях' />
 				) : null}
