@@ -15,7 +15,7 @@ export const ActorService = {
 
 	getById(id: number) {
 		return api
-			.get<ActorModel>(`/actor/${id}`)
+			.get<ActorModel>(`actor/${id}`)
 			.then((res) => new ActorModel(res.data))
 			.catch(Toast.error);
 	},
