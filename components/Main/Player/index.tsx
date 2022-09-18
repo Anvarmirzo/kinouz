@@ -1,4 +1,5 @@
 import React from 'react';
+
 // @ts-ignore
 import {ReactVideoPlayer} from 'video-player-for-react';
 
@@ -10,7 +11,7 @@ interface PlayerProps {
 export const Player = ({url, thumbnail}: PlayerProps) => {
 	return (
 		<div className='player-wrapper'>
-			<ReactVideoPlayer width='928px' url={url} type='video/mp4' poster={thumbnail} />
+			<ReactVideoPlayer width='100%' url={url} type='video/mp4' poster={thumbnail} />
 		</div>
 	);
 };

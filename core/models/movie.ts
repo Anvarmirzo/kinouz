@@ -2,6 +2,13 @@ import {FileModel} from './global';
 import {ActorModel} from './actor';
 import {CommentModel} from './comment';
 
+export enum eMovieQuality {
+	CD = 'cd',
+	HD = 'hd',
+	fullHD = 'fullHD',
+	uHD = 'uHD',
+}
+
 export class CategoryModel {
 	id: number;
 	title: string;
@@ -51,6 +58,15 @@ export class MovieFileModel {
 		if (file.uHD) {
 			this.uHD = file.uHD;
 		}
+	}
+
+	get qualitiesList() {
+		return [
+			...(this.cd ? [{file: this.cd, quality: eMovieQuality.CD}] : []),
+			...(this.hd ? [{file: this.hd, quality: eMovieQuality.HD}] : []),
+			...(this.fullHD ? [{file: this.fullHD, quality: eMovieQuality.fullHD}] : []),
+			...(this.uHD ? [{file: this.uHD, quality: eMovieQuality.uHD}] : []),
+		];
 	}
 }
 

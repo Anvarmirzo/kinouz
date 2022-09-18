@@ -104,9 +104,9 @@ const Account = () => {
 											</div>
 											<div className='account-editing__balance'>
 												<span className='account-editing__balance-title'>Баланс: </span>
-												<span className='account-editing__balance-total'>{user?.balance}</span>
+												<span className='account-editing__balance-total'>{user?.balance} </span>
 												<span className='account-editing__balance-subscription'>
-													(стоимость абонненской платы 15 000 сум/месяц)
+													(стоимость абонентской платы 15 000 сум/месяц)
 												</span>
 											</div>
 										</div>
