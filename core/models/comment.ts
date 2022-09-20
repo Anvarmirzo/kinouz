@@ -2,8 +2,7 @@ import {MovieModel} from './movie';
 
 export class CommentModel {
 	id: number;
-	// TODO: remove any
-	user: any;
+	user: {id: number; name: string};
 	text: string;
 	createdAt: Date;
 	movie?: MovieModel;

@@ -1,8 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import {logoutThunk} from '../../../core/store/auth/auth.thunks';
+import {useAppDispatch} from '../../../core/hooks';
 
 export const Footer = () => {
+	// redux hooks
+	const dispatch = useAppDispatch();
+
+	const onLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
+		e.preventDefault();
+		dispatch(logoutThunk());
+	};
 	return (
 		<footer className='footer'>
 			<div className='footer__container container-fluid'>
@@ -34,7 +43,7 @@ export const Footer = () => {
 							</Link>
 						</li>
 						<li className='footer-menu__item'>
-							<a href='#' className='footer-menu__link'>
+							<a onClick={onLogout} href='#' className='footer-menu__link'>
 								<span className='icon icon-logout'></span>Выйти из учетной записи
 							</a>
 						</li>

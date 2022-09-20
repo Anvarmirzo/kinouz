@@ -18,4 +18,10 @@ export const MovieService = {
 			.then((res) => new MovieModel(res.data))
 			.catch(Toast.error);
 	},
+	getBySlug(slug: string) {
+		return api
+			.get<MovieModel>(`movie/slug/${slug}`)
+			.then((res) => new MovieModel(res.data))
+			.catch(Toast.error);
+	},
 };

@@ -41,7 +41,7 @@ export const autoLoginThunk = createAsyncThunk('auth/autoLogin', async (_, thunk
 	}
 });
 
-export const LogoutThunk = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+export const logoutThunk = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 	const token = localStorage.getItem('jwt');
 
 	if (token) {
@@ -50,5 +50,6 @@ export const LogoutThunk = createAsyncThunk('auth/logout', async (_, thunkAPI) =
 		localStorage.removeItem('jwt');
 		localStorage.removeItem('expired_at');
 		localStorage.clear();
+		window.location.href = '/';
 	}
 });
