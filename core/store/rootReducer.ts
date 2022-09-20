@@ -12,6 +12,7 @@ import {authReducer} from './auth/auth.slices';
 import {moviesReducer} from './movie/movie.slices';
 import {producersReducer} from './producer/producer.slices';
 import {usersReducer} from './user/user.slices';
+import {commentsReducer} from './comment/comment.slices';
 
 // export type RootState = ReturnType<typeof combinedReducer>;
 
@@ -23,6 +24,7 @@ const State = {
 	categories: categoriesReducer,
 	users: usersReducer,
 	movies: moviesReducer,
+	comments: commentsReducer,
 };
 
 export const appReducer = combineReducers(State);

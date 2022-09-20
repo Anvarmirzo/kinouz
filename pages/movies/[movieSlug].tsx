@@ -15,7 +15,7 @@ const Movie = () => {
 
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const movies = useAppSelector(({movies}) => movies);
+	const movies = useAppSelector(({movies, comments}) => movies);
 
 	// react hooks
 	const [isPlayerVisible, setIsPlayerVisible] = useState(false);
@@ -23,7 +23,7 @@ const Movie = () => {
 
 	useEffect(() => {
 		if (movieSlug) {
-			dispatch(getMovieThunk(+movieSlug));
+			dispatch(getMovieThunk(movieSlug as string));
 		}
 	}, [movieSlug]);
 
@@ -114,7 +114,7 @@ const Movie = () => {
 											>
 												смотреть<span className='icon icon-play_circle'></span>
 											</button>
-											<CommentModal />
+											<CommentModal movieId={movies.current.id} />
 											<button className='btn btn-secondary btn-bookmark rounded-pill' type='button'>
 												<span className='icon icon-bookmark_border'></span>
 											</button>

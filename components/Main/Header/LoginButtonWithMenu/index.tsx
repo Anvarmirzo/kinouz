@@ -3,7 +3,7 @@ import {useAppDispatch, useOnClickOutside} from '../../../../core/hooks';
 import cn from 'classnames';
 import Link from 'next/link';
 import AnimateHeight from 'react-animate-height';
-import {LogoutThunk} from '../../../../core/store/auth/auth.thunks';
+import {logoutThunk} from '../../../../core/store/auth/auth.thunks';
 import {UserModel} from '../../../../core/models';
 
 export const LoginButtonWithMenu = ({user}: {user: UserModel}) => {
@@ -29,7 +29,7 @@ export const LoginButtonWithMenu = ({user}: {user: UserModel}) => {
 
 	const onLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault();
-		dispatch(LogoutThunk());
+		dispatch(logoutThunk());
 	};
 
 	return (

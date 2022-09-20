@@ -1,6 +1,7 @@
 import {MovieService} from '../../services';
 import {setMovieAction, setMoviesAction} from './movie.slices';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {MovieModel} from '../../models';
 
 export const getMoviesThunk = createAsyncThunk<
 	void,
@@ -16,10 +17,16 @@ export const getMoviesThunk = createAsyncThunk<
 	}
 });
 
-export const getMovieThunk = createAsyncThunk<void, number>(
+export const getMovieThunk = createAsyncThunk<void, string | number>(
 	'movies/getOne',
 	async (payload, thunkAPI) => {
-		const movie = await MovieService.getById(payload);
+		let movie: MovieModel | void;
+
+		if (typeof payload === 'string') {
+			movie = await MovieService.getBySlug(payload);
+		} else {
+			movie = await MovieService.getById(payload);
+		}
 
 		if (movie) {
 			thunkAPI.dispatch(setMovieAction(movie));

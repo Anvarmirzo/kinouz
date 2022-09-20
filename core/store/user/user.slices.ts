@@ -43,7 +43,7 @@ export const {
 					...state,
 					user: {
 						...state.user,
-						subUsers: insertItem(state.user.subUsers, action.payload),
+						subUsers: updateItem(state.user.subUsers, action.payload),
 					},
 				};
 			}
@@ -64,7 +64,7 @@ export const {
 	},
 });
 
-const insertItem = <T extends Record<'id', number>>(array: T[], item: T) => {
+const updateItem = <T extends Record<'id', number>>(array: T[], item: T) => {
 	const index = array.findIndex((s) => s.id === item.id);
 
 	if (index && index !== -1) {

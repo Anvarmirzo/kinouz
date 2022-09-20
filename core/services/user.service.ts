@@ -1,6 +1,6 @@
 import api from '../api';
 import {Toast} from '../utils';
-import {LogoutThunk} from '../store/auth/auth.thunks';
+import {logoutThunk} from '../store/auth/auth.thunks';
 import {store} from '../store';
 import {ICreateUser, IPatchUser, UserModel} from '../models';
 
@@ -14,7 +14,7 @@ export const UserService = {
 			})
 			.catch((e) => {
 				if (e.response?.status === 404) {
-					store.dispatch(LogoutThunk());
+					store.dispatch(logoutThunk());
 				}
 				Toast.error(e);
 			});
