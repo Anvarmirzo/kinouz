@@ -18,10 +18,16 @@ export const {
 	name: 'comment',
 	initialState,
 	reducers: {
-		setCommentsAction: (state, action: PayloadAction<IState>) => ({
-			...state,
-			...action.payload,
-		}),
+		setCommentsAction: (state, action: PayloadAction<IState | null>) => {
+			if (action.payload) {
+				return {
+					...state,
+					...action.payload,
+				};
+			} else {
+				return {count: 0, list: []};
+			}
+		},
 		setCommentAction: (state, action: PayloadAction<CommentModel>) => ({
 			...state,
 			list: [...state.list, action.payload],
