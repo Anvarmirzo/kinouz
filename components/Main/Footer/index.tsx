@@ -2,11 +2,12 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {logoutThunk} from '../../../core/store/auth/auth.thunks';
-import {useAppDispatch} from '../../../core/hooks';
+import {useAppDispatch, useAppSelector} from '../../../core/hooks';
 
 export const Footer = () => {
 	// redux hooks
 	const dispatch = useAppDispatch();
+	const user = useAppSelector(({users}) => users.user);
 
 	const onLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault();
@@ -23,32 +24,35 @@ export const Footer = () => {
 						© 2003 — 2022 <span>I</span> kinouz.uz
 					</div>
 				</div>
-				<div className='footer__menu footer-menu'>
-					<ul className='footer-menu__list'>
-						<li className='footer-menu__item'>
-							<a href='#' className='footer-menu__link'>
-								<span className='icon icon-account_balance_wallet'></span>Подписка и оплата
-							</a>
-						</li>
-						<li className='footer-menu__item'>
-							<a href='#' className='footer-menu__link'>
-								<span className='icon icon-ondemand_video'></span>Устройства
-							</a>
-						</li>
-						<li className='footer-menu__item'>
-							<Link href='/account'>
-								<a className='footer-menu__link'>
-									<span className='icon icon-portrait'></span>Профиль
+				{user && (
+					<div className='footer__menu footer-menu'>
+						<ul className='footer-menu__list'>
+							<li className='footer-menu__item'>
+								<a href='#' className='footer-menu__link'>
+									<span className='icon icon-account_balance_wallet'></span>Подписка и оплата
 								</a>
-							</Link>
-						</li>
-						<li className='footer-menu__item'>
-							<a onClick={onLogout} href='#' className='footer-menu__link'>
-								<span className='icon icon-logout'></span>Выйти из учетной записи
-							</a>
-						</li>
-					</ul>
-				</div>
+							</li>
+							<li className='footer-menu__item'>
+								<a href='#' className='footer-menu__link'>
+									<span className='icon icon-ondemand_video'></span>Устройства
+								</a>
+							</li>
+
+							<li className='footer-menu__item'>
+								<Link href='/account'>
+									<a className='footer-menu__link'>
+										<span className='icon icon-portrait'></span>Профиль
+									</a>
+								</Link>
+							</li>
+							<li className='footer-menu__item'>
+								<a onClick={onLogout} href='#' className='footer-menu__link'>
+									<span className='icon icon-logout'></span>Выйти из учетной записи
+								</a>
+							</li>
+						</ul>
+					</div>
+				)}
 				<div className='footer__mobile-app mobile-app'>
 					<ul className='mobile-app__list'>
 						<li className='mobile-app__item'>

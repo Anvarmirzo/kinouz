@@ -6,6 +6,8 @@ import {ActorCarouselSlider} from '../../components/Movie';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {getMovieThunk} from '../../core/store/movie/movie.thunks';
 import {eMovieQuality} from '../../core/models';
+import {setCommentsAction} from '../../core/store/comment/comment.slices';
+import {setMovieAction} from '../../core/store/movie/movie.slices';
 
 const Movie = () => {
 	// next hooks
@@ -25,6 +27,11 @@ const Movie = () => {
 		if (movieSlug) {
 			dispatch(getMovieThunk(movieSlug as string));
 		}
+
+		return () => {
+			dispatch(setMovieAction(null));
+			dispatch(setCommentsAction({count: 0, list: []}));
+		};
 	}, [movieSlug]);
 
 	const changeQuality = (quality: typeof currentQuality) => () => {
