@@ -82,6 +82,9 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 							placeholder='Возрастные ограничения'
 							{...register('ageRemark', {
 								valueAsNumber: true,
+								min: 0,
+								max: 100,
+								maxLength: 3,
 								pattern: /^\d+$/,
 								onChange: (e) => setValue('ageRemark', +e.target.value.replace(/\D+/g, '')),
 							})}

@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {useAppDispatch, useOnClickOutside} from '../../../../core/hooks';
+import {useAppDispatch, useAppSelector, useOnClickOutside} from '../../../../core/hooks';
 import cn from 'classnames';
 import Link from 'next/link';
 import AnimateHeight from 'react-animate-height';
@@ -30,6 +30,23 @@ export const LoginButtonWithMenu = ({user}: {user: UserModel}) => {
 	const onLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault();
 		dispatch(logoutThunk());
+	};
+
+	const renderAccountsList = () => {
+		if (user.subUsers) {
+			return (
+				<ul className='user-sidebar-menu__sub-list' style={{display: 'block'}}>
+					{user.subUsers?.map((s) => (
+						<li className='user-sidebar-menu__sub-item' key={s.id}>
+							<a href='#' className='user-sidebar-menu__sub-link'>
+								<span className='ava bg-danger'>{s.name.charAt(0)}</span>
+								{s.name}
+							</a>
+						</li>
+					))}
+				</ul>
+			);
+		}
 	};
 
 	return (
@@ -64,33 +81,7 @@ export const LoginButtonWithMenu = ({user}: {user: UserModel}) => {
 								<span className='icon icon-people'></span>Профили
 							</a>
 							<AnimateHeight duration={300} height={height}>
-								<ul className='user-sidebar-menu__sub-list' style={{display: 'block'}}>
-									<li className='user-sidebar-menu__sub-item'>
-										<a href='#' className='user-sidebar-menu__sub-link'>
-											<span className='ava bg-danger'>A</span>Arkein
-										</a>
-									</li>
-									<li className='user-sidebar-menu__sub-item'>
-										<a href='#' className='user-sidebar-menu__sub-link'>
-											<span className='ava bg-success'>T</span>Trall
-										</a>
-									</li>
-									<li className='user-sidebar-menu__sub-item'>
-										<a href='#' className='user-sidebar-menu__sub-link'>
-											<span className='ava bg-warning'>G</span>Gerson
-										</a>
-									</li>
-									<li className='user-sidebar-menu__sub-item'>
-										<a href='#' className='user-sidebar-menu__sub-link'>
-											<span className='ava bg-info'>D</span>Dryoma
-										</a>
-									</li>
-									<li className='user-sidebar-menu__sub-item'>
-										<a href='#' className='user-sidebar-menu__sub-link'>
-											<span className='ava bg-secondary'>B</span>Butcher
-										</a>
-									</li>
-								</ul>
+								{renderAccountsList()}
 							</AnimateHeight>
 						</li>
 						<li className='user-sidebar-menu__item'>

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
+import {Player} from '../../Player';
 
 interface MovieModalProps {
 	movie: {
@@ -35,17 +36,7 @@ export const MovieModal = ({movie: {title, rating, video}}: MovieModalProps) => 
 					<div className='movie-info'>
 						<div className='movie-info__header'>
 							<div className='movie-info__video'>
-								<video
-									id='videoModal-1'
-									className='video-js'
-									controls
-									preload='false'
-									poster={video.poster}
-									data-setup='{}'
-								>
-									<source src={video.src} type='video/mp4' />
-									Your browser does not support the video tag.
-								</video>
+								<Player url={video.src} thumbnail={video.poster} />
 							</div>
 							<div className='movie-info__bx'>
 								<h3 className='movie-info__title'>{title}</h3>
@@ -81,7 +72,7 @@ export const MovieModal = ({movie: {title, rating, video}}: MovieModalProps) => 
 									</div>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Режиссер:</div>
-										<div className='movie-info-item__desc'>Дени Вильнёв</div>
+										<div className='movie-info-item__desc'>{}</div>
 									</div>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Актеры:</div>

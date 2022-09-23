@@ -21,7 +21,7 @@ export const Footer = () => {
 						<Image src='/img/dist/logo.png' alt='logo' width={156} height={32} />
 					</div>
 					<div className='footer__copy'>
-						© 2003 — 2022 <span>I</span> kinouz.uz
+						© 2003 — {new Date().getFullYear()} <span>I</span> kinouz.uz
 					</div>
 				</div>
 				{user && (
