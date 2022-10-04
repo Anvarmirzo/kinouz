@@ -1,11 +1,11 @@
 import {MovieService} from '../../services';
-import {setMovieAction, setMoviesAction} from './movie.slices';
+import {setMovieAction, setMoviesAction, setNewMoviesAction} from './movie.slices';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {MovieModel} from '../../models';
 
 export const getMoviesThunk = createAsyncThunk<
 	void,
-	{skip?: number; params?: Record<string, number | string>} | void
+	{skip?: number; params?: Record<string, number | string | boolean>} | void
 >('movies/getAll', async (payload, thunkAPI) => {
 	const movies = await MovieService.getAll({
 		params: payload?.params ?? {},
@@ -13,7 +13,11 @@ export const getMoviesThunk = createAsyncThunk<
 	});
 
 	if (movies) {
-		thunkAPI.dispatch(setMoviesAction({list: movies.data, count: movies.count}));
+		if (payload?.params?.isNew) {
+			thunkAPI.dispatch(setNewMoviesAction(movies.data));
+		} else {
+			thunkAPI.dispatch(setMoviesAction({list: movies.data, count: movies.count}));
+		}
 	}
 });
 

@@ -5,6 +5,7 @@ import {MovieSlider} from '../../components/Main';
 import {useEffect} from 'react';
 import {getMoviesThunk} from '../../core/store/movie/movie.thunks';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
+import {setNewMoviesAction} from '../../core/store/movie/movie.slices';
 
 const Movies: NextPage = () => {
 	// redux hooks
@@ -14,6 +15,11 @@ const Movies: NextPage = () => {
 	// react hooks
 	useEffect(() => {
 		dispatch(getMoviesThunk());
+		dispatch(getMoviesThunk({params: {isNew: true}}));
+
+		return () => {
+			dispatch(setNewMoviesAction([]));
+		};
 	}, []);
 
 	return (
@@ -24,7 +30,7 @@ const Movies: NextPage = () => {
 
 			<Header />
 			<main className='content'>
-				<HeroLargeSlider />
+				<HeroLargeSlider list={movies.newMoviesList} />
 				<MovieSlider title='Фильмы' list={movies.list} />
 			</main>
 			<Footer />

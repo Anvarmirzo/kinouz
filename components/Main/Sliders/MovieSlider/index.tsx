@@ -81,7 +81,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 									)}
 									{movie.countriesTitle && (
 										<>
-											{movie.countriesTitle} <span className='text-primary'>I</span> 145 минут{' '}
+											{movie.countriesTitle} <span className='text-primary'>I </span>
 											<span className='text-primary'>I </span>
 										</>
 									)}

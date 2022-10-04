@@ -1,6 +1,7 @@
 import {FileModel} from './global';
 import {ActorModel} from './actor';
 import {CommentModel} from './comment';
+import {DirectorModel} from './director';
 
 export enum eMovieQuality {
 	CD = 'cd',
@@ -182,6 +183,7 @@ export class MovieModel {
 	genres?: GenreModel[];
 	countries?: CountryModel[];
 	actors?: ActorModel[];
+	directors?: DirectorModel[];
 	acters?: ActorModel[];
 	comments?: CommentModel[];
 	categories?: CategoryModel[];
@@ -222,6 +224,9 @@ export class MovieModel {
 		}
 		if (movie.acters) {
 			this.actors = movie.acters.map((a) => new ActorModel(a));
+		}
+		if (movie.directors) {
+			this.directors = movie.directors.map((d) => new DirectorModel(d));
 		}
 		if (movie.comments) {
 			this.comments = movie.comments;
