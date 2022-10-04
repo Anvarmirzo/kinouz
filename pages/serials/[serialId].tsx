@@ -39,7 +39,7 @@ const Serial = () => {
 			</Head>
 			<Header />
 			<main className='content'>
-				<HeroLargeSlider />
+				<HeroLargeSlider list={[]} />
 				{renderSliders()}
 			</main>
 			<Footer />

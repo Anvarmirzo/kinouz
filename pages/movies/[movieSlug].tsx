@@ -17,7 +17,7 @@ const Movie = () => {
 
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const movies = useAppSelector(({movies, comments}) => movies);
+	const movies = useAppSelector(({movies}) => movies);
 
 	// react hooks
 	const [isPlayerVisible, setIsPlayerVisible] = useState(false);
@@ -107,8 +107,7 @@ const Movie = () => {
 											)}
 											{movies.current.countriesTitle && (
 												<>
-													{movies.current.countriesTitle} <span className='text-primary'>I</span>{' '}
-													145 минут <span className='text-primary'>I </span>
+													{movies.current.countriesTitle} <span className='text-primary'>I </span>
 												</>
 											)}
 											<span className='text-primary'>{movies.current.ageRemark}+</span>

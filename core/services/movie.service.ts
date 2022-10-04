@@ -3,7 +3,7 @@ import {Toast} from '../utils';
 import {MovieModel} from '../models';
 
 export const MovieService = {
-	getAll(params: {skip: number; params: Record<string, number | string>}) {
+	getAll(params: {skip: number; params: Record<string, number | string | boolean>}) {
 		return api
 			.get<{count: number; data: MovieModel[]}>(`movie`, {params})
 			.then((res) => ({

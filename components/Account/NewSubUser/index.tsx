@@ -81,6 +81,7 @@ export const NewSubUser = ({userId}: NewSubUserProps) => {
 								valueAsNumber: true,
 								pattern: /^\d+$/,
 								min: 0,
+								max: 100,
 								maxLength: 3,
 								onChange: (e) => setValue('ageRemark', +e.target.value.replace(/\D+/g, '')),
 							})}

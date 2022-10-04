@@ -14,8 +14,6 @@ import {producersReducer} from './producer/producer.slices';
 import {usersReducer} from './user/user.slices';
 import {commentsReducer} from './comment/comment.slices';
 
-// export type RootState = ReturnType<typeof combinedReducer>;
-
 const State = {
 	auth: authReducer,
 	genres: genresReducer,

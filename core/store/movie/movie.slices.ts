@@ -3,18 +3,20 @@ import {MovieModel} from '../../models';
 
 interface IState {
 	list: MovieModel[];
+	newMoviesList: MovieModel[];
 	current: MovieModel | null;
 	count: number;
 }
 
 const initialState: IState = {
 	list: [],
+	newMoviesList: [],
 	current: null,
 	count: 0,
 };
 
 export const {
-	actions: {setMoviesAction, setMovieAction},
+	actions: {setMoviesAction, setNewMoviesAction, setMovieAction},
 	reducer: moviesReducer,
 } = createSlice({
 	name: 'movies',
@@ -27,6 +29,10 @@ export const {
 		setMovieAction: (state, action: PayloadAction<MovieModel | null>) => ({
 			...state,
 			current: action.payload,
+		}),
+		setNewMoviesAction: (state, action: PayloadAction<MovieModel[]>) => ({
+			...state,
+			newMoviesList: action.payload,
 		}),
 	},
 });

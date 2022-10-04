@@ -3,7 +3,7 @@ import {Button, Modal} from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
 import {signUpThunk} from '../../../../../core/store/auth/auth.thunks';
 import {useAppDispatch} from '../../../../../core/hooks';
-import {ISignUp} from '../../../../../core/models/auth';
+import {ISignUp} from '../../../../../core/models';
 
 export const SignUpModal = () => {
 	// redux hooks

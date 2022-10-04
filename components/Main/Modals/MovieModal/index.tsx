@@ -1,23 +1,24 @@
 import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
+import {Player} from '../../Player';
+import {MovieModel} from '../../../../core/models';
+import Link from 'next/link';
 
 interface MovieModalProps {
-	movie: {
-		rating: {
-			imdb: string | number;
-			kinopoisk: string | number;
-		};
-		video: {
-			src: string;
-			poster: string;
-		};
-		title: string;
-	};
+	movie: MovieModel;
 }
 
-export const MovieModal = ({movie: {title, rating, video}}: MovieModalProps) => {
+export const MovieModal = ({movie}: MovieModalProps) => {
 	// react hooks
 	const [show, setShow] = useState(false);
+
+	const renderActorsName = () => {
+		return movie.actors?.map((actor) => actor.name).join(', ');
+	};
+	const renderDirectorsName = () => {
+		return movie.directors?.map((director) => director.name).join(', ');
+	};
+
 	return (
 		<>
 			<Button variant='secondary' className='btn-icon rounded-pill' onClick={() => setShow(true)}>
@@ -34,28 +35,22 @@ export const MovieModal = ({movie: {title, rating, video}}: MovieModalProps) => 
 				<Modal.Body>
 					<div className='movie-info'>
 						<div className='movie-info__header'>
-							<div className='movie-info__video'>
-								<video
-									id='videoModal-1'
-									className='video-js'
-									controls
-									preload='false'
-									poster={video.poster}
-									data-setup='{}'
-								>
-									<source src={video.src} type='video/mp4' />
-									Your browser does not support the video tag.
-								</video>
-							</div>
+							{movie.trailer?.url && (
+								<div className='movie-info__video'>
+									<Player url={movie.trailer.url} thumbnail={movie.poster?.url} />
+								</div>
+							)}
 							<div className='movie-info__bx'>
-								<h3 className='movie-info__title'>{title}</h3>
+								<h3 className='movie-info__title'>{movie.title}</h3>
 								<div className='movie-info__btns'>
-									<a href='#' className='btn btn-primary btn-icon rounded-pill'>
-										смотреть<span className='icon icon-play_circle'></span>
-									</a>
-									<button className='btn btn-bookmark rounded-pill' type='button'>
+									<Link href={`/movies/${movie.slug}`}>
+										<a className='btn btn-primary btn-icon rounded-pill'>
+											смотреть<span className='icon icon-play_circle'></span>
+										</a>
+									</Link>
+									<Button className='btn-bookmark rounded-pill' type='button'>
 										<span className='icon icon-bookmark_border'></span>
-									</button>
+									</Button>
 								</div>
 							</div>
 						</div>
@@ -65,50 +60,46 @@ export const MovieModal = ({movie: {title, rating, video}}: MovieModalProps) => 
 									<div className='movie-info__ratings'>
 										<div className='movie-info__rating'>
 											<span className='icon icon-imdb'></span>
-											{rating.imdb}
+											{movie.imdb}
 										</div>
 										<div className='movie-info__rating'>
 											<span className='icon icon-kinopoisk'></span>
-											{rating.kinopoisk}
+											{movie.rating}
 										</div>
 									</div>
 									<div className='movie-info__info'>
-										2021 <span className='text-primary'>I</span> фантастика, боевик{' '}
-										<span className='text-primary'>I</span> США{' '}
-										<span className='text-primary'>I</span> 145 минут{' '}
-										<span className='text-primary'>I</span>{' '}
-										<span className='text-primary'>16+</span>
+										{movie.year} <span className='text-primary'>I </span>
+										{movie.categoriesTitle && (
+											<>
+												{movie.categoriesTitle} <span className='text-primary'>I </span>
+											</>
+										)}
+										{movie.countriesTitle && (
+											<>
+												{movie.countriesTitle} <span className='text-primary'>I </span>
+											</>
+										)}
+										<span className='text-primary'>{movie.ageRemark}+</span>
 									</div>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Режиссер:</div>
-										<div className='movie-info-item__desc'>Дени Вильнёв</div>
+										<div className='movie-info-item__desc'>{renderDirectorsName()}</div>
 									</div>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Актеры:</div>
-										<div className='movie-info-item__desc'>
-											Тимоти Шаламе, Ребекка Фергюсон, <br />
-											Оскар Айзек, Джош Бролин, Джейсон Момоа <br />и другие
-										</div>
+										<div className='movie-info-item__desc'>{renderActorsName()}</div>
 									</div>
 								</div>
 								<div className='col-12 col-sm-6'>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Описание:</div>
-										<div className='movie-info-item__desc'>
-											Человечество расселилось по далёким планетам, а за власть над обитаемым
-											пространством постоянно борются разные могущественные семьи. В центре
-											противостояния оказывается пустынная планета Арракис. Человечество расселилось
-											по далёким планетам, а за власть над обитаемым пространством постоянно борются
-											разные могущественные семьи. В центре противостояния оказывается пустынная
-											планета Арракис.
-										</div>
+										<div className='movie-info-item__desc'>{movie.description}</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</Modal.Body>
-				{/*</div>*/}
 			</Modal>
 		</>
 	);

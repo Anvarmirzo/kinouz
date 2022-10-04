@@ -63,8 +63,7 @@ const Recommendations = () => {
 								</div>
 								<div className='movie-card-more-info__info'>
 									2021 <span className='text-primary'>I</span> фантастика, боевик{' '}
-									<span className='text-primary'>I</span> США{' '}
-									<span className='text-primary'>I</span> 145 минут{' '}
+									<span className='text-primary'>I</span> США
 									<span className='text-primary'>I</span> <span className='text-primary'>16+</span>
 								</div>
 								<div className='movie-card-more-info__btns'>
@@ -93,7 +92,7 @@ const Recommendations = () => {
 			</Head>
 			<Header />
 			<main className='content'>
-				<HeroLargeSlider />
+				<HeroLargeSlider list={[]} />
 				<div className='movie-list'>
 					<div className='container-fluid'>
 						<div className='movie-list__header'>

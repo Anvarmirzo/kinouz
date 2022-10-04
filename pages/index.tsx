@@ -5,15 +5,25 @@ import {MovieSlider} from '../components/Main';
 import {useAppDispatch, useAppSelector} from '../core/hooks';
 import {useEffect} from 'react';
 import {getCategoriesMainThunk} from '../core/store/category/category.thunks';
+import {getMoviesThunk} from '../core/store/movie/movie.thunks';
+import {setNewMoviesAction} from '../core/store/movie/movie.slices';
 
 const Home: NextPage = () => {
 	// redux hooks
-	const categories = useAppSelector(({categories}) => categories.list);
+	const [categories, newMovies] = useAppSelector(({categories, movies}) => [
+		categories.list,
+		movies.newMoviesList,
+	]);
 	const dispatch = useAppDispatch();
 
 	// react hooks
 	useEffect(() => {
 		dispatch(getCategoriesMainThunk());
+		dispatch(getMoviesThunk({params: {isNew: true}}));
+
+		return () => {
+			dispatch(setNewMoviesAction([]));
+		};
 	}, []);
 
 	const renderCategories = () => {
@@ -41,7 +51,7 @@ const Home: NextPage = () => {
 
 			<Header />
 			<main className='content'>
-				<HeroLargeSlider />
+				<HeroLargeSlider list={newMovies} />
 				{renderCategories()}
 			</main>
 			<Footer />

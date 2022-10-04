@@ -82,7 +82,9 @@ export const Header = () => {
 								</li>
 								<li
 									className={cn('main-menu__item', {
-										'main-menu__item_active': currentRoute === '/movies',
+										'main-menu__item_active': ['/movies/[movieSlug]', '/movies'].includes(
+											currentRoute
+										),
 									})}
 								>
 									<Link href='/movies'>
@@ -91,10 +93,12 @@ export const Header = () => {
 								</li>
 								<li
 									className={cn('main-menu__item', {
-										'main-menu__item_active': currentRoute === '/serial/[serialId]',
+										'main-menu__item_active': ['/serials/[serialId]', '/serials'].includes(
+											currentRoute
+										),
 									})}
 								>
-									<Link href='/serials/1'>
+									<Link href='/serials'>
 										<a className='main-menu__link'>Сериалы</a>
 									</Link>
 								</li>
