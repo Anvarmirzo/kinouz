@@ -4,26 +4,34 @@ import {Player} from '../../Player';
 import {MovieModel} from '../../../../core/models';
 import Link from 'next/link';
 import {AddToFavoritesBtn} from '../../Buttons/AddToFavoritesBtn';
+import cn from 'classnames';
 
 interface MovieModalProps {
 	movie: MovieModel;
+	buttonIcon: string;
+	buttonClassName?: string;
 }
 
-export const MovieModal = ({movie}: MovieModalProps) => {
+export const MovieModal = ({movie, buttonIcon, buttonClassName}: MovieModalProps) => {
 	// react hooks
 	const [show, setShow] = useState(false);
 
 	const renderActorsName = () => {
 		return movie.actors?.map((actor) => actor.name).join(', ');
 	};
+
 	const renderDirectorsName = () => {
 		return movie.directors?.map((director) => director.name).join(', ');
 	};
 
 	return (
 		<>
-			<Button variant='secondary' className='btn-icon rounded-pill' onClick={() => setShow(true)}>
-				подробнее<span className='icon icon-info'></span>
+			<Button
+				variant='secondary'
+				className={cn('btn-icon rounded-pill', buttonClassName ?? '')}
+				onClick={() => setShow(true)}
+			>
+				подробнее<span className={cn('icon', buttonIcon)}></span>
 			</Button>
 			<Modal
 				show={show}

@@ -6,6 +6,7 @@ import LightGallery from 'lightgallery/react';
 import lgVideo from 'lightgallery/plugins/video';
 import {MovieModel} from '../../../../core/models';
 import Link from 'next/link';
+import {Button} from 'react-bootstrap';
 
 interface HeroLargeSliderProps {
 	list: MovieModel[];
@@ -29,7 +30,7 @@ export const HeroLargeSlider = ({list}: HeroLargeSliderProps) => {
 									смотреть<span className='icon icon-play_circle'></span>
 								</a>
 							</Link>
-							<MovieModal movie={movie} />
+							<MovieModal buttonIcon='icon-info' movie={movie} />
 						</div>
 					</div>
 					<div className='movie-slider__movie-trailer lg-video-gallery'>
