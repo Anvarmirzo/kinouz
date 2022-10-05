@@ -5,6 +5,7 @@ import {useSwiperRef} from '../../../../core/hooks';
 import {MovieModel} from '../../../../core/models';
 import Link from 'next/link';
 import {Player} from '../../Player';
+import {AddToFavoritesBtn} from '../../Buttons/AddToFavoritesBtn';
 
 interface MovieSliderProps extends SwiperProps {
 	list: MovieModel[];
@@ -51,15 +52,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 						<div className='movie-card-more-info__body'>
 							<div className='movie-card-more-info__header'>
 								<div className='movie-card-more-info__title'>{movie.title}</div>
-								<button
-									className='movie-card-more-info__bookmark btn btn-bookmark'
-									type='button'
-									data-bs-toggle='tooltip'
-									data-bs-placement='right'
-									title='добавить в «моя подборка»'
-								>
-									<span className='icon icon-bookmark_border'></span>
-								</button>
+								<AddToFavoritesBtn movieId={movie.id} className='movie-card-more-info__bookmark' />
 							</div>
 							<div className='movie-card-more-info__desc'>
 								<div className='movie-card-more-info__ratings'>

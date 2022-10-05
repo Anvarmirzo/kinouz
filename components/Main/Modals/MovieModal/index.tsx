@@ -3,6 +3,7 @@ import {Button, Modal} from 'react-bootstrap';
 import {Player} from '../../Player';
 import {MovieModel} from '../../../../core/models';
 import Link from 'next/link';
+import {AddToFavoritesBtn} from '../../Buttons/AddToFavoritesBtn';
 
 interface MovieModalProps {
 	movie: MovieModel;
@@ -48,9 +49,7 @@ export const MovieModal = ({movie}: MovieModalProps) => {
 											смотреть<span className='icon icon-play_circle'></span>
 										</a>
 									</Link>
-									<Button className='btn-bookmark rounded-pill' type='button'>
-										<span className='icon icon-bookmark_border'></span>
-									</Button>
+									<AddToFavoritesBtn movieId={movie.id} className='rounded-pill' />
 								</div>
 							</div>
 						</div>

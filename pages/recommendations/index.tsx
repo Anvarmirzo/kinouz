@@ -1,6 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
-import {FilterModal, Footer, Header, HeroLargeSlider} from '../../components/Main';
+import {
+	AddToFavoritesBtn,
+	FilterModal,
+	Footer,
+	Header,
+	HeroLargeSlider,
+} from '../../components/Main';
 import {movieSlides} from '../../fake-data';
 
 const Recommendations = () => {
@@ -40,15 +46,7 @@ const Recommendations = () => {
 						<div className='movie-card-more-info__body'>
 							<div className='movie-card-more-info__header'>
 								<div className='movie-card-more-info__title'>{movie.movieName}</div>
-								<button
-									className='movie-card-more-info__bookmark btn btn-bookmark'
-									type='button'
-									data-bs-toggle='tooltip'
-									data-bs-placement='right'
-									title='добавить в «моя подборка»'
-								>
-									<span className='icon icon-bookmark_border'></span>
-								</button>
+								<AddToFavoritesBtn movieId={movie.id} className='movie-card-more-info__bookmark' />
 							</div>
 							<div className='movie-card-more-info__desc'>
 								<div className='movie-card-more-info__ratings'>
