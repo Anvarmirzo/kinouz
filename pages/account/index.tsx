@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Head from 'next/head';
 import {Footer, Header} from '../../components/Main';
 import {Accordion, Button, Card, Tab, Tabs} from 'react-bootstrap';
@@ -25,18 +25,6 @@ const Account = () => {
 			setValue('email', user.contact.email);
 		}
 	}, [user]);
-
-	const renderSubUsers = () => {
-		return user?.subUsers?.map((s) => (
-			<SubUserAccordionItem user={s} key={s.id} eventKey={`${s.id}`} />
-		));
-	};
-
-	const showNewUserForm = () => {
-		if (user?.subUsers) {
-			return user.subUsers.length < 5 ? <NewSubUser userId={user.id} /> : null;
-		}
-	};
 
 	if (!user) return <></>;
 
@@ -112,9 +100,13 @@ const Account = () => {
 										</div>
 										<h2 className='page-title fw-normal mb-35'>Профили:</h2>
 										<div className='profiles'>
-											<Accordion defaultActiveKey='0'>{renderSubUsers()}</Accordion>
+											<Accordion defaultActiveKey='0'>
+												{user.subUsers.map((s) => (
+													<SubUserAccordionItem user={s} key={s.id} eventKey={`${s.id}`} />
+												))}
+											</Accordion>
 										</div>
-										{showNewUserForm()}
+										{user.subUsers.length < 5 ? <NewSubUser userId={user.id} /> : null}
 									</div>
 								</div>
 							</Tab>

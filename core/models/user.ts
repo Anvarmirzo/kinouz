@@ -27,7 +27,7 @@ export class UserModel {
 	balance: number;
 	ageRemark?: number;
 	parent?: UserModel;
-	subUsers?: UserModel[];
+	subUsers: UserModel[] = [];
 
 	constructor(user: UserModel) {
 		this.id = user.id;
