@@ -7,6 +7,7 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'video-player-for-react/dist/index.css';
 import '../styles/sass/main.sass';
+import {LoginModal, SignUpModal} from '../components/Main';
 
 function MyApp({Component, pageProps}: AppProps) {
 	// redux hooks
@@ -20,6 +21,8 @@ function MyApp({Component, pageProps}: AppProps) {
 	return (
 		<div className='app'>
 			<ToastContainer />
+			<LoginModal />
+			<SignUpModal />
 			<Component {...pageProps} />
 		</div>
 	);

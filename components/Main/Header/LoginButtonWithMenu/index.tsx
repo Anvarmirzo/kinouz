@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {useAppDispatch, useAppSelector, useOnClickOutside} from '../../../../core/hooks';
+import {useAppDispatch, useOnClickOutside} from '../../../../core/hooks';
 import cn from 'classnames';
 import Link from 'next/link';
 import AnimateHeight from 'react-animate-height';

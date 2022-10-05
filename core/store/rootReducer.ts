@@ -13,6 +13,7 @@ import {moviesReducer} from './movie/movie.slices';
 import {producersReducer} from './producer/producer.slices';
 import {usersReducer} from './user/user.slices';
 import {commentsReducer} from './comment/comment.slices';
+import {globalUIReducer} from './globalUI/globalUI.slices';
 
 const State = {
 	auth: authReducer,
@@ -23,6 +24,7 @@ const State = {
 	users: usersReducer,
 	movies: moviesReducer,
 	comments: commentsReducer,
+	globalUI: globalUIReducer,
 };
 
 export const appReducer = combineReducers(State);
