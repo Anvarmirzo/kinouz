@@ -6,7 +6,6 @@ import LightGallery from 'lightgallery/react';
 import lgVideo from 'lightgallery/plugins/video';
 import {MovieModel} from '../../../../core/models';
 import Link from 'next/link';
-import {Button} from 'react-bootstrap';
 
 interface HeroLargeSliderProps {
 	list: MovieModel[];

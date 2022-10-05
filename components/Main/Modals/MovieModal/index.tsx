@@ -12,17 +12,15 @@ interface MovieModalProps {
 	buttonClassName?: string;
 }
 
+const renderNames = (list?: {name: string}[]) => {
+	if (list) {
+		return list.map((item) => item.name).join(', ');
+	}
+};
+
 export const MovieModal = ({movie, buttonIcon, buttonClassName}: MovieModalProps) => {
 	// react hooks
 	const [show, setShow] = useState(false);
-
-	const renderActorsName = () => {
-		return movie.actors?.map((actor) => actor.name).join(', ');
-	};
-
-	const renderDirectorsName = () => {
-		return movie.directors?.map((director) => director.name).join(', ');
-	};
 
 	return (
 		<>
@@ -90,11 +88,15 @@ export const MovieModal = ({movie, buttonIcon, buttonClassName}: MovieModalProps
 									</div>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Режиссер:</div>
-										<div className='movie-info-item__desc'>{renderDirectorsName()}</div>
+										<div className='movie-info-item__desc'>{renderNames(movie.directors)}</div>
 									</div>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Актеры:</div>
-										<div className='movie-info-item__desc'>{renderActorsName()}</div>
+										<div className='movie-info-item__desc'>{renderNames(movie.actors)}</div>
+									</div>
+									<div className='movie-info__info-item movie-info-item'>
+										<div className='movie-info-item__title'>Продюсеры:</div>
+										<div className='movie-info-item__desc'>{renderNames(movie.producers)}</div>
 									</div>
 								</div>
 								<div className='col-12 col-sm-6'>
