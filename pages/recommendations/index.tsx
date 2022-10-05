@@ -6,75 +6,81 @@ import {
 	Footer,
 	Header,
 	HeroLargeSlider,
+	MovieModal,
+	Player,
 } from '../../components/Main';
-import {movieSlides} from '../../fake-data';
+import {useAppSelector} from '../../core/hooks';
+import Link from 'next/link';
 
 const Recommendations = () => {
+	// redux hooks
+	const movies = useAppSelector(({movies}) => movies);
+
 	const renderList = () => {
 		//TODO: create component for movie card
-		return movieSlides.map((movie, index) => (
+		return movies.list.map((movie, index) => (
 			<div className='movie-list__item' key={index}>
 				<div className='movie-card'>
 					<div className='movie-card__body'>
-						<div className='movie-card__img' style={{backgroundImage: `url(${movie.img})`}} />
+						<div
+							className='movie-card__img'
+							style={{backgroundImage: `url(${movie.poster?.url})`}}
+						/>
 						<div className='movie-card__ratings'>
 							<div className='movie-card__rating'>
 								<span className='icon icon-imdb'></span>
-								{movie.rating.imdb}
+								{movie.imdb}
 							</div>
 							<div className='movie-card__rating'>
 								<span className='icon icon-kinopoisk'></span>
-								{movie.rating.imdb}
+								{movie.rating}
 							</div>
 						</div>
 					</div>
-					<div className='movie-card__name'>{movie.movieName}</div>
+					<div className='movie-card__name'>{movie.title}</div>
 					<a href='#' className='movie-card__link'></a>
 					<div className='movie-card__more-info movie-card-more-info'>
 						<div className='movie-card-more-info__video'>
-							<video
-								className='video-js'
-								controls
-								preload='false'
-								poster={movie.video.poster}
-								data-setup='{}'
-							>
-								<source src={movie.video.src} type='video/mp4' />
-								Your browser does not support the video tag.
-							</video>
+							<Player url={movie.trailer?.url ?? ''} thumbnail={movie.poster?.url ?? ''} />
 						</div>
 						<div className='movie-card-more-info__body'>
 							<div className='movie-card-more-info__header'>
-								<div className='movie-card-more-info__title'>{movie.movieName}</div>
+								<div className='movie-card-more-info__title'>{movie.title}</div>
 								<AddToFavoritesBtn movieId={movie.id} className='movie-card-more-info__bookmark' />
 							</div>
 							<div className='movie-card-more-info__desc'>
 								<div className='movie-card-more-info__ratings'>
 									<div className='movie-card-more-info__rating'>
 										<span className='icon icon-imdb'></span>
-										{movie.rating.imdb}
+										{movie.imdb}
 									</div>
 									<div className='movie-card-more-info__rating'>
 										<span className='icon icon-kinopoisk'></span>
-										{movie.rating.kinopoisk}
+										{movie.rating}
 									</div>
 								</div>
 								<div className='movie-card-more-info__info'>
-									2021 <span className='text-primary'>I</span> фантастика, боевик{' '}
-									<span className='text-primary'>I</span> США
-									<span className='text-primary'>I</span> <span className='text-primary'>16+</span>
+									{movie.year} <span className='text-primary'>I </span>
+									{movie.categoriesTitle && (
+										<>
+											{movie.categoriesTitle} <span className='text-primary'>I </span>
+										</>
+									)}
+									{movie.countriesTitle && (
+										<>
+											{movie.countriesTitle} <span className='text-primary'>I </span>
+											<span className='text-primary'>I </span>
+										</>
+									)}
+									<span className='text-primary'>{movie.ageRemark}+</span>
 								</div>
 								<div className='movie-card-more-info__btns'>
-									<button
-										className='btn btn-secondary btn-icon rounded-pill'
-										data-bs-toggle='modal'
-										data-bs-target='#movieInfoModal-1'
-									>
-										подробнее<span className='icon icon-library_books'></span>
-									</button>
-									<button className='btn btn-primary btn-icon rounded-pill'>
-										смотреть<span className='icon icon-play_circle'></span>
-									</button>
+									<MovieModal buttonIcon='icon-library_books' movie={movie} />
+									<Link href={`/movies/${movie.slug}`}>
+										<a className='btn btn-primary btn-icon rounded-pill'>
+											смотреть<span className='icon icon-play_circle'></span>
+										</a>
+									</Link>
 								</div>
 							</div>
 						</div>

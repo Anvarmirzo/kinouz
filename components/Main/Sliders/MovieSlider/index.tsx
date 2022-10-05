@@ -6,6 +6,7 @@ import {MovieModel} from '../../../../core/models';
 import Link from 'next/link';
 import {Player} from '../../Player';
 import {AddToFavoritesBtn} from '../../Buttons/AddToFavoritesBtn';
+import {MovieModal} from '../../Modals/MovieModal';
 
 interface MovieSliderProps extends SwiperProps {
 	list: MovieModel[];
@@ -81,13 +82,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 									<span className='text-primary'>{movie.ageRemark}+</span>
 								</div>
 								<div className='movie-card-more-info__btns'>
-									<button
-										className='btn btn-secondary btn-icon rounded-pill'
-										data-bs-toggle='modal'
-										data-bs-target='#movieInfoModal-1'
-									>
-										подробнее<span className='icon icon-library_books'></span>
-									</button>
+									<MovieModal movie={movie} buttonIcon='icon-library_books' />
 									<Link href={`/movies/${movie.slug}`}>
 										<a className='btn btn-primary btn-icon rounded-pill'>
 											смотреть<span className='icon icon-play_circle'></span>
