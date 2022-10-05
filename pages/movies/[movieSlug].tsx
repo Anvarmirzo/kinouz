@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
-import {CommentModal, Footer, Header, Player} from '../../components/Main';
+import {AddToFavoritesBtn, CommentModal, Footer, Header, Player} from '../../components/Main';
 import {ActorCarouselSlider} from '../../components/Movie';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {getMovieThunk} from '../../core/store/movie/movie.thunks';
@@ -121,9 +121,10 @@ const Movie = () => {
 												смотреть<span className='icon icon-play_circle'></span>
 											</button>
 											<CommentModal movieId={movies.current.id} />
-											<button className='btn btn-secondary btn-bookmark rounded-pill' type='button'>
-												<span className='icon icon-bookmark_border'></span>
-											</button>
+											<AddToFavoritesBtn
+												movieId={movies.current.id}
+												className='btn-secondary rounded-pill'
+											/>
 										</div>
 										<div className='page-movie-card__quality'>{renderQualities()}</div>
 									</div>

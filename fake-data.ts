@@ -1,5 +1,6 @@
 export const movieSlides = [
 	{
+		id: 1,
 		img: '/img/dist/movie-card-img1.jpg',
 		rating: {
 			imdb: 7.2,
@@ -12,6 +13,7 @@ export const movieSlides = [
 		},
 	},
 	{
+		id: 2,
 		img: '/img/dist/movie-card-img2.jpg',
 		rating: {
 			imdb: 7.2,
@@ -24,6 +26,7 @@ export const movieSlides = [
 		},
 	},
 	{
+		id: 3,
 		img: '/img/dist/movie-card-img3.jpg',
 		rating: {
 			imdb: 7.2,
@@ -36,6 +39,7 @@ export const movieSlides = [
 		},
 	},
 	{
+		id: 4,
 		img: '/img/dist/movie-card-img4.jpg',
 		rating: {
 			imdb: 7.2,
@@ -48,6 +52,7 @@ export const movieSlides = [
 		},
 	},
 	{
+		id: 5,
 		img: '/img/dist/movie-card-img5.jpg',
 		rating: {
 			imdb: 7.2,
@@ -60,6 +65,7 @@ export const movieSlides = [
 		},
 	},
 	{
+		id: 6,
 		img: '/img/dist/movie-card-img6.jpg',
 		rating: {
 			imdb: 7.2,

@@ -3,6 +3,7 @@ export * from './Header/LoginButtonWithMenu';
 
 export * from './Footer';
 
+export * from './Buttons/AddToFavoritesBtn';
 export * from './Select';
 
 export * from './Modals/MovieModal';
@@ -14,4 +15,5 @@ export * from './Modals/FilterModal';
 
 export * from './Sliders/HeroLargeSlider';
 export * from './Sliders/MovieSlider';
+
 export * from './Player';

@@ -2,6 +2,7 @@ import {MovieService} from '../../services';
 import {setMovieAction, setMoviesAction, setNewMoviesAction} from './movie.slices';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {MovieModel} from '../../models';
+import {AxiosResponse} from 'axios';
 
 export const getMoviesThunk = createAsyncThunk<
 	void,
@@ -37,3 +38,10 @@ export const getMovieThunk = createAsyncThunk<void, string | number>(
 		}
 	}
 );
+
+export const addMovieToFavorite = createAsyncThunk<
+	Promise<void | {message: string; status: number}>,
+	number
+>('movies/add-to-favorite', async (payload, thunkAPI) => {
+	return await MovieService.addToFavorite(payload);
+});

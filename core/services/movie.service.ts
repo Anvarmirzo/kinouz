@@ -24,4 +24,13 @@ export const MovieService = {
 			.then((res) => new MovieModel(res.data))
 			.catch(Toast.error);
 	},
+	addToFavorite(movieId: number) {
+		return api
+			.post<{message: string; status: number}>(`movie/add-movie-to-favorite/${movieId}`)
+			.then((res) => {
+				Toast.success(res.data.message);
+				return res.data;
+			})
+			.catch(Toast.error);
+	},
 };
