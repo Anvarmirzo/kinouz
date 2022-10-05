@@ -1,11 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
-import {LoginButtonWithMenu, LoginModal} from '../index';
+import {LoginButtonWithMenu} from '../index';
 import {SearchModal} from '../Modals/SearchModal';
 import cn from 'classnames';
-import {useAppSelector, useOnClickOutside} from '../../../core/hooks';
+import {useAppDispatch, useAppSelector, useOnClickOutside} from '../../../core/hooks';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
+import {Button} from 'react-bootstrap';
+import {setIsShownModalAction} from '../../../core/store/globalUI/globalUI.slices';
 
 export const Header = () => {
 	// next router
@@ -13,6 +15,7 @@ export const Header = () => {
 	const currentRoute = router.pathname;
 
 	// redux hooks
+	const dispatch = useAppDispatch();
 	const user = useAppSelector(({auth}) => auth.user);
 
 	// react hooks
@@ -44,6 +47,10 @@ export const Header = () => {
 
 	const toggleOpenFlag = () => {
 		setIsMenuOpen((prev) => !prev);
+	};
+
+	const changeModalIsShown = (show: boolean) => () => {
+		dispatch(setIsShownModalAction({modalName: 'login', flag: show}));
 	};
 	return (
 		<div
@@ -140,7 +147,17 @@ export const Header = () => {
 						<SearchModal />
 					</div>
 					<div className='header__loginza header-loginza'>
-						{user ? <LoginButtonWithMenu user={user} /> : <LoginModal />}
+						{user ? (
+							<LoginButtonWithMenu user={user} />
+						) : (
+							<Button
+								variant='primary'
+								className='header-loginza__login btn btn-primary rounded-pill'
+								onClick={changeModalIsShown(true)}
+							>
+								Войти
+							</Button>
+						)}
 					</div>
 				</div>
 			</header>

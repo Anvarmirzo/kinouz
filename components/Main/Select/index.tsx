@@ -48,9 +48,7 @@ export const AppSelect = ({
 	const toggleLoading = () => setState((state) => ({...state, isLoading: !state.isLoading}));
 	const toggleRtl = () => setState((state) => ({...state, isRtl: !state.isRtl}));
 
-	// TODO: remove any
 	const styles = {
-		// control: (styles: any) => ({...styles, backgroundColor: 'white'}),
 		option: (provided: any, state: any) => ({
 			...provided,
 			color: '#fff',

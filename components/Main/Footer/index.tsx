@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {logoutThunk} from '../../../core/store/auth/auth.thunks';
 import {useAppDispatch, useAppSelector} from '../../../core/hooks';
+import {setIsShownModalAction} from '../../../core/store/globalUI/globalUI.slices';
 
 export const Footer = () => {
 	// redux hooks
@@ -13,6 +14,11 @@ export const Footer = () => {
 		e.preventDefault();
 		dispatch(logoutThunk());
 	};
+
+	const showModal = (modalName: 'login' | 'signup') => () => {
+		dispatch(setIsShownModalAction({modalName, flag: true}));
+	};
+
 	return (
 		<footer className='footer'>
 			<div className='footer__container container-fluid'>
@@ -24,35 +30,52 @@ export const Footer = () => {
 						© 2003 — {new Date().getFullYear()} <span>I</span> kinouz.uz
 					</div>
 				</div>
-				{user && (
-					<div className='footer__menu footer-menu'>
-						<ul className='footer-menu__list'>
-							<li className='footer-menu__item'>
-								<a href='#' className='footer-menu__link'>
-									<span className='icon icon-account_balance_wallet'></span>Подписка и оплата
-								</a>
-							</li>
-							<li className='footer-menu__item'>
-								<a href='#' className='footer-menu__link'>
-									<span className='icon icon-ondemand_video'></span>Устройства
-								</a>
-							</li>
-
-							<li className='footer-menu__item'>
-								<Link href='/account'>
-									<a className='footer-menu__link'>
-										<span className='icon icon-portrait'></span>Профиль
+				<div className='footer__menu footer-menu'>
+					<ul className='footer-menu__list'>
+						<li className='footer-menu__item'>
+							<a href='#' className='footer-menu__link'>
+								<span className='icon icon-account_balance_wallet'></span>Подписка и оплата
+							</a>
+						</li>
+						{user ? (
+							<>
+								<li className='footer-menu__item'>
+									<Link href='/account'>
+										<a className='footer-menu__link'>
+											<span className='icon icon-ondemand_video'></span>Устройства
+										</a>
+									</Link>
+								</li>
+								<li className='footer-menu__item'>
+									<Link href='/account'>
+										<a className='footer-menu__link'>
+											<span className='icon icon-portrait'></span>Профиль
+										</a>
+									</Link>
+								</li>
+								<li className='footer-menu__item'>
+									<a onClick={onLogout} href='#' className='footer-menu__link'>
+										<span className='icon icon-logout'></span>Выйти из учетной записи
 									</a>
-								</Link>
-							</li>
-							<li className='footer-menu__item'>
-								<a onClick={onLogout} href='#' className='footer-menu__link'>
-									<span className='icon icon-logout'></span>Выйти из учетной записи
-								</a>
-							</li>
-						</ul>
-					</div>
-				)}
+								</li>
+							</>
+						) : (
+							/* TODO: find icons for login and signup */
+							<>
+								<li className='footer-menu__item'>
+									<a onClick={showModal('login')} href='#' className='footer-menu__link'>
+										<span className='icon icon-logout'></span>Войти
+									</a>
+								</li>
+								<li className='footer-menu__item'>
+									<a onClick={showModal('signup')} href='#' className='footer-menu__link'>
+										<span className='icon icon-logout'></span>Пройти регистрацию
+									</a>
+								</li>
+							</>
+						)}
+					</ul>
+				</div>
 				<div className='footer__mobile-app mobile-app'>
 					<ul className='mobile-app__list'>
 						<li className='mobile-app__item'>
