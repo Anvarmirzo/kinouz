@@ -33,4 +33,22 @@ export const MovieService = {
 			})
 			.catch(Toast.error);
 	},
+	getFavorites() {
+		return api
+			.get('movie/favorites')
+			.then((res) => {
+				console.log(res);
+				return res;
+			})
+			.catch(Toast.error);
+	},
+	getHistory() {
+		return api
+			.get('movie/history')
+			.then((res) => {
+				console.log(res);
+				return res;
+			})
+			.catch(Toast.error);
+	},
 };

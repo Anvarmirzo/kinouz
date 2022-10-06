@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Head from 'next/head';
 import {Footer, Header} from '../../components/Main';
 import {Accordion, Button, Card, Tab, Tabs} from 'react-bootstrap';
