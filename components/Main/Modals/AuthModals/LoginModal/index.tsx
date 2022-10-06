@@ -52,20 +52,24 @@ export const LoginModal = () => {
 				<div className='modal-login'>
 					<form onSubmit={onSubmit} className='modal-login__form row gy-3'>
 						<div className='col-12'>
-							<input
-								type='email'
-								className='form-control form-control-ico form-control-email'
-								placeholder='E-mail'
-								{...register('email', {required: true})}
-							/>
+							<div className='form-control-email__icon'>
+								<input
+									type='email'
+									className='form-control form-control-ico form-control-email'
+									placeholder='E-mail'
+									{...register('email', {required: true})}
+								/>
+							</div>
 						</div>
 						<div className='col-12'>
-							<input
-								type='password'
-								className='form-control form-control-ico form-control-password'
-								placeholder='Пароль'
-								{...register('password', {required: true})}
-							/>
+							<div className='form-control-password__icon'>
+								<input
+									type='password'
+									className='form-control form-control-ico form-control-password'
+									placeholder='Пароль'
+									{...register('password', {required: true})}
+								/>
+							</div>
 						</div>
 						<div className='col-6 d-flex align-items-center justify-content-center'>
 							<div className='form-check'>

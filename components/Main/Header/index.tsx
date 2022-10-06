@@ -52,6 +52,8 @@ export const Header = () => {
 	const changeModalIsShown = (show: boolean) => () => {
 		dispatch(setIsShownModalAction({modalName: 'login', flag: show}));
 	};
+
+	console.log(currentRoute);
 	return (
 		<div
 			className={cn({
@@ -129,15 +131,23 @@ export const Header = () => {
 						<nav className='header__user-menu user-menu'>
 							{user && (
 								<ul className='user-menu__list'>
-									<li className='user-menu__item'>
-										<a href='#' className='user-menu__link'>
-											Моя подборка
-										</a>
+									<li
+										className={cn('main-menu__item', {
+											'main-menu__item_active': currentRoute === '/my-favorites',
+										})}
+									>
+										<Link href='/my-favorites'>
+											<a className='user-menu__link'>Моя подборка</a>
+										</Link>
 									</li>
-									<li className='user-menu__item'>
-										<a href='#' className='user-menu__link'>
-											История просмотров
-										</a>
+									<li
+										className={cn('main-menu__item', {
+											'main-menu__item_active': currentRoute === '/my-history',
+										})}
+									>
+										<Link href='/my-history'>
+											<a className='user-menu__link'>История просмотров</a>
+										</Link>
 									</li>
 								</ul>
 							)}

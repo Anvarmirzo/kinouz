@@ -111,7 +111,7 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 							Не применять
 						</label>
 					</div>
-					<div className='input-group input-group-btn mb-2'>
+					<div className='input-group input-group-btn form-control-password__icon mb-2'>
 						<input
 							type='password'
 							className='form-control form-control-ico form-control-password'
