@@ -4,8 +4,8 @@ import {MovieModel} from '../../models';
 interface IState {
 	list: MovieModel[];
 	newMoviesList: MovieModel[];
-	favoritesList: MovieModel[];
-	historyMovies: MovieModel[];
+	favoritesList: {list: MovieModel[]; count: number};
+	historyMovies: {list: MovieModel[]; count: number};
 	current: MovieModel | null;
 	count: number;
 }
@@ -13,8 +13,8 @@ interface IState {
 const initialState: IState = {
 	list: [],
 	newMoviesList: [],
-	favoritesList: [],
-	historyMovies: [],
+	favoritesList: {list: [], count: 0},
+	historyMovies: {list: [], count: 0},
 	current: null,
 	count: 0,
 };
@@ -41,15 +41,15 @@ export const {
 			current: action.payload,
 		}),
 		// TODO: need to make it as object and add field count?
-		setNewMoviesAction: (state, action: PayloadAction<MovieModel[]>) => ({
+		setNewMoviesAction: (state, action: PayloadAction<IState['list']>) => ({
 			...state,
 			newMoviesList: action.payload,
 		}),
-		setFavoriteMoviesAction: (state, action: PayloadAction<MovieModel[]>) => ({
+		setFavoriteMoviesAction: (state, action: PayloadAction<IState['favoritesList']>) => ({
 			...state,
 			favoritesList: action.payload,
 		}),
-		setHistoryMoviesAction: (state, action: PayloadAction<MovieModel[]>) => ({
+		setHistoryMoviesAction: (state, action: PayloadAction<IState['historyMovies']>) => ({
 			...state,
 			historyMovies: action.payload,
 		}),
