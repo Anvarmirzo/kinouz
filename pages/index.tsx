@@ -20,7 +20,6 @@ const Home: NextPage = () => {
 	useEffect(() => {
 		dispatch(getCategoriesMainThunk());
 		dispatch(getMoviesThunk({params: {isNew: true}}));
-
 		return () => {
 			dispatch(setNewMoviesAction([]));
 		};

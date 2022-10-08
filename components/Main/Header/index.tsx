@@ -53,7 +53,6 @@ export const Header = () => {
 		dispatch(setIsShownModalAction({modalName: 'login', flag: show}));
 	};
 
-	console.log(currentRoute);
 	return (
 		<div
 			className={cn({

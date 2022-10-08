@@ -57,7 +57,7 @@ export const getFavoriteMoviesThunk = createAsyncThunk<void, void>(
 		const movies = await MovieService.getFavorites();
 
 		if (movies) {
-			thunkAPI.dispatch(setFavoriteMoviesAction(movies.data));
+			thunkAPI.dispatch(setFavoriteMoviesAction({list: movies.data, count: movies.count}));
 		}
 	}
 );
@@ -68,7 +68,7 @@ export const getHistoryMoviesThunk = createAsyncThunk<void, void>(
 		const movies = await MovieService.getHistory();
 
 		if (movies) {
-			thunkAPI.dispatch(setHistoryMoviesAction(movies.data));
+			thunkAPI.dispatch(setHistoryMoviesAction({list: movies.data, count: movies.count}));
 		}
 	}
 );

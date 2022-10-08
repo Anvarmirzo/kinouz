@@ -2,7 +2,8 @@ import Head from 'next/head';
 import {Footer, Header, HeroLargeSlider, MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {useEffect} from 'react';
-import {getFavoriteMoviesThunk} from '../../core/store/movie/movie.thunks';
+import {getFavoriteMoviesThunk, getMoviesThunk} from '../../core/store/movie/movie.thunks';
+import {setFavoriteMoviesAction, setNewMoviesAction} from '../../core/store/movie/movie.slices';
 
 const MyFavorites = () => {
 	// redux hooks
@@ -14,7 +15,13 @@ const MyFavorites = () => {
 
 	// react hooks
 	useEffect(() => {
+		dispatch(getMoviesThunk({params: {isNew: true}}));
 		dispatch(getFavoriteMoviesThunk());
+
+		return () => {
+			dispatch(setNewMoviesAction([]));
+			dispatch(setFavoriteMoviesAction({count: 0, list: []}));
+		};
 	}, []);
 
 	return (
@@ -37,7 +44,7 @@ const MyFavorites = () => {
 			<Header />
 			<main className='content'>
 				<HeroLargeSlider list={newMovies} />
-				<MovieSlider title='Моя подборка' list={favoriteMovies} />
+				<MovieSlider title='Моя подборка' list={favoriteMovies.list} />
 			</main>
 			<Footer />
 		</>

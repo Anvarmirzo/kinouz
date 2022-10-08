@@ -35,20 +35,14 @@ export const MovieService = {
 	},
 	getFavorites() {
 		return api
-			.get('movie/favorites')
-			.then((res) => {
-				console.log(res);
-				return res;
-			})
+			.get<{data: MovieModel[]; count: number}>('movie/favorites')
+			.then((res) => res.data)
 			.catch(Toast.error);
 	},
 	getHistory() {
 		return api
-			.get('movie/history')
-			.then((res) => {
-				console.log(res);
-				return res;
-			})
+			.get<{data: MovieModel[]; count: number}>('movie/history')
+			.then((res) => res.data)
 			.catch(Toast.error);
 	},
 };
