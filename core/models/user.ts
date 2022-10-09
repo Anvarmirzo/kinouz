@@ -1,9 +1,9 @@
-export interface IRole {
+interface IRole {
 	id: number;
 	title: string;
 }
 
-export interface IContact {
+interface IContact {
 	email: string;
 }
 
@@ -11,29 +11,50 @@ export interface ICreateUser {
 	name: string;
 	email: string;
 	userId: number;
-	ageRemark?: number;
 	password: string;
+	ageRemark?: number;
 }
 
 export interface IPatchUser extends Omit<Partial<ICreateUser>, 'userId'> {
 	userId: number;
 }
 
+class SubscriptionModel {
+	id: number;
+	type: any;
+	active: boolean;
+	expirationAt: Date;
+	user?: UserModel;
+
+	constructor(subscription: SubscriptionModel) {
+		this.id = subscription.id;
+		this.type = subscription.type;
+		this.active = subscription.active;
+		this.expirationAt = new Date(subscription.expirationAt);
+
+		if (subscription.user) {
+			this.user = new UserModel(subscription.user);
+		}
+	}
+}
+
 export class UserModel {
 	id: number;
 	name: string;
 	contact: IContact;
-	role?: IRole;
 	balance: number;
-	ageRemark?: number;
-	parent?: UserModel;
 	subUsers: UserModel[] = [];
+	subscriptions: SubscriptionModel[] = [];
+	role?: IRole;
+	parent?: UserModel;
+	ageRemark?: number;
 
 	constructor(user: UserModel) {
 		this.id = user.id;
 		this.name = user.name;
 		this.balance = user.balance;
 		this.contact = user.contact;
+		this.subscriptions = user.subscriptions.map((s) => new SubscriptionModel(s));
 
 		if (user.ageRemark) {
 			this.ageRemark = user.ageRemark;

@@ -14,6 +14,7 @@ import {producersReducer} from './producer/producer.slices';
 import {usersReducer} from './user/user.slices';
 import {commentsReducer} from './comment/comment.slices';
 import {globalUIReducer} from './globalUI/globalUI.slices';
+import {paymentReducer} from './payment/payment.slices';
 
 const State = {
 	auth: authReducer,
@@ -22,6 +23,7 @@ const State = {
 	producers: producersReducer,
 	categories: categoriesReducer,
 	users: usersReducer,
+	payment: paymentReducer,
 	movies: moviesReducer,
 	comments: commentsReducer,
 	globalUI: globalUIReducer,
