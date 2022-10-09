@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
-import {ePaymentStatusType, ePaymentType, IPostPayment} from '../../../../core/models/payment';
+import {
+	ePaymentStatusType,
+	ePaymentType,
+	IPostPayment,
+	PaymentModel,
+} from '../../../../core/models/payment';
 import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
 import {addPaymentThunk} from '../../../../core/store/payment/payment.thunks';
 
@@ -16,17 +21,31 @@ export const PaymentForm = () => {
 
 	// react hook form
 	const {
+		getValues,
 		register,
 		handleSubmit,
 		setValue,
 		formState: {errors},
 	} = useForm<IPostPayment>();
 
-	const onSubmit = (state: {summa: IPostPayment['summa']}) => {
+	const onSubmit = async (state: {summa: IPostPayment['summa']}) => {
 		if (userId) {
-			dispatch(
+			const result = await dispatch(
 				addPaymentThunk({summa: state.summa, userId, statusId: ePaymentStatusType.Pending, typeId})
 			);
+
+			const payment = result.payload as PaymentModel;
+
+			if (payment) {
+				// TODO: make more readable
+				window.open(
+					`https://my.click.uz/services/pay?service_id=${
+						process.env.NEXT_PUBLIC_CLICK_SERVICE_ID
+					}&merchant_id=${process.env.NEXT_PUBLIC_CLICK_MERCHANT_ID}&amount=${getValues(
+						'summa'
+					)}&transaction_param=${payment.id}`
+				);
+			}
 		}
 	};
 
