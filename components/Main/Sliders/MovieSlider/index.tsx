@@ -32,6 +32,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 							<div className='movie-card__label bg-primary'>FullHD</div>
 							<div className='movie-card__label bg-secondary'>HD</div>
 							{movie.isNew && <div className='movie-card__label bg-danger'>NEW</div>}
+							{!movie.bySubscription && <div className='movie-card__label bg-success'>FREE</div>}
 						</div>
 						<div className='movie-card__ratings'>
 							<div className='movie-card__rating'>
