@@ -5,3 +5,5 @@ export * from './director';
 export * from './user';
 export * from './auth';
 export * from './comment';
+export * from './payment';
+export * from './subscription';

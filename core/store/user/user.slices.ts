@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {UserModel} from '../../models';
+import {SubscriptionModel, UserModel} from '../../models';
 
 interface IState {
 	user: UserModel | null;
@@ -10,7 +10,14 @@ const initialState: IState = {
 };
 
 export const {
-	actions: {setUserAction, addSubUserAction, patchSubUserAction, deleteSubUserAction},
+	actions: {
+		setUserAction,
+		addSubUserAction,
+		patchSubUserAction,
+		deleteSubUserAction,
+		addUserSubscriptionAction,
+		removeUserSubscriptionAction,
+	},
 	reducer: usersReducer,
 } = createSlice({
 	name: 'user',
@@ -59,6 +66,33 @@ export const {
 					},
 				};
 			}
+			return state;
+		},
+
+		addUserSubscriptionAction: (state, action: PayloadAction<SubscriptionModel>) => {
+			if (state.user) {
+				return {
+					...state,
+					user: {
+						...state.user,
+						subscriptions: [...state.user.subscriptions, action.payload],
+					},
+				};
+			}
+
+			return state;
+		},
+		removeUserSubscriptionAction: (state, action: PayloadAction<SubscriptionModel>) => {
+			if (state.user) {
+				return {
+					...state,
+					user: {
+						...state.user,
+						subscriptions: removeItem(state.user.subscriptions, action.payload.id),
+					},
+				};
+			}
+
 			return state;
 		},
 	},
