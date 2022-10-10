@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {PaymentService} from '../../services/payment.service';
-import {IPostPayment, PaymentModel} from '../../models/payment';
-import {addPaymentAction, setPaymentsAction, setSubscriptionTypeAction} from './payment.slices';
+import {PaymentService} from '../../services';
+import {IPostPayment, PaymentModel} from '../../models';
+import {addPaymentAction, setPaymentsAction} from './payment.slices';
 
 export const addPaymentThunk = createAsyncThunk<PaymentModel | void, IPostPayment>(
 	'payment/addPayment',
@@ -22,17 +22,6 @@ export const getPaymentsThunk = createAsyncThunk(
 
 		if (result) {
 			thunkAPI.dispatch(setPaymentsAction({list: result.data, count: result.count}));
-		}
-	}
-);
-
-export const getSubscriptionTypeThunk = createAsyncThunk(
-	'payment/getSubscriptionType',
-	async (params: {skip: number} | undefined, thunkAPI) => {
-		const result = await PaymentService.getSubscriptionType(params);
-
-		if (result) {
-			thunkAPI.dispatch(setSubscriptionTypeAction({list: result.data, count: result.count}));
 		}
 	}
 );

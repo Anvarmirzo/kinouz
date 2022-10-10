@@ -1,15 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {PaymentModel, SubscriptionType} from '../../models/payment';
+import {PaymentModel} from '../../models';
 
 interface IState {
 	payment: {
 		list: PaymentModel[];
 		count: number;
 		current: PaymentModel | null;
-	};
-	subscriptionType: {
-		list: SubscriptionType[];
-		count: number;
 	};
 }
 
@@ -19,14 +15,10 @@ const initialState: IState = {
 		count: 0,
 		current: null,
 	},
-	subscriptionType: {
-		list: [],
-		count: 0,
-	},
 };
 
 export const {
-	actions: {addPaymentAction, setSubscriptionTypeAction, setPaymentsAction},
+	actions: {addPaymentAction, setPaymentsAction},
 	reducer: paymentReducer,
 } = createSlice({
 	name: 'payment',
@@ -45,13 +37,6 @@ export const {
 			...state,
 			payment: {
 				...state.payment,
-				list: action.payload.list,
-				count: action.payload.count,
-			},
-		}),
-		setSubscriptionTypeAction: (state, action: PayloadAction<IState['subscriptionType']>) => ({
-			...state,
-			subscriptionType: {
 				list: action.payload.list,
 				count: action.payload.count,
 			},

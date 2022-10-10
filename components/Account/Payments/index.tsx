@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
+import Moment from 'react-moment';
 import {useAppDispatch, useAppSelector} from '../../../core/hooks';
 import {getPaymentsThunk} from '../../../core/store/payment/payment.thunks';
-import Moment from 'react-moment';
 import {setPaymentsAction} from '../../../core/store/payment/payment.slices';
 
 export const Payments = () => {
@@ -32,7 +32,7 @@ export const Payments = () => {
 	};
 	return (
 		<div role='tabpanel' aria-labelledby='history'>
-			{renderPayments()}
+			{payment.list.length > 0 ? renderPayments() : 'Список пуст.'}
 		</div>
 	);
 };

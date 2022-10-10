@@ -1,3 +1,5 @@
+import {SubscriptionModel} from './subscription';
+
 interface IRole {
 	id: number;
 	title: string;
@@ -17,25 +19,6 @@ export interface ICreateUser {
 
 export interface IPatchUser extends Omit<Partial<ICreateUser>, 'userId'> {
 	userId: number;
-}
-
-class SubscriptionModel {
-	id: number;
-	type: any;
-	active: boolean;
-	expirationAt: Date;
-	user?: UserModel;
-
-	constructor(subscription: SubscriptionModel) {
-		this.id = subscription.id;
-		this.type = subscription.type;
-		this.active = subscription.active;
-		this.expirationAt = new Date(subscription.expirationAt);
-
-		if (subscription.user) {
-			this.user = new UserModel(subscription.user);
-		}
-	}
 }
 
 export class UserModel {

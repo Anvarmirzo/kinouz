@@ -5,3 +5,6 @@ export * from './actor.service';
 export * from './genre.service';
 export * from './category.service';
 export * from './producer.service';
+export * from './subscription.service';
+export * from './payment.service';
+export * from './comment.service';
