@@ -5,8 +5,13 @@ import {Accordion, Tab, Tabs} from 'react-bootstrap';
 import Image from 'next/image';
 import {useAppSelector} from '../../core/hooks';
 import {useForm} from 'react-hook-form';
-import {NewSubUser, PaymentForm, SubUserAccordionItem} from '../../components/Account';
-import {Subscriptions} from '../../components/Account/Subscriptions';
+import {
+	NewSubUser,
+	PaymentForm,
+	Payments,
+	SubUserAccordionItem,
+	Subscriptions,
+} from '../../components/Account';
 
 const Account = () => {
 	// redux hooks
@@ -115,34 +120,7 @@ const Account = () => {
 								<PaymentForm />
 							</Tab>
 							<Tab eventKey='history' title='История платежей'>
-								<div role='tabpanel' aria-labelledby='history'>
-									<div className='tab-content' id='nav-tabContent'>
-										<div className='alert alert-success' role='alert'>
-											<h6 className='alert-heading'>02.08.2022г.</h6>
-											<p>пополнение аккаунта на 30 000 сум.</p>
-											<hr />
-											<p className='mb-0'>
-												<b>Тариф: </b>Зарубежное кино - 30 000 сум.
-											</p>
-										</div>
-										<div className='alert alert-success' role='alert'>
-											<h6 className='alert-heading'>02.08.2022г.</h6>
-											<p>пополнение аккаунта на 20 000 сум.</p>
-											<hr />
-											<p className='mb-0'>
-												<b>Тариф: </b>Мультсериалы - 30 000 сум.
-											</p>
-										</div>
-										<div className='alert alert-success' role='alert'>
-											<h6 className='alert-heading'>02.08.2022г.</h6>
-											<p>пополнение аккаунта на 30 000 сум.</p>
-											<hr />
-											<p className='mb-0'>
-												<b>Тариф: </b>Амедиатека - 30 000 сум.
-											</p>
-										</div>
-									</div>
-								</div>
+								<Payments />
 							</Tab>
 							<Tab eventKey='subscriptions' title='Мои подписки'>
 								<Subscriptions />

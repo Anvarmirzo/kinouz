@@ -49,6 +49,7 @@ export class PaymentModel {
 export class SubscriptionType {
 	id: number;
 	title: string;
+	description: string;
 	price?: number;
 	poster?: FileModel;
 	genres?: GenreModel[];
@@ -58,6 +59,7 @@ export class SubscriptionType {
 	constructor(type: SubscriptionType) {
 		this.id = type.id;
 		this.title = type.title;
+		this.description = type.description;
 
 		if (type.price) {
 			this.price = type.price;

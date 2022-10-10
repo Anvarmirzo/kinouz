@@ -10,6 +10,18 @@ export const PaymentService = {
 			.catch(Toast.error);
 	},
 
+	getPayments(params: {skip?: number; params: {userId: number}}) {
+		return api
+			.get<{data: PaymentModel[]; count: number}>('payment', {
+				params: {...params, skip: params.skip ?? 0},
+			})
+			.then((res) => ({
+				data: res.data.data.map((p) => new PaymentModel(p)),
+				count: res.data.count,
+			}))
+			.catch(Toast.error);
+	},
+
 	getSubscriptionType(params: {skip: number} = {skip: 0}) {
 		return api
 			.get<{data: SubscriptionType[]; count: number}>('subscription-type', {params})
