@@ -62,7 +62,8 @@ export const PaymentForm = () => {
 			<div className='nav mynav mb-3' id='nav-tab1' role='tablist'>
 				{isHintVisible && (
 					<div className='alert alert-primary alert-dismissible fade show' role='alert'>
-						При оплате седства попадают на баланс аккаунта после чего Вы можете приобрести подписку.
+						При оплате средства попадают на баланс аккаунта после чего Вы можете приобрести
+						подписку.
 						<button onClick={hideHint} type='button' className='btn-close' aria-label='Close' />
 					</div>
 				)}
