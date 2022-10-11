@@ -15,8 +15,8 @@ export const {
 		addSubUserAction,
 		patchSubUserAction,
 		deleteSubUserAction,
-		addUserSubscriptionAction,
-		removeUserSubscriptionAction,
+		subscribeAction,
+		unsubscribeAction,
 	},
 	reducer: usersReducer,
 } = createSlice({
@@ -69,7 +69,7 @@ export const {
 			return state;
 		},
 
-		addUserSubscriptionAction: (state, action: PayloadAction<SubscriptionModel>) => {
+		subscribeAction: (state, action: PayloadAction<SubscriptionModel>) => {
 			if (state.user) {
 				return {
 					...state,
@@ -82,13 +82,13 @@ export const {
 
 			return state;
 		},
-		removeUserSubscriptionAction: (state, action: PayloadAction<SubscriptionModel>) => {
+		unsubscribeAction: (state, action: PayloadAction<SubscriptionModel>) => {
 			if (state.user) {
 				return {
 					...state,
 					user: {
 						...state.user,
-						subscriptions: removeItem(state.user.subscriptions, action.payload.id),
+						subscriptions: updateItem(state.user.subscriptions, action.payload),
 					},
 				};
 			}

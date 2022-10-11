@@ -1,5 +1,5 @@
 import api from '../api';
-import {SubscriptionType} from '../models';
+import {SubscriptionModel, SubscriptionType} from '../models';
 import {Toast} from '../utils';
 
 export const SubscriptionService = {
@@ -25,11 +25,8 @@ export const SubscriptionService = {
 
 	unsubscribe(subscriptionId: number) {
 		return api
-			.post<{status: number; message: string}>(`subscription-type/unsubscribe/${subscriptionId}`)
-			.then((res) => {
-				Toast.success(res.data.message);
-				return res.data;
-			})
+			.post<SubscriptionModel>(`subscription-type/unsubscribe/${subscriptionId}`)
+			.then((res) => res.data)
 			.catch(Toast.error);
 	},
 };
