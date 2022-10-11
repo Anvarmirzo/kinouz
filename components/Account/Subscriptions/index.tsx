@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card} from 'react-bootstrap';
 import Moment from 'react-moment';
-import {SubscriptionType} from '../../../core/models';
+import {SubscriptionModel, SubscriptionType} from '../../../core/models';
 import {useAppDispatch, useAppSelector} from '../../../core/hooks';
 import {setSubscriptionTypesAction} from '../../../core/store/subscription/subscription.slices';
-import {
-	addUserSubscriptionAction,
-	removeUserSubscriptionAction,
-} from '../../../core/store/user/user.slices';
+import {subscribeAction, unsubscribeAction} from '../../../core/store/user/user.slices';
 import {
 	getSubscriptionTypesThunk,
 	subscribeThunk,
@@ -62,20 +59,20 @@ export const Subscriptions = () => {
 	}, [unfilteredSubscriptions.list, user]);
 
 	const onSubscribe = (subscriptionTypeId: number) => async () => {
-		const result = await dispatch(subscribeThunk(subscriptionTypeId));
+		const action = await dispatch(subscribeThunk(subscriptionTypeId));
 
-		if (result) {
+		if (action.payload) {
 			dispatch(autoLoginThunk());
 		}
 	};
 
 	const onUnsubscribe = (subscriptionTypeId: number) => async () => {
-		const result = await dispatch(unsubscribeThunk(subscriptionTypeId));
+		const action = await dispatch(unsubscribeThunk(subscriptionTypeId));
+		const result = action.payload as SubscriptionModel;
 
 		if (result) {
 			dispatch(autoLoginThunk());
-			// @ts-ignore
-			dispatch(removeUserSubscriptionAction(result));
+			dispatch(unsubscribeAction(result));
 		}
 	};
 
