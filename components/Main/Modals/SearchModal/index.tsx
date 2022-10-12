@@ -1,20 +1,49 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {AppSelect} from '../../Select';
 import Image from 'next/image';
+import {useForm} from 'react-hook-form';
+import {useAppDispatch} from '../../../../core/hooks';
+import {searchMovieThunk} from '../../../../core/store/movie/movie.thunks';
+import {IMovieSearchParams} from '../../../../core/models';
 
 export const SearchModal = () => {
+	// redux hooks
+	const dispatch = useAppDispatch();
+
+	// react hook form
+	const {
+		register,
+		handleSubmit,
+		setValue,
+		watch,
+		formState: {errors},
+	} = useForm<IMovieSearchParams['params']['current']>();
+
 	// react hooks
 	const [show, setShow] = useState(false);
+	useEffect(() => {
+		const subscribe = watch((value, {name}) => onSubmit());
+
+		return () => subscribe.unsubscribe();
+	}, []);
+
+	const onShowModal = (show: boolean) => () => {
+		setShow(show);
+	};
+
+	const onSubmit = () => {
+		handleSubmit((state) => dispatch(searchMovieThunk({params: {current: state}})))();
+	};
 
 	return (
 		<>
-			<Button variant='secondary' className='rounded-pill' onClick={() => setShow(true)}>
+			<Button variant='secondary' className='rounded-pill' onClick={onShowModal(true)}>
 				<span className='icon icon-search'></span>
 			</Button>
-			<Modal show={show} size='lg' onHide={() => setShow(false)} aria-labelledby='searchModalLabel'>
+			<Modal show={show} size='lg' onHide={onShowModal(false)} aria-labelledby='searchModalLabel'>
 				<Modal.Body>
-					<div className='modal-search'>
+					<form className='modal-search'>
 						<div className='modal-search__form row gy-0 gx-2'>
 							<div className='modal-search__item col-12 mb-3'>
 								<div className='modal-search__search'>
@@ -22,8 +51,9 @@ export const SearchModal = () => {
 										type='text'
 										className='form-control'
 										placeholder='поиск по названию жанру или актеру...'
+										{...register('title')}
 									/>
-									<button className='btn' type='submit'>
+									<button onClick={onSubmit} className='btn' type='button'>
 										<span className='icon icon-search'></span>
 									</button>
 								</div>
@@ -98,19 +128,22 @@ export const SearchModal = () => {
 										{label: 'Two', value: '2'},
 										{label: 'Three', value: '3'},
 									]}
+									isSearchable
 									defaultValue={{label: 'страна', value: ''}}
 									className='form-select-react'
+									{...register('countries')}
 								/>
 							</div>
 							<div className='modal-search__item col-12 col-sm-4 col-md-2 mb-2 mb-sm-0'>
-								<AppSelect
-									options={[
-										{label: 'One', value: '1'},
-										{label: 'Two', value: '2'},
-										{label: 'Three', value: '3'},
-									]}
-									defaultValue={{label: 'год', value: ''}}
-									className='form-select-react'
+								<input
+									type='text'
+									className='form-control h-100'
+									placeholder='год'
+									{...register('year', {
+										valueAsNumber: true,
+										pattern: /^\d+$/,
+										onChange: (e) => setValue('year', +e.target.value.replace(/\D+/g, '')),
+									})}
 								/>
 							</div>
 							<div className='modal-search__item col-12 col-sm-8 col-md-6'>
@@ -172,7 +205,7 @@ export const SearchModal = () => {
 						<div className='modal-search__result modal-search-result'>
 							<div className='modal-search-result__header'>
 								<h2 className='modal-search-result__title'>Найдено:</h2>
-								<div className='modal-search-result__sort movie-sort'>
+								{/*<div className='modal-search-result__sort movie-sort'>
 									<button className='movie-sort__item btn' type='button'>
 										<span className='icon icon-font_download'></span>по алфавиту
 										<span className='ico-sort icon icon-unfold_more'></span>
@@ -189,7 +222,7 @@ export const SearchModal = () => {
 										<span className='icon icon-kinopoisk'></span>Кинопоиск
 										<span className='ico-sort icon icon-unfold_more'></span>
 									</button>
-								</div>
+								</div>*/}
 							</div>
 							<div className='modal-search-result__body'>
 								<div className='modal-search-result__list row gx-4 gx-lg-5 gy-3'>
@@ -343,7 +376,7 @@ export const SearchModal = () => {
 								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 				</Modal.Body>
 			</Modal>
 		</>

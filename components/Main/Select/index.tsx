@@ -38,7 +38,7 @@ export const AppSelect = ({
 		isDisabled: props.isDisabled ?? false,
 		isLoading: props.isLoading ?? false,
 		isRtl: props.isRtl ?? false,
-		isSearchable: props.isRtl ?? false,
+		isSearchable: props.isSearchable ?? false,
 	});
 
 	const toggleSearchable = () =>

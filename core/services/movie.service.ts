@@ -1,6 +1,6 @@
 import api from '../api';
 import {Toast} from '../utils';
-import {MovieModel} from '../models';
+import {IMovieSearchParams, MovieModel} from '../models';
 
 export const MovieService = {
 	getAll(params: {skip: number; params: Record<string, number | string | boolean>}) {
@@ -22,6 +22,17 @@ export const MovieService = {
 		return api
 			.get<MovieModel>(`movie/slug/${slug}`)
 			.then((res) => new MovieModel(res.data))
+			.catch(Toast.error);
+	},
+	search(params: IMovieSearchParams) {
+		return api
+			.get<{count: number; data: MovieModel[]}>('movie', {
+				params: {...params, skip: params.skip ?? 0},
+			})
+			.then((res) => ({
+				count: res.data.count,
+				data: res.data.data.map((movie) => new MovieModel(movie)),
+			}))
 			.catch(Toast.error);
 	},
 	addToFavorite(movieId: number) {
