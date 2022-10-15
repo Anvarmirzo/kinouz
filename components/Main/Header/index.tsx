@@ -16,7 +16,7 @@ export const Header = () => {
 
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const user = useAppSelector(({auth}) => auth.user);
+	const [user, categories] = useAppSelector(({auth, categories}) => [auth.user, categories]);
 
 	// react hooks
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,7 +32,7 @@ export const Header = () => {
 		return () => {
 			window.removeEventListener('scroll', changeBackground);
 		};
-	});
+	}, []);
 
 	// custom hooks
 	useOnClickOutside(sidebarRef, () => {
@@ -51,6 +51,21 @@ export const Header = () => {
 
 	const changeModalIsShown = (show: boolean) => () => {
 		dispatch(setIsShownModalAction({modalName: 'login', flag: show}));
+	};
+
+	const renderMenu = () => {
+		return categories.all.list.map((c) => (
+			<li
+				className={cn('main-menu__item', {
+					'main-menu__item_active': ['/movies/[movieSlug]', '/movies'].includes(currentRoute),
+				})}
+				key={c.id}
+			>
+				<Link href={`/${c.slug}`}>
+					<a className='main-menu__link'>{c.title}</a>
+				</Link>
+			</li>
+		));
 	};
 
 	return (
@@ -82,50 +97,7 @@ export const Header = () => {
 					</Link>
 					<aside className='header__menus' ref={sidebarRef}>
 						<nav className='header__main-menu main-menu'>
-							<ul className='main-menu__list'>
-								<li className='main-menu__item'>
-									<a href='#' className='main-menu__link'>
-										TV
-									</a>
-								</li>
-								<li
-									className={cn('main-menu__item', {
-										'main-menu__item_active': ['/movies/[movieSlug]', '/movies'].includes(
-											currentRoute
-										),
-									})}
-								>
-									<Link href='/movies'>
-										<a className='main-menu__link'>Фильмы</a>
-									</Link>
-								</li>
-								<li
-									className={cn('main-menu__item', {
-										'main-menu__item_active': ['/serials/[serialId]', '/serials'].includes(
-											currentRoute
-										),
-									})}
-								>
-									<Link href='/serials'>
-										<a className='main-menu__link'>Сериалы</a>
-									</Link>
-								</li>
-								<li className='main-menu__item'>
-									<a href='#' className='main-menu__link'>
-										Шоу
-									</a>
-								</li>
-								<li className='main-menu__item'>
-									<a href='#' className='main-menu__link'>
-										Мультфильмы
-									</a>
-								</li>
-								<li className='main-menu__item'>
-									<a href='#' className='main-menu__link'>
-										Аниме
-									</a>
-								</li>
-							</ul>
+							<ul className='main-menu__list'>{renderMenu()}</ul>
 						</nav>
 						<nav className='header__user-menu user-menu'>
 							{user && (

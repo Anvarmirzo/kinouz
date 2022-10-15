@@ -1,24 +1,28 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {CategoryService} from '../../services';
-import {setCategoriesAction, setCategoryAction} from './category.slices';
+import {
+	setAllCategoriesAction,
+	setCategoryAction,
+	setMainCategoriesAction,
+} from './category.slices';
 
-export const getCategoriesThunk = createAsyncThunk<
+export const getAllCategoriesThunk = createAsyncThunk<
 	void,
 	{skip: number; params: Record<string, string | number>}
 >('categories/getAll', async (params = {skip: 0, params: {}}, thunkAPI) => {
 	const res = await CategoryService.getAll(params);
 
 	if (res) {
-		thunkAPI.dispatch(setCategoriesAction({list: res.data, count: res.count}));
+		thunkAPI.dispatch(setAllCategoriesAction({list: res.data, count: res.count}));
 	}
 });
-export const getCategoriesMainThunk = createAsyncThunk<void, {skip: number} | undefined>(
-	'categories/getAll',
+export const getMainCategoriesThunk = createAsyncThunk<void, {skip: number} | undefined>(
+	'categories/getMain',
 	async (params = {skip: 0}, thunkAPI) => {
 		const res = await CategoryService.getMain(params);
 
 		if (res) {
-			thunkAPI.dispatch(setCategoriesAction({list: res.data, count: res.count}));
+			thunkAPI.dispatch(setMainCategoriesAction({list: res.data, count: res.count}));
 		}
 	}
 );

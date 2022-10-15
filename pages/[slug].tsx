@@ -7,8 +7,14 @@ import {useEffect} from 'react';
 import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
 import {getMoviesThunk} from '../core/store/movie/movie.thunks';
 import {setNewMoviesAction} from '../core/store/movie/movie.slices';
+import {useRouter} from 'next/router';
 
-const Home: NextPage = () => {
+const DynamicPage: NextPage = () => {
+	// next hooks
+	const {
+		query: {movieSlug},
+	} = useRouter();
+	console.log(movieSlug);
 	// redux hooks
 	const [categories, newMovies] = useAppSelector(({categories, movies}) => [
 		categories.main.list,
@@ -59,4 +65,4 @@ const Home: NextPage = () => {
 	);
 };
 
-export default Home;
+export default DynamicPage;
