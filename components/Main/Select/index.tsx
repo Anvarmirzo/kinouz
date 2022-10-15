@@ -1,5 +1,7 @@
 import React, {ReactNode, useState} from 'react';
-import Select, {FormatOptionLabelMeta} from 'react-select';
+import Select, {FormatOptionLabelMeta, GroupBase, OptionsOrGroups} from 'react-select';
+import AsyncSelect from 'react-select/async';
+import {IAutoComplete, IAutoCompleteParams} from '../../../core/models';
 
 interface Option {
 	value: string;
@@ -21,6 +23,8 @@ interface AppSelectProps extends Partial<State> {
 	options: Option[];
 	defaultValue?: Option;
 	className?: string;
+	isAsync?: boolean;
+	searchOptions?: (params: string) => Promise<IAutoComplete | void>;
 	formatOptionLabel?:
 		| ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => ReactNode)
 		| undefined;
@@ -28,9 +32,11 @@ interface AppSelectProps extends Partial<State> {
 
 export const AppSelect = ({
 	options,
+	searchOptions,
 	defaultValue = options[0],
 	formatOptionLabel,
 	className = '',
+	isAsync = false,
 	...props
 }: AppSelectProps) => {
 	const [{isClearable, isSearchable, isDisabled, isLoading, isRtl}, setState] = useState<State>({
@@ -48,6 +54,19 @@ export const AppSelect = ({
 	const toggleLoading = () => setState((state) => ({...state, isLoading: !state.isLoading}));
 	const toggleRtl = () => setState((state) => ({...state, isRtl: !state.isRtl}));
 
+	const loadOptions = (
+		inputValue: string,
+		callback: (options: OptionsOrGroups<Option, GroupBase<Option>>) => void
+	) => {
+		if (searchOptions) {
+			searchOptions(inputValue)?.then((result) => {
+				if (result) {
+					callback(result.hits.map((h) => ({label: h.title || h.name || '', value: `${h.id}`})));
+				}
+			});
+		}
+	};
+
 	const styles = {
 		option: (provided: any, state: any) => ({
 			...provided,
@@ -56,7 +75,22 @@ export const AppSelect = ({
 			cursor: state.isFocused ? 'pointer' : 'default',
 		}),
 	};
-	return (
+
+	return isAsync ? (
+		<AsyncSelect
+			classNamePrefix={`select ${className}`}
+			defaultValue={defaultValue}
+			isDisabled={isDisabled}
+			isLoading={isLoading}
+			isClearable={isClearable}
+			isRtl={isRtl}
+			isSearchable={isSearchable}
+			loadOptions={loadOptions}
+			styles={styles}
+			formatOptionLabel={formatOptionLabel}
+			{...props}
+		/>
+	) : (
 		<Select
 			classNamePrefix={`select ${className}`}
 			defaultValue={defaultValue}
@@ -68,6 +102,7 @@ export const AppSelect = ({
 			options={options}
 			styles={styles}
 			formatOptionLabel={formatOptionLabel}
+			{...props}
 		/>
 	);
 };

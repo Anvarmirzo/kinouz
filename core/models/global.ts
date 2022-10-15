@@ -9,3 +9,20 @@ export class FileModel {
 		this.url = `${process.env.NEXT_PUBLIC_API_URL}${file.url}`;
 	}
 }
+
+export interface IAutoCompleteParams {
+	index: 'year' | 'genres' | 'acters' | 'countries' | 'categories' | 'producers' | 'directors';
+	search: string;
+	// filter: ["year=2001", "genres=1,2,3", "acters=23,2", countries="2,3,5"]
+	filter?: string[];
+}
+
+export interface IAutoComplete {
+	hits: {
+		id: number;
+		title?: string;
+		name?: string;
+		slug: string;
+	}[];
+	query: string;
+}

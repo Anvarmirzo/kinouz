@@ -1,11 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {AppSelect} from '../../Select';
-import Image from 'next/image';
-import {useForm} from 'react-hook-form';
+import {useForm, Controller} from 'react-hook-form';
 import {useAppDispatch} from '../../../../core/hooks';
 import {searchMovieThunk} from '../../../../core/store/movie/movie.thunks';
-import {IMovieSearchParams} from '../../../../core/models';
+import {
+	IAutoComplete,
+	IAutoCompleteParams,
+	IMovieSearchParams,
+	MovieModel,
+} from '../../../../core/models';
+import {autoCompleteThunk} from '../../../../core/store/globalUI/globalUI.thunks';
+import Link from 'next/link';
+
+interface ISelect {
+	label: string;
+	value: string;
+}
 
 export const SearchModal = () => {
 	// redux hooks
@@ -14,6 +25,7 @@ export const SearchModal = () => {
 	// react hook form
 	const {
 		register,
+		control,
 		handleSubmit,
 		setValue,
 		watch,
@@ -22,10 +34,39 @@ export const SearchModal = () => {
 
 	// react hooks
 	const [show, setShow] = useState(false);
-	useEffect(() => {
-		const subscribe = watch((value, {name}) => onSubmit());
+	const [searchResults, setSearchResults] = useState<{count: number; data: MovieModel[]}>({
+		count: 0,
+		data: [],
+	});
 
-		return () => subscribe.unsubscribe();
+	const [autoComplete, setAutoComplete] = useState<{
+		categories: ISelect;
+		actors: ISelect;
+		genres: ISelect;
+		countries: ISelect;
+	}>({
+		categories: {label: 'категория', value: ''},
+		genres: {label: 'жанр (все)', value: ''},
+		actors: {label: 'актер', value: ''},
+		countries: {label: 'страна', value: ''},
+	});
+
+	useEffect(() => {
+		let timer: NodeJS.Timeout | null = null;
+		const subscribe = watch((value, {name}) => {
+			if (timer) {
+				clearTimeout(timer);
+			}
+
+			timer = setTimeout(onSubmit, 500);
+		});
+
+		return () => {
+			subscribe.unsubscribe();
+			if (timer) {
+				clearTimeout(timer);
+			}
+		};
 	}, []);
 
 	const onShowModal = (show: boolean) => () => {
@@ -33,7 +74,51 @@ export const SearchModal = () => {
 	};
 
 	const onSubmit = () => {
-		handleSubmit((state) => dispatch(searchMovieThunk({params: {current: state}})))();
+		handleSubmit(async (state) => {
+			const action = await dispatch(searchMovieThunk({params: {current: state}}));
+
+			if (action.payload) {
+				setSearchResults(action.payload as typeof searchResults);
+			}
+		})();
+	};
+
+	const searchOptions = (index: IAutoCompleteParams['index']) => async (search: string) => {
+		const result = await dispatch(autoCompleteThunk({search, index}));
+		if (result) {
+			return result.payload as IAutoComplete;
+		}
+	};
+
+	const renderResults = () => {
+		return searchResults.data.map((movie) => (
+			<div className='modal-search-result__list row gx-4 gx-lg-5 gy-3' key={movie.id}>
+				<div className='col-12 col-sm-6 col-md-4'>
+					<div className='movie-card'>
+						<div className='movie-card__body'>
+							<div
+								className='movie-card__img'
+								style={{backgroundImage: `url("${movie.poster?.url}")`}}
+							></div>
+							<div className='movie-card__ratings'>
+								<div className='movie-card__rating'>
+									<span className='icon icon-imdb'></span>
+									{movie.imdb}
+								</div>
+								<div className='movie-card__rating'>
+									<span className='icon icon-kinopoisk'></span>
+									{movie.rating}
+								</div>
+							</div>
+						</div>
+						<div className='movie-card__name'>{movie.title}</div>
+						<Link href={`movies/${movie.slug}`}>
+							<a className='movie-card__link'></a>
+						</Link>
+					</div>
+				</div>
+			</div>
+		));
 	};
 
 	return (
@@ -59,82 +144,74 @@ export const SearchModal = () => {
 								</div>
 							</div>
 							<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2'>
-								<AppSelect
-									options={[
-										{label: 'One', value: '1'},
-										{label: 'Two', value: '2'},
-										{label: 'Three', value: '3'},
-									]}
-									defaultValue={{label: 'категория', value: ''}}
-									className='form-select-react'
+								<Controller
+									name='categoryId'
+									control={control}
+									render={({field}) => (
+										<AppSelect
+											{...field}
+											isAsync
+											isSearchable
+											searchOptions={searchOptions('categories')}
+											options={[]}
+											defaultValue={autoComplete.categories}
+											className='form-select-react'
+										/>
+									)}
 								/>
 							</div>
 							<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2'>
-								<AppSelect
-									options={[
-										{label: 'One', value: '1'},
-										{label: 'Two', value: '2'},
-										{label: 'Three', value: '3'},
-									]}
-									defaultValue={{label: 'жанр (все)', value: ''}}
-									className='form-select-react'
+								<Controller
+									name='genreId'
+									control={control}
+									render={({field}) => (
+										<AppSelect
+											{...field}
+											isAsync
+											isSearchable
+											searchOptions={searchOptions('genres')}
+											options={[]}
+											defaultValue={autoComplete.genres}
+											className='form-select-react'
+										/>
+									)}
 								/>
 							</div>
 							<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2'>
-								<AppSelect
-									className='form-select-react-img'
-									defaultValue={{label: 'актер', value: ''}}
-									options={[
-										{
-											value: 'TH',
-											label: 'Том Харди',
-											img: '/img/dist/actor-ava1.jpg',
-										},
-										{
-											value: 'TH',
-											label: 'Дженнифер Лопес',
-											img: '/img/dist/actor-ava2.jpg',
-										},
-										{
-											value: 'TH',
-											label: 'Сара Джессика Паркер',
-											img: '/img/dist/actor-ava3.jpg',
-										},
-										{
-											value: 'TH',
-											label: 'Стивен Сигал',
-											img: '/img/dist/actor-ava4.jpg',
-										},
-										{
-											value: 'TH',
-											label: 'Роберт Паттинсон',
-											img: '/img/dist/actor-ava5.jpg',
-										},
-									]}
-									formatOptionLabel={(option) => (
-										<div className='form-select-react-img__item'>
-											{option.img && (
-												<Image src={option.img} width={30} height={30} alt={option.label} />
-											)}
-											<span>{option.label}</span>
-										</div>
+								<Controller
+									name='acterId'
+									control={control}
+									render={({field}) => (
+										<AppSelect
+											{...field}
+											isAsync
+											isSearchable
+											searchOptions={searchOptions('acters')}
+											options={[]}
+											defaultValue={autoComplete.actors}
+											className='form-select-react'
+										/>
 									)}
 								/>
 							</div>
 							<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2 mb-md-0'>
-								<AppSelect
-									options={[
-										{label: 'One', value: '1'},
-										{label: 'Two', value: '2'},
-										{label: 'Three', value: '3'},
-									]}
-									isSearchable
-									defaultValue={{label: 'страна', value: ''}}
-									className='form-select-react'
-									{...register('countries')}
+								<Controller
+									name='countryId'
+									control={control}
+									render={({field}) => (
+										<AppSelect
+											{...field}
+											isAsync
+											isSearchable
+											searchOptions={searchOptions('countries')}
+											options={[]}
+											defaultValue={autoComplete.countries}
+											className='form-select-react'
+										/>
+									)}
 								/>
 							</div>
-							<div className='modal-search__item col-12 col-sm-4 col-md-2 mb-2 mb-sm-0'>
+							<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2 mb-md-0'>
 								<input
 									type='text'
 									className='form-control h-100'
@@ -146,234 +223,20 @@ export const SearchModal = () => {
 									})}
 								/>
 							</div>
-							<div className='modal-search__item col-12 col-sm-8 col-md-6'>
-								<div className='modal-search__quality'>
-									<div className='title'>качество:</div>
-									<div className='list'>
-										<div className='form-check form-check-inline'>
-											<input
-												className='form-check-input'
-												type='radio'
-												name='inlineRadioOptions'
-												id='inlineRadio1'
-												value='option1'
-											/>
-											<label className='form-check-label' htmlFor='inlineRadio1'>
-												CD
-											</label>
-										</div>
-										<div className='form-check form-check-inline'>
-											<input
-												className='form-check-input'
-												type='radio'
-												name='inlineRadioOptions'
-												id='inlineRadio2'
-												value='option2'
-											/>
-											<label className='form-check-label' htmlFor='inlineRadio2'>
-												HD
-											</label>
-										</div>
-										<div className='form-check form-check-inline'>
-											<input
-												className='form-check-input'
-												type='radio'
-												name='inlineRadioOptions'
-												id='inlineRadio3'
-												value='option3'
-											/>
-											<label className='form-check-label' htmlFor='inlineRadio3'>
-												FullHD
-											</label>
-										</div>
-										<div className='form-check form-check-inline'>
-											<input
-												className='form-check-input'
-												type='radio'
-												name='inlineRadioOptions'
-												id='inlineRadio4'
-												value='option4'
-											/>
-											<label className='form-check-label' htmlFor='inlineRadio4'>
-												UHD4k
-											</label>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 						<div className='modal-search__result modal-search-result'>
 							<div className='modal-search-result__header'>
 								<h2 className='modal-search-result__title'>Найдено:</h2>
-								{/*<div className='modal-search-result__sort movie-sort'>
-									<button className='movie-sort__item btn' type='button'>
-										<span className='icon icon-font_download'></span>по алфавиту
-										<span className='ico-sort icon icon-unfold_more'></span>
-									</button>
-									<button className='movie-sort__item btn' type='button'>
-										<span className='icon icon-calendar_month'></span>по дате
-										<span className='ico-sort icon icon-unfold_more'></span>
-									</button>
-									<button className='movie-sort__item btn' type='button'>
-										<span className='icon icon-imdb'></span>IMDb
-										<span className='ico-sort icon icon-unfold_more'></span>
-									</button>
-									<button className='movie-sort__item btn' type='button'>
-										<span className='icon icon-kinopoisk'></span>Кинопоиск
-										<span className='ico-sort icon icon-unfold_more'></span>
-									</button>
-								</div>*/}
 							</div>
 							<div className='modal-search-result__body'>
-								<div className='modal-search-result__list row gx-4 gx-lg-5 gy-3'>
-									<div className='col-12 col-sm-6 col-md-4'>
-										<div className='movie-card'>
-											<div className='movie-card__body'>
-												<div
-													className='movie-card__img'
-													style={{
-														backgroundImage: 'url("/img/dist/movie-card-img1.jpg")',
-													}}
-												></div>
-												<div className='movie-card__ratings'>
-													<div className='movie-card__rating'>
-														<span className='icon icon-imdb'></span>7.2
-													</div>
-													<div className='movie-card__rating'>
-														<span className='icon icon-kinopoisk'></span>
-														6.8
-													</div>
-												</div>
-											</div>
-											<div className='movie-card__name'>Название фильма</div>
-											<a href='#' className='movie-card__link'></a>
-										</div>
+								{renderResults()}
+								{searchResults.count > 10 && (
+									<div className='modal-search-result__more'>
+										<button className='btn' type='button'>
+											<span className='icon icon-expand_more'></span>
+										</button>
 									</div>
-									<div className='col-12 col-sm-6 col-md-4'>
-										<div className='movie-card'>
-											<div className='movie-card__body'>
-												<div
-													className='movie-card__img'
-													style={{
-														backgroundImage: 'url("/img/dist/movie-card-img2.jpg")',
-													}}
-												></div>
-												<div className='movie-card__ratings'>
-													<div className='movie-card__rating'>
-														<span className='icon icon-imdb'></span>7.2
-													</div>
-													<div className='movie-card__rating'>
-														<span className='icon icon-kinopoisk'></span>
-														6.8
-													</div>
-												</div>
-											</div>
-											<div className='movie-card__name'>
-												Название фильма не одну, <br />а даже в две строки WoW
-											</div>
-											<a href='#' className='movie-card__link'></a>
-										</div>
-									</div>
-									<div className='col-12 col-sm-6 col-md-4'>
-										<div className='movie-card'>
-											<div className='movie-card__body'>
-												<div
-													className='movie-card__img'
-													style={{
-														backgroundImage: 'url("/img/dist/movie-card-img3.jpg")',
-													}}
-												></div>
-												<div className='movie-card__ratings'>
-													<div className='movie-card__rating'>
-														<span className='icon icon-imdb'></span>7.2
-													</div>
-													<div className='movie-card__rating'>
-														<span className='icon icon-kinopoisk'></span>
-														6.8
-													</div>
-												</div>
-											</div>
-											<div className='movie-card__name'>Название фильма</div>
-											<a href='#' className='movie-card__link'></a>
-										</div>
-									</div>
-									<div className='col-12 col-sm-6 col-md-4'>
-										<div className='movie-card'>
-											<div className='movie-card__body'>
-												<div
-													className='movie-card__img'
-													style={{
-														backgroundImage: 'url("/img/dist/movie-card-img4.jpg")',
-													}}
-												></div>
-												<div className='movie-card__ratings'>
-													<div className='movie-card__rating'>
-														<span className='icon icon-imdb'></span>7.2
-													</div>
-													<div className='movie-card__rating'>
-														<span className='icon icon-kinopoisk'></span>
-														6.8
-													</div>
-												</div>
-											</div>
-											<div className='movie-card__name'>Название фильма</div>
-											<a href='#' className='movie-card__link'></a>
-										</div>
-									</div>
-									<div className='col-12 col-sm-6 col-md-4'>
-										<div className='movie-card'>
-											<div className='movie-card__body'>
-												<div
-													className='movie-card__img'
-													style={{
-														backgroundImage: 'url("/img/dist/movie-card-img5.jpg")',
-													}}
-												></div>
-												<div className='movie-card__ratings'>
-													<div className='movie-card__rating'>
-														<span className='icon icon-imdb'></span>7.2
-													</div>
-													<div className='movie-card__rating'>
-														<span className='icon icon-kinopoisk'></span>
-														6.8
-													</div>
-												</div>
-											</div>
-											<div className='movie-card__name'>
-												Название фильма не одну, <br />а даже в две строки WoW
-											</div>
-											<a href='#' className='movie-card__link'></a>
-										</div>
-									</div>
-									<div className='col-12 col-sm-6 col-md-4'>
-										<div className='movie-card'>
-											<div className='movie-card__body'>
-												<div
-													className='movie-card__img'
-													style={{
-														backgroundImage: 'url("/img/dist/movie-card-img6.jpg")',
-													}}
-												></div>
-												<div className='movie-card__ratings'>
-													<div className='movie-card__rating'>
-														<span className='icon icon-imdb'></span>7.2
-													</div>
-													<div className='movie-card__rating'>
-														<span className='icon icon-kinopoisk'></span>
-														6.8
-													</div>
-												</div>
-											</div>
-											<div className='movie-card__name'>Название фильма</div>
-											<a href='#' className='movie-card__link'></a>
-										</div>
-									</div>
-								</div>
-								<div className='modal-search-result__more'>
-									<button className='btn' type='button'>
-										<span className='icon icon-expand_more'></span>
-									</button>
-								</div>
+								)}
 							</div>
 						</div>
 					</form>

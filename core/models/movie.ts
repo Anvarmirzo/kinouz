@@ -9,6 +9,11 @@ export interface IMovieSearchParams {
 		current: {
 			title: string;
 			slug: string;
+			genreId: number;
+			countryId: number;
+			acterId: number;
+			categoryId: number;
+			producerId: number;
 			imdb: number;
 			rating: number;
 			ageRemark: number;
