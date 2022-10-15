@@ -7,7 +7,7 @@ import {
 	setNewMoviesAction,
 } from './movie.slices';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {MovieModel} from '../../models';
+import {IMovieSearchParams, MovieModel} from '../../models';
 
 export const getMoviesThunk = createAsyncThunk<
 	void,
@@ -27,9 +27,10 @@ export const getMoviesThunk = createAsyncThunk<
 	}
 });
 
-export const getMovieThunk = createAsyncThunk<void, string | number>(
+// TODO: check typing all thunks and make same
+export const getMovieThunk = createAsyncThunk(
 	'movies/getOne',
-	async (payload, thunkAPI) => {
+	async (payload: string | number, thunkAPI) => {
 		let movie: MovieModel | void;
 
 		if (typeof payload === 'string') {
@@ -41,6 +42,13 @@ export const getMovieThunk = createAsyncThunk<void, string | number>(
 		if (movie) {
 			thunkAPI.dispatch(setMovieAction(movie));
 		}
+	}
+);
+
+export const searchMovieThunk = createAsyncThunk(
+	'movie/search',
+	async (payload: IMovieSearchParams, thunkAPI) => {
+		return await MovieService.search(payload);
 	}
 );
 

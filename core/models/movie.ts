@@ -3,6 +3,25 @@ import {ActorModel} from './actor';
 import {CommentModel} from './comment';
 import {DirectorModel} from './director';
 
+export interface IMovieSearchParams {
+	skip?: number;
+	params: {
+		current: {
+			title: string;
+			slug: string;
+			genreId: number;
+			countryId: number;
+			acterId: number;
+			categoryId: number;
+			producerId: number;
+			imdb: number;
+			rating: number;
+			ageRemark: number;
+			year: number;
+		};
+	};
+}
+
 export enum eMovieQuality {
 	CD = 'cd',
 	HD = 'hd',
