@@ -12,9 +12,9 @@ import {useRouter} from 'next/router';
 const DynamicPage: NextPage = () => {
 	// next hooks
 	const {
-		query: {movieSlug},
+		query: {slug},
 	} = useRouter();
-	console.log(movieSlug);
+	console.log(slug);
 	// redux hooks
 	const [categories, newMovies] = useAppSelector(({categories, movies}) => [
 		categories.main.list,
