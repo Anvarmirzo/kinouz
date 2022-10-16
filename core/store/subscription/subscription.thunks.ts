@@ -15,22 +15,14 @@ export const getSubscriptionTypesThunk = createAsyncThunk(
 
 export const subscribeThunk = createAsyncThunk(
 	'subscription/subscribe',
-	async (subscriptionTypeId: number, thunkAPI) => {
-		const result = await SubscriptionService.subscribe(subscriptionTypeId);
-
-		if (result) {
-			return result;
-		}
+	async (subscriptionTypeId: number) => {
+		return await SubscriptionService.subscribe(subscriptionTypeId);
 	}
 );
 
 export const unsubscribeThunk = createAsyncThunk(
 	'subscription/unsubscribe',
-	async (subscriptionTypeId: number, thunkAPI) => {
-		const result = await SubscriptionService.unsubscribe(subscriptionTypeId);
-
-		if (result) {
-			return result;
-		}
+	async (subscriptionTypeId: number) => {
+		return await SubscriptionService.unsubscribe(subscriptionTypeId);
 	}
 );

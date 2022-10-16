@@ -4,33 +4,27 @@ import {logInAction, logOutAction} from './auth.slices';
 import {setUserAction} from '../user/user.slices';
 import {ILogIn, ISignUp} from '../../models';
 
-export const signUpThunk = createAsyncThunk<number | void, ISignUp>(
-	'auth/signUp',
-	async (payload, thunkAPI) => {
-		const data = await AuthService.signUp(payload);
+export const signUpThunk = createAsyncThunk('auth/signUp', async (payload: ISignUp, thunkAPI) => {
+	const data = await AuthService.signUp(payload);
 
-		if (data) {
-			thunkAPI.dispatch(logInAction(data));
-			thunkAPI.dispatch(setUserAction(data.user));
+	if (data) {
+		thunkAPI.dispatch(logInAction(data));
+		thunkAPI.dispatch(setUserAction(data.user));
 
-			return data.user.id;
-		}
+		return data.user.id;
 	}
-);
+});
 
-export const loginThunk = createAsyncThunk<number | void, ILogIn>(
-	'auth/login',
-	async (payload, thunkAPI) => {
-		const data = await AuthService.login(payload);
+export const loginThunk = createAsyncThunk('auth/login', async (payload: ILogIn, thunkAPI) => {
+	const data = await AuthService.login(payload);
 
-		if (data) {
-			thunkAPI.dispatch(logInAction(data));
-			thunkAPI.dispatch(setUserAction(data.user));
+	if (data) {
+		thunkAPI.dispatch(logInAction(data));
+		thunkAPI.dispatch(setUserAction(data.user));
 
-			return data.user.id;
-		}
+		return data.user.id;
 	}
-);
+});
 
 export const autoLoginThunk = createAsyncThunk('auth/autoLogin', async (_, thunkAPI) => {
 	const token = localStorage.getItem('jwt');

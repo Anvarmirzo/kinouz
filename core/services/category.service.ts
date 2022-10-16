@@ -23,6 +23,13 @@ export const CategoryService = {
 			.catch(Toast.error);
 	},
 
+	getBySlug(slug: string) {
+		return api
+			.get(`category/slug/${slug}`)
+			.then((res) => res.data)
+			.catch(Toast.error);
+	},
+
 	getById(id: number) {
 		return api
 			.get<CategoryModel>(`category/${id}`)

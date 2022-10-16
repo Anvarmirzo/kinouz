@@ -1,47 +1,51 @@
 import type {NextPage} from 'next';
 import Head from 'next/head';
-import {Footer, Header, HeroLargeSlider} from '../components/Main';
-import {MovieSlider} from '../components/Main';
-import {useAppDispatch, useAppSelector} from '../core/hooks';
-import {useEffect} from 'react';
-import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
-import {getMoviesThunk} from '../core/store/movie/movie.thunks';
-import {setNewMoviesAction} from '../core/store/movie/movie.slices';
+import {Footer, Header, HeroLargeSlider} from '../../components/Main';
+import {MovieSlider} from '../../components/Main';
+import {useAppDispatch, useAppSelector} from '../../core/hooks';
+import {useCallback, useEffect, useMemo} from 'react';
+import {getMainCategoriesThunk} from '../../core/store/category/category.thunks';
+import {getMoviesThunk, getNewMoviesThunk} from '../../core/store/movie/movie.thunks';
+import {setMoviesAction, setNewMoviesAction} from '../../core/store/movie/movie.slices';
 import {useRouter} from 'next/router';
 
 const DynamicPage: NextPage = () => {
 	// next hooks
 	const {
-		query: {slug},
+		query: {categorySlug},
 	} = useRouter();
-	console.log(slug);
+
 	// redux hooks
-	const [categories, newMovies] = useAppSelector(({categories, movies}) => [
-		categories.main.list,
+	const [categories, newMovies, movies] = useAppSelector(({categories, movies}) => [
+		categories,
 		movies.newMoviesList,
+		movies.list,
 	]);
 	const dispatch = useAppDispatch();
 
 	// react hooks
+	const currentCategory = useMemo(() => {
+		return categories.all.list.find((c) => c.slug === categorySlug);
+	}, [categories.all.list, categorySlug]);
+
 	useEffect(() => {
-		dispatch(getMainCategoriesThunk());
-		dispatch(getMoviesThunk({params: {isNew: true}}));
+		if (currentCategory) {
+			dispatch(getMoviesThunk({params: {categoryId: currentCategory.id}}));
+			dispatch(getNewMoviesThunk({params: {categoryId: currentCategory.id}}));
+		}
 
 		return () => {
-			dispatch(setNewMoviesAction([]));
+			setMoviesAction({list: [], count: 0});
+			setNewMoviesAction([]);
 		};
-	}, []);
+	}, [currentCategory]);
 
-	const renderCategories = () => {
-		return categories.map((c) =>
-			c.movies ? <MovieSlider key={c.id} title={c.title} list={c.movies} /> : null
-		);
-	};
+	if (!currentCategory) return null;
 
 	return (
 		<>
 			<Head>
-				<title>Главная | KinoUz</title>
+				<title>{currentCategory.title} | KinoUz</title>
 				<meta name='description' content='KINOUZ' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<meta name='msapplication-TileColor' content='#040724' />
@@ -58,7 +62,7 @@ const DynamicPage: NextPage = () => {
 			<Header />
 			<main className='content'>
 				<HeroLargeSlider list={newMovies} />
-				{renderCategories()}
+				<MovieSlider title={currentCategory.title} list={movies} />
 			</main>
 			<Footer />
 		</>

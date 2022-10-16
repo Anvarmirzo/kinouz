@@ -1,11 +1,11 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {PaymentService} from '../../services';
-import {IPostPayment, PaymentModel} from '../../models';
+import {IPostPayment} from '../../models';
 import {addPaymentAction, setPaymentsAction} from './payment.slices';
 
-export const addPaymentThunk = createAsyncThunk<PaymentModel | void, IPostPayment>(
+export const addPaymentThunk = createAsyncThunk(
 	'payment/addPayment',
-	async (payload, thunkAPI) => {
+	async (payload: IPostPayment, thunkAPI) => {
 		const result = await PaymentService.addPayment(payload);
 
 		if (result) {

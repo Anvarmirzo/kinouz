@@ -24,6 +24,7 @@ export const HeroLargeSlider = ({list}: HeroLargeSliderProps) => {
 						<h2 className='movie-slider__name'>{movie.title}</h2>
 						<div className='movie-slider__desc'>{movie.description}</div>
 						<div className='movie-slider__btns'>
+							{/* TODO: URGENT NEED TO REPLACE 'movies' with 'movies.categories.slug' */}
 							<Link href={`/movies/${movie.slug}`}>
 								<a className='btn btn-primary btn-icon rounded-pill'>
 									смотреть<span className='icon icon-play_circle'></span>

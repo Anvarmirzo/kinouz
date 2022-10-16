@@ -6,19 +6,22 @@ import {
 	setMainCategoriesAction,
 } from './category.slices';
 
-export const getAllCategoriesThunk = createAsyncThunk<
-	void,
-	{skip: number; params: Record<string, string | number>}
->('categories/getAll', async (params = {skip: 0, params: {}}, thunkAPI) => {
-	const res = await CategoryService.getAll(params);
+export const getAllCategoriesThunk = createAsyncThunk(
+	'categories/getAll',
+	async (
+		params: {skip: number; params: Record<string, string | number>} = {skip: 0, params: {}},
+		thunkAPI
+	) => {
+		const res = await CategoryService.getAll(params);
 
-	if (res) {
-		thunkAPI.dispatch(setAllCategoriesAction({list: res.data, count: res.count}));
+		if (res) {
+			thunkAPI.dispatch(setAllCategoriesAction({list: res.data, count: res.count}));
+		}
 	}
-});
-export const getMainCategoriesThunk = createAsyncThunk<void, {skip: number} | undefined>(
+);
+export const getMainCategoriesThunk = createAsyncThunk(
 	'categories/getMain',
-	async (params = {skip: 0}, thunkAPI) => {
+	async (params: {skip: number} | undefined = {skip: 0}, thunkAPI) => {
 		const res = await CategoryService.getMain(params);
 
 		if (res) {
@@ -27,9 +30,9 @@ export const getMainCategoriesThunk = createAsyncThunk<void, {skip: number} | un
 	}
 );
 
-export const getCategoryThunk = createAsyncThunk<void, number>(
+export const getCategoryThunk = createAsyncThunk(
 	'categories/getOne',
-	async (id, thunkAPI) => {
+	async (id: number, thunkAPI) => {
 		const res = await CategoryService.getById(id);
 
 		if (res) {
