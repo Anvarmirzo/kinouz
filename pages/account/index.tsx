@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import Head from 'next/head';
 import {Footer, Header} from '../../components/Main';
 import {Accordion, Tab, Tabs} from 'react-bootstrap';
-import Image from 'next/image';
 import {useAppSelector} from '../../core/hooks';
 import {useForm} from 'react-hook-form';
 import {
@@ -32,7 +31,7 @@ const Account = () => {
 		}
 	}, [user]);
 
-	if (!user) return <></>;
+	if (!user) return null;
 
 	return (
 		<>
@@ -69,7 +68,7 @@ const Account = () => {
 													изменить<span className='icon icon-edit'></span>
 												</button>
 											</div>
-											<div className='input-group input-group-btn input-group-left-text mb-2'>
+											<div className='input-group input-group-btn input-group-left-text mb-4'>
 												<span className='input-group-text'>Пароль:</span>
 												<input
 													type='password'
@@ -78,21 +77,6 @@ const Account = () => {
 													{...register('password', {required: true})}
 												/>
 												<button className='btn btn-edit btn-icon' type='button'>
-													изменить<span className='icon icon-edit'></span>
-												</button>
-											</div>
-											<div className='input-group input-group-btn input-group-left-text mb-4'>
-												<span className='input-group-text gap-3'>
-													Способы оплаты:{' '}
-													<Image width={61} height={15} src='/img/dist/humo-logo.png' alt='humo' />
-												</span>
-												<input type='email' className='form-control' placeholder='**** **** 1212' />
-												<button
-													className='btn btn-edit btn-icon'
-													type='button'
-													data-bs-toggle='modal'
-													data-bs-target='#paymentModal'
-												>
 													изменить<span className='icon icon-edit'></span>
 												</button>
 											</div>

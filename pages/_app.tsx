@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'video-player-for-react/dist/index.css';
 import '../styles/sass/main.sass';
 import {LoginModal, SignUpModal} from '../components/Main';
+import {getAllCategoriesThunk} from '../core/store/category/category.thunks';
+import {setAllCategoriesAction} from '../core/store/category/category.slices';
 
 function MyApp({Component, pageProps}: AppProps) {
 	// redux hooks
@@ -16,6 +18,11 @@ function MyApp({Component, pageProps}: AppProps) {
 	// react hooks
 	useEffect(() => {
 		dispatch(autoLoginThunk());
+		dispatch(getAllCategoriesThunk({skip: 0, params: {}}));
+
+		return () => {
+			dispatch(setAllCategoriesAction({count: 0, list: []}));
+		};
 	}, []);
 
 	return (

@@ -3,9 +3,9 @@ import {ICreateUser, IPatchUser} from '../../models';
 import {UserService} from '../../services';
 import {addSubUserAction, deleteSubUserAction, patchSubUserAction} from './user.slices';
 
-export const createSubUserThunk = createAsyncThunk<boolean | void, ICreateUser>(
+export const createSubUserThunk = createAsyncThunk(
 	'user/createSub',
-	async (payload, thunkAPI) => {
+	async (payload: ICreateUser, thunkAPI) => {
 		const data = await UserService.createSubUser(payload);
 
 		if (data) {
@@ -15,9 +15,9 @@ export const createSubUserThunk = createAsyncThunk<boolean | void, ICreateUser>(
 	}
 );
 
-export const patchSubUserThunk = createAsyncThunk<void, IPatchUser>(
+export const patchSubUserThunk = createAsyncThunk(
 	'user/patchSubUser',
-	async (payload, thunkAPI) => {
+	async (payload: IPatchUser, thunkAPI) => {
 		const data = await UserService.patchSubUser(payload);
 
 		if (data) {
@@ -26,9 +26,9 @@ export const patchSubUserThunk = createAsyncThunk<void, IPatchUser>(
 	}
 );
 
-export const deleteSubUserThunk = createAsyncThunk<void, number>(
+export const deleteSubUserThunk = createAsyncThunk(
 	'user/deleteSubUser',
-	async (payload, thunkAPI) => {
+	async (payload: number, thunkAPI) => {
 		const data = await UserService.deleteUser(payload);
 
 		if (data) {

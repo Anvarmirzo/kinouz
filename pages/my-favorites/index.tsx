@@ -2,7 +2,7 @@ import Head from 'next/head';
 import {Footer, Header, HeroLargeSlider, MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {useEffect} from 'react';
-import {getFavoriteMoviesThunk, getMoviesThunk} from '../../core/store/movie/movie.thunks';
+import {getFavoriteMoviesThunk, getNewMoviesThunk} from '../../core/store/movie/movie.thunks';
 import {setFavoriteMoviesAction, setNewMoviesAction} from '../../core/store/movie/movie.slices';
 
 const MyFavorites = () => {
@@ -15,7 +15,7 @@ const MyFavorites = () => {
 
 	// react hooks
 	useEffect(() => {
-		dispatch(getMoviesThunk({params: {isNew: true}}));
+		dispatch(getNewMoviesThunk({params: {}}));
 		dispatch(getFavoriteMoviesThunk());
 
 		return () => {

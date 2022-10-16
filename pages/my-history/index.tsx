@@ -2,7 +2,7 @@ import Head from 'next/head';
 import {Footer, Header, HeroLargeSlider, MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {useEffect} from 'react';
-import {getHistoryMoviesThunk, getMoviesThunk} from '../../core/store/movie/movie.thunks';
+import {getHistoryMoviesThunk, getNewMoviesThunk} from '../../core/store/movie/movie.thunks';
 import {setHistoryMoviesAction, setNewMoviesAction} from '../../core/store/movie/movie.slices';
 
 const MyHistory = () => {
@@ -15,7 +15,7 @@ const MyHistory = () => {
 
 	// react hooks
 	useEffect(() => {
-		dispatch(getMoviesThunk({params: {isNew: true}}));
+		dispatch(getNewMoviesThunk({params: {}}));
 		dispatch(getHistoryMoviesThunk());
 
 		return () => {

@@ -1,10 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {CommentService} from '../../services/comment.service';
+import {CommentService} from '../../services';
 import {setCommentAction, setCommentsAction} from './comment.slices';
 
-export const getCommentsThunk = createAsyncThunk<void, {movieId: number; skip?: number}>(
+export const getCommentsThunk = createAsyncThunk(
 	'comment/getAll',
-	async (payload, thunkAPI) => {
+	async (payload: {movieId: number; skip?: number}, thunkAPI) => {
 		const comments = await CommentService.getAll({...payload, skip: payload.skip ?? 0});
 
 		if (comments) {
@@ -18,14 +18,14 @@ export const getCommentsThunk = createAsyncThunk<void, {movieId: number; skip?: 
 	}
 );
 
-export const postCommentThunk = createAsyncThunk<
-	boolean | void,
-	{movieId: number; userId: number; text: string}
->('comment/post', async (payload, thunkAPI) => {
-	const res = await CommentService.postComment(payload);
+export const postCommentThunk = createAsyncThunk(
+	'comment/post',
+	async (payload: {movieId: number; userId: number; text: string}, thunkAPI) => {
+		const res = await CommentService.postComment(payload);
 
-	if (res) {
-		thunkAPI.dispatch(setCommentAction(res));
-		return true;
+		if (res) {
+			thunkAPI.dispatch(setCommentAction(res));
+			return true;
+		}
 	}
-});
+);
