@@ -20,11 +20,13 @@ export class Toast {
 	};
 
 	static error = (error: AxiosError<{message?: string} | undefined>) => {
-		let message = error.response?.data?.message || error.message || 'Server Side Error';
-		if (Array.isArray(message)) {
-			message = message.join(', ');
+		if (error.message !== 'canceled') {
+			let message = error.response?.data?.message || error.message || 'Server Side Error';
+			if (Array.isArray(message)) {
+				message = message.join(', ');
+			}
+			toast.error(message, this.options);
 		}
-		toast.error(message, this.options);
 	};
 
 	static warning = (warning: string) => {

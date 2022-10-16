@@ -15,10 +15,13 @@ const MyFavorites = () => {
 
 	// react hooks
 	useEffect(() => {
-		dispatch(getNewMoviesThunk({params: {}}));
-		dispatch(getFavoriteMoviesThunk());
+		const promises = [
+			dispatch(getNewMoviesThunk({params: {}})),
+			dispatch(getFavoriteMoviesThunk()),
+		];
 
 		return () => {
+			promises.forEach((p) => p.abort());
 			dispatch(setNewMoviesAction([]));
 			dispatch(setFavoriteMoviesAction({count: 0, list: []}));
 		};

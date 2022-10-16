@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
+import Link from 'next/link';
 import {Button, Modal} from 'react-bootstrap';
+import cn from 'classnames';
 import {Player} from '../../Player';
 import {MovieModel} from '../../../../core/models';
-import Link from 'next/link';
 import {AddToFavoritesBtn} from '../../Buttons/AddToFavoritesBtn';
-import cn from 'classnames';
 
 interface MovieModalProps {
 	movie: MovieModel;
@@ -12,9 +12,23 @@ interface MovieModalProps {
 	buttonClassName?: string;
 }
 
-const renderNames = (list?: {name: string}[]) => {
+const renderNames = (
+	type: 'acterId' | 'directorId' | 'producerId',
+	list?: {name: string; id: number; slug?: string}[]
+) => {
 	if (list) {
-		return list.map((item) => item.name).join(', ');
+		const lastIndex = list.length - 1;
+		return list.map((item, index) => (
+			/* TODO: URGENT check field slug*/
+			<Link
+				href={`/participant?name=${item.name}&slug=${item.slug ?? ''}&id=${item.id}&type=${type}`}
+				key={item.id}
+			>
+				<a className='movie-info-item__desc text-decoration-none'>
+					{item.name} {lastIndex === index ? '' : ','}
+				</a>
+			</Link>
+		));
 	}
 };
 
@@ -88,15 +102,15 @@ export const MovieModal = ({movie, buttonIcon, buttonClassName}: MovieModalProps
 									</div>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Режиссер:</div>
-										<div className='movie-info-item__desc'>{renderNames(movie.directors)}</div>
+										{renderNames('directorId', movie.directors)}
 									</div>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Актеры:</div>
-										<div className='movie-info-item__desc'>{renderNames(movie.actors)}</div>
+										{renderNames('acterId', movie.actors)}
 									</div>
 									<div className='movie-info__info-item movie-info-item'>
 										<div className='movie-info-item__title'>Продюсеры:</div>
-										<div className='movie-info-item__desc'>{renderNames(movie.producers)}</div>
+										{renderNames('producerId', movie.producers)}
 									</div>
 								</div>
 								<div className='col-12 col-sm-6'>

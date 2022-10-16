@@ -1,12 +1,13 @@
+import {useEffect} from 'react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
 import {Footer, Header, HeroLargeSlider} from '../components/Main';
 import {MovieSlider} from '../components/Main';
 import {useAppDispatch, useAppSelector} from '../core/hooks';
-import {useEffect} from 'react';
 import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
-import {getMoviesThunk} from '../core/store/movie/movie.thunks';
+import {getNewMoviesThunk} from '../core/store/movie/movie.thunks';
 import {setNewMoviesAction} from '../core/store/movie/movie.slices';
+import {setMainCategoriesAction} from '../core/store/category/category.slices';
 
 const Home: NextPage = () => {
 	// redux hooks
@@ -19,10 +20,11 @@ const Home: NextPage = () => {
 	// react hooks
 	useEffect(() => {
 		dispatch(getMainCategoriesThunk());
-		dispatch(getMoviesThunk({params: {isNew: true}}));
+		dispatch(getNewMoviesThunk({params: {}}));
 
 		return () => {
 			dispatch(setNewMoviesAction([]));
+			dispatch(setMainCategoriesAction({list: [], count: 0}));
 		};
 	}, []);
 

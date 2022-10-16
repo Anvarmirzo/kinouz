@@ -15,28 +15,40 @@ export const getMoviesThunk = createAsyncThunk(
 		args: {skip?: number; params?: Record<string, number | string | boolean>} | void,
 		thunkAPI
 	) => {
-		const movies = await MovieService.getAll({
-			params: args?.params ?? {},
-			skip: args?.skip ?? 0,
-		});
+		const movies = await MovieService.getAll(
+			{
+				params: args?.params ?? {},
+				skip: args?.skip ?? 0,
+			},
+			thunkAPI.signal
+		);
 
 		if (movies) {
 			thunkAPI.dispatch(setMoviesAction({list: movies.data, count: movies.count}));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
 export const getNewMoviesThunk = createAsyncThunk(
 	'movies/getPremiers',
 	async (args: {skip?: number; params: {categoryId?: number}}, thunkAPI) => {
-		const movies = await MovieService.getAll({
-			params: {...args.params, isPremier: true},
-			skip: args.skip ?? 0,
-		});
+		const movies = await MovieService.getAll(
+			{
+				params: {...args.params, isPremier: true},
+				skip: args.skip ?? 0,
+			},
+			thunkAPI.signal
+		);
 
 		if (movies) {
 			thunkAPI.dispatch(setNewMoviesAction(movies.data));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
@@ -46,46 +58,64 @@ export const getMovieThunk = createAsyncThunk(
 		let movie: MovieModel | void;
 
 		if (typeof payload === 'string') {
-			movie = await MovieService.getBySlug(payload);
+			movie = await MovieService.getBySlug(payload, thunkAPI.signal);
 		} else {
-			movie = await MovieService.getById(payload);
+			movie = await MovieService.getById(payload, thunkAPI.signal);
 		}
 
 		if (movie) {
 			thunkAPI.dispatch(setMovieAction(movie));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
 export const searchMovieThunk = createAsyncThunk(
 	'movie/search',
-	async (payload: IMovieSearchParams) => {
-		return await MovieService.search(payload);
+	async (payload: IMovieSearchParams, thunkAPI) => {
+		return await MovieService.search(payload, thunkAPI.signal);
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
 export const addMovieToFavorite = createAsyncThunk(
 	'movies/add-to-favorite',
-	async (payload: number) => {
-		return await MovieService.addToFavorite(payload);
+	async (payload: number, thunkAPI) => {
+		return await MovieService.addToFavorite(payload, thunkAPI.signal);
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
 export const getFavoriteMoviesThunk = createAsyncThunk(
 	'movies/get-favorites',
 	async (_, thunkAPI) => {
-		const movies = await MovieService.getFavorites();
+		const movies = await MovieService.getFavorites(thunkAPI.signal);
 
 		if (movies) {
 			thunkAPI.dispatch(setFavoriteMoviesAction({list: movies.data, count: movies.count}));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
-export const getHistoryMoviesThunk = createAsyncThunk('movies/get-history', async (_, thunkAPI) => {
-	const movies = await MovieService.getHistory();
+export const getHistoryMoviesThunk = createAsyncThunk(
+	'movies/get-history',
+	async (_, thunkAPI) => {
+		const movies = await MovieService.getHistory(thunkAPI.signal);
 
-	if (movies) {
-		thunkAPI.dispatch(setHistoryMoviesAction({list: movies.data, count: movies.count}));
+		if (movies) {
+			thunkAPI.dispatch(setHistoryMoviesAction({list: movies.data, count: movies.count}));
+		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
-});
+);

@@ -1,50 +1,46 @@
+import {useEffect} from 'react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
 import {Footer, Header, HeroLargeSlider} from '../../components/Main';
 import {MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
-import {useEffect, useMemo} from 'react';
 import {getMoviesThunk, getNewMoviesThunk} from '../../core/store/movie/movie.thunks';
 import {setMoviesAction, setNewMoviesAction} from '../../core/store/movie/movie.slices';
 import {useRouter} from 'next/router';
 
 const DynamicPage: NextPage = () => {
 	// next hooks
-	const {
-		query: {categorySlug},
-	} = useRouter();
+	const {query} = useRouter();
 
 	// redux hooks
-	const [categories, newMovies, movies] = useAppSelector(({categories, movies}) => [
-		categories,
-		movies.newMoviesList,
-		movies.list,
-	]);
+	const [newMovies, movies] = useAppSelector(({movies}) => [movies.newMoviesList, movies.list]);
 	const dispatch = useAppDispatch();
 
 	// react hooks
-	const currentCategory = useMemo(() => {
-		return categories.all.list.find((c) => c.slug === categorySlug);
-	}, [categories.all.list, categorySlug]);
-
 	useEffect(() => {
-		if (currentCategory) {
-			dispatch(getMoviesThunk({params: {categoryId: currentCategory.id}}));
-			dispatch(getNewMoviesThunk({params: {categoryId: currentCategory.id}}));
+		// TODO: URGENT waiting for latest version of route-query-construction
+		if (query) {
+			const {type, slug, id} = query as {
+				slug: string;
+				id: string;
+				type: 'acterId' | 'directorId' | 'producerId';
+			};
+			dispatch(getMoviesThunk({params: {[type]: slug || id}}));
+			dispatch(getNewMoviesThunk({params: {}}));
 		}
 
 		return () => {
 			setMoviesAction({list: [], count: 0});
 			setNewMoviesAction([]);
 		};
-	}, [currentCategory]);
+	}, [query]);
 
-	if (!currentCategory) return null;
+	if (!query) return null;
 
 	return (
 		<>
 			<Head>
-				<title>{currentCategory.title} | KinoUz</title>
+				<title>{query.name} | KinoUz</title>
 				<meta name='description' content='KINOUZ' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<meta name='msapplication-TileColor' content='#040724' />
@@ -61,7 +57,7 @@ const DynamicPage: NextPage = () => {
 			<Header />
 			<main className='content'>
 				<HeroLargeSlider list={newMovies} />
-				<MovieSlider title={currentCategory.title} list={movies} />
+				<MovieSlider title='Все фильмы' list={movies} />
 			</main>
 			<Footer />
 		</>
