@@ -1,6 +1,7 @@
 import React from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
+import Link from 'next/link';
 import {Navigation} from 'swiper';
+import {Swiper, SwiperSlide} from 'swiper/react';
 import {useSwiperRef} from '../../../../core/hooks';
 import {ActorModel} from '../../../../core/models';
 
@@ -25,7 +26,11 @@ export const ActorCarouselSlider = ({title, actors}: Data) => {
 						></div>
 						{/* TODO: removed <br/>, check after receiving data from API*/}
 						<div className='actor-card__name'>{actor.name}</div>
-						<a href='#' className='actor-card__link'></a>
+						<Link
+							href={`/participant?name=${actor.name}&slug=${actor.slug}&id=${actor.id}&type='actorId'`}
+						>
+							<a className='actor-card__link'></a>
+						</Link>
 					</div>
 				</div>
 			</SwiperSlide>
