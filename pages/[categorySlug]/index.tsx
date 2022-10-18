@@ -16,7 +16,7 @@ const DynamicPage: NextPage = () => {
 
 	// redux hooks
 	const [categories, newMovies, movies] = useAppSelector(({categories, movies}) => [
-		categories,
+		categories.main,
 		movies.newMoviesList,
 		movies.list,
 	]);
@@ -24,8 +24,8 @@ const DynamicPage: NextPage = () => {
 
 	// react hooks
 	const currentCategory = useMemo(() => {
-		return categories.all.list.find((c) => c.slug === categorySlug);
-	}, [categories.all.list, categorySlug]);
+		return categories.list.find((c) => c.slug === categorySlug);
+	}, [categories.list, categorySlug]);
 
 	useEffect(() => {
 		if (currentCategory) {
