@@ -4,6 +4,7 @@ import {
 	setAllCategoriesAction,
 	setCategoryAction,
 	setMainCategoriesAction,
+	setMainWithVideoCategoriesAction,
 } from './category.slices';
 
 export const getAllCategoriesThunk = createAsyncThunk(
@@ -24,11 +25,20 @@ export const getAllCategoriesThunk = createAsyncThunk(
 );
 export const getMainCategoriesThunk = createAsyncThunk(
 	'categories/getMain',
-	async (params: {skip: number} | undefined = {skip: 0}, thunkAPI) => {
+	async (
+		params: {skip: number; params?: Record<string, number | string | boolean>} | undefined = {
+			skip: 0,
+		},
+		thunkAPI
+	) => {
 		const res = await CategoryService.getMain(params);
 
 		if (res) {
-			thunkAPI.dispatch(setMainCategoriesAction({list: res.data, count: res.count}));
+			if (params.params?.movies) {
+				thunkAPI.dispatch(setMainWithVideoCategoriesAction({list: res.data, count: res.count}));
+			} else {
+				thunkAPI.dispatch(setMainCategoriesAction({list: res.data, count: res.count}));
+			}
 		}
 	}
 );

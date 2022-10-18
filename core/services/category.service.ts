@@ -13,7 +13,7 @@ export const CategoryService = {
 			.catch(Toast.error);
 	},
 
-	getMain(params?: {skip?: number}) {
+	getMain(params?: {skip?: number; params?: Record<string, number | string | boolean>}) {
 		return api
 			.get<{data: CategoryModel[]; count: number}>('category/main', {params})
 			.then((res) => ({
