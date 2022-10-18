@@ -5,11 +5,8 @@ import {useAppDispatch, useAppSelector} from '../../../../../core/hooks';
 import {loginThunk} from '../../../../../core/store/auth/auth.thunks';
 import {ILogIn} from '../../../../../core/models';
 import {setIsShownModalAction} from '../../../../../core/store/globalUI/globalUI.slices';
-import {useRouter} from 'next/router';
 
 export const LoginModal = () => {
-	// next hooks
-	const router = useRouter();
 	// redux hooks
 	const dispatch = useAppDispatch();
 	const isShown = useAppSelector(({globalUI}) => globalUI.modals.login.isShown);
@@ -28,8 +25,6 @@ export const LoginModal = () => {
 			const result = await dispatch(loginThunk(data));
 			if (result.payload) {
 				changeShow({modalName: 'login', flag: false})();
-				const returnUrl = (router.query.returnUrl as string) || '/';
-				router.push(returnUrl);
 			}
 		})();
 	};

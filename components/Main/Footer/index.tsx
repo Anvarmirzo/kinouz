@@ -42,13 +42,6 @@ export const Footer = () => {
 								<li className='footer-menu__item'>
 									<Link href='/account'>
 										<a className='footer-menu__link'>
-											<span className='icon icon-ondemand_video'></span>Устройства
-										</a>
-									</Link>
-								</li>
-								<li className='footer-menu__item'>
-									<Link href='/account'>
-										<a className='footer-menu__link'>
 											<span className='icon icon-portrait'></span>Профиль
 										</a>
 									</Link>

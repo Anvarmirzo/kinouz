@@ -21,4 +21,14 @@ export const AuthService = {
 			})
 			.catch(Toast.error);
 	},
+	getGuestToken() {
+		return api
+			.get<{jwt: string}>('auth/token')
+			.then((res) => {
+				console.log(res.data.jwt);
+				localStorage.setItem('guestJwt', res.data.jwt || '');
+				return res.data;
+			})
+			.catch(Toast.error);
+	},
 };

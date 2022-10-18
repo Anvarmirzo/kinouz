@@ -30,6 +30,7 @@ export const {
 		},
 		setCommentAction: (state, action: PayloadAction<CommentModel>) => ({
 			...state,
+			count: state.count + 1,
 			list: [...state.list, action.payload],
 		}),
 	},
