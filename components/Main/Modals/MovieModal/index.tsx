@@ -23,7 +23,6 @@ export const MovieModal = ({movie, buttonIcon, buttonClassName}: MovieModalProps
 		if (list) {
 			const lastIndex = list.length - 1;
 			return list.map((item, index) => (
-				/* TODO: URGENT check field slug*/
 				<Link
 					href={`/participant?name=${item.name}&slug=${item.slug ?? ''}&id=${item.id}&type=${type}`}
 					key={item.id}

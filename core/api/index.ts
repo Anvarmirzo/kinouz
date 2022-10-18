@@ -1,4 +1,6 @@
 import axios, {AxiosRequestConfig} from 'axios';
+import {store} from '../store';
+import {setRedirectAction} from '../store/auth/auth.slices';
 
 const api = axios.create({
 	baseURL: `${process.env.NEXT_PUBLIC_API_URL}/`,
@@ -21,11 +23,9 @@ api.interceptors.response.use(
 		return response;
 	},
 	async function (error) {
-		if (error.response?.status === 401 && window.location.pathname !== '/login') {
-			window.location.href = window.location.href.replace(window.location.pathname, '/login');
-
+		if (error.response?.status === 401) {
+			store.dispatch(setRedirectAction(true));
 			localStorage.removeItem('jwt');
-			return;
 		}
 
 		return Promise.reject(error);

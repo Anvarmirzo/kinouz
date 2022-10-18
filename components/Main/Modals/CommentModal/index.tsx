@@ -4,6 +4,7 @@ import {useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
 import {getCommentsThunk, postCommentThunk} from '../../../../core/store/comment/comment.thunks';
 import Moment from 'react-moment';
+import {setCommentsAction} from '../../../../core/store/comment/comment.slices';
 
 export const CommentModal = ({movieId}: {movieId: number}) => {
 	// redux hooks
@@ -17,6 +18,10 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 		(async () => {
 			await dispatch(getCommentsThunk({movieId}));
 		})();
+
+		return () => {
+			dispatch(setCommentsAction({count: 0, list: []}));
+		};
 	}, []);
 	//TODO: replace all bootstrap components to react-bootstrap
 
@@ -50,7 +55,7 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 	};
 
 	const renderComments = () => {
-		if (comments.count > 0) {
+		if (comments.list.length > 0) {
 			return (
 				<div className='movie-comments__body'>
 					<div className='movie-comments__list'>
