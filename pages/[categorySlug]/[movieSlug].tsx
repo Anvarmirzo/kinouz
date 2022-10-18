@@ -8,27 +8,17 @@ import {getMovieThunk} from '../../core/store/movie/movie.thunks';
 import {eMovieQuality} from '../../core/models';
 import {setCommentsAction} from '../../core/store/comment/comment.slices';
 import {setMovieAction} from '../../core/store/movie/movie.slices';
+import {setIsShownModalAction} from '../../core/store/globalUI/globalUI.slices';
 
 const Movie = () => {
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const [currentMovie, isRedirect] = useAppSelector(({movies, auth}) => [
-		movies.current,
-		auth.isRedirect,
-	]);
+	const [currentMovie, user] = useAppSelector(({movies, auth}) => [movies.current, auth.user]);
 
 	// next hooks
 	const {
 		query: {movieSlug},
-		pathname,
-		push,
 	} = useRouter();
-
-	useEffect(() => {
-		if (isRedirect) {
-			push('/');
-		}
-	}, [isRedirect, pathname]);
 
 	// react hooks
 	const [isPlayerVisible, setIsPlayerVisible] = useState(false);
@@ -78,6 +68,14 @@ const Movie = () => {
 					</label>
 				</div>
 			));
+		}
+	};
+
+	const togglePlayerVisibility = () => {
+		if (user) {
+			setIsPlayerVisible((prev) => !prev);
+		} else {
+			dispatch(setIsShownModalAction({modalName: 'login', flag: true}));
 		}
 	};
 
@@ -138,7 +136,7 @@ const Movie = () => {
 								</div>
 								<div className='page-movie-card__btns'>
 									<button
-										onClick={() => setIsPlayerVisible((prev) => !prev)}
+										onClick={togglePlayerVisibility}
 										className='btn btn-primary btn-icon rounded-pill'
 										type='button'
 									>

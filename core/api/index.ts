@@ -1,13 +1,11 @@
 import axios, {AxiosRequestConfig} from 'axios';
-import {store} from '../store';
-import {setRedirectAction} from '../store/auth/auth.slices';
 
 const api = axios.create({
 	baseURL: `${process.env.NEXT_PUBLIC_API_URL}/`,
 });
 
 api.interceptors.request.use(function (config: AxiosRequestConfig) {
-	const token = window.localStorage.getItem('jwt');
+	const token = localStorage.getItem('jwt') || localStorage.getItem('guestJwt');
 
 	if (token) {
 		if (config.headers) {
@@ -24,7 +22,6 @@ api.interceptors.response.use(
 	},
 	async function (error) {
 		if (error.response?.status === 401) {
-			store.dispatch(setRedirectAction(true));
 			localStorage.removeItem('jwt');
 		}
 

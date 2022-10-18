@@ -4,17 +4,15 @@ import {UserModel} from '../../models';
 interface IState {
 	jwt: string | null;
 	user: UserModel | null;
-	isRedirect: boolean;
 }
 
 const initialState: IState = {
 	jwt: null,
 	user: null,
-	isRedirect: false,
 };
 
 export const {
-	actions: {logOutAction, logInAction, setRedirectAction},
+	actions: {logOutAction, logInAction},
 	reducer: authReducer,
 } = createSlice({
 	name: 'auth',
@@ -29,11 +27,6 @@ export const {
 			...state,
 			token: null,
 			user: null,
-		}),
-
-		setRedirectAction: (state: IState, action: PayloadAction<boolean>) => ({
-			...state,
-			isRedirect: action.payload,
 		}),
 	},
 });

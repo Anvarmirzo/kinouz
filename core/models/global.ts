@@ -6,7 +6,7 @@ export class FileModel {
 	constructor(file: FileModel) {
 		this.id = file.id;
 		this.name = file.name;
-		this.url = `${process.env.NEXT_PUBLIC_API_URL}${file.url}`;
+		this.url = file.url;
 	}
 }
 

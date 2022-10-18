@@ -5,11 +5,13 @@ import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
 import {getCommentsThunk, postCommentThunk} from '../../../../core/store/comment/comment.thunks';
 import Moment from 'react-moment';
 import {setCommentsAction} from '../../../../core/store/comment/comment.slices';
+import {setIsShownModalAction} from '../../../../core/store/globalUI/globalUI.slices';
+import {loginThunk} from '../../../../core/store/auth/auth.thunks';
 
 export const CommentModal = ({movieId}: {movieId: number}) => {
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const [user, comments] = useAppSelector(({users, comments}) => [users.user, comments]);
+	const [user, comments] = useAppSelector(({auth, comments}) => [auth.user, comments]);
 
 	// react hooks
 	const [show, setShow] = useState(false);
@@ -43,14 +45,19 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 	};
 
 	const onSubmit = async ({text}: {text: string}) => {
-		if (user && text.trim()) {
-			const isSent = await dispatch(
-				postCommentThunk({movieId, text: text.trim(), userId: user.id})
-			);
-			if (isSent) {
-				reset();
-				scrollToBottom();
+		console.log(user);
+		if (user) {
+			if (text.trim()) {
+				const isSent = await dispatch(
+					postCommentThunk({movieId, text: text.trim(), userId: user.id})
+				);
+				if (isSent) {
+					reset();
+					scrollToBottom();
+				}
 			}
+		} else {
+			dispatch(setIsShownModalAction({modalName: 'login', flag: true}));
 		}
 	};
 
