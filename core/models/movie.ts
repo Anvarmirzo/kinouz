@@ -239,7 +239,7 @@ export class MovieModel {
 			this.rating = movie.rating;
 		}
 		if (movie.genres) {
-			this.genres = movie.genres;
+			this.genres = movie.genres.map((g) => new GenreModel(g));
 		}
 		if (movie.acters) {
 			this.actors = movie.acters.map((a) => new ActorModel(a));
@@ -248,10 +248,10 @@ export class MovieModel {
 			this.directors = movie.directors.map((d) => new DirectorModel(d));
 		}
 		if (movie.comments) {
-			this.comments = movie.comments;
+			this.comments = movie.comments.map((c) => new CommentModel(c));
 		}
 		if (movie.categories) {
-			this.categories = movie.categories;
+			this.categories = movie.categories.map((c) => new CategoryModel(c));
 		}
 		if (movie.treiler) {
 			this.trailer = new FileModel(movie.treiler);
@@ -260,10 +260,10 @@ export class MovieModel {
 			this.file = new MovieFileModel(movie.file);
 		}
 		if (movie.seasons) {
-			this.seasons = movie.seasons;
+			this.seasons = movie.seasons.map((s) => new SeasonModel(s));
 		}
 		if (movie.producers) {
-			this.producers = movie.producers;
+			this.producers = movie.producers.map((p) => new ProducerModel(p));
 		}
 	}
 

@@ -1,6 +1,6 @@
 import {UserService, AuthService} from '../../services';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {logInAction, logOutAction} from './auth.slices';
+import {logInAction, logOutAction, setRedirectAction} from './auth.slices';
 import {setUserAction} from '../user/user.slices';
 import {ILogIn, ISignUp} from '../../models';
 
@@ -10,6 +10,7 @@ export const signUpThunk = createAsyncThunk('auth/signUp', async (payload: ISign
 	if (data) {
 		thunkAPI.dispatch(logInAction(data));
 		thunkAPI.dispatch(setUserAction(data.user));
+		thunkAPI.dispatch(setRedirectAction(false));
 
 		return data.user.id;
 	}
@@ -21,6 +22,7 @@ export const loginThunk = createAsyncThunk('auth/login', async (payload: ILogIn,
 	if (data) {
 		thunkAPI.dispatch(logInAction(data));
 		thunkAPI.dispatch(setUserAction(data.user));
+		thunkAPI.dispatch(setRedirectAction(false));
 
 		return data.user.id;
 	}
@@ -35,6 +37,7 @@ export const autoLoginThunk = createAsyncThunk('auth/autoLogin', async (_, thunk
 		if (data) {
 			thunkAPI.dispatch(logInAction(data));
 			thunkAPI.dispatch(setUserAction(data.user));
+			thunkAPI.dispatch(setRedirectAction(false));
 		}
 	}
 });
@@ -47,7 +50,7 @@ export const logoutThunk = createAsyncThunk('auth/logout', async (_, thunkAPI) =
 
 		localStorage.removeItem('jwt');
 		localStorage.removeItem('expired_at');
+		thunkAPI.dispatch(setRedirectAction(true));
 		localStorage.clear();
-		window.location.href = '/';
 	}
 });
