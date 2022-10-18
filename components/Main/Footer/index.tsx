@@ -8,7 +8,7 @@ import {setIsShownModalAction} from '../../../core/store/globalUI/globalUI.slice
 export const Footer = () => {
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const user = useAppSelector(({users}) => users.user);
+	const user = useAppSelector(({auth}) => auth.user);
 
 	const onLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault();
@@ -32,13 +32,15 @@ export const Footer = () => {
 				</div>
 				<div className='footer__menu footer-menu'>
 					<ul className='footer-menu__list'>
-						<li className='footer-menu__item'>
-							<a href='#' className='footer-menu__link'>
-								<span className='icon icon-account_balance_wallet'></span>Подписка и оплата
-							</a>
-						</li>
 						{user ? (
 							<>
+								<li className='footer-menu__item'>
+									<Link href='/account'>
+										<a className='footer-menu__link'>
+											<span className='icon icon-account_balance_wallet'></span>Подписка и оплата
+										</a>
+									</Link>
+								</li>
 								<li className='footer-menu__item'>
 									<Link href='/account'>
 										<a className='footer-menu__link'>
@@ -55,6 +57,11 @@ export const Footer = () => {
 						) : (
 							/* TODO: find icons for login and signup */
 							<>
+								<li className='footer-menu__item'>
+									<a onClick={showModal('login')} href='#' className='footer-menu__link'>
+										<span className='icon icon-account_balance_wallet'></span>Подписка и оплата
+									</a>
+								</li>
 								<li className='footer-menu__item'>
 									<a onClick={showModal('login')} href='#' className='footer-menu__link'>
 										<span className='icon icon-logout'></span>Войти
