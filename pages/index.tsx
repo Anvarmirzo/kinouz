@@ -4,32 +4,33 @@ import Head from 'next/head';
 import {Footer, Header, HeroLargeSlider} from '../components/Main';
 import {MovieSlider} from '../components/Main';
 import {useAppDispatch, useAppSelector} from '../core/hooks';
-import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
+import {getAllCategoriesThunk} from '../core/store/category/category.thunks';
 import {getNewMoviesThunk} from '../core/store/movie/movie.thunks';
 import {setNewMoviesAction} from '../core/store/movie/movie.slices';
-import {setMainCategoriesAction} from '../core/store/category/category.slices';
+import {setAllCategoriesAction} from '../core/store/category/category.slices';
 
 const Home: NextPage = () => {
 	// redux hooks
 	const [categories, newMovies] = useAppSelector(({categories, movies}) => [
-		categories.main.list,
+		categories,
 		movies.newMoviesList,
 	]);
 	const dispatch = useAppDispatch();
 
 	// react hooks
 	useEffect(() => {
-		dispatch(getMainCategoriesThunk());
+		dispatch(getAllCategoriesThunk({skip: 0, params: {movies: true}}));
 		dispatch(getNewMoviesThunk({params: {}}));
 
 		return () => {
+			dispatch(setAllCategoriesAction({list: [], count: 0}));
 			dispatch(setNewMoviesAction([]));
-			dispatch(setMainCategoriesAction({list: [], count: 0}));
 		};
 	}, []);
 
 	const renderCategories = () => {
-		return categories.map((c) =>
+		console.log(categories.all.list);
+		return categories.all.list.map((c) =>
 			c.movies ? <MovieSlider key={c.id} title={c.title} list={c.movies} /> : null
 		);
 	};

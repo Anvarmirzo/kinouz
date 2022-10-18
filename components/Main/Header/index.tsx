@@ -54,7 +54,7 @@ export const Header = () => {
 	};
 
 	const renderMenu = () => {
-		return categories.all.list.map((c) => (
+		return categories.main.list.map((c) => (
 			<li
 				className={cn('main-menu__item', {
 					'main-menu__item_active': ['/movies/[movieSlug]', '/movies'].includes(currentRoute),

@@ -9,7 +9,10 @@ import {
 export const getAllCategoriesThunk = createAsyncThunk(
 	'categories/getAll',
 	async (
-		params: {skip: number; params: Record<string, string | number>} = {skip: 0, params: {}},
+		params: {skip: number; params: Record<string, string | number | boolean>} = {
+			skip: 0,
+			params: {},
+		},
 		thunkAPI
 	) => {
 		const res = await CategoryService.getAll(params);

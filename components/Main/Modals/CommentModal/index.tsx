@@ -45,7 +45,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 	};
 
 	const onSubmit = async ({text}: {text: string}) => {
-		console.log(user);
 		if (user) {
 			if (text.trim()) {
 				const isSent = await dispatch(
