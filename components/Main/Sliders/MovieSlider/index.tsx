@@ -7,6 +7,7 @@ import Link from 'next/link';
 import {Player} from '../../Player';
 import {AddToFavoritesBtn} from '../../Buttons/AddToFavoritesBtn';
 import {MovieModal} from '../../Modals/MovieModal';
+import cn from 'classnames';
 
 interface MovieSliderProps extends SwiperProps {
 	list: MovieModel[];
@@ -20,9 +21,9 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 	const [paginationEl, paginationElRef] = useSwiperRef<HTMLDivElement>();
 
 	const renderSlides = () => {
-		return list.map((movie) => (
+		return list.map((movie, index) => (
 			<SwiperSlide className='transform-none' key={movie.id}>
-				<div className='movie-card'>
+				<div className={cn('movie-card', {first: index === 0})}>
 					<div className='movie-card__body'>
 						<div
 							className='movie-card__img'
