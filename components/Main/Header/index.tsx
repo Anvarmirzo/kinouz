@@ -12,7 +12,7 @@ import {setIsShownModalAction} from '../../../core/store/globalUI/globalUI.slice
 export const Header = () => {
 	// next router
 	const router = useRouter();
-	const currentRoute = router.pathname;
+	const currentPath = router.asPath.substring(1);
 
 	// redux hooks
 	const dispatch = useAppDispatch();
@@ -52,12 +52,11 @@ export const Header = () => {
 	const changeModalIsShown = (show: boolean) => () => {
 		dispatch(setIsShownModalAction({modalName: 'login', flag: show}));
 	};
-
 	const renderMenu = () => {
 		return categories.main.list.map((c) => (
 			<li
 				className={cn('main-menu__item', {
-					'main-menu__item_active': ['/movies/[movieSlug]', '/movies'].includes(currentRoute),
+					'main-menu__item_active': currentPath === c.slug,
 				})}
 				key={c.id}
 			>
@@ -104,7 +103,7 @@ export const Header = () => {
 								<ul className='user-menu__list'>
 									<li
 										className={cn('main-menu__item', {
-											'main-menu__item_active': currentRoute === '/my-favorites',
+											'main-menu__item_active': currentPath === '/my-favorites',
 										})}
 									>
 										<Link href='/my-favorites'>
@@ -113,7 +112,7 @@ export const Header = () => {
 									</li>
 									<li
 										className={cn('main-menu__item', {
-											'main-menu__item_active': currentRoute === '/my-history',
+											'main-menu__item_active': currentPath === '/my-history',
 										})}
 									>
 										<Link href='/my-history'>

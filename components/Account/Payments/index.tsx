@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
 import Moment from 'react-moment';
+import cn from 'classnames';
 import {useAppDispatch, useAppSelector} from '../../../core/hooks';
 import {getPaymentsThunk} from '../../../core/store/payment/payment.thunks';
 import {setPaymentsAction} from '../../../core/store/payment/payment.slices';
+import {ePaymentStatusType} from '../../../core/models';
 
 export const Payments = () => {
 	// redux hooks
@@ -23,8 +25,18 @@ export const Payments = () => {
 	const renderPayments = () => {
 		return payment.list.map((p) => (
 			<div className='alert alert-success' role='alert' key={p.id}>
-				<h6 className='alert-heading'>
+				<h6 className='alert-heading d-flex align-items-center gap-2'>
 					<Moment format='DD.MM.YYYY HH:mm'>{p.createdAt}</Moment>
+					<span
+						className={cn('movie-card__label', {
+							'bg-primary': p.status.id === ePaymentStatusType.Pending,
+							'bg-secondary': p.status.id === ePaymentStatusType.Success,
+							'bg-danger': p.status.id === ePaymentStatusType.Fail,
+						})}
+					>
+						{' '}
+						{p.status.title}
+					</span>
 				</h6>
 				<p>пополнение аккаунта на {p.summa} сум.</p>
 			</div>

@@ -6,6 +6,7 @@ import LightGallery from 'lightgallery/react';
 import lgVideo from 'lightgallery/plugins/video';
 import {MovieModel} from '../../../../core/models';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface HeroLargeSliderProps {
 	list: MovieModel[];
@@ -15,10 +16,15 @@ export const HeroLargeSlider = ({list}: HeroLargeSliderProps) => {
 	const renderSlides = () => {
 		return list.map((movie) => (
 			<SwiperSlide className='movie-slider__item' key={movie.id}>
-				<div
+				<Image
+					width='100%'
+					height='100%'
+					src={movie.poster?.url ?? ''}
+					alt=''
+					layout='fill'
 					className='movie-slider__img'
-					style={{backgroundImage: `url("${movie.poster?.url}")`}}
-				></div>
+					crossOrigin='use-credentials'
+				/>
 				<div className='movie-slider__container container-fluid'>
 					<div className='movie-slider__text'>
 						<h2 className='movie-slider__name'>{movie.title}</h2>

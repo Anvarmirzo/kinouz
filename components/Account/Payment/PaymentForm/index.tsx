@@ -6,7 +6,7 @@ import {
 	ePaymentType,
 	IPostPayment,
 	PaymentModel,
-} from '../../../../core/models/payment';
+} from '../../../../core/models';
 import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
 import {addPaymentThunk} from '../../../../core/store/payment/payment.thunks';
 
