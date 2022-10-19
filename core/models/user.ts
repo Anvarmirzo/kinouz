@@ -37,7 +37,10 @@ export class UserModel {
 		this.name = user.name;
 		this.balance = user.balance;
 		this.contact = user.contact;
-		this.subscriptions = user.subscriptions.map((s) => new SubscriptionModel(s));
+
+		if (user.subscriptions) {
+			this.subscriptions = user.subscriptions.map((s) => new SubscriptionModel(s));
+		}
 
 		if (user.ageRemark) {
 			this.ageRemark = user.ageRemark;

@@ -34,7 +34,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 							<div className='movie-card__label bg-secondary'>HD</div>
 							{movie.isNew && <div className='movie-card__label bg-danger'>NEW</div>}
 							{!movie.bySubscription && (
-								<div className='movie-card__label bg-success'>БЕСПЛАТНО</div>
+								<div className='movie-card__label bg-orange'>Бесплатно</div>
 							)}
 						</div>
 						<div className='movie-card__ratings'>

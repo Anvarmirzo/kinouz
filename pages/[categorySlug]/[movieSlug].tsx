@@ -167,8 +167,8 @@ const Movie = () => {
 						/>
 					</div>
 				)}
-				{currentMovie ? (
-					<ActorCarouselSlider actors={currentMovie.actors ?? []} title='В ролях' />
+				{currentMovie?.actors ? (
+					<ActorCarouselSlider actors={currentMovie.actors} title='В ролях' />
 				) : null}
 				{/*<MovieSlider list={movieSlides} title='Коллекция:' />*/}
 				{/*<MovieSlider list={movieSlides} title='Похожие:' />*/}
