@@ -4,7 +4,7 @@ import AsyncSelect from 'react-select/async';
 import {IAutoComplete, IAutoCompleteParams} from '../../../core/models';
 
 interface Option {
-	value: string;
+	value: string | number;
 	label: string;
 	img?: string;
 	isFixed?: boolean;
@@ -86,6 +86,7 @@ export const AppSelect = ({
 			isRtl={isRtl}
 			isSearchable={isSearchable}
 			loadOptions={loadOptions}
+			defaultOptions={options}
 			styles={styles}
 			formatOptionLabel={formatOptionLabel}
 			{...props}

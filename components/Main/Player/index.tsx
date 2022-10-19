@@ -11,7 +11,13 @@ interface PlayerProps {
 export const Player = ({url, thumbnail}: PlayerProps) => {
 	return (
 		<div className='player-wrapper'>
-			<ReactVideoPlayer width='100%' url={url} type='video/mp4' poster={thumbnail} />
+			<ReactVideoPlayer
+				width='100%'
+				url={url}
+				type='video/mp4'
+				crossOrigin='use-credentials'
+				poster={thumbnail}
+			/>
 		</div>
 	);
 };

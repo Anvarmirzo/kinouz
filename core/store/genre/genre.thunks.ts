@@ -5,7 +5,10 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 export const getGenresThunk = createAsyncThunk(
 	'genres/getAll',
 	async (
-		params: {skip: number; params: Record<string, string | number>} = {skip: 0, params: {}},
+		params: {skip: number; params?: Record<string, string | number>} | undefined = {
+			skip: 0,
+			params: {},
+		},
 		thunkAPI
 	) => {
 		const res = await GenreService.getAll(params);

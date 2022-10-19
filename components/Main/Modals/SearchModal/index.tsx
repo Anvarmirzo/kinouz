@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {AppSelect} from '../../Select';
 import {useForm, Controller} from 'react-hook-form';
-import {useAppDispatch} from '../../../../core/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
 import {searchMovieThunk} from '../../../../core/store/movie/movie.thunks';
 import {
 	IAutoComplete,
@@ -12,15 +12,35 @@ import {
 } from '../../../../core/models';
 import {autoCompleteThunk} from '../../../../core/store/globalUI/globalUI.thunks';
 import Link from 'next/link';
+import Image from 'next/image';
+import {getGenresThunk} from '../../../../core/store/genre/genre.thunks';
+import {setGenresAction} from '../../../../core/store/genre/genre.slices';
+import {getCategoriesThunk} from '../../../../core/store/category/category.thunks';
+import {setAllCategoriesAction} from '../../../../core/store/category/category.slices';
+import {getActorsThunk} from '../../../../core/store/participant/participant.thunks';
+import {setActorsAction} from '../../../../core/store/participant/participant.slices';
 
-interface ISelect {
-	label: string;
-	value: string;
-}
+const autoComplete = {
+	categories: {label: 'категория', value: ''},
+	genres: {label: 'жанр (все)', value: ''},
+	actors: {label: 'актер', value: ''},
+	directors: {label: 'режиссёр', value: ''},
+	countries: {label: 'страна', value: ''},
+	year: {label: 'год', value: ''},
+};
+
+const getYearsRange = (start: number, stop: number, step: number) => {
+	return Array.from({length: (stop - start) / step + 1}, (_, i) => start + i * step);
+};
 
 export const SearchModal = () => {
 	// redux hooks
 	const dispatch = useAppDispatch();
+	const {genres, categories, participant} = useAppSelector(({genres, categories, participant}) => ({
+		genres,
+		categories: categories.all,
+		participant,
+	}));
 
 	// react hook form
 	const {
@@ -39,19 +59,11 @@ export const SearchModal = () => {
 		data: [],
 	});
 
-	const [autoComplete, setAutoComplete] = useState<{
-		categories: ISelect;
-		actors: ISelect;
-		genres: ISelect;
-		countries: ISelect;
-	}>({
-		categories: {label: 'категория', value: ''},
-		genres: {label: 'жанр (все)', value: ''},
-		actors: {label: 'актер', value: ''},
-		countries: {label: 'страна', value: ''},
-	});
-
 	useEffect(() => {
+		dispatch(getGenresThunk());
+		dispatch(getCategoriesThunk());
+		dispatch(getActorsThunk());
+
 		let timer: NodeJS.Timeout | null = null;
 		const subscribe = watch((value, {name}) => {
 			if (timer) {
@@ -62,11 +74,21 @@ export const SearchModal = () => {
 		});
 
 		return () => {
+			dispatch(setGenresAction({count: 0, list: []}));
+			dispatch(setAllCategoriesAction({count: 0, list: []}));
+			dispatch(setActorsAction({count: 0, list: []}));
+
 			subscribe.unsubscribe();
+
 			if (timer) {
 				clearTimeout(timer);
 			}
 		};
+	}, []);
+
+	const yearsRange = useMemo(() => {
+		const currentYear = new Date().getFullYear();
+		return getYearsRange(currentYear, 1980, -1);
 	}, []);
 
 	const onShowModal = (show: boolean) => () => {
@@ -84,9 +106,13 @@ export const SearchModal = () => {
 	};
 
 	const searchOptions = (index: IAutoCompleteParams['index']) => async (search: string) => {
-		const result = await dispatch(autoCompleteThunk({search, index}));
-		if (result) {
-			return result.payload as IAutoComplete;
+		if (index === 'year') {
+			return yearsRange.filter((y) => `${y}` === search);
+		} else {
+			const result = await dispatch(autoCompleteThunk({search, index}));
+			if (result) {
+				return result.payload as IAutoComplete;
+			}
 		}
 	};
 
@@ -96,10 +122,16 @@ export const SearchModal = () => {
 				<div className='col-12 col-sm-6 col-md-4'>
 					<div className='movie-card'>
 						<div className='movie-card__body'>
-							<div
-								className='movie-card__img'
-								style={{backgroundImage: `url("${movie.poster?.url}")`}}
-							></div>
+							<div className='movie-card__img'>
+								<Image
+									src={movie.poster?.url ?? ''}
+									alt=''
+									layout='fill'
+									className='movie-card__img'
+									crossOrigin='use-credentials'
+									unoptimized={true}
+								/>
+							</div>
 							<div className='movie-card__ratings'>
 								<div className='movie-card__rating'>
 									<span className='icon icon-imdb'></span>
@@ -153,7 +185,7 @@ export const SearchModal = () => {
 											isAsync
 											isSearchable
 											searchOptions={searchOptions('categories')}
-											options={[]}
+											options={categories.list.map((c) => ({label: c.title, value: c.id}))}
 											defaultValue={autoComplete.categories}
 											className='form-select-react'
 										/>
@@ -170,7 +202,7 @@ export const SearchModal = () => {
 											isAsync
 											isSearchable
 											searchOptions={searchOptions('genres')}
-											options={[]}
+											options={genres.list.map((g) => ({label: g.title, value: g.id}))}
 											defaultValue={autoComplete.genres}
 											className='form-select-react'
 										/>
@@ -186,9 +218,66 @@ export const SearchModal = () => {
 											{...field}
 											isAsync
 											isSearchable
+											formatOptionLabel={(option) => (
+												<div className='form-select-react-img__item'>
+													{option.img && (
+														<Image
+															src={option.img}
+															width={30}
+															height={30}
+															alt={option.label}
+															crossOrigin='use-credentials'
+															unoptimized={true}
+															objectFit='cover'
+														/>
+													)}
+													<span>{option.label}</span>
+												</div>
+											)}
 											searchOptions={searchOptions('acters')}
-											options={[]}
+											options={participant.actors.list.map((a) => ({
+												label: a.name,
+												value: a.id,
+												img: a.avatar.url,
+											}))}
 											defaultValue={autoComplete.actors}
+											className='form-select-react'
+										/>
+									)}
+								/>
+							</div>
+							<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2'>
+								<Controller
+									name='directorId'
+									control={control}
+									render={({field}) => (
+										<AppSelect
+											{...field}
+											isAsync
+											isSearchable
+											formatOptionLabel={(option) => (
+												<div className='form-select-react-img__item'>
+													{option.img && (
+														<Image
+															src={option.img}
+															width={30}
+															height={30}
+															alt={option.label}
+															crossOrigin='use-credentials'
+															unoptimized={true}
+															objectFit='cover'
+														/>
+													)}
+													<span>{option.label}</span>
+												</div>
+											)}
+											searchOptions={searchOptions('directors')}
+											options={participant.directors.list.map((a) => ({
+												label: a.name,
+												value: a.id,
+												img: a.avatar?.url,
+											}))}
+											defaultValue={autoComplete.directors}
 											className='form-select-react'
 										/>
 									)}
@@ -212,15 +301,19 @@ export const SearchModal = () => {
 								/>
 							</div>
 							<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2 mb-md-0'>
-								<input
-									type='text'
-									className='form-control h-100'
-									placeholder='год'
-									{...register('year', {
-										valueAsNumber: true,
-										pattern: /^\d+$/,
-										onChange: (e) => setValue('year', +e.target.value.replace(/\D+/g, '')),
-									})}
+								<Controller
+									name='countryId'
+									control={control}
+									render={({field}) => (
+										<AppSelect
+											{...field}
+											isSearchable
+											searchOptions={searchOptions('year')}
+											options={yearsRange.map((y) => ({label: `${y}`, value: y}))}
+											defaultValue={autoComplete.year}
+											className='form-select-react'
+										/>
+									)}
 								/>
 							</div>
 						</div>

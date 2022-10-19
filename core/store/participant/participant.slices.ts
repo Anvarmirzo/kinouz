@@ -1,29 +1,44 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ActorModel} from '../../models';
+import {ActorModel, DirectorModel} from '../../models';
 
 interface IState {
-	list: ActorModel[];
+	actors: {
+		list: ActorModel[];
+		count: number;
+	};
+	directors: {
+		list: DirectorModel[];
+		count: number;
+	};
 	current: ActorModel | null;
-	count: number;
 }
 
 const initialState: IState = {
-	list: [],
+	actors: {
+		list: [],
+		count: 0,
+	},
+	directors: {
+		list: [],
+		count: 0,
+	},
 	current: null,
-	count: 0,
 };
 
 export const {
 	actions: {setActorsAction, setActorAction},
-	reducer: actorsReducer,
+	reducer: participantReducer,
 } = createSlice({
-	name: 'actors',
+	name: 'participant',
 	initialState,
 	reducers: {
 		setActorsAction: (state, action: PayloadAction<{list: ActorModel[]; count: number}>) => ({
 			...state,
-			list: action.payload.list,
-			count: action.payload.count,
+			actors: {
+				...state.actors,
+				count: action.payload.count,
+				list: action.payload.list,
+			},
 		}),
 		setActorAction: (state, action: PayloadAction<ActorModel | null>) => ({
 			...state,

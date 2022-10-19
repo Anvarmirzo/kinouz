@@ -88,27 +88,6 @@ export const LoginModal = () => {
 							<button className='btn btn-primary'>Войти</button>
 						</div>
 					</form>
-					<div className='modal-login__fast-login fast-login'>
-						<h5 className='fast-login__title text-center'>Быстрый вход</h5>
-						<div className='fast-login__list'>
-							<div className='fast-login__item'>
-								<a href='#' className='fast-login__link link-fb'>
-									<span className='icon icon-fb'></span>Facebook
-								</a>
-							</div>
-							<div className='fast-login__item'>
-								<a href='#' className='fast-login__link link-google'>
-									<span className='icon icon-google'>
-										<span className='path1'></span>
-										<span className='path2'></span>
-										<span className='path3'></span>
-										<span className='path4'></span>
-									</span>
-									Google
-								</a>
-							</div>
-						</div>
-					</div>
 					<h6 className='lines-title mt-5'>или</h6>
 					<div className='d-grid'>
 						<Button variant='light' onClick={changeShow({modalName: 'signup', flag: true})}>

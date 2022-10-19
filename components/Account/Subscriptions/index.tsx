@@ -10,6 +10,8 @@ import {
 	unsubscribeThunk,
 } from '../../../core/store/subscription/subscription.thunks';
 import {autoLoginThunk} from '../../../core/store/auth/auth.thunks';
+import Image from 'next/image';
+import cn from 'classnames';
 
 export const Subscriptions = () => {
 	// redux hooks
@@ -84,11 +86,17 @@ export const Subscriptions = () => {
 
 	const renderCards = () => {
 		return subscriptions.map((s) => (
-			<Card
-				className={s.poster?.url ? 'custom-bg-opacity' : ''}
-				key={s.typeId}
-				style={{background: `url(${s.poster?.url}) 0 0 no-repeat`}}
-			>
+			<Card key={s.typeId} style={{background: `0 0 no-repeat`}}>
+				{s.poster && (
+					<Image
+						src={s.poster.url}
+						alt=''
+						layout='fill'
+						className='opacity-50'
+						crossOrigin='use-credentials'
+						unoptimized={true}
+					/>
+				)}
 				<Card.Header className='position-relative'>30 дней за {s.price} сум</Card.Header>
 				<Card.Body className='position-relative'>
 					<Card.Title>{s.title}</Card.Title>

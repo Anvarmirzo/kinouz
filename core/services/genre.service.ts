@@ -3,7 +3,7 @@ import {Toast} from '../utils';
 import {GenreModel} from '../models';
 
 export const GenreService = {
-	getAll(params: {skip: number; params: Record<string, number | string>}) {
+	getAll(params: {skip: number; params?: Record<string, number | string>}) {
 		return api
 			.get<{data: GenreModel[]; count: number}>('genre', {params})
 			.then((res) => ({data: res.data.data.map((g) => new GenreModel(g)), count: res.data.count}))

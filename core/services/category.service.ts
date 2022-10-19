@@ -3,7 +3,7 @@ import {Toast} from '../utils';
 import {CategoryModel} from '../models';
 
 export const CategoryService = {
-	getAll(params: {skip: number; params: Record<string, number | string | boolean>}) {
+	getAll(params: {skip: number; params?: Record<string, number | string | boolean>}) {
 		return api
 			.get<{data: CategoryModel[]; count: number}>('category', {params})
 			.then((res) => ({
