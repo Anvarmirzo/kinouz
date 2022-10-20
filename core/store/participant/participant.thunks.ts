@@ -1,5 +1,5 @@
-import {setActorAction, setActorsAction} from './participant.slices';
-import {ActorService} from '../../services';
+import {setActorAction, setActorsAction, setDirectorsAction} from './participant.slices';
+import {ActorService, DirectorService} from '../../services';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
 export const getActorsThunk = createAsyncThunk(
@@ -31,6 +31,28 @@ export const getActorThunk = createAsyncThunk(
 
 		if (res) {
 			thunkAPI.dispatch(setActorAction(res));
+		}
+	}
+);
+
+export const getDirectorsThunk = createAsyncThunk(
+	'participant/directorsGetAll',
+	async (
+		params: {skip: number; params?: Record<string, string | number>} | undefined = {
+			skip: 0,
+			params: {},
+		},
+		thunkAPI
+	) => {
+		const res = await DirectorService.getAll(params);
+
+		if (res) {
+			thunkAPI.dispatch(
+				setDirectorsAction({
+					list: res.data,
+					count: res.count,
+				})
+			);
 		}
 	}
 );

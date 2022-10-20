@@ -11,10 +11,20 @@ export class FileModel {
 }
 
 export interface IAutoCompleteParams {
-	index?: 'year' | 'genres' | 'acters' | 'countries' | 'categories' | 'producers' | 'directors';
+	index?:
+		| 'year'
+		| 'genres'
+		| 'acters'
+		| 'countries'
+		| 'categories'
+		| 'producers'
+		| 'directors'
+		| 'movies';
 	search?: string;
 	// filter: ["year=2001", "genres=1,2,3", "acters=23,2", countries="2,3,5"]
 	filter?: string[];
+	limit?: number;
+	offset?: number;
 }
 
 export interface IAutoComplete {
@@ -24,5 +34,6 @@ export interface IAutoComplete {
 		name?: string;
 		slug: string;
 	}[];
+	count: number;
 	query: string;
 }

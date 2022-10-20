@@ -26,7 +26,7 @@ const initialState: IState = {
 };
 
 export const {
-	actions: {setActorsAction, setActorAction},
+	actions: {setActorsAction, setActorAction, setDirectorsAction},
 	reducer: participantReducer,
 } = createSlice({
 	name: 'participant',
@@ -36,6 +36,14 @@ export const {
 			...state,
 			actors: {
 				...state.actors,
+				count: action.payload.count,
+				list: action.payload.list,
+			},
+		}),
+		setDirectorsAction: (state, action: PayloadAction<{list: DirectorModel[]; count: number}>) => ({
+			...state,
+			directors: {
+				...state.directors,
 				count: action.payload.count,
 				list: action.payload.list,
 			},
