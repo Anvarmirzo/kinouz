@@ -10,11 +10,18 @@ import {autoLoginThunk} from '../core/store/auth/auth.thunks';
 import {LoginModal, SearchModal, SignUpModal} from '../components/Main';
 import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
 import {setMainCategoriesAction} from '../core/store/category/category.slices';
+import {useRouter} from 'next/router';
 
 function MyApp({Component, pageProps}: AppProps) {
+	// next hooks
+	const router = useRouter();
+
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const isSearchModalShown = useAppSelector(({globalUI}) => globalUI.modals.search.isShown);
+	const [isSearchModalShown, user] = useAppSelector(({globalUI, auth}) => [
+		globalUI.modals.search.isShown,
+		auth.user,
+	]);
 
 	// react hooks
 	useEffect(() => {
@@ -25,6 +32,12 @@ function MyApp({Component, pageProps}: AppProps) {
 			dispatch(setMainCategoriesAction({count: 0, list: []}));
 		};
 	}, []);
+
+	useEffect(() => {
+		if (user && router.query['returnUrl']) {
+			router.push(router.query['returnUrl'] as string);
+		}
+	}, [router.query, user]);
 
 	return (
 		<div className='app'>

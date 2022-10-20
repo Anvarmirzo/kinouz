@@ -190,6 +190,7 @@ export const SearchModal = () => {
 										src={movie.poster ?? ''}
 										alt=''
 										layout='fill'
+										objectFit='cover'
 										className='movie-card__img'
 										crossOrigin='use-credentials'
 										unoptimized={true}
@@ -286,9 +287,9 @@ export const SearchModal = () => {
 														width={30}
 														height={30}
 														alt={option.label}
+														objectFit='cover'
 														crossOrigin='use-credentials'
 														unoptimized={true}
-														objectFit='cover'
 													/>
 												)}
 												<span>{option.label}</span>

@@ -37,15 +37,19 @@ const Movie = () => {
 	}, [movieSlug]);
 
 	const changeQuality = (quality: typeof currentQuality) => () => {
-		if (!currentQuality && currentMovie && currentMovie.file?.qualitiesList[0].quality) {
-			setCurrentQuality(currentMovie.file?.qualitiesList[0].quality);
-		} else {
-			setIsPlayerVisible(false);
+		if (user) {
+			if (!currentQuality && currentMovie && currentMovie.file?.qualitiesList[0].quality) {
+				setCurrentQuality(currentMovie.file?.qualitiesList[0].quality);
+			} else {
+				setIsPlayerVisible(false);
 
-			setTimeout(() => {
-				setCurrentQuality(quality);
-				setIsPlayerVisible(true);
-			}, 10);
+				setTimeout(() => {
+					setCurrentQuality(quality);
+					setIsPlayerVisible(true);
+				}, 10);
+			}
+		} else {
+			dispatch(setIsShownModalAction({modalName: 'login', flag: true}));
 		}
 	};
 
@@ -108,6 +112,7 @@ const Movie = () => {
 						className='page-movie-card__img'
 						crossOrigin='use-credentials'
 						unoptimized={true}
+						objectFit='cover'
 					/>
 					<div className='page-movie-card__container container-fluid'>
 						<div className='page-movie-card__text row w-100'>
