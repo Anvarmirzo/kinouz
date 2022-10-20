@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import {LoginButtonWithMenu} from '../index';
-import {SearchModal} from '../Modals/SearchModal';
 import cn from 'classnames';
 import {useAppDispatch, useAppSelector, useOnClickOutside} from '../../../core/hooks';
 import Link from 'next/link';
@@ -49,9 +48,11 @@ export const Header = () => {
 		setIsMenuOpen((prev) => !prev);
 	};
 
-	const changeModalIsShown = (show: boolean) => () => {
-		dispatch(setIsShownModalAction({modalName: 'login', flag: show}));
-	};
+	const changeModalIsShown =
+		({modalName, show}: {modalName: 'login' | 'search'; show: boolean}) =>
+		() => {
+			dispatch(setIsShownModalAction({modalName, flag: show}));
+		};
 	const renderMenu = () => {
 		return categories.main.list.map((c) => (
 			<li
@@ -124,7 +125,13 @@ export const Header = () => {
 						</nav>
 					</aside>
 					<div className='header__search'>
-						<SearchModal />
+						<Button
+							variant='secondary'
+							className='rounded-pill'
+							onClick={changeModalIsShown({modalName: 'search', show: true})}
+						>
+							<span className='icon icon-search'></span>
+						</Button>
 					</div>
 					<div className='header__loginza header-loginza'>
 						{user ? (
@@ -133,7 +140,7 @@ export const Header = () => {
 							<Button
 								variant='primary'
 								className='header-loginza__login btn btn-primary rounded-pill'
-								onClick={changeModalIsShown(true)}
+								onClick={changeModalIsShown({modalName: 'login', show: true})}
 							>
 								Войти
 							</Button>
