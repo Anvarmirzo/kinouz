@@ -36,7 +36,7 @@ const Account = () => {
 			} else {
 				router.push({pathname: '/', query: {returnUrl: router.asPath}});
 			}
-		}, 3000);
+		}, 2000);
 
 		return () => {
 			clearTimeout(timer);
@@ -132,21 +132,15 @@ const Account = () => {
 									</div>
 								</div>
 							</Tab>
-							{user ? (
-								<>
-									<Tab eventKey='payment' title='Оплата'>
-										<PaymentForm />
-									</Tab>
-									<Tab eventKey='history' title='История платежей'>
-										<Payments />
-									</Tab>
-									<Tab eventKey='subscriptions' title='Мои подписки'>
-										<Subscriptions />
-									</Tab>
-								</>
-							) : (
-								<Tab eventKey='none' title=''></Tab>
-							)}
+							<Tab eventKey='payment' title='Оплата'>
+								<PaymentForm />
+							</Tab>
+							<Tab eventKey='history' title='История платежей'>
+								<Payments />
+							</Tab>
+							<Tab eventKey='subscriptions' title='Мои подписки'>
+								<Subscriptions />
+							</Tab>
 						</Tabs>
 					</nav>
 				</div>
