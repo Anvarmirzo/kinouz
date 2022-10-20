@@ -20,6 +20,7 @@ export const HeroLargeSlider = ({list}: HeroLargeSliderProps) => {
 					src={movie.poster?.url ?? ''}
 					alt=''
 					layout='fill'
+					objectFit='cover'
 					className='movie-slider__img'
 					crossOrigin='use-credentials'
 					unoptimized={true}

@@ -5,15 +5,23 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {AppSelect} from '../../Select';
 import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
-import {IAutoComplete, IAutoCompleteParams, MovieModel} from '../../../../core/models';
+import {IAutoComplete, IAutoCompleteParams, MeiliSearchMovieModel} from '../../../../core/models';
 import {autoCompleteThunk} from '../../../../core/store/globalUI/globalUI.thunks';
 import {getGenresThunk} from '../../../../core/store/genre/genre.thunks';
 import {setGenresAction} from '../../../../core/store/genre/genre.slices';
 import {getCategoriesThunk} from '../../../../core/store/category/category.thunks';
 import {setAllCategoriesAction} from '../../../../core/store/category/category.slices';
-import {getActorsThunk} from '../../../../core/store/participant/participant.thunks';
-import {setActorsAction} from '../../../../core/store/participant/participant.slices';
+import {
+	getActorsThunk,
+	getDirectorsThunk,
+} from '../../../../core/store/participant/participant.thunks';
+import {
+	setActorsAction,
+	setDirectorsAction,
+} from '../../../../core/store/participant/participant.slices';
 import {setIsShownModalAction} from '../../../../core/store/globalUI/globalUI.slices';
+import {getCountriesThunks} from '../../../../core/store/country/country.thunks';
+import {setCountriesAction} from '../../../../core/store/country/country.slices';
 
 interface IField {
 	label: string;
@@ -22,12 +30,11 @@ interface IField {
 
 interface IFormFields {
 	title: string;
-	genreId: IField;
-	countryId: IField;
-	acterId: IField;
-	categoryId: IField;
-	producerId: IField;
-	directorId: IField;
+	genres: IField;
+	countries: IField;
+	acters: IField;
+	categories: IField;
+	directors: IField;
 	year: IField;
 }
 
@@ -47,12 +54,13 @@ const getYearsRange = (start: number, stop: number, step: number) => {
 export const SearchModal = () => {
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const {genres, categories, participant, isShown} = useAppSelector(
-		({genres, categories, globalUI, participant}) => ({
+	const {genres, categories, participant, countries, isShown} = useAppSelector(
+		({genres, categories, globalUI, participant, country}) => ({
 			genres,
 			categories: categories.all,
 			participant,
 			isShown: globalUI.modals.search.isShown,
+			countries: country.list,
 		})
 	);
 
@@ -67,16 +75,23 @@ export const SearchModal = () => {
 	} = useForm<IFormFields>();
 
 	// react hooks
-	const [searchResults, setSearchResults] = useState<{count: number; data: MovieModel[]}>({
+	const [searchResults, setSearchResults] = useState<{
+		query: string;
+		hits: MeiliSearchMovieModel[];
+		count: number;
+	}>({
+		query: '',
+		hits: [],
 		count: 0,
-		data: [],
 	});
 
 	useEffect(() => {
-		// TODO: move modal out of rendering to avoid requests when modal closed
 		dispatch(getGenresThunk());
 		dispatch(getCategoriesThunk());
 		dispatch(getActorsThunk());
+		dispatch(getDirectorsThunk());
+		dispatch(getCountriesThunks());
+		onSubmit()();
 
 		let timer: NodeJS.Timeout | null = null;
 		const subscribe = watch((value, {name}) => {
@@ -84,13 +99,15 @@ export const SearchModal = () => {
 				clearTimeout(timer);
 			}
 
-			timer = setTimeout(onSubmit, 500);
+			timer = setTimeout(onSubmit(), 500);
 		});
 
 		return () => {
 			dispatch(setGenresAction({count: 0, list: []}));
 			dispatch(setAllCategoriesAction({count: 0, list: []}));
 			dispatch(setActorsAction({count: 0, list: []}));
+			dispatch(setDirectorsAction({count: 0, list: []}));
+			dispatch(setCountriesAction({count: 0, list: []}));
 
 			subscribe.unsubscribe();
 
@@ -104,23 +121,32 @@ export const SearchModal = () => {
 		dispatch(setIsShownModalAction({modalName: 'search', flag: show}));
 	};
 
-	const onSubmit = () => {
+	const onSubmit = (offset?: number) => () => {
 		handleSubmit(async (state) => {
-			const cleanObj: string[] = [];
+			const searchParams: {
+				search: string;
+				index: IAutoCompleteParams['index'];
+				filter: string[];
+				offset?: number;
+			} = {
+				search: '',
+				index: 'movies',
+				filter: [],
+				offset,
+			};
 
-			// TODO: check actors or acters on params
 			for (const stateKey in state) {
 				if (stateKey) {
 					const stateValue = state[stateKey as keyof IFormFields];
 					if (typeof stateValue === 'string') {
-						cleanObj.push(`${stateKey}=${stateValue}`);
+						searchParams.search = stateValue;
 					} else if (stateValue?.value) {
-						cleanObj.push(`${stateKey}=${stateValue.value}`);
+						searchParams.filter.push(`${stateKey}=${stateValue.value}`);
 					}
 				}
 			}
 
-			const action = await dispatch(autoCompleteThunk({filter: cleanObj}));
+			const action = await dispatch(autoCompleteThunk(searchParams));
 
 			if (action.payload) {
 				setSearchResults(action.payload as typeof searchResults);
@@ -134,7 +160,7 @@ export const SearchModal = () => {
 				.filter((y) => `${y}` === search)
 				.map((y) => ({title: `${y}`, value: y, slug: '', id: y}));
 
-			return {hits: result, query: search} as IAutoComplete;
+			return {hits: result, query: search, count: result.length} as IAutoComplete;
 		} else {
 			const result = await dispatch(autoCompleteThunk({search, index}));
 			if (result) {
@@ -148,41 +174,47 @@ export const SearchModal = () => {
 		return getYearsRange(currentYear, 1980, -1);
 	}, []);
 
+	const onShowMore = () => {
+		onSubmit(searchResults.count)();
+	};
+
 	const renderResults = () => {
-		return searchResults.data.map((movie) => (
-			<div className='modal-search-result__list row gx-4 gx-lg-5 gy-3' key={movie.id}>
-				<div className='col-12 col-sm-6 col-md-4'>
-					<div className='movie-card'>
-						<div className='movie-card__body'>
-							<div className='movie-card__img'>
-								<Image
-									src={movie.poster?.url ?? ''}
-									alt=''
-									layout='fill'
-									className='movie-card__img'
-									crossOrigin='use-credentials'
-									unoptimized={true}
-								/>
-							</div>
-							<div className='movie-card__ratings'>
-								<div className='movie-card__rating'>
-									<span className='icon icon-imdb'></span>
-									{movie.imdb}
+		return (
+			<div className='modal-search-result__list row gx-4 gx-lg-5 gy-3'>
+				{searchResults.hits.map((movie) => (
+					<div key={movie.id} className='col-12 col-sm-6 col-md-4'>
+						<div className='movie-card'>
+							<div className='movie-card__body'>
+								<div className='movie-card__img'>
+									<Image
+										src={movie.poster ?? ''}
+										alt=''
+										layout='fill'
+										className='movie-card__img'
+										crossOrigin='use-credentials'
+										unoptimized={true}
+									/>
 								</div>
-								<div className='movie-card__rating'>
-									<span className='icon icon-kinopoisk'></span>
-									{movie.rating}
+								<div className='movie-card__ratings'>
+									<div className='movie-card__rating'>
+										<span className='icon icon-imdb'></span>
+										{movie.imdb}
+									</div>
+									<div className='movie-card__rating'>
+										<span className='icon icon-kinopoisk'></span>
+										{movie.rating}
+									</div>
 								</div>
 							</div>
+							<div className='movie-card__name'>{movie.title}</div>
+							<Link href={`movies/${movie.slug}`}>
+								<a className='movie-card__link'></a>
+							</Link>
 						</div>
-						<div className='movie-card__name'>{movie.title}</div>
-						<Link href={`movies/${movie.slug}`}>
-							<a className='movie-card__link'></a>
-						</Link>
 					</div>
-				</div>
+				))}
 			</div>
-		));
+		);
 	};
 
 	return (
@@ -198,14 +230,14 @@ export const SearchModal = () => {
 									placeholder='поиск по названию жанру или актеру...'
 									{...register('title')}
 								/>
-								<button onClick={onSubmit} className='btn' type='button'>
+								<button onClick={onSubmit()} className='btn' type='button'>
 									<span className='icon icon-search'></span>
 								</button>
 							</div>
 						</div>
 						<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2'>
 							<Controller
-								name='categoryId'
+								name='categories'
 								control={control}
 								render={({field}) => (
 									<AppSelect
@@ -222,7 +254,7 @@ export const SearchModal = () => {
 						</div>
 						<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2'>
 							<Controller
-								name='genreId'
+								name='genres'
 								control={control}
 								render={({field}) => (
 									<AppSelect
@@ -239,7 +271,7 @@ export const SearchModal = () => {
 						</div>
 						<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2'>
 							<Controller
-								name='acterId'
+								name='acters'
 								control={control}
 								render={({field}) => (
 									<AppSelect
@@ -276,7 +308,7 @@ export const SearchModal = () => {
 						</div>
 						<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2'>
 							<Controller
-								name='directorId'
+								name='directors'
 								control={control}
 								render={({field}) => (
 									<AppSelect
@@ -313,7 +345,7 @@ export const SearchModal = () => {
 						</div>
 						<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2 mb-md-0'>
 							<Controller
-								name='countryId'
+								name='countries'
 								control={control}
 								render={({field}) => (
 									<AppSelect
@@ -321,7 +353,7 @@ export const SearchModal = () => {
 										isAsync
 										isSearchable
 										searchOptions={searchOptions('countries')}
-										options={[]}
+										options={countries.map((c) => ({label: `${c.title}`, value: c.id}))}
 										defaultValue={autoComplete.countries}
 										className='form-select-react'
 									/>
@@ -353,7 +385,7 @@ export const SearchModal = () => {
 							{renderResults()}
 							{searchResults.count > 10 && (
 								<div className='modal-search-result__more'>
-									<button className='btn' type='button'>
+									<button onClick={onShowMore} className='btn' type='button'>
 										<span className='icon icon-expand_more'></span>
 									</button>
 								</div>

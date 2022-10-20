@@ -276,3 +276,95 @@ export class MovieModel {
 		return this.categories?.map((c) => c.title);
 	}
 }
+
+// TODO: refactor class below
+export class MeiliSearchMovieModel {
+	createdAt: Date;
+	id: number;
+	title: string;
+	slug: string;
+	year: number;
+	isNew: boolean;
+	isSerial: boolean;
+	bySubscription: boolean;
+	poster?: string;
+	description?: string;
+	imdb?: number;
+	rating?: number;
+	ageRemark: number;
+	genres?: GenreModel[];
+	countries?: CountryModel[];
+	actors?: ActorModel[];
+	directors?: DirectorModel[];
+	acters?: ActorModel[];
+	comments?: CommentModel[];
+	categories?: CategoryModel[];
+	producers?: ProducerModel[];
+	seasons?: SeasonModel[];
+	treiler?: string;
+	trailer?: string;
+	file?: MovieFileModel;
+
+	constructor(movie: MeiliSearchMovieModel) {
+		this.id = movie.id;
+		this.slug = movie.slug;
+		this.title = movie.title;
+		this.isNew = movie.isNew;
+		this.year = movie.year;
+		this.isSerial = movie.isSerial;
+		this.ageRemark = movie.ageRemark;
+		this.bySubscription = movie.bySubscription;
+		this.createdAt = new Date(movie.createdAt);
+
+		if (movie.countries) {
+			this.countries = movie.countries;
+		}
+		if (movie.poster) {
+			this.poster = movie.poster;
+		}
+		if (movie.description) {
+			this.description = movie.description;
+		}
+		if (movie.imdb) {
+			this.imdb = movie.imdb;
+		}
+		if (movie.rating) {
+			this.rating = movie.rating;
+		}
+		if (movie.genres) {
+			this.genres = movie.genres.map((g) => new GenreModel(g));
+		}
+		if (movie.acters) {
+			this.actors = movie.acters.map((a) => new ActorModel(a));
+		}
+		if (movie.directors) {
+			this.directors = movie.directors.map((d) => new DirectorModel(d));
+		}
+		if (movie.comments) {
+			this.comments = movie.comments.map((c) => new CommentModel(c));
+		}
+		if (movie.categories) {
+			this.categories = movie.categories.map((c) => new CategoryModel(c));
+		}
+		if (movie.treiler) {
+			this.trailer = movie.treiler;
+		}
+		if (movie.file) {
+			this.file = new MovieFileModel(movie.file);
+		}
+		if (movie.seasons) {
+			this.seasons = movie.seasons.map((s) => new SeasonModel(s));
+		}
+		if (movie.producers) {
+			this.producers = movie.producers.map((p) => new ProducerModel(p));
+		}
+	}
+
+	get countriesTitle() {
+		return this.countries?.map((c) => c.title);
+	}
+
+	get categoriesTitle() {
+		return this.categories?.map((c) => c.title);
+	}
+}

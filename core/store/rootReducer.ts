@@ -16,11 +16,13 @@ import {commentsReducer} from './comment/comment.slices';
 import {globalUIReducer} from './globalUI/globalUI.slices';
 import {paymentReducer} from './payment/payment.slices';
 import {subscriptionReducer} from './subscription/subscription.slices';
+import {countryReducer} from './country/country.slices';
 
 const State = {
 	auth: authReducer,
 	genres: genresReducer,
 	participant: participantReducer,
+	country: countryReducer,
 	producers: producersReducer,
 	categories: categoriesReducer,
 	users: usersReducer,
