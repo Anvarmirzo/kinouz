@@ -32,7 +32,7 @@ export const LoginButtonWithMenu = () => {
 		e.preventDefault();
 		dispatch(logoutThunk());
 	};
-	console.log(user?.subUsers);
+
 	const renderAccountsList = () => {
 		if (user?.subUsers) {
 			return (

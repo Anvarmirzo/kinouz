@@ -86,7 +86,7 @@ export const Subscriptions = () => {
 
 	const renderCards = () => {
 		return subscriptions.map((s) => (
-			<Card key={s.typeId} style={{background: `0 0 no-repeat`}}>
+			<Card key={s.typeId} style={{background: `0 0 no-repeat`}} className='overflow-hidden'>
 				{s.poster && (
 					<Image
 						src={s.poster.url}

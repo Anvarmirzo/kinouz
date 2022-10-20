@@ -14,6 +14,7 @@ export const {
 		setUserAction,
 		addSubUserAction,
 		patchSubUserAction,
+		patchUserAction,
 		deleteSubUserAction,
 		subscribeAction,
 		unsubscribeAction,
@@ -52,6 +53,15 @@ export const {
 						...state.user,
 						subUsers: updateItem(state.user.subUsers, action.payload),
 					},
+				};
+			}
+		},
+
+		patchUserAction: (state, action: PayloadAction<UserModel>) => {
+			if (state.user) {
+				return {
+					...state,
+					user: action.payload,
 				};
 			}
 		},

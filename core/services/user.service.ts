@@ -29,7 +29,7 @@ export const UserService = {
 			.catch(Toast.error);
 	},
 
-	patchSubUser({userId, ...params}: IPatchUser) {
+	patchUser({userId, ...params}: IPatchUser) {
 		return api
 			.patch<UserModel>(`user/${userId}`, params)
 			.then((res) => new UserModel(res.data))
