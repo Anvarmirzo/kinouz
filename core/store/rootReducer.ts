@@ -5,7 +5,7 @@ import {
 	Reducer,
 	StateFromReducersMapObject,
 } from '@reduxjs/toolkit';
-import {actorsReducer} from './actor/actor.slices';
+import {participantReducer} from './participant/participant.slices';
 import {categoriesReducer} from './category/category.slices';
 import {genresReducer} from './genre/genre.slices';
 import {authReducer} from './auth/auth.slices';
@@ -20,7 +20,7 @@ import {subscriptionReducer} from './subscription/subscription.slices';
 const State = {
 	auth: authReducer,
 	genres: genresReducer,
-	actors: actorsReducer,
+	participant: participantReducer,
 	producers: producersReducer,
 	categories: categoriesReducer,
 	users: usersReducer,

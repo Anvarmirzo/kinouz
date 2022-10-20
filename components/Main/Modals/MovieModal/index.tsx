@@ -23,10 +23,7 @@ export const MovieModal = ({movie, buttonIcon, buttonClassName}: MovieModalProps
 		if (list) {
 			const lastIndex = list.length - 1;
 			return list.map((item, index) => (
-				<Link
-					href={`/participant?name=${item.name}&slug=${item.slug ?? ''}&id=${item.id}&type=${type}`}
-					key={item.id}
-				>
+				<Link href={`/participant?name=${item.name}&id=${item.id}&type=${type}`} key={item.id}>
 					<a onClick={() => setShow(false)} className='movie-info-item__desc text-decoration-none'>
 						{item.name} {lastIndex === index ? '' : ','}
 					</a>

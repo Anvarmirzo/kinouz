@@ -4,7 +4,7 @@ import {IAutoCompleteParams} from '../../models';
 
 export const autoCompleteThunk = createAsyncThunk(
 	'globalUI/autocomplete',
-	async (payload: IAutoCompleteParams) => {
+	async (payload?: IAutoCompleteParams) => {
 		return GlobalService.autoComplete(payload);
 	}
 );

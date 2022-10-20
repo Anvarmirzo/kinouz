@@ -17,13 +17,12 @@ export const HeroLargeSlider = ({list}: HeroLargeSliderProps) => {
 		return list.map((movie) => (
 			<SwiperSlide className='movie-slider__item' key={movie.id}>
 				<Image
-					width='100%'
-					height='100%'
 					src={movie.poster?.url ?? ''}
 					alt=''
 					layout='fill'
 					className='movie-slider__img'
 					crossOrigin='use-credentials'
+					unoptimized={true}
 				/>
 				<div className='movie-slider__container container-fluid'>
 					<div className='movie-slider__text'>
@@ -47,7 +46,7 @@ export const HeroLargeSlider = ({list}: HeroLargeSliderProps) => {
 							<a
 								className='btn btn-icon rounded-pill'
 								data-lg-size='1280-720'
-								data-video={`{"source": [{"src":"${movie.trailer?.url}", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true}}`}
+								data-video={`{"source": [{"src":"${movie.trailer?.url}", "type":"video/mp4"}], "attributes": {"preload": false, "crossOrigin=""use-credentials", "playsinline": true}}`}
 								data-poster={movie.poster?.url}
 							>
 								Трейлер<span className='icon icon-play_circle'></span>

@@ -4,6 +4,7 @@ import {Navigation} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {useSwiperRef} from '../../../../core/hooks';
 import {ActorModel} from '../../../../core/models';
+import Image from 'next/image';
 
 interface Data {
 	title: string;
@@ -20,15 +21,18 @@ export const ActorCarouselSlider = ({title, actors}: Data) => {
 			<SwiperSlide key={actor.id}>
 				<div className='actor-carousel__item'>
 					<div className='actor-card'>
-						<div
-							className='actor-card__img'
-							style={{backgroundImage: `url(${actor.avatar.url})`}}
-						></div>
+						<div className='actor-card__img'>
+							<Image
+								src={actor.avatar.url}
+								alt=''
+								layout='fill'
+								crossOrigin='use-credentials'
+								unoptimized={true}
+							/>
+						</div>
 						{/* TODO: removed <br/>, check after receiving data from API*/}
 						<div className='actor-card__name'>{actor.name}</div>
-						<Link
-							href={`/participant?name=${actor.name}&slug=${actor.slug}&id=${actor.id}&type='actorId'`}
-						>
+						<Link href={`/participant?name=${actor.name}&slug=${actor.slug}&type='actorId'`}>
 							<a className='actor-card__link'></a>
 						</Link>
 					</div>

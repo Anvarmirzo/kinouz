@@ -8,6 +8,7 @@ import {Player} from '../../Player';
 import {AddToFavoritesBtn} from '../../Buttons/AddToFavoritesBtn';
 import {MovieModal} from '../../Modals/MovieModal';
 import cn from 'classnames';
+import Image from 'next/image';
 
 interface MovieSliderProps extends SwiperProps {
 	list: MovieModel[];
@@ -25,10 +26,16 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 			<SwiperSlide className='transform-none' key={movie.id}>
 				<div className={cn('movie-card', {first: index === 0})}>
 					<div className='movie-card__body'>
-						<div
-							className='movie-card__img'
-							style={{backgroundImage: `url('${movie.poster?.url ?? ''}')`}}
-						></div>
+						<div className='movie-card__img'>
+							<Image
+								src={movie.poster?.url ?? ''}
+								alt=''
+								layout='fill'
+								className='movie-card__img'
+								crossOrigin='use-credentials'
+								unoptimized={true}
+							/>
+						</div>
 						<div className='movie-card__labels'>
 							<div className='movie-card__label bg-primary'>FullHD</div>
 							<div className='movie-card__label bg-secondary'>HD</div>
@@ -80,7 +87,6 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 									{movie.countriesTitle && (
 										<>
 											{movie.countriesTitle} <span className='text-primary'>I </span>
-											<span className='text-primary'>I </span>
 										</>
 									)}
 									<span className='text-primary'>{movie.ageRemark}+</span>

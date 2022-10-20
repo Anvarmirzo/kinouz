@@ -7,10 +7,10 @@ import {
 	setMainWithVideoCategoriesAction,
 } from './category.slices';
 
-export const getAllCategoriesThunk = createAsyncThunk(
+export const getCategoriesThunk = createAsyncThunk(
 	'categories/getAll',
 	async (
-		params: {skip: number; params: Record<string, string | number | boolean>} = {
+		params: {skip: number; params?: Record<string, string | number | boolean>} | undefined = {
 			skip: 0,
 			params: {},
 		},

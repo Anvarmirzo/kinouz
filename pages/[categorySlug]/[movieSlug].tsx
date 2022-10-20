@@ -9,6 +9,7 @@ import {eMovieQuality} from '../../core/models';
 import {setCommentsAction} from '../../core/store/comment/comment.slices';
 import {setMovieAction} from '../../core/store/movie/movie.slices';
 import {setIsShownModalAction} from '../../core/store/globalUI/globalUI.slices';
+import Image from 'next/image';
 
 const Movie = () => {
 	// redux hooks
@@ -100,11 +101,13 @@ const Movie = () => {
 			<Header />
 			<main className='content'>
 				<section className='page-movie-card margin-under-header'>
-					<div
+					<Image
+						src={currentMovie.poster?.url ?? ''}
+						alt=''
+						layout='fill'
 						className='page-movie-card__img'
-						style={{
-							backgroundImage: `url(${currentMovie.poster?.url})`,
-						}}
+						crossOrigin='use-credentials'
+						unoptimized={true}
 					/>
 					<div className='page-movie-card__container container-fluid'>
 						<div className='page-movie-card__text row w-100'>

@@ -18,14 +18,13 @@ const DynamicPage: NextPage = () => {
 
 	// react hooks
 	useEffect(() => {
-		// TODO: URGENT waiting for latest version of route-query-construction
+		// TODO: URGENT remove slug from Links
 		if (query) {
-			const {type, slug, id} = query as {
-				slug: string;
+			const {type, id} = query as {
 				id: string;
 				type: 'acterId' | 'directorId' | 'producerId';
 			};
-			dispatch(getMoviesThunk({params: {[type]: slug || id}}));
+			dispatch(getMoviesThunk({params: {[type]: +id}}));
 			dispatch(getNewMoviesThunk({params: {}}));
 		}
 

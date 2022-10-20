@@ -5,15 +5,16 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'video-player-for-react/dist/index.css';
 import '../styles/sass/main.sass';
-import {useAppDispatch} from '../core/hooks';
+import {useAppDispatch, useAppSelector} from '../core/hooks';
 import {autoLoginThunk} from '../core/store/auth/auth.thunks';
-import {LoginModal, SignUpModal} from '../components/Main';
+import {LoginModal, SearchModal, SignUpModal} from '../components/Main';
 import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
 import {setMainCategoriesAction} from '../core/store/category/category.slices';
 
 function MyApp({Component, pageProps}: AppProps) {
 	// redux hooks
 	const dispatch = useAppDispatch();
+	const isSearchModalShown = useAppSelector(({globalUI}) => globalUI.modals.search.isShown);
 
 	// react hooks
 	useEffect(() => {
@@ -30,6 +31,7 @@ function MyApp({Component, pageProps}: AppProps) {
 			<ToastContainer />
 			<LoginModal />
 			<SignUpModal />
+			{isSearchModalShown && <SearchModal />}
 			<Component {...pageProps} />
 		</div>
 	);

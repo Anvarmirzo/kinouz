@@ -14,6 +14,7 @@ export interface IMovieSearchParams {
 			acterId: number;
 			categoryId: number;
 			producerId: number;
+			directorId: number;
 			imdb: number;
 			rating: number;
 			ageRemark: number;
