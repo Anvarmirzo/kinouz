@@ -1,7 +1,12 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ICreateUser, IPatchUser} from '../../models';
 import {UserService} from '../../services';
-import {addSubUserAction, deleteSubUserAction, patchSubUserAction} from './user.slices';
+import {
+	addSubUserAction,
+	deleteSubUserAction,
+	patchSubUserAction,
+	patchUserAction,
+} from './user.slices';
 
 export const createSubUserThunk = createAsyncThunk(
 	'user/createSub',
@@ -15,10 +20,21 @@ export const createSubUserThunk = createAsyncThunk(
 	}
 );
 
+export const patchUserThunk = createAsyncThunk(
+	'user/patchUser',
+	async (payload: IPatchUser, thunkAPI) => {
+		const data = await UserService.patchUser(payload);
+
+		if (data) {
+			thunkAPI.dispatch(patchUserAction(data));
+		}
+	}
+);
+
 export const patchSubUserThunk = createAsyncThunk(
 	'user/patchSubUser',
 	async (payload: IPatchUser, thunkAPI) => {
-		const data = await UserService.patchSubUser(payload);
+		const data = await UserService.patchUser(payload);
 
 		if (data) {
 			thunkAPI.dispatch(patchSubUserAction(data));

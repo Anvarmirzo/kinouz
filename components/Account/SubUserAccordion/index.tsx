@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Accordion} from 'react-bootstrap';
 import {UserModel} from '../../../core/models';
 import {useForm} from 'react-hook-form';
-import {useAppDispatch, useAppSelector} from '../../../core/hooks';
+import {useAppDispatch} from '../../../core/hooks';
 import {deleteSubUserThunk, patchSubUserThunk} from '../../../core/store/user/user.thunks';
 
 interface SubUserAccordionProps {
@@ -70,10 +70,6 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 							className='form-control form-control-ico form-control-email'
 							{...register('email', {required: true})}
 						/>
-						<button className='btn btn-edit btn-icon'>
-							изменить
-							<span className='icon icon-edit'></span>
-						</button>
 					</div>
 					<div className='input-group input-group-radio mb-2'>
 						<input
@@ -89,27 +85,6 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 								onChange: (e) => setValue('ageRemark', +e.target.value.replace(/\D+/g, '')),
 							})}
 						/>
-						<input
-							type='radio'
-							className='btn-check'
-							name='options'
-							id='option1'
-							autoComplete='off'
-						/>
-						<label className='btn' htmlFor='option1'>
-							Применить
-						</label>
-						<input
-							type='radio'
-							className='btn-check'
-							name='options'
-							id='option2'
-							autoComplete='off'
-							checked
-						/>
-						<label className='btn' htmlFor='option2'>
-							Не применять
-						</label>
 					</div>
 					<div className='input-group input-group-btn form-control-password__icon mb-2'>
 						<input
@@ -120,7 +95,11 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 						/>
 					</div>
 
-					<div className='input-group input-group-radio'>
+					<div className='input-group input-group-radio d-flex gap-2'>
+						<button className='btn btn-secondary rounded-pill btn-icon-left'>
+							<span className='icon icon-edit'></span>
+							Изменить
+						</button>
 						<button
 							onClick={deleteUser}
 							type='button'

@@ -2,7 +2,7 @@ import React, {useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import {Footer, Header} from '../../components/Main';
 import {Accordion, Tab, Tabs} from 'react-bootstrap';
-import {useAppSelector} from '../../core/hooks';
+import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {useForm} from 'react-hook-form';
 import {
 	NewSubUser,
@@ -12,12 +12,14 @@ import {
 	Subscriptions,
 } from '../../components/Account';
 import {useRouter} from 'next/router';
+import {patchUserThunk} from '../../core/store/user/user.thunks';
 
 const Account = () => {
 	// next hooks
 	const router = useRouter();
 
 	// redux hooks
+	const dispatch = useAppDispatch();
 	const user = useAppSelector(({users}) => users.user);
 
 	// react hook form
@@ -25,7 +27,8 @@ const Account = () => {
 		register,
 		handleSubmit,
 		setValue,
-		formState: {errors},
+		reset,
+		formState: {errors, dirtyFields},
 	} = useForm<{email: string; password: string}>();
 
 	// react hooks
@@ -63,6 +66,12 @@ const Account = () => {
 		return null;
 	}, [user]);
 
+	const onSubmitParentForm = async (data: {email: string; password: string}) => {
+		if (user) {
+			await dispatch(patchUserThunk({...data, userId: user.id}));
+		}
+	};
+
 	if (!user) return null;
 
 	return (
@@ -89,7 +98,7 @@ const Account = () => {
 											role='tabpanel'
 											aria-labelledby='nav-home-tab'
 										>
-											<div className='account-editing'>
+											<form onSubmit={handleSubmit(onSubmitParentForm)} className='account-editing'>
 												<div className='input-group input-group-btn input-group-left-text mb-2'>
 													<span className='input-group-text'>E-mail:</span>
 													<input
@@ -97,7 +106,7 @@ const Account = () => {
 														className='form-control'
 														{...register('email', {required: true})}
 													/>
-													<button className='btn btn-edit btn-icon' type='button'>
+													<button className='btn btn-edit btn-icon'>
 														изменить<span className='icon icon-edit'></span>
 													</button>
 												</div>
@@ -106,10 +115,10 @@ const Account = () => {
 													<input
 														type='password'
 														className='form-control'
-														placeholder='*************'
+														placeholder='Пароль'
 														{...register('password', {required: true})}
 													/>
-													<button className='btn btn-edit btn-icon' type='button'>
+													<button className='btn btn-edit btn-icon'>
 														изменить<span className='icon icon-edit'></span>
 													</button>
 												</div>
@@ -122,7 +131,7 @@ const Account = () => {
 														</span>
 													</div>
 												)}
-											</div>
+											</form>
 											{!user.parent && (
 												<>
 													<h2 className='page-title fw-normal mb-35'>Профили:</h2>
@@ -155,7 +164,7 @@ const Account = () => {
 											role='tabpanel'
 											aria-labelledby='nav-home-tab'
 										>
-											<div className='account-editing'>
+											<form onSubmit={handleSubmit(onSubmitParentForm)} className='account-editing'>
 												<div className='input-group input-group-btn input-group-left-text mb-2'>
 													<span className='input-group-text'>E-mail:</span>
 													<input
@@ -163,7 +172,7 @@ const Account = () => {
 														className='form-control'
 														{...register('email', {required: true})}
 													/>
-													<button className='btn btn-edit btn-icon' type='button'>
+													<button className='btn btn-edit btn-icon'>
 														изменить<span className='icon icon-edit'></span>
 													</button>
 												</div>
@@ -172,10 +181,10 @@ const Account = () => {
 													<input
 														type='password'
 														className='form-control'
-														placeholder='*************'
+														placeholder='Пароль'
 														{...register('password', {required: true})}
 													/>
-													<button className='btn btn-edit btn-icon' type='button'>
+													<button className='btn btn-edit btn-icon'>
 														изменить<span className='icon icon-edit'></span>
 													</button>
 												</div>
@@ -186,7 +195,7 @@ const Account = () => {
 														(стоимость абонентской платы {fee} сум/месяц)
 													</span>
 												</div>
-											</div>
+											</form>
 											<h2 className='page-title fw-normal mb-35'>Профили:</h2>
 											<div className='profiles'>
 												<Accordion defaultActiveKey='0'>

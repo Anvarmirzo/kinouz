@@ -1,7 +1,10 @@
 import type {AppProps} from 'next/app';
-import {wrapper} from '../core/store';
 import {useEffect} from 'react';
+import NextNProgress from 'nextjs-progressbar';
 import {ToastContainer} from 'react-toastify';
+import {useRouter} from 'next/router';
+
+import {wrapper} from '../core/store';
 import 'react-toastify/dist/ReactToastify.css';
 import 'video-player-for-react/dist/index.css';
 import '../styles/sass/main.sass';
@@ -10,7 +13,6 @@ import {autoLoginThunk} from '../core/store/auth/auth.thunks';
 import {LoginModal, SearchModal, SignUpModal} from '../components/Main';
 import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
 import {setMainCategoriesAction} from '../core/store/category/category.slices';
-import {useRouter} from 'next/router';
 
 function MyApp({Component, pageProps}: AppProps) {
 	// next hooks
@@ -45,6 +47,7 @@ function MyApp({Component, pageProps}: AppProps) {
 			<LoginModal />
 			<SignUpModal />
 			{isSearchModalShown && <SearchModal />}
+			<NextNProgress />
 			<Component {...pageProps} />
 		</div>
 	);

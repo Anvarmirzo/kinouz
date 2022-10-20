@@ -29,9 +29,9 @@ export const ParticipantCarouselSlider = ({title, participants}: Data) => {
 								crossOrigin='use-credentials'
 								unoptimized={true}
 								objectFit='cover'
+								className='actor-card__img'
 							/>
 						</div>
-						{/* TODO: removed <br/>, check after receiving data from API*/}
 						<div className='actor-card__name'>{actor.name}</div>
 						<Link href={`/participant?name=${actor.name}&slug=${actor.slug}&type='actorId'`}>
 							<a className='actor-card__link'></a>
