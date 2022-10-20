@@ -107,7 +107,11 @@ export const SearchModal = () => {
 
 	const searchOptions = (index: IAutoCompleteParams['index']) => async (search: string) => {
 		if (index === 'year') {
-			return yearsRange.filter((y) => `${y}` === search);
+			const result = yearsRange
+				.filter((y) => `${y}` === search)
+				.map((y) => ({title: `${y}`, value: y, slug: '', id: y}));
+
+			return {hits: result, query: search} as IAutoComplete;
 		} else {
 			const result = await dispatch(autoCompleteThunk({search, index}));
 			if (result) {
@@ -302,7 +306,7 @@ export const SearchModal = () => {
 							</div>
 							<div className='modal-search__item col-12 col-sm-6 col-md-4 mb-2 mb-md-0'>
 								<Controller
-									name='countryId'
+									name='year'
 									control={control}
 									render={({field}) => (
 										<AppSelect
