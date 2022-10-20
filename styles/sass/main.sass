@@ -303,6 +303,8 @@
 		background-repeat: no-repeat
 		background-position: 50% 0%
 		background-size: cover
+		filter: brightness(0.9)
+
 		&::after
 			content: ''
 			height: 345px
@@ -843,6 +845,8 @@
 		background-repeat: no-repeat
 		background-position: 50% 0%
 		background-size: cover
+		filter: brightness(0.9)
+
 		&::before
 			content: ''
 			position: absolute
@@ -1660,6 +1664,7 @@
 .vpfr_play_pause_on_click, .vpfr_video_poster_image, .vpfr_overlay_play_button
 	z-index: 1
 .vpfr_player_controls
+	width: 100%
 	z-index: 2
 .vpfr_container
 	width: 100%
@@ -1669,4 +1674,9 @@
 	min-height: 400px
 .player-wrapper
 	height: 100%
+.movie-card-player-wrapper
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
 @import media

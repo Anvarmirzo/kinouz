@@ -3,27 +3,27 @@ import Link from 'next/link';
 import {Navigation} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {useSwiperRef} from '../../../../core/hooks';
-import {ActorModel} from '../../../../core/models';
+import {ActorModel, DirectorModel, ProducerModel} from '../../../../core/models';
 import Image from 'next/image';
 
 interface Data {
 	title: string;
-	actors: ActorModel[];
+	participants: (ActorModel | ProducerModel | DirectorModel)[];
 }
 
-export const ActorCarouselSlider = ({title, actors}: Data) => {
+export const ParticipantCarouselSlider = ({title, participants}: Data) => {
 	// custom hooks
 	const [nextEl, nextElRef] = useSwiperRef<HTMLButtonElement>();
 	const [prevEl, prevElRef] = useSwiperRef<HTMLButtonElement>();
 
 	const renderSlides = () => {
-		return actors.map((actor) => (
+		return participants.map((actor) => (
 			<SwiperSlide key={actor.id}>
 				<div className='actor-carousel__item'>
 					<div className='actor-card'>
 						<div className='actor-card__img'>
 							<Image
-								src={actor.avatar.url}
+								src={actor.avatar?.url ?? ''}
 								alt=''
 								layout='fill'
 								crossOrigin='use-credentials'

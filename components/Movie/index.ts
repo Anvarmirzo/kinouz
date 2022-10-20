@@ -1,1 +1,1 @@
-export * from './Sliders/ActorCarouselSlider';
+export * from './Sliders/ParticipantCarouselSlider';
