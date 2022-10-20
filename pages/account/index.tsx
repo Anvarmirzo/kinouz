@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import {Footer, Header} from '../../components/Main';
 import {Accordion, Tab, Tabs} from 'react-bootstrap';
@@ -11,8 +11,12 @@ import {
 	SubUserAccordionItem,
 	Subscriptions,
 } from '../../components/Account';
+import {useRouter} from 'next/router';
 
 const Account = () => {
+	// next hooks
+	const router = useRouter();
+
 	// redux hooks
 	const user = useAppSelector(({users}) => users.user);
 
@@ -26,9 +30,37 @@ const Account = () => {
 
 	// react hooks
 	useEffect(() => {
+		const timer = setTimeout(() => {
+			if (user) {
+				setValue('email', user.contact.email);
+			} else {
+				router.push({pathname: '/', query: {returnUrl: router.asPath}});
+			}
+		}, 2000);
+
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [user]);
+
+	const fee = useMemo(() => {
+		let calculatedPrice = 0;
+
 		if (user) {
-			setValue('email', user.contact.email);
+			const prices = user.subscriptions
+				.filter((s) => s.active)
+				?.map((activeSubscription) => activeSubscription.type.price);
+
+			prices.forEach((price) => {
+				if (price) {
+					calculatedPrice += price;
+				}
+			});
+
+			return calculatedPrice;
 		}
+
+		return null;
 	}, [user]);
 
 	if (!user) return null;
@@ -84,7 +116,7 @@ const Account = () => {
 												<span className='account-editing__balance-title'>Баланс: </span>
 												<span className='account-editing__balance-total'>{user?.balance} </span>
 												<span className='account-editing__balance-subscription'>
-													(стоимость абонентской платы 15 000 сум/месяц)
+													(стоимость абонентской платы {fee} сум/месяц)
 												</span>
 											</div>
 										</div>

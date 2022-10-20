@@ -28,6 +28,7 @@ export const ActorCarouselSlider = ({title, actors}: Data) => {
 								layout='fill'
 								crossOrigin='use-credentials'
 								unoptimized={true}
+								objectFit='cover'
 							/>
 						</div>
 						{/* TODO: removed <br/>, check after receiving data from API*/}

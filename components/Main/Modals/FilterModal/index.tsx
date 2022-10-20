@@ -64,7 +64,13 @@ export const FilterModal = () => {
 							formatOptionLabel={(option) => (
 								<div className='form-select-react-img__item'>
 									{option.img && (
-										<Image src={option.img} width={30} height={30} alt={option.label} />
+										<Image
+											objectFit='cover'
+											src={option.img}
+											width={30}
+											height={30}
+											alt={option.label}
+										/>
 									)}
 									<span>{option.label}</span>
 								</div>

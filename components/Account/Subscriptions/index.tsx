@@ -92,6 +92,7 @@ export const Subscriptions = () => {
 						src={s.poster.url}
 						alt=''
 						layout='fill'
+						objectFit='cover'
 						className='opacity-50'
 						crossOrigin='use-credentials'
 						unoptimized={true}

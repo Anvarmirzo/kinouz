@@ -34,6 +34,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 								className='movie-card__img'
 								crossOrigin='use-credentials'
 								unoptimized={true}
+								objectFit='cover'
 							/>
 						</div>
 						<div className='movie-card__labels'>

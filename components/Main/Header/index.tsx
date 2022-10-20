@@ -135,7 +135,7 @@ export const Header = () => {
 					</div>
 					<div className='header__loginza header-loginza'>
 						{user ? (
-							<LoginButtonWithMenu user={user} />
+							<LoginButtonWithMenu />
 						) : (
 							<Button
 								variant='primary'
