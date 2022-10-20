@@ -74,74 +74,142 @@ const Account = () => {
 			<main className='content'>
 				<div className='container'>
 					<nav>
-						<Tabs
-							variant='pills'
-							defaultActiveKey='profile'
-							id='uncontrolled-tab-example'
-							className='mb-3 mynav'
-						>
-							<Tab eventKey='profile' title='Аккаунт и профили'>
-								<div role='tabpanel' aria-labelledby='profile'>
-									<div
-										className='tab-pane fade show active'
-										id='nav-home'
-										role='tabpanel'
-										aria-labelledby='nav-home-tab'
-									>
-										<div className='account-editing'>
-											<div className='input-group input-group-btn input-group-left-text mb-2'>
-												<span className='input-group-text'>E-mail:</span>
-												<input
-													type='email'
-													className='form-control'
-													{...register('email', {required: true})}
-												/>
-												<button className='btn btn-edit btn-icon' type='button'>
-													изменить<span className='icon icon-edit'></span>
-												</button>
+						{user.parent ? (
+							<Tabs
+								variant='pills'
+								defaultActiveKey='profile'
+								id='uncontrolled-tab-example'
+								className='mb-3 mynav'
+							>
+								<Tab eventKey='profile' title='Аккаунт и профили'>
+									<div role='tabpanel' aria-labelledby='profile'>
+										<div
+											className='tab-pane fade show active'
+											id='nav-home'
+											role='tabpanel'
+											aria-labelledby='nav-home-tab'
+										>
+											<div className='account-editing'>
+												<div className='input-group input-group-btn input-group-left-text mb-2'>
+													<span className='input-group-text'>E-mail:</span>
+													<input
+														type='email'
+														className='form-control'
+														{...register('email', {required: true})}
+													/>
+													<button className='btn btn-edit btn-icon' type='button'>
+														изменить<span className='icon icon-edit'></span>
+													</button>
+												</div>
+												<div className='input-group input-group-btn input-group-left-text mb-4'>
+													<span className='input-group-text'>Пароль:</span>
+													<input
+														type='password'
+														className='form-control'
+														placeholder='*************'
+														{...register('password', {required: true})}
+													/>
+													<button className='btn btn-edit btn-icon' type='button'>
+														изменить<span className='icon icon-edit'></span>
+													</button>
+												</div>
+												{!user.parent && (
+													<div className='account-editing__balance'>
+														<span className='account-editing__balance-title'>Баланс: </span>
+														<span className='account-editing__balance-total'>{user?.balance} </span>
+														<span className='account-editing__balance-subscription'>
+															(стоимость абонентской платы {fee} сум/месяц)
+														</span>
+													</div>
+												)}
 											</div>
-											<div className='input-group input-group-btn input-group-left-text mb-4'>
-												<span className='input-group-text'>Пароль:</span>
-												<input
-													type='password'
-													className='form-control'
-													placeholder='*************'
-													{...register('password', {required: true})}
-												/>
-												<button className='btn btn-edit btn-icon' type='button'>
-													изменить<span className='icon icon-edit'></span>
-												</button>
-											</div>
-											<div className='account-editing__balance'>
-												<span className='account-editing__balance-title'>Баланс: </span>
-												<span className='account-editing__balance-total'>{user?.balance} </span>
-												<span className='account-editing__balance-subscription'>
-													(стоимость абонентской платы {fee} сум/месяц)
-												</span>
-											</div>
+											{!user.parent && (
+												<>
+													<h2 className='page-title fw-normal mb-35'>Профили:</h2>
+													<div className='profiles'>
+														<Accordion defaultActiveKey='0'>
+															{user.subUsers.map((s) => (
+																<SubUserAccordionItem user={s} key={s.id} eventKey={`${s.id}`} />
+															))}
+														</Accordion>
+													</div>
+													{user.subUsers.length < 5 ? <NewSubUser userId={user.id} /> : null}
+												</>
+											)}
 										</div>
-										<h2 className='page-title fw-normal mb-35'>Профили:</h2>
-										<div className='profiles'>
-											<Accordion defaultActiveKey='0'>
-												{user.subUsers.map((s) => (
-													<SubUserAccordionItem user={s} key={s.id} eventKey={`${s.id}`} />
-												))}
-											</Accordion>
-										</div>
-										{user.subUsers.length < 5 ? <NewSubUser userId={user.id} /> : null}
 									</div>
-								</div>
-							</Tab>
-							<Tab eventKey='payment' title='Оплата'>
-								<PaymentForm />
-							</Tab>
-							<Tab eventKey='history' title='История платежей'>
-								<Payments />
-							</Tab>
-							<Tab eventKey='subscriptions' title='Мои подписки'>
-								<Subscriptions />
-							</Tab>
-						</Tabs>
+								</Tab>
+							</Tabs>
+						) : (
+							<Tabs
+								variant='pills'
+								defaultActiveKey='profile'
+								id='uncontrolled-tab-example'
+								className='mb-3 mynav'
+							>
+								<Tab eventKey='profile' title='Аккаунт и профили'>
+									<div role='tabpanel' aria-labelledby='profile'>
+										<div
+											className='tab-pane fade show active'
+											id='nav-home'
+											role='tabpanel'
+											aria-labelledby='nav-home-tab'
+										>
+											<div className='account-editing'>
+												<div className='input-group input-group-btn input-group-left-text mb-2'>
+													<span className='input-group-text'>E-mail:</span>
+													<input
+														type='email'
+														className='form-control'
+														{...register('email', {required: true})}
+													/>
+													<button className='btn btn-edit btn-icon' type='button'>
+														изменить<span className='icon icon-edit'></span>
+													</button>
+												</div>
+												<div className='input-group input-group-btn input-group-left-text mb-4'>
+													<span className='input-group-text'>Пароль:</span>
+													<input
+														type='password'
+														className='form-control'
+														placeholder='*************'
+														{...register('password', {required: true})}
+													/>
+													<button className='btn btn-edit btn-icon' type='button'>
+														изменить<span className='icon icon-edit'></span>
+													</button>
+												</div>
+												<div className='account-editing__balance'>
+													<span className='account-editing__balance-title'>Баланс: </span>
+													<span className='account-editing__balance-total'>{user?.balance} </span>
+													<span className='account-editing__balance-subscription'>
+														(стоимость абонентской платы {fee} сум/месяц)
+													</span>
+												</div>
+											</div>
+											<h2 className='page-title fw-normal mb-35'>Профили:</h2>
+											<div className='profiles'>
+												<Accordion defaultActiveKey='0'>
+													{user.subUsers.map((s) => (
+														<SubUserAccordionItem user={s} key={s.id} eventKey={`${s.id}`} />
+													))}
+												</Accordion>
+											</div>
+											{user.subUsers.length < 5 ? <NewSubUser userId={user.id} /> : null}
+										</div>
+									</div>
+								</Tab>
+								<Tab eventKey='payment' title='Оплата'>
+									<PaymentForm />
+								</Tab>
+								<Tab eventKey='history' title='История платежей'>
+									<Payments />
+								</Tab>
+								<Tab eventKey='subscriptions' title='Мои подписки'>
+									<Subscriptions />
+								</Tab>
+							</Tabs>
+						)}
 					</nav>
 				</div>
 			</main>

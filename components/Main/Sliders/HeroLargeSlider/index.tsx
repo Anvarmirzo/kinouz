@@ -40,6 +40,7 @@ export const HeroLargeSlider = ({list}: HeroLargeSliderProps) => {
 					</div>
 					<div className='movie-slider__movie-trailer lg-video-gallery'>
 						<LightGallery
+							download={false}
 							licenseKey={process.env.NEXT_PUBLIC_LIGHT_GALLERY_KEY}
 							plugins={[lgVideo]}
 							mode='lg-fade'
@@ -47,8 +48,7 @@ export const HeroLargeSlider = ({list}: HeroLargeSliderProps) => {
 							<a
 								className='btn btn-icon rounded-pill'
 								data-lg-size='1280-720'
-								data-video={`{"source": [{"src":"${movie.trailer?.url}", "type":"video/mp4"}], "attributes": {"preload": false, "crossOrigin=""use-credentials", "playsinline": true}}`}
-								data-poster={movie.poster?.url}
+								data-video={`{"source": [{"src":"${movie.trailer?.url}", "type":"video/mp4"}], "attributes": {"preload": false, "crossOrigin":"use-credentials", "playsinline": true}}`}
 							>
 								Трейлер<span className='icon icon-play_circle'></span>
 							</a>

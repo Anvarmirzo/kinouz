@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
 import {AddToFavoritesBtn, CommentModal, Footer, Header, Player} from '../../components/Main';
-import {ActorCarouselSlider} from '../../components/Movie';
+import {ParticipantCarouselSlider} from '../../components/Movie';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {getMovieThunk} from '../../core/store/movie/movie.thunks';
 import {eMovieQuality} from '../../core/models';
@@ -176,10 +176,14 @@ const Movie = () => {
 					</div>
 				)}
 				{currentMovie?.actors ? (
-					<ActorCarouselSlider actors={currentMovie.actors} title='В ролях' />
+					<ParticipantCarouselSlider participants={currentMovie.actors} title='В ролях' />
 				) : null}
-				{/*<MovieSlider list={movieSlides} title='Коллекция:' />*/}
-				{/*<MovieSlider list={movieSlides} title='Похожие:' />*/}
+				{currentMovie?.producers ? (
+					<ParticipantCarouselSlider participants={currentMovie.producers} title='Продюсеры' />
+				) : null}
+				{currentMovie?.directors ? (
+					<ParticipantCarouselSlider participants={currentMovie.directors} title='Режиссёры' />
+				) : null}
 			</main>
 			<Footer />
 		</div>

@@ -60,7 +60,11 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 					<a href='#' className='movie-card__link'></a>
 					<div className='movie-card__more-info movie-card-more-info'>
 						<div className='movie-card-more-info__video'>
-							<Player url={movie.trailer?.url ?? ''} thumbnail={movie.poster?.url ?? ''} />
+							<Player
+								className='movie-card-player-wrapper'
+								url={movie.trailer?.url ?? ''}
+								thumbnail={movie.poster?.url ?? ''}
+							/>
 						</div>
 						<div className='movie-card-more-info__body'>
 							<div className='movie-card-more-info__header'>
