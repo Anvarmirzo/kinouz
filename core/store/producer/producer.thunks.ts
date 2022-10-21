@@ -11,21 +11,27 @@ export const getProducersThunk = createAsyncThunk(
 		},
 		thunkAPI
 	) => {
-		const res = await ProducerService.getAll(params);
+		const res = await ProducerService.getAll(params, thunkAPI.signal);
 
 		if (res) {
 			thunkAPI.dispatch(setProducersAction({list: res.data, count: res.count}));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
 export const getProducerThunk = createAsyncThunk(
 	'producers/getOne',
 	async (id: number, thunkAPI) => {
-		const res = await ProducerService.getById(id);
+		const res = await ProducerService.getById(id, thunkAPI.signal);
 
 		if (res) {
 			thunkAPI.dispatch(setProducerAction(res));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );

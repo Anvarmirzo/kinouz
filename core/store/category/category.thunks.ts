@@ -16,11 +16,14 @@ export const getCategoriesThunk = createAsyncThunk(
 		},
 		thunkAPI
 	) => {
-		const res = await CategoryService.getAll(params);
+		const res = await CategoryService.getAll(params, thunkAPI.signal);
 
 		if (res) {
 			thunkAPI.dispatch(setAllCategoriesAction({list: res.data, count: res.count}));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 export const getMainCategoriesThunk = createAsyncThunk(
@@ -31,7 +34,7 @@ export const getMainCategoriesThunk = createAsyncThunk(
 		},
 		thunkAPI
 	) => {
-		const res = await CategoryService.getMain(params);
+		const res = await CategoryService.getMain(params, thunkAPI.signal);
 
 		if (res) {
 			if (params.params?.movies) {
@@ -40,16 +43,22 @@ export const getMainCategoriesThunk = createAsyncThunk(
 				thunkAPI.dispatch(setMainCategoriesAction({list: res.data, count: res.count}));
 			}
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
 export const getCategoryThunk = createAsyncThunk(
 	'categories/getOne',
 	async (id: number, thunkAPI) => {
-		const res = await CategoryService.getById(id);
+		const res = await CategoryService.getById(id, thunkAPI.signal);
 
 		if (res) {
 			thunkAPI.dispatch(setCategoryAction(res));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );

@@ -3,7 +3,7 @@ import {Toast} from '../utils';
 import {CommentModel} from '../models';
 
 export const CommentService = {
-	getAll(params: {skip: number; movieId: number}) {
+	getAll(params: {skip: number; movieId: number}, signal?: AbortSignal) {
 		return api
 			.get<{count: number; data: CommentModel[]}>('comment', {
 				params: {
@@ -12,6 +12,7 @@ export const CommentService = {
 						movieId: params.movieId,
 					},
 				},
+				signal,
 			})
 			.then((res) => ({
 				count: res.data.count,
@@ -19,9 +20,9 @@ export const CommentService = {
 			}))
 			.catch(Toast.error);
 	},
-	postComment(params: {movieId: number; userId: number; text: string}) {
+	postComment(params: {movieId: number; userId: number; text: string}, signal?: AbortSignal) {
 		return api
-			.post<CommentModel>('comment', params)
+			.post<CommentModel>('comment', params, {signal})
 			.then((res) => new CommentModel(res.data))
 			.catch(Toast.error);
 	},

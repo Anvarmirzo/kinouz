@@ -4,50 +4,74 @@ import {logInAction, logOutAction} from './auth.slices';
 import {setUserAction} from '../user/user.slices';
 import {ILogIn, ISignUp} from '../../models';
 
-export const signUpThunk = createAsyncThunk('auth/signUp', async (payload: ISignUp, thunkAPI) => {
-	const data = await AuthService.signUp(payload);
-
-	if (data) {
-		thunkAPI.dispatch(logInAction(data));
-		thunkAPI.dispatch(setUserAction(data.user));
-
-		return data.user.id;
-	}
-});
-
-export const loginThunk = createAsyncThunk('auth/login', async (payload: ILogIn, thunkAPI) => {
-	const data = await AuthService.login(payload);
-
-	if (data) {
-		thunkAPI.dispatch(logInAction(data));
-		thunkAPI.dispatch(setUserAction(data.user));
-
-		return data.user.id;
-	}
-});
-
-export const autoLoginThunk = createAsyncThunk('auth/autoLogin', async (_, thunkAPI) => {
-	const token = localStorage.getItem('jwt');
-
-	await AuthService.getGuestToken();
-
-	if (token) {
-		const data = await UserService.getByToken();
+export const signUpThunk = createAsyncThunk(
+	'auth/signUp',
+	async (payload: ISignUp, thunkAPI) => {
+		const data = await AuthService.signUp(payload, thunkAPI.signal);
 
 		if (data) {
 			thunkAPI.dispatch(logInAction(data));
 			thunkAPI.dispatch(setUserAction(data.user));
+
+			return data.user.id;
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
-});
+);
 
-export const logoutThunk = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-	const token = localStorage.getItem('jwt');
+export const loginThunk = createAsyncThunk(
+	'auth/login',
+	async (payload: ILogIn, thunkAPI) => {
+		const data = await AuthService.login(payload, thunkAPI.signal);
 
-	if (token) {
-		thunkAPI.dispatch(logOutAction());
-		thunkAPI.dispatch(setUserAction(null));
+		if (data) {
+			thunkAPI.dispatch(logInAction(data));
+			thunkAPI.dispatch(setUserAction(data.user));
 
-		localStorage.removeItem('jwt');
+			return data.user.id;
+		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
-});
+);
+
+export const autoLoginThunk = createAsyncThunk(
+	'auth/autoLogin',
+	async (_, thunkAPI) => {
+		const token = localStorage.getItem('jwt');
+
+		await AuthService.getGuestToken(thunkAPI.signal);
+
+		if (token) {
+			const data = await UserService.getByToken(thunkAPI.signal);
+
+			if (data) {
+				thunkAPI.dispatch(logInAction(data));
+				thunkAPI.dispatch(setUserAction(data.user));
+			}
+		}
+	},
+	{
+		dispatchConditionRejection: true,
+	}
+);
+
+export const logoutThunk = createAsyncThunk(
+	'auth/logout',
+	async (_, thunkAPI) => {
+		const token = localStorage.getItem('jwt');
+
+		if (token) {
+			thunkAPI.dispatch(logOutAction());
+			thunkAPI.dispatch(setUserAction(null));
+
+			localStorage.removeItem('jwt');
+		}
+	},
+	{
+		dispatchConditionRejection: true,
+	}
+);
