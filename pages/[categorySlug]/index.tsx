@@ -1,6 +1,6 @@
 import type {NextPage} from 'next';
 import Head from 'next/head';
-import {Footer, Header, HeroLargeSlider} from '../../components/Main';
+import {Footer, Header, PremierSlider} from '../../components/Main';
 import {MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {useEffect, useMemo} from 'react';
@@ -60,7 +60,7 @@ const DynamicPage: NextPage = () => {
 
 			<Header />
 			<main className='content'>
-				<HeroLargeSlider list={newMovies} />
+				<PremierSlider list={newMovies} />
 				<MovieSlider title={currentCategory.title} list={movies} />
 			</main>
 			<Footer />

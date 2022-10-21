@@ -12,8 +12,7 @@ interface HeroLargeSliderProps {
 	list: MovieModel[];
 }
 
-// TODO: rename to premier slider
-export const HeroLargeSlider = ({list}: HeroLargeSliderProps) => {
+export const PremierSlider = ({list}: HeroLargeSliderProps) => {
 	const renderSlides = () => {
 		return list.map((movie) => (
 			<SwiperSlide className='movie-slider__item' key={movie.id}>

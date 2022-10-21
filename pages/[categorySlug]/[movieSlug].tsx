@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
 import {
@@ -11,7 +11,7 @@ import {
 } from '../../components/Main';
 import {ParticipantCarouselSlider} from '../../components/Movie';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
-import {getMovieThunk} from '../../core/store/movie/movie.thunks';
+import {addMovieToHistoryThunk, getMovieThunk} from '../../core/store/movie/movie.thunks';
 import {eMovieQuality} from '../../core/models';
 import {setCommentsAction} from '../../core/store/comment/comment.slices';
 import {setMovieAction} from '../../core/store/movie/movie.slices';
@@ -29,6 +29,8 @@ const Movie = () => {
 	} = useRouter();
 
 	// react hooks
+	const playerRef = useRef<HTMLDivElement | null>(null);
+
 	const [isPlayerVisible, setIsPlayerVisible] = useState(false);
 	const [currentQuality, setCurrentQuality] = useState(eMovieQuality.CD);
 	const [currentUrl, setCurrentUrl] = useState('');
@@ -61,6 +63,21 @@ const Movie = () => {
 		}
 	};
 
+	const togglePlayerVisibility = () => {
+		if (user) {
+			setTimeout(() => {
+				playerRef.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
+			}, 500);
+			setIsPlayerVisible((prev) => !prev);
+		} else {
+			dispatch(setIsShownModalAction({modalName: 'login', flag: true}));
+		}
+	};
+
+	const onAddToHistory = (id: number) => () => {
+		dispatch(addMovieToHistoryThunk(id));
+	};
+
 	const renderQualities = () => {
 		if (currentMovie) {
 			return currentMovie.file?.qualitiesList.map((q, index) => (
@@ -81,14 +98,6 @@ const Movie = () => {
 					</label>
 				</div>
 			));
-		}
-	};
-
-	const togglePlayerVisibility = () => {
-		if (user) {
-			setIsPlayerVisible((prev) => !prev);
-		} else {
-			dispatch(setIsShownModalAction({modalName: 'login', flag: true}));
 		}
 	};
 
@@ -180,6 +189,8 @@ const Movie = () => {
 				{(isPlayerVisible || currentUrl) && (
 					<div className='movie-slug-player container-fluid mb-5'>
 						<Player
+							ref={playerRef}
+							onClick={onAddToHistory(currentMovie.id)}
 							thumbnail={currentMovie.poster?.url}
 							url={currentMovie.file?.[currentQuality]?.url ?? currentUrl}
 						/>

@@ -5,7 +5,7 @@ import {
 	FilterModal,
 	Footer,
 	Header,
-	HeroLargeSlider,
+	PremierSlider,
 	MovieModal,
 	Player,
 } from '../../components/Main';
@@ -96,7 +96,7 @@ const Recommendations = () => {
 			</Head>
 			<Header />
 			<main className='content'>
-				<HeroLargeSlider list={[]} />
+				<PremierSlider list={[]} />
 				<div className='movie-list'>
 					<div className='container-fluid'>
 						<div className='movie-list__header'>

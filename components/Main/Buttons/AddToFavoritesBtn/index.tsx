@@ -2,7 +2,7 @@ import React, {DetailedHTMLProps, HTMLAttributes, useState} from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
-import {addMovieToFavorite} from '../../../../core/store/movie/movie.thunks';
+import {addMovieToFavoriteThunk} from '../../../../core/store/movie/movie.thunks';
 import cn from 'classnames';
 import {setIsShownModalAction} from '../../../../core/store/globalUI/globalUI.slices';
 
@@ -22,7 +22,7 @@ export const AddToFavoritesBtn = ({movieId, className}: AddToFavoritesBtnProps) 
 		if (user) {
 			if (!isDisabled) {
 				setIsDisabled(true);
-				const action = await dispatch(addMovieToFavorite(movieId));
+				const action = await dispatch(addMovieToFavoriteThunk(movieId));
 
 				if (action.payload) {
 					const result = action.payload as {message: string; status: number};
