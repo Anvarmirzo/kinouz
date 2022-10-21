@@ -196,6 +196,7 @@ export class MovieModel {
 	isSerial: boolean;
 	bySubscription: boolean;
 	poster?: FileModel;
+	posterForPremier?: FileModel;
 	description?: string;
 	imdb?: number;
 	rating?: number;
@@ -230,6 +231,11 @@ export class MovieModel {
 		if (movie.poster) {
 			this.poster = new FileModel(movie.poster);
 		}
+
+		if (movie.posterForPremier) {
+			this.posterForPremier = new FileModel(movie.posterForPremier);
+		}
+
 		if (movie.description) {
 			this.description = movie.description;
 		}
@@ -288,6 +294,7 @@ export class MeiliSearchMovieModel {
 	isSerial: boolean;
 	bySubscription: boolean;
 	poster?: string;
+	posterForPremier?: FileModel;
 	description?: string;
 	imdb?: number;
 	rating?: number;
@@ -322,6 +329,10 @@ export class MeiliSearchMovieModel {
 		if (movie.poster) {
 			this.poster = movie.poster;
 		}
+		if (movie.posterForPremier) {
+			this.posterForPremier = movie.posterForPremier;
+		}
+
 		if (movie.description) {
 			this.description = movie.description;
 		}
