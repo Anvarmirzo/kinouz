@@ -1,7 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
-import {AddToFavoritesBtn, CommentModal, Footer, Header, Player} from '../../components/Main';
+import {
+	AddToFavoritesBtn,
+	CommentModal,
+	EpisodeSlider,
+	Footer,
+	Header,
+	Player,
+} from '../../components/Main';
 import {ParticipantCarouselSlider} from '../../components/Movie';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {getMovieThunk} from '../../core/store/movie/movie.thunks';
@@ -24,6 +31,7 @@ const Movie = () => {
 	// react hooks
 	const [isPlayerVisible, setIsPlayerVisible] = useState(false);
 	const [currentQuality, setCurrentQuality] = useState(eMovieQuality.CD);
+	const [currentUrl, setCurrentUrl] = useState('');
 
 	useEffect(() => {
 		if (movieSlug) {
@@ -143,13 +151,15 @@ const Movie = () => {
 									<span className='text-primary'>{currentMovie.ageRemark}+</span>
 								</div>
 								<div className='page-movie-card__btns'>
-									<button
-										onClick={togglePlayerVisibility}
-										className='btn btn-primary btn-icon rounded-pill'
-										type='button'
-									>
-										смотреть<span className='icon icon-play_circle'></span>
-									</button>
+									{!currentMovie.isSerial && (
+										<button
+											onClick={togglePlayerVisibility}
+											className='btn btn-primary btn-icon rounded-pill'
+											type='button'
+										>
+											смотреть<span className='icon icon-play_circle'></span>
+										</button>
+									)}
 									<CommentModal movieId={currentMovie.id} />
 									<AddToFavoritesBtn
 										movieId={currentMovie.id}
@@ -167,14 +177,25 @@ const Movie = () => {
 						</div>
 					</div>
 				</section>
-				{isPlayerVisible && (
+				{(isPlayerVisible || currentUrl) && (
 					<div className='movie-slug-player container-fluid mb-5'>
 						<Player
 							thumbnail={currentMovie.poster?.url}
-							url={currentMovie.file?.[currentQuality]?.url ?? ''}
+							url={currentMovie.file?.[currentQuality]?.url ?? currentUrl}
 						/>
 					</div>
 				)}
+				{currentMovie.isSerial &&
+					currentMovie.seasons?.map((season) => (
+						<EpisodeSlider
+							key={season.id}
+							title={`Сезон ${season.season}`}
+							posterUrl={currentMovie.poster?.url}
+							seasonNumber={season.season}
+							list={season.episodes}
+							setCurrentUrl={setCurrentUrl}
+						/>
+					))}
 				{currentMovie?.actors ? (
 					<ParticipantCarouselSlider participants={currentMovie.actors} title='В ролях' />
 				) : null}
