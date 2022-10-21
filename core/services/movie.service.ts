@@ -54,6 +54,15 @@ export const MovieService = {
 			.then((res) => res.data)
 			.catch(Toast.error);
 	},
+	addToHistory(movieId: number, signal?: AbortSignal) {
+		return api
+			.post<{message: string; status: number}>(`movie/add-movie-to-history/${movieId}`)
+			.then((res) => {
+				Toast.success(res.data.message);
+				return res.data;
+			})
+			.catch(Toast.error);
+	},
 	getHistory(signal?: AbortSignal) {
 		return api
 			.get<{data: MovieModel[]; count: number}>('movie/history', {signal})

@@ -13,7 +13,7 @@ export * from './Modals/SearchModal';
 export * from './Modals/CommentModal';
 export * from './Modals/FilterModal';
 
-export * from './Sliders/HeroLargeSlider';
+export * from './Sliders/PremierSlider';
 export * from './Sliders/EpisodeSlider';
 export * from './Sliders/MovieSlider';
 

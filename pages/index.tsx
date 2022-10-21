@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
-import {Footer, Header, HeroLargeSlider} from '../components/Main';
+import {Footer, Header, PremierSlider} from '../components/Main';
 import {MovieSlider} from '../components/Main';
 import {useAppDispatch, useAppSelector} from '../core/hooks';
 import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
 
 			<Header />
 			<main className='content'>
-				<HeroLargeSlider list={newMovies} />
+				<PremierSlider list={newMovies} />
 				{renderCategories()}
 			</main>
 			<Footer />
