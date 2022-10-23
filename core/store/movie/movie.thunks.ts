@@ -32,7 +32,7 @@ export const getMoviesThunk = createAsyncThunk(
 	}
 );
 
-export const getNewMoviesThunk = createAsyncThunk(
+export const getPremiersThunk = createAsyncThunk(
 	'movies/getPremiers',
 	async (args: {skip?: number; params: {categoryId?: number}}, thunkAPI) => {
 		const movies = await MovieService.getAll(

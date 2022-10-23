@@ -6,7 +6,6 @@ import {getCommentsThunk, postCommentThunk} from '../../../../core/store/comment
 import Moment from 'react-moment';
 import {setCommentsAction} from '../../../../core/store/comment/comment.slices';
 import {setIsShownModalAction} from '../../../../core/store/globalUI/globalUI.slices';
-import {loginThunk} from '../../../../core/store/auth/auth.thunks';
 
 export const CommentModal = ({movieId}: {movieId: number}) => {
 	// redux hooks
@@ -17,11 +16,10 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 	const [show, setShow] = useState(false);
 	const lastCommentRef = useRef<null | HTMLDivElement>(null);
 	useEffect(() => {
-		(async () => {
-			await dispatch(getCommentsThunk({movieId}));
-		})();
+		const promise = (() => dispatch(getCommentsThunk({movieId})))();
 
 		return () => {
+			promise.abort();
 			dispatch(setCommentsAction({count: 0, list: []}));
 		};
 	}, []);

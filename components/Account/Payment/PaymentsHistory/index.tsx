@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import Moment from 'react-moment';
 import cn from 'classnames';
-import {useAppDispatch, useAppSelector} from '../../../core/hooks';
-import {getPaymentsThunk} from '../../../core/store/payment/payment.thunks';
-import {setPaymentsAction} from '../../../core/store/payment/payment.slices';
-import {ePaymentStatusType} from '../../../core/models';
+import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
+import {getPaymentsThunk} from '../../../../core/store/payment/payment.thunks';
+import {setPaymentsAction} from '../../../../core/store/payment/payment.slices';
+import {ePaymentStatusType} from '../../../../core/models';
 
-export const Payments = () => {
+export const PaymentsHistory = () => {
 	// redux hooks
 	const dispatch = useAppDispatch();
 	const [userId, payment] = useAppSelector(({users, payment}) => [users.user?.id, payment.payment]);
@@ -14,12 +14,13 @@ export const Payments = () => {
 	// react hooks
 	useEffect(() => {
 		if (userId) {
-			dispatch(getPaymentsThunk({params: {userId}}));
+			const promise = dispatch(getPaymentsThunk({params: {userId}}));
+			// TODO: use this strategy to all subscriptions to avoid memory leak
+			return () => {
+				promise.abort();
+				dispatch(setPaymentsAction({list: [], count: 0}));
+			};
 		}
-		// TODO: use this strategy to all subscriptions to avoid memory leak
-		return () => {
-			dispatch(setPaymentsAction({list: [], count: 0}));
-		};
 	}, [userId]);
 
 	const renderPayments = () => {

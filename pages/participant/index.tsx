@@ -4,7 +4,7 @@ import Head from 'next/head';
 import {Footer, Header, PremierSlider} from '../../components/Main';
 import {MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
-import {getMoviesThunk, getNewMoviesThunk} from '../../core/store/movie/movie.thunks';
+import {getMoviesThunk, getPremiersThunk} from '../../core/store/movie/movie.thunks';
 import {setMoviesAction, setNewMoviesAction} from '../../core/store/movie/movie.slices';
 import {useRouter} from 'next/router';
 
@@ -18,20 +18,22 @@ const DynamicPage: NextPage = () => {
 
 	// react hooks
 	useEffect(() => {
-		// TODO: URGENT remove slug from Links
 		if (query) {
 			const {type, id} = query as {
 				id: string;
 				type: 'acterId' | 'directorId' | 'producerId';
 			};
-			dispatch(getMoviesThunk({params: {[type]: +id}}));
-			dispatch(getNewMoviesThunk({params: {}}));
-		}
+			const promises = [
+				dispatch(getMoviesThunk({params: {[type]: +id}})),
+				dispatch(getPremiersThunk({params: {}})),
+			];
 
-		return () => {
-			setMoviesAction({list: [], count: 0});
-			setNewMoviesAction([]);
-		};
+			return () => {
+				promises.forEach((p) => p.abort());
+				setMoviesAction({list: [], count: 0});
+				setNewMoviesAction([]);
+			};
+		}
 	}, [query]);
 
 	if (!query) return null;

@@ -4,7 +4,7 @@ import {Footer, Header, PremierSlider} from '../../components/Main';
 import {MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {useEffect, useMemo} from 'react';
-import {getMoviesThunk, getNewMoviesThunk} from '../../core/store/movie/movie.thunks';
+import {getMoviesThunk, getPremiersThunk} from '../../core/store/movie/movie.thunks';
 import {setMoviesAction, setNewMoviesAction} from '../../core/store/movie/movie.slices';
 import {useRouter} from 'next/router';
 
@@ -29,14 +29,17 @@ const DynamicPage: NextPage = () => {
 
 	useEffect(() => {
 		if (currentCategory) {
-			dispatch(getMoviesThunk({params: {categoryId: currentCategory.id}}));
-			dispatch(getNewMoviesThunk({params: {categoryId: currentCategory.id}}));
-		}
+			const promises = [
+				dispatch(getMoviesThunk({params: {categoryId: currentCategory.id}})),
+				dispatch(getPremiersThunk({params: {categoryId: currentCategory.id}})),
+			];
 
-		return () => {
-			setMoviesAction({list: [], count: 0});
-			setNewMoviesAction([]);
-		};
+			return () => {
+				promises.forEach((p) => p.abort());
+				setMoviesAction({list: [], count: 0});
+				setNewMoviesAction([]);
+			};
+		}
 	}, [currentCategory]);
 
 	if (!currentCategory) return null;

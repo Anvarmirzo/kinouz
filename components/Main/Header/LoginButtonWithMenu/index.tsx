@@ -4,7 +4,6 @@ import cn from 'classnames';
 import Link from 'next/link';
 import AnimateHeight from 'react-animate-height';
 import {logoutThunk} from '../../../../core/store/auth/auth.thunks';
-import {UserModel} from '../../../../core/models';
 
 export const LoginButtonWithMenu = () => {
 	// redux hooks
@@ -14,6 +13,7 @@ export const LoginButtonWithMenu = () => {
 	// react hooks
 	const [isMenuOpen, setIsMenuOpen] = useState({mainMenu: false, profilesDropdown: false});
 	const [height, setHeight] = useState<'auto' | number>(0);
+
 	const userMenuRef = useRef<HTMLDivElement>(null);
 
 	// custom hooks

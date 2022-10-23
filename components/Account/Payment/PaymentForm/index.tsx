@@ -8,7 +8,7 @@ import {
 	PaymentModel,
 } from '../../../../core/models';
 import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
-import {addPaymentThunk} from '../../../../core/store/payment/payment.thunks';
+import {addPaymentThunk, getPaymentsThunk} from '../../../../core/store/payment/payment.thunks';
 
 export const PaymentForm = () => {
 	// redux hooks
@@ -20,13 +20,7 @@ export const PaymentForm = () => {
 	const [isHintVisible, setIsHintVisible] = useState(true);
 
 	// react hook form
-	const {
-		getValues,
-		register,
-		handleSubmit,
-		setValue,
-		formState: {errors},
-	} = useForm<IPostPayment>();
+	const {getValues, register, handleSubmit, setValue} = useForm<IPostPayment>();
 
 	const onSubmit = async (state: {summa: IPostPayment['summa']}) => {
 		if (userId) {
@@ -37,6 +31,7 @@ export const PaymentForm = () => {
 			const payment = result.payload as PaymentModel;
 
 			if (payment) {
+				dispatch(getPaymentsThunk({params: {userId}}));
 				// TODO: make more readable
 				window.open(
 					`https://my.click.uz/services/pay?service_id=${
@@ -104,7 +99,9 @@ export const PaymentForm = () => {
 						placeholder='введите сумму для оплаты'
 						{...register('summa', {
 							valueAsNumber: true,
+							required: true,
 							pattern: /^\d+$/,
+							min: 1000,
 							onChange: (e) => setValue('summa', +e.target.value.replace(/\D+/g, '')),
 						})}
 					/>
