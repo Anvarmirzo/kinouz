@@ -54,8 +54,10 @@ export const MovieModal = ({movie, buttonIcon, buttonClassName}: MovieModalProps
 							{movie.trailer?.url && (
 								<div className='movie-info__video'>
 									<Player
-										className='movie-card-player-wrapper'
+										wrapperClassName='movie-card-player-wrapper'
 										url={movie.trailer.url}
+										autoPlay
+										muted
 										thumbnail={movie.poster?.url}
 									/>
 								</div>

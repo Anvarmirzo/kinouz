@@ -29,7 +29,7 @@ const Movie = () => {
 	} = useRouter();
 
 	// react hooks
-	const playerRef = useRef<HTMLDivElement | null>(null);
+	const playerRef = useRef<HTMLVideoElement | null>(null);
 
 	const [isPlayerVisible, setIsPlayerVisible] = useState(false);
 	const [currentQuality, setCurrentQuality] = useState(eMovieQuality.CD);
@@ -57,6 +57,7 @@ const Movie = () => {
 				setTimeout(() => {
 					setCurrentQuality(quality);
 					setIsPlayerVisible(true);
+					scrollToPlayer();
 				}, 10);
 			}
 		} else {
@@ -66,9 +67,7 @@ const Movie = () => {
 
 	const togglePlayerVisibility = () => {
 		if (user) {
-			setTimeout(() => {
-				playerRef.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
-			}, 500);
+			scrollToPlayer();
 			setIsPlayerVisible((prev) => !prev);
 		} else {
 			dispatch(setIsShownModalAction({modalName: 'login', flag: true}));
@@ -77,6 +76,12 @@ const Movie = () => {
 
 	const onAddToHistory = (id: number) => () => {
 		dispatch(addMovieToHistoryThunk(id));
+	};
+
+	const scrollToPlayer = () => {
+		setTimeout(() => {
+			playerRef.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
+		}, 500);
 	};
 
 	const renderQualities = () => {

@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {MouseEvent} from 'react';
 import {Swiper, SwiperProps, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination} from 'swiper';
+import Link from 'next/link';
+import cn from 'classnames';
+import Image from 'next/image';
 import {useSwiperRef} from '../../../../core/hooks';
 import {MovieModel} from '../../../../core/models';
-import Link from 'next/link';
 import {Player} from '../../Player';
 import {AddToFavoritesBtn} from '../../Buttons/AddToFavoritesBtn';
 import {MovieModal} from '../../Modals/MovieModal';
-import cn from 'classnames';
-import Image from 'next/image';
 
 interface MovieSliderProps extends SwiperProps {
 	list: MovieModel[];
@@ -21,10 +21,22 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 	const [prevEl, prevElRef] = useSwiperRef<HTMLButtonElement>();
 	const [paginationEl, paginationElRef] = useSwiperRef<HTMLDivElement>();
 
+	const onMouseOver = (e: MouseEvent<HTMLDivElement>) => {
+		e.currentTarget.querySelector('video')?.play();
+	};
+
+	const onMouseOut = (e: MouseEvent<HTMLDivElement>) => {
+		e.currentTarget.querySelector('video')?.pause();
+	};
+
 	const renderSlides = () => {
 		return list.map((movie, index) => (
 			<SwiperSlide className='transform-none' key={movie.id}>
-				<div className={cn('movie-card', {first: index === 0})}>
+				<div
+					onMouseOver={onMouseOver}
+					onMouseOut={onMouseOut}
+					className={cn('movie-card', {first: index === 0})}
+				>
 					<div className='movie-card__body'>
 						<div className='movie-card__img'>
 							<Image
@@ -61,7 +73,16 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 					<div className='movie-card__more-info movie-card-more-info'>
 						<div className='movie-card-more-info__video'>
 							<Player
-								className='movie-card-player-wrapper'
+								muted
+								onMouseOver={(event) => {
+									//@ts-ignore
+									event.target.play();
+								}}
+								onMouseOut={(event) => {
+									//@ts-ignore
+									event.target.pause();
+								}}
+								wrapperClassName='movie-card-player-wrapper'
 								url={movie.trailer?.url ?? ''}
 								thumbnail={movie.poster?.url ?? ''}
 							/>

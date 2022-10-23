@@ -6,7 +6,6 @@ import {useRouter} from 'next/router';
 
 import {wrapper} from '../core/store';
 import 'react-toastify/dist/ReactToastify.css';
-import 'video-player-for-react/dist/index.css';
 import '../styles/sass/main.sass';
 import {useAppDispatch, useAppSelector} from '../core/hooks';
 import {autoLoginThunk} from '../core/store/auth/auth.thunks';
