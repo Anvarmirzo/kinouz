@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {CountryService} from '../../services/country.service';
+import {CountryService} from '../../services';
 import {setCountriesAction} from './country.slices';
 
 export const getCountriesThunks = createAsyncThunk(
@@ -11,10 +11,13 @@ export const getCountriesThunks = createAsyncThunk(
 		},
 		thunkAPI
 	) => {
-		const countries = await CountryService.getAll(payload);
+		const countries = await CountryService.getAll(payload, thunkAPI.signal);
 
 		if (countries) {
 			thunkAPI.dispatch(setCountriesAction({count: countries.count, list: countries.data}));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );

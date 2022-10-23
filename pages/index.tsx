@@ -5,7 +5,7 @@ import {Footer, Header, PremierSlider} from '../components/Main';
 import {MovieSlider} from '../components/Main';
 import {useAppDispatch, useAppSelector} from '../core/hooks';
 import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
-import {getNewMoviesThunk} from '../core/store/movie/movie.thunks';
+import {getPremiersThunk} from '../core/store/movie/movie.thunks';
 import {setMainWithVideoCategoriesAction} from '../core/store/category/category.slices';
 
 const Home: NextPage = () => {
@@ -18,10 +18,13 @@ const Home: NextPage = () => {
 
 	// react hooks
 	useEffect(() => {
-		dispatch(getMainCategoriesThunk({skip: 0, params: {movies: true}}));
-		dispatch(getNewMoviesThunk({params: {}}));
+		const promises = [
+			dispatch(getMainCategoriesThunk({skip: 0, params: {movies: true}})),
+			dispatch(getPremiersThunk({params: {}})),
+		];
 
 		return () => {
+			promises.forEach((p) => p.abort());
 			dispatch(setMainWithVideoCategoriesAction({list: [], count: 0}));
 		};
 	}, []);

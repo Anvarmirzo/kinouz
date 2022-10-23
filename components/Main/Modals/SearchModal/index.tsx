@@ -65,14 +65,7 @@ export const SearchModal = () => {
 	);
 
 	// react hook form
-	const {
-		register,
-		control,
-		handleSubmit,
-		setValue,
-		watch,
-		formState: {errors},
-	} = useForm<IFormFields>();
+	const {register, control, handleSubmit, watch} = useForm<IFormFields>();
 
 	// react hooks
 	const [searchResults, setSearchResults] = useState<{
@@ -86,11 +79,14 @@ export const SearchModal = () => {
 	});
 
 	useEffect(() => {
-		dispatch(getGenresThunk());
-		dispatch(getCategoriesThunk());
-		dispatch(getActorsThunk());
-		dispatch(getDirectorsThunk());
-		dispatch(getCountriesThunks());
+		const promises = [
+			dispatch(getGenresThunk()),
+			dispatch(getCategoriesThunk()),
+			dispatch(getActorsThunk()),
+			dispatch(getDirectorsThunk()),
+			dispatch(getCountriesThunks()),
+		];
+
 		onSubmit()();
 
 		let timer: NodeJS.Timeout | null = null;
@@ -103,6 +99,7 @@ export const SearchModal = () => {
 		});
 
 		return () => {
+			promises.forEach((p) => p.abort());
 			dispatch(setGenresAction({count: 0, list: []}));
 			dispatch(setAllCategoriesAction({count: 0, list: []}));
 			dispatch(setActorsAction({count: 0, list: []}));

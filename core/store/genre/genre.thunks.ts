@@ -11,18 +11,27 @@ export const getGenresThunk = createAsyncThunk(
 		},
 		thunkAPI
 	) => {
-		const res = await GenreService.getAll(params);
+		const res = await GenreService.getAll(params, thunkAPI.signal);
 
 		if (res) {
 			thunkAPI.dispatch(setGenresAction({count: res.count, list: res.data}));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
-export const getGenreThunk = createAsyncThunk('genres/getOne', async (id: number, thunkAPI) => {
-	const res = await GenreService.getById(id);
+export const getGenreThunk = createAsyncThunk(
+	'genres/getOne',
+	async (id: number, thunkAPI) => {
+		const res = await GenreService.getById(id, thunkAPI.signal);
 
-	if (res) {
-		thunkAPI.dispatch(setGenreAction(res));
+		if (res) {
+			thunkAPI.dispatch(setGenreAction(res));
+		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
-});
+);

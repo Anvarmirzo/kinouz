@@ -11,7 +11,7 @@ export const getActorsThunk = createAsyncThunk(
 		},
 		thunkAPI
 	) => {
-		const res = await ActorService.getAll(params);
+		const res = await ActorService.getAll(params, thunkAPI.signal);
 
 		if (res) {
 			thunkAPI.dispatch(
@@ -21,17 +21,23 @@ export const getActorsThunk = createAsyncThunk(
 				})
 			);
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
 export const getActorThunk = createAsyncThunk(
 	'participant/actorsGetOne',
 	async (id: number, thunkAPI) => {
-		const res = await ActorService.getById(id);
+		const res = await ActorService.getById(id, thunkAPI.signal);
 
 		if (res) {
 			thunkAPI.dispatch(setActorAction(res));
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );
 
@@ -44,7 +50,7 @@ export const getDirectorsThunk = createAsyncThunk(
 		},
 		thunkAPI
 	) => {
-		const res = await DirectorService.getAll(params);
+		const res = await DirectorService.getAll(params, thunkAPI.signal);
 
 		if (res) {
 			thunkAPI.dispatch(
@@ -54,5 +60,8 @@ export const getDirectorsThunk = createAsyncThunk(
 				})
 			);
 		}
+	},
+	{
+		dispatchConditionRejection: true,
 	}
 );

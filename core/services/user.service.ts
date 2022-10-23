@@ -5,9 +5,9 @@ import {store} from '../store';
 import {ICreateUser, IPatchUser, UserModel} from '../models';
 
 export const UserService = {
-	getByToken() {
+	getByToken(signal?: AbortSignal) {
 		return api
-			.get<UserModel>('user/token')
+			.get<UserModel>('user/token', {signal})
 			.then((res) => {
 				const jwt = localStorage.getItem('jwt');
 				return {user: new UserModel(res.data), jwt};
@@ -19,9 +19,9 @@ export const UserService = {
 				Toast.error(e);
 			});
 	},
-	createSubUser(params: ICreateUser) {
+	createSubUser(params: ICreateUser, signal?: AbortSignal) {
 		return api
-			.post<UserModel>('user', params)
+			.post<UserModel>('user', params, {signal})
 			.then((res) => {
 				Toast.success('User created');
 				return new UserModel(res.data);
@@ -29,16 +29,16 @@ export const UserService = {
 			.catch(Toast.error);
 	},
 
-	patchUser({userId, ...params}: IPatchUser) {
+	patchUser({userId, ...params}: IPatchUser, signal?: AbortSignal) {
 		return api
-			.patch<UserModel>(`user/${userId}`, params)
+			.patch<UserModel>(`user/${userId}`, params, {signal})
 			.then((res) => new UserModel(res.data))
 			.catch(Toast.error);
 	},
 
-	deleteUser(id: number) {
+	deleteUser(id: number, signal?: AbortSignal) {
 		return api
-			.delete<{message: string; status: number; id: number}>(`user/${id}`)
+			.delete<{message: string; status: number; id: number}>(`user/${id}`, {signal})
 			.then((data) => {
 				Toast.success(data.data.message);
 				return data.data;

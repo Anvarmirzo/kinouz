@@ -7,7 +7,7 @@ import {useForm} from 'react-hook-form';
 import {
 	NewSubUser,
 	PaymentForm,
-	Payments,
+	PaymentsHistory,
 	SubUserAccordionItem,
 	Subscriptions,
 } from '../../components/Account';
@@ -27,8 +27,7 @@ const Account = () => {
 		register,
 		handleSubmit,
 		setValue,
-		reset,
-		formState: {errors, dirtyFields},
+		formState: {errors},
 	} = useForm<{email: string; password: string}>();
 
 	// react hooks
@@ -66,9 +65,9 @@ const Account = () => {
 		return null;
 	}, [user]);
 
-	const onSubmitParentForm = async (data: {email: string; password: string}) => {
+	const onSubmitParentForm = (data: {email: string; password: string}) => {
 		if (user) {
-			await dispatch(patchUserThunk({...data, userId: user.id}));
+			dispatch(patchUserThunk({...data, userId: user.id}));
 		}
 	};
 
@@ -212,7 +211,7 @@ const Account = () => {
 									<PaymentForm />
 								</Tab>
 								<Tab eventKey='history' title='История платежей'>
-									<Payments />
+									<PaymentsHistory />
 								</Tab>
 								<Tab eventKey='subscriptions' title='Мои подписки'>
 									<Subscriptions />

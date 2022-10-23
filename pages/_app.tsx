@@ -27,10 +27,10 @@ function MyApp({Component, pageProps}: AppProps) {
 
 	// react hooks
 	useEffect(() => {
-		dispatch(autoLoginThunk());
-		dispatch(getMainCategoriesThunk({skip: 0}));
+		const promises = [dispatch(autoLoginThunk()), dispatch(getMainCategoriesThunk({skip: 0}))];
 
 		return () => {
+			promises.forEach((p) => p.abort());
 			dispatch(setMainCategoriesAction({count: 0, list: []}));
 		};
 	}, []);

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card} from 'react-bootstrap';
 import Moment from 'react-moment';
+import Image from 'next/image';
 import {SubscriptionModel, SubscriptionType} from '../../../core/models';
 import {useAppDispatch, useAppSelector} from '../../../core/hooks';
 import {setSubscriptionTypesAction} from '../../../core/store/subscription/subscription.slices';
@@ -10,8 +11,6 @@ import {
 	unsubscribeThunk,
 } from '../../../core/store/subscription/subscription.thunks';
 import {autoLoginThunk} from '../../../core/store/auth/auth.thunks';
-import Image from 'next/image';
-import cn from 'classnames';
 
 export const Subscriptions = () => {
 	// redux hooks
@@ -32,9 +31,10 @@ export const Subscriptions = () => {
 	>([]);
 
 	useEffect(() => {
-		dispatch(getSubscriptionTypesThunk());
+		const promise = dispatch(getSubscriptionTypesThunk());
 
 		return () => {
+			promise.abort();
 			dispatch(setSubscriptionTypesAction({list: [], count: 0}));
 		};
 	}, []);

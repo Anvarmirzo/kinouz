@@ -37,13 +37,14 @@ const Movie = () => {
 
 	useEffect(() => {
 		if (movieSlug) {
-			dispatch(getMovieThunk(movieSlug as string));
-		}
+			const promise = dispatch(getMovieThunk(movieSlug as string));
 
-		return () => {
-			dispatch(setMovieAction(null));
-			dispatch(setCommentsAction({count: 0, list: []}));
-		};
+			return () => {
+				promise.abort();
+				dispatch(setMovieAction(null));
+				dispatch(setCommentsAction({count: 0, list: []}));
+			};
+		}
 	}, [movieSlug]);
 
 	const changeQuality = (quality: typeof currentQuality) => () => {
@@ -101,12 +102,10 @@ const Movie = () => {
 		}
 	};
 
-	if (!currentMovie) return null;
-
 	return (
 		<div>
 			<Head>
-				<title>{currentMovie.title ?? ''} | KinoUZ</title>
+				<title>{currentMovie?.title ?? 'Загрузка...'} | KinoUZ</title>
 				<meta name='description' content='KINOUZ' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<meta name='msapplication-TileColor' content='#040724' />
@@ -120,103 +119,106 @@ const Movie = () => {
 				<link rel='shortcut icon' href='/img/favicon/favicon.ico' />
 			</Head>
 			<Header />
-			<main className='content'>
-				<section className='page-movie-card margin-under-header'>
-					<Image
-						src={currentMovie.poster?.url ?? ''}
-						alt=''
-						layout='fill'
-						className='page-movie-card__img'
-						crossOrigin='use-credentials'
-						unoptimized={true}
-						objectFit='cover'
-					/>
-					<div className='page-movie-card__container container-fluid'>
-						<div className='page-movie-card__text row w-100'>
-							<div className='col-12 col-lg-6 mb-5'>
-								<h1 className='page-movie-card__title'>{currentMovie.title}</h1>
-								<div className='page-movie-card__ratings'>
-									<div className='page-movie-card__rating'>
-										<span className='icon icon-imdb'></span>
-										{currentMovie.imdb}
+			{currentMovie ? (
+				<main className='content'>
+					<section className='page-movie-card margin-under-header'>
+						<Image
+							src={currentMovie.poster?.url ?? ''}
+							alt=''
+							layout='fill'
+							className='page-movie-card__img'
+							crossOrigin='use-credentials'
+							unoptimized={true}
+							objectFit='cover'
+						/>
+						<div className='page-movie-card__container container-fluid'>
+							<div className='page-movie-card__text row w-100'>
+								<div className='col-12 col-lg-6 mb-5'>
+									<h1 className='page-movie-card__title'>{currentMovie.title}</h1>
+									<div className='page-movie-card__ratings'>
+										<div className='page-movie-card__rating'>
+											<span className='icon icon-imdb'></span>
+											{currentMovie.imdb}
+										</div>
+										<div className='page-movie-card__rating'>
+											<span className='icon icon-kinopoisk'></span>
+											{currentMovie.rating}
+										</div>
 									</div>
-									<div className='page-movie-card__rating'>
-										<span className='icon icon-kinopoisk'></span>
-										{currentMovie.rating}
+									<div className='page-movie-card__info'>
+										{currentMovie.year} <span className='text-primary'>I </span>
+										{currentMovie.categoriesTitle && (
+											<>
+												{currentMovie.categoriesTitle} <span className='text-primary'>I </span>
+											</>
+										)}
+										{currentMovie.countriesTitle && (
+											<>
+												{currentMovie.countriesTitle} <span className='text-primary'>I </span>
+											</>
+										)}
+										<span className='text-primary'>{currentMovie.ageRemark}+</span>
 									</div>
+									<div className='page-movie-card__btns'>
+										{!currentMovie.isSerial && (
+											<button
+												onClick={togglePlayerVisibility}
+												className='btn btn-primary btn-icon rounded-pill'
+												type='button'
+											>
+												смотреть<span className='icon icon-play_circle'></span>
+											</button>
+										)}
+										<CommentModal movieId={currentMovie.id} />
+										<AddToFavoritesBtn
+											movieId={currentMovie.id}
+											className='btn-secondary rounded-pill'
+										/>
+									</div>
+									<div className='page-movie-card__quality'>{renderQualities()}</div>
 								</div>
-								<div className='page-movie-card__info'>
-									{currentMovie.year} <span className='text-primary'>I </span>
-									{currentMovie.categoriesTitle && (
-										<>
-											{currentMovie.categoriesTitle} <span className='text-primary'>I </span>
-										</>
-									)}
-									{currentMovie.countriesTitle && (
-										<>
-											{currentMovie.countriesTitle} <span className='text-primary'>I </span>
-										</>
-									)}
-									<span className='text-primary'>{currentMovie.ageRemark}+</span>
-								</div>
-								<div className='page-movie-card__btns'>
-									{!currentMovie.isSerial && (
-										<button
-											onClick={togglePlayerVisibility}
-											className='btn btn-primary btn-icon rounded-pill'
-											type='button'
-										>
-											смотреть<span className='icon icon-play_circle'></span>
-										</button>
-									)}
-									<CommentModal movieId={currentMovie.id} />
-									<AddToFavoritesBtn
-										movieId={currentMovie.id}
-										className='btn-secondary rounded-pill'
-									/>
-								</div>
-								<div className='page-movie-card__quality'>{renderQualities()}</div>
-							</div>
-							<div className='col-12 col-lg-6 mb-5'>
-								<div className='page-movie-card__description'>
-									<div className='page-movie-card__description-title'>Описание:</div>
-									<p>{currentMovie.description}</p>
+								<div className='col-12 col-lg-6 mb-5'>
+									<div className='page-movie-card__description'>
+										<div className='page-movie-card__description-title'>Описание:</div>
+										<p>{currentMovie.description}</p>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</section>
-				{(isPlayerVisible || currentUrl) && (
-					<div className='movie-slug-player container-fluid mb-5'>
-						<Player
-							ref={playerRef}
-							onClick={onAddToHistory(currentMovie.id)}
-							thumbnail={currentMovie.poster?.url}
-							url={currentMovie.file?.[currentQuality]?.url ?? currentUrl}
-						/>
-					</div>
-				)}
-				{currentMovie.isSerial &&
-					currentMovie.seasons?.map((season) => (
-						<EpisodeSlider
-							key={season.id}
-							title={`Сезон ${season.season}`}
-							posterUrl={currentMovie.poster?.url}
-							seasonNumber={season.season}
-							list={season.episodes}
-							setCurrentUrl={setCurrentUrl}
-						/>
-					))}
-				{currentMovie?.actors ? (
-					<ParticipantCarouselSlider participants={currentMovie.actors} title='В ролях' />
-				) : null}
-				{currentMovie?.producers ? (
-					<ParticipantCarouselSlider participants={currentMovie.producers} title='Продюсеры' />
-				) : null}
-				{currentMovie?.directors ? (
-					<ParticipantCarouselSlider participants={currentMovie.directors} title='Режиссёры' />
-				) : null}
-			</main>
+					</section>
+					{(isPlayerVisible || currentUrl) && (
+						<div className='movie-slug-player container-fluid mb-5'>
+							<Player
+								ref={playerRef}
+								onClick={onAddToHistory(currentMovie.id)}
+								thumbnail={currentMovie.poster?.url}
+								url={currentMovie.file?.[currentQuality]?.url ?? currentUrl}
+							/>
+						</div>
+					)}
+					{currentMovie.isSerial &&
+						currentMovie.seasons?.map((season) => (
+							<EpisodeSlider
+								key={season.id}
+								title={`Сезон ${season.season}`}
+								posterUrl={currentMovie.poster?.url}
+								seasonNumber={season.season}
+								list={season.episodes}
+								setCurrentUrl={setCurrentUrl}
+							/>
+						))}
+					{currentMovie?.actors ? (
+						<ParticipantCarouselSlider participants={currentMovie.actors} title='В ролях' />
+					) : null}
+					{currentMovie?.producers ? (
+						<ParticipantCarouselSlider participants={currentMovie.producers} title='Продюсеры' />
+					) : null}
+					{currentMovie?.directors ? (
+						<ParticipantCarouselSlider participants={currentMovie.directors} title='Режиссёры' />
+					) : null}
+				</main>
+			) : null}
+
 			<Footer />
 		</div>
 	);
