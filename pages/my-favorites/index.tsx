@@ -20,6 +20,10 @@ const MyFavorites = () => {
 		};
 	}, []);
 
+	const loadMoreCb = () => {
+		dispatch(getFavoriteMoviesThunk({skip: favoriteMovies.count}));
+	};
+
 	return (
 		<>
 			<Head>
@@ -39,7 +43,7 @@ const MyFavorites = () => {
 
 			<Header />
 			<main className='content'>
-				<MovieSlider title='Моя подборка' list={favoriteMovies.list} />
+				<MovieSlider loadMoreCb={loadMoreCb} title='Моя подборка' list={favoriteMovies.list} />
 			</main>
 			<Footer />
 		</>

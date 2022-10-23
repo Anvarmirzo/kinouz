@@ -20,7 +20,7 @@ export const {
 		setAllCategoriesAction,
 		setMainCategoriesAction,
 		setCategoryAction,
-		setMainWithVideoCategoriesAction,
+		setMainCategoriesWithVideoAction,
 	},
 	reducer: categoriesReducer,
 } = createSlice({
@@ -41,12 +41,15 @@ export const {
 			...state,
 			main: action.payload,
 		}),
-		setMainWithVideoCategoriesAction: (
+		setMainCategoriesWithVideoAction: (
 			state,
 			action: PayloadAction<{list: CategoryModel[]; count: number}>
 		) => ({
 			...state,
-			mainVideo: action.payload,
+			mainVideo: {
+				list: [...state.mainVideo.list, ...action.payload.list],
+				count: state.mainVideo.count + action.payload.count,
+			},
 		}),
 		setCategoryAction: (state, action: PayloadAction<CategoryModel | null>) => ({
 			...state,

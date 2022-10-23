@@ -133,7 +133,7 @@ const Movie = () => {
 							layout='fill'
 							className='page-movie-card__img'
 							crossOrigin='use-credentials'
-							unoptimized={true}
+							unoptimized
 							objectFit='cover'
 						/>
 						<div className='page-movie-card__container container-fluid'>

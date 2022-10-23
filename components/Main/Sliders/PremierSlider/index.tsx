@@ -23,7 +23,7 @@ export const PremierSlider = ({list}: HeroLargeSliderProps) => {
 					objectFit='cover'
 					className='movie-slider__img'
 					crossOrigin='use-credentials'
-					unoptimized={true}
+					unoptimized
 				/>
 				<div className='movie-slider__container container-fluid'>
 					<div className='movie-slider__text'>

@@ -19,6 +19,10 @@ const MyHistory = () => {
 			dispatch(setHistoryMoviesAction({count: 0, list: []}));
 		};
 	}, []);
+
+	const loadMoreCb = () => {
+		dispatch(getHistoryMoviesThunk({skip: historyMovies.count}));
+	};
 	return (
 		<>
 			<Head>
@@ -38,7 +42,7 @@ const MyHistory = () => {
 
 			<Header />
 			<main className='content'>
-				<MovieSlider title='История просмотров' list={historyMovies.list} />
+				<MovieSlider loadMoreCb={loadMoreCb} title='История просмотров' list={historyMovies.list} />
 			</main>
 			<Footer />
 		</>

@@ -95,7 +95,7 @@ export const Subscriptions = () => {
 						objectFit='cover'
 						className='opacity-50'
 						crossOrigin='use-credentials'
-						unoptimized={true}
+						unoptimized
 					/>
 				)}
 				<Card.Header className='position-relative'>30 дней за {s.price} сум</Card.Header>

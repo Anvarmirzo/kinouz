@@ -1,12 +1,12 @@
+import {useEffect, useMemo} from 'react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
+import {useRouter} from 'next/router';
 import {Footer, Header, PremierSlider} from '../../components/Main';
 import {MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
-import {useEffect, useMemo} from 'react';
 import {getMoviesThunk, getPremiersThunk} from '../../core/store/movie/movie.thunks';
 import {setMoviesAction, setNewMoviesAction} from '../../core/store/movie/movie.slices';
-import {useRouter} from 'next/router';
 
 const DynamicPage: NextPage = () => {
 	// next hooks
@@ -18,7 +18,7 @@ const DynamicPage: NextPage = () => {
 	const [categories, newMovies, movies] = useAppSelector(({categories, movies}) => [
 		categories.main,
 		movies.newMoviesList,
-		movies.list,
+		movies,
 	]);
 	const dispatch = useAppDispatch();
 
@@ -42,12 +42,16 @@ const DynamicPage: NextPage = () => {
 		}
 	}, [currentCategory]);
 
-	if (!currentCategory) return null;
+	const loadMoreCb = () => {
+		if (currentCategory) {
+			dispatch(getMoviesThunk({skip: movies.count, params: {categoryId: currentCategory.id}}));
+		}
+	};
 
 	return (
 		<>
 			<Head>
-				<title>{currentCategory.title} | KinoUz</title>
+				<title>{currentCategory?.title ?? 'Загрузка...'} | KinoUz</title>
 				<meta name='description' content='KINOUZ' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<meta name='msapplication-TileColor' content='#040724' />
@@ -62,10 +66,12 @@ const DynamicPage: NextPage = () => {
 			</Head>
 
 			<Header />
-			<main className='content'>
-				<PremierSlider list={newMovies} />
-				<MovieSlider title={currentCategory.title} list={movies} />
-			</main>
+			{currentCategory ? (
+				<main className='content'>
+					<PremierSlider list={newMovies} />
+					<MovieSlider loadMoreCb={loadMoreCb} title={currentCategory.title} list={movies.list} />
+				</main>
+			) : null}
 			<Footer />
 		</>
 	);

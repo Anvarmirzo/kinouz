@@ -190,7 +190,7 @@ export const SearchModal = () => {
 										objectFit='cover'
 										className='movie-card__img'
 										crossOrigin='use-credentials'
-										unoptimized={true}
+										unoptimized
 									/>
 								</div>
 								<div className='movie-card__ratings'>
@@ -286,7 +286,7 @@ export const SearchModal = () => {
 														alt={option.label}
 														objectFit='cover'
 														crossOrigin='use-credentials'
-														unoptimized={true}
+														unoptimized
 													/>
 												)}
 												<span>{option.label}</span>
@@ -322,7 +322,7 @@ export const SearchModal = () => {
 														height={30}
 														alt={option.label}
 														crossOrigin='use-credentials'
-														unoptimized={true}
+														unoptimized
 														objectFit='cover'
 													/>
 												)}

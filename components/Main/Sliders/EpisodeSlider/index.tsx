@@ -46,7 +46,7 @@ export const EpisodeSlider = ({
 								layout='fill'
 								className='movie-card__img'
 								crossOrigin='use-credentials'
-								unoptimized={true}
+								unoptimized
 								objectFit='cover'
 							/>
 						</div>
