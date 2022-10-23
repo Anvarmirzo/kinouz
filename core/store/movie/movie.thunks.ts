@@ -94,8 +94,14 @@ export const addMovieToFavoriteThunk = createAsyncThunk(
 
 export const getFavoriteMoviesThunk = createAsyncThunk(
 	'movies/get-favorites',
-	async (_, thunkAPI) => {
-		const movies = await MovieService.getFavorites(thunkAPI.signal);
+	async (
+		payload: {skip: number; params?: Record<string, number | string>} | undefined = {
+			skip: 0,
+			params: {},
+		},
+		thunkAPI
+	) => {
+		const movies = await MovieService.getFavorites(payload, thunkAPI.signal);
 
 		if (movies) {
 			thunkAPI.dispatch(setFavoriteMoviesAction({list: movies.data, count: movies.count}));
@@ -118,8 +124,14 @@ export const addMovieToHistoryThunk = createAsyncThunk(
 
 export const getHistoryMoviesThunk = createAsyncThunk(
 	'movies/get-history',
-	async (_, thunkAPI) => {
-		const movies = await MovieService.getHistory(thunkAPI.signal);
+	async (
+		payload: {skip: number; params?: Record<string, number | string>} | undefined = {
+			skip: 0,
+			params: {},
+		},
+		thunkAPI
+	) => {
+		const movies = await MovieService.getHistory(payload, thunkAPI.signal);
 
 		if (movies) {
 			thunkAPI.dispatch(setHistoryMoviesAction({list: movies.data, count: movies.count}));

@@ -34,7 +34,8 @@ export const {
 	reducers: {
 		setMoviesAction: (state, action: PayloadAction<{list: MovieModel[]; count: number}>) => ({
 			...state,
-			...action.payload,
+			list: [...state.list, ...action.payload.list],
+			count: state.count + action.payload.count,
 		}),
 		setMovieAction: (state, action: PayloadAction<MovieModel | null>) => ({
 			...state,
@@ -47,11 +48,17 @@ export const {
 		}),
 		setFavoriteMoviesAction: (state, action: PayloadAction<IState['favoritesList']>) => ({
 			...state,
-			favoritesList: action.payload,
+			favoritesList: {
+				list: [...state.favoritesList.list, ...action.payload.list],
+				count: state.favoritesList.count + action.payload.count,
+			},
 		}),
 		setHistoryMoviesAction: (state, action: PayloadAction<IState['historyMovies']>) => ({
 			...state,
-			historyMovies: action.payload,
+			historyMovies: {
+				list: [...state.historyMovies.list, ...action.payload.list],
+				count: state.historyMovies.count + action.payload.count,
+			},
 		}),
 	},
 });

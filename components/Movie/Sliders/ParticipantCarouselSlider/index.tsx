@@ -27,7 +27,7 @@ export const ParticipantCarouselSlider = ({title, participants}: Data) => {
 								alt=''
 								layout='fill'
 								crossOrigin='use-credentials'
-								unoptimized={true}
+								unoptimized
 								objectFit='cover'
 								className='actor-card__img'
 							/>

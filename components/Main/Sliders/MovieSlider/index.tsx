@@ -13,9 +13,10 @@ import {MovieModal} from '../../Modals/MovieModal';
 interface MovieSliderProps extends SwiperProps {
 	list: MovieModel[];
 	title: string;
+	loadMoreCb: () => void;
 }
 
-export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
+export const MovieSlider = ({title, list, loadMoreCb, ...props}: MovieSliderProps) => {
 	// custom hooks
 	const [nextEl, nextElRef] = useSwiperRef<HTMLButtonElement>();
 	const [prevEl, prevElRef] = useSwiperRef<HTMLButtonElement>();
@@ -27,6 +28,12 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 
 	const onMouseOut = (e: MouseEvent<HTMLDivElement>) => {
 		e.currentTarget.querySelector('video')?.pause();
+	};
+
+	const onSlideChange = (swiper: {isEnd: boolean}) => {
+		if (swiper.isEnd) {
+			loadMoreCb();
+		}
 	};
 
 	const renderSlides = () => {
@@ -45,7 +52,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 								layout='fill'
 								className='movie-card__img'
 								crossOrigin='use-credentials'
-								unoptimized={true}
+								unoptimized
 								objectFit='cover'
 							/>
 						</div>
@@ -138,7 +145,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 			<div className='container-fluid'>
 				<div className='movie-carousel__header'>
 					<h2 className='movie-carousel__title'>
-						<a href='components/Main/Sliders/MovieSlider/index#'>{title}</a>
+						<a href='#'>{title}</a>
 					</h2>
 					<a href='#' className='movie-carousel__title-info'>
 						<span className='icon icon-pending'></span>
@@ -150,6 +157,7 @@ export const MovieSlider = ({title, list, ...props}: MovieSliderProps) => {
 				slidesPerView={6}
 				spaceBetween={12}
 				watchSlidesProgress
+				onSlideChange={onSlideChange}
 				navigation={{prevEl, nextEl}}
 				pagination={{
 					el: paginationEl,

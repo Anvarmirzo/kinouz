@@ -66,6 +66,7 @@ export const FilterModal = () => {
 									{option.img && (
 										<Image
 											objectFit='cover'
+											crossOrigin='use-credentials'
 											src={option.img}
 											width={30}
 											height={30}

@@ -48,9 +48,12 @@ export const MovieService = {
 			})
 			.catch(Toast.error);
 	},
-	getFavorites(signal?: AbortSignal) {
+	getFavorites(
+		params: {skip: number; params?: Record<string, number | string>},
+		signal?: AbortSignal
+	) {
 		return api
-			.get<{data: MovieModel[]; count: number}>('movie/favorites', {signal})
+			.get<{data: MovieModel[]; count: number}>('movie/favorites', {params, signal})
 			.then((res) => res.data)
 			.catch(Toast.error);
 	},
@@ -63,7 +66,10 @@ export const MovieService = {
 			})
 			.catch(Toast.error);
 	},
-	getHistory(signal?: AbortSignal) {
+	getHistory(
+		params: {skip: number; params?: Record<string, number | string>},
+		signal?: AbortSignal
+	) {
 		return api
 			.get<{data: MovieModel[]; count: number}>('movie/history', {signal})
 			.then((res) => res.data)
