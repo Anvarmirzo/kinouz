@@ -218,6 +218,7 @@ const Movie = () => {
 					) : null}
 				</main>
 			) : null}
+
 			<Footer />
 		</div>
 	);
