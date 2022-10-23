@@ -1,28 +1,30 @@
-import React, {DetailedHTMLProps, forwardRef, HTMLAttributes, LegacyRef} from 'react';
-
-// @ts-ignore
-import {ReactVideoPlayer} from 'video-player-for-react';
+import React, {DetailedHTMLProps, forwardRef, LegacyRef, VideoHTMLAttributes} from 'react';
 import cn from 'classnames';
 
-interface PlayerProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	url: string | string[] | MediaStream;
+interface PlayerProps
+	extends DetailedHTMLProps<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement> {
+	url: string;
 	thumbnail?: string;
-	className?: string;
+	wrapperClassName?: string;
 }
 
 export const Player = forwardRef(function Player(
-	{url, thumbnail, className, ...props}: PlayerProps,
-	ref: LegacyRef<HTMLDivElement> | undefined
+	{url, thumbnail, wrapperClassName, ...props}: PlayerProps,
+	ref: LegacyRef<HTMLVideoElement> | undefined
 ) {
 	return (
-		<div className={cn('player-wrapper', className)} ref={ref} {...props}>
-			<ReactVideoPlayer
-				width='100%'
-				url={url}
-				type='video/mp4'
-				crossOrigin='use-credentials'
+		<div className={cn('player-wrapper', wrapperClassName)}>
+			<video
 				poster={thumbnail}
-			/>
+				width='100%'
+				crossOrigin='use-credentials'
+				controls
+				ref={ref}
+				{...props}
+			>
+				<source src={url} type='video/mp4' />
+				Your browser does not support HTML video.
+			</video>
 		</div>
 	);
 });

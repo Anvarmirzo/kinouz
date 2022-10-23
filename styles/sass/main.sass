@@ -1307,6 +1307,7 @@
 		left: 0
 		right: 0
 		padding: 30px
+		width: max-content
 	&__title
 		font-size: 40px
 		font-weight: 400
@@ -1661,19 +1662,18 @@
 		width: calc(50% - 20px)
 
 // player
-.vpfr_play_pause_on_click, .vpfr_video_poster_image, .vpfr_overlay_play_button
-	z-index: 1
-.vpfr_player_controls
-	width: 100%
-	z-index: 2
-.vpfr_container
-	width: 100%
-	height: 100%
-.movie-slug-player
-	height: 80vh
-	min-height: 400px
 .player-wrapper
 	height: 100%
+	video
+		height: 100%
+.movie-slug-player
+	video
+		height: 80vh
+		object-fit: none
+		min-height: 400px
+		&[poster]
+			object-fit: cover
+
 .movie-card-player-wrapper
 	position: absolute
 	top: 0
