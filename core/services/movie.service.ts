@@ -59,9 +59,9 @@ export const MovieService = {
 	},
 	addToHistory(movieId: number, signal?: AbortSignal) {
 		return api
-			.post<{message: string; status: number}>(`movie/add-movie-to-history/${movieId}`)
+			.post<{message: string; status: number}>(`movie/add-movie-to-history/${movieId}`, {signal})
 			.then((res) => {
-				Toast.success(res.data.message);
+				// Toast.success(res.data.message);
 				return res.data;
 			})
 			.catch(Toast.error);
