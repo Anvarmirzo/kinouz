@@ -27,19 +27,26 @@ export const PaymentForm = () => {
 			const result = await dispatch(
 				addPaymentThunk({summa: state.summa, userId, statusId: ePaymentStatusType.Pending, typeId})
 			);
-
 			const payment = result.payload as PaymentModel;
 
 			if (payment) {
 				dispatch(getPaymentsThunk({params: {userId}}));
-				// TODO: make more readable
-				window.open(
-					`https://my.click.uz/services/pay?service_id=${
-						process.env.NEXT_PUBLIC_CLICK_SERVICE_ID
-					}&merchant_id=${process.env.NEXT_PUBLIC_CLICK_MERCHANT_ID}&amount=${getValues(
-						'summa'
-					)}&transaction_param=${payment.id}`
-				);
+				const amount = getValues('summa');
+
+				if (typeId === ePaymentType.Click) {
+					const serviceId = process.env.NEXT_PUBLIC_CLICK_SERVICE_ID;
+					const merchantId = process.env.NEXT_PUBLIC_CLICK_MERCHANT_ID;
+					window.open(
+						`https://my.click.uz/services/pay?service_id=${serviceId}&merchant_id=${merchantId}&amount=${amount}&transaction_param=${payment.id}`
+					);
+				} else if (typeId === ePaymentType.PayMe) {
+					const merchantId = process.env.NEXT_PUBLIC_PAYME_MERCHANT_ID;
+
+					const encodedString = Buffer.from(
+						`m=${merchantId};ac.order_id=${payment.id};a=${amount * 100}`
+					).toString('base64');
+					window.open(`https://checkout.paycom.uz/${encodedString}`);
+				}
 			}
 		}
 	};
@@ -102,6 +109,7 @@ export const PaymentForm = () => {
 							required: true,
 							pattern: /^\d+$/,
 							min: 1000,
+							max: 100000,
 							onChange: (e) => setValue('summa', +e.target.value.replace(/\D+/g, '')),
 						})}
 					/>
