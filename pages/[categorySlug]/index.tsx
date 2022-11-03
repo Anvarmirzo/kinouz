@@ -2,7 +2,7 @@ import {useEffect, useMemo} from 'react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
 import {useRouter} from 'next/router';
-import {Footer, Header, PremierSlider} from '../../components/Main';
+import {Footer, Header, Loader, PremierSlider} from '../../components/Main';
 import {MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {getMoviesThunk, getPremiersThunk} from '../../core/store/movie/movie.thunks';
@@ -71,7 +71,9 @@ const DynamicPage: NextPage = () => {
 					<PremierSlider list={newMovies} />
 					<MovieSlider loadMoreCb={loadMoreCb} title={currentCategory.title} list={movies.list} />
 				</main>
-			) : null}
+			) : (
+				<Loader />
+			)}
 			<Footer />
 		</>
 	);

@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
 import {Footer, Header, PremierSlider} from '../components/Main';

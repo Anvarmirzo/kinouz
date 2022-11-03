@@ -1,7 +1,7 @@
 import React, {ReactNode, useState} from 'react';
 import Select, {FormatOptionLabelMeta, GroupBase, OptionsOrGroups} from 'react-select';
 import AsyncSelect from 'react-select/async';
-import {IAutoComplete, IAutoCompleteParams} from '../../../core/models';
+import {IAutoComplete} from '../../../core/models';
 
 interface Option {
 	value: string | number;
