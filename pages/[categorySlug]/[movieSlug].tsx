@@ -7,6 +7,7 @@ import {
 	EpisodeSlider,
 	Footer,
 	Header,
+	Loader,
 	Player,
 } from '../../components/Main';
 import {ParticipantCarouselSlider} from '../../components/Movie';
@@ -212,17 +213,19 @@ const Movie = () => {
 								setCurrentUrl={setCurrentUrl}
 							/>
 						))}
-					{currentMovie?.actors ? (
+					{currentMovie?.actors?.length ? (
 						<ParticipantCarouselSlider participants={currentMovie.actors} title='В ролях' />
 					) : null}
-					{currentMovie?.producers ? (
+					{currentMovie?.producers?.length ? (
 						<ParticipantCarouselSlider participants={currentMovie.producers} title='Продюсеры' />
 					) : null}
-					{currentMovie?.directors ? (
+					{currentMovie?.directors?.length ? (
 						<ParticipantCarouselSlider participants={currentMovie.directors} title='Режиссёры' />
 					) : null}
 				</main>
-			) : null}
+			) : (
+				<Loader />
+			)}
 
 			<Footer />
 		</div>

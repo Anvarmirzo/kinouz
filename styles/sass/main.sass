@@ -1560,7 +1560,7 @@
 		border-radius: 6px
 	&__list
 		padding: 25px 25px 0
-		max-height: 700px
+		height: 70vh
 		overflow: auto
 		scrollbar-color: $c2 transparent
 		scrollbar-width: thin
@@ -1679,4 +1679,22 @@
 	top: 0
 	left: 0
 	width: 100%
+
+// loader
+.loader-wrapper
+	background-color: $c6
+	z-index: 111
+	position: fixed
+	top: 0
+	left: 0
+	height: 100%
+	width: 100%
+	display: flex
+	align-items: center
+	justify-content: center
+
+	svg
+		width: 10rem
+		height: 10rem
+
 @import media

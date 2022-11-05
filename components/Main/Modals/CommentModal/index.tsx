@@ -14,9 +14,8 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 
 	// react hooks
 	const [show, setShow] = useState(false);
-	const lastCommentRef = useRef<null | HTMLDivElement>(null);
 	useEffect(() => {
-		const promise = (() => dispatch(getCommentsThunk({movieId})))();
+		const promise = dispatch(getCommentsThunk({movieId}));
 
 		return () => {
 			promise.abort();
@@ -24,6 +23,15 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 		};
 	}, []);
 	//TODO: replace all bootstrap components to react-bootstrap
+
+	// react hooks
+	// useEffect(() => {
+	// 	const promise = dispatch(getCommentsThunk({movieId, skip: comments.list.length}));
+	// 	return () => {
+	// 		promise.abort();
+	// 		dispatch(setCommentsAction({count: 0, list: []}));
+	// 	};
+	// }, []);
 
 	// react hook form
 	const {
@@ -33,15 +41,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 		reset,
 	} = useForm<{text: string}>();
 
-	const scrollToBottom = () => {
-		if (lastCommentRef.current) {
-			lastCommentRef.current.scrollIntoView({
-				behavior: 'smooth',
-				block: 'end',
-			});
-		}
-	};
-
 	const onSubmit = async ({text}: {text: string}) => {
 		if (user) {
 			if (text.trim()) {
@@ -50,7 +49,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 				);
 				if (isSent) {
 					reset();
-					scrollToBottom();
 				}
 			}
 		} else {
@@ -75,7 +73,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 								<div className='movie-comments__comment'>{c.text}</div>
 							</div>
 						))}
-						<div ref={lastCommentRef} />
 					</div>
 				</div>
 			);
@@ -84,9 +81,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 
 	const changeModalVisibility = (flag: boolean) => () => {
 		setShow(flag);
-		setTimeout(() => {
-			scrollToBottom();
-		}, 100);
 	};
 
 	return (

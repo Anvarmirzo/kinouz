@@ -16,7 +16,7 @@ export const CommentService = {
 			})
 			.then((res) => ({
 				count: res.data.count,
-				data: res.data.data.map((c) => new CommentModel(c)),
+				data: res.data.data.map((c) => new CommentModel(c)).reverse(),
 			}))
 			.catch(Toast.error);
 	},

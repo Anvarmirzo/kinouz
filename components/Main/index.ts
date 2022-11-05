@@ -17,4 +17,6 @@ export * from './Sliders/PremierSlider';
 export * from './Sliders/EpisodeSlider';
 export * from './Sliders/MovieSlider';
 
+export * from './Loader';
+
 export * from './Player';
