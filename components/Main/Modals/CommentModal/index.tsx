@@ -14,8 +14,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 
 	// react hooks
 	const [show, setShow] = useState(false);
-	const commentBottomRef = useRef<null | HTMLDivElement>(null);
-	const lastCommentRef = useRef<null | HTMLDivElement>(null);
 	useEffect(() => {
 		const promise = dispatch(getCommentsThunk({movieId}));
 
@@ -27,15 +25,13 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 	//TODO: replace all bootstrap components to react-bootstrap
 
 	// react hooks
-	useEffect(() => {
-		const promise = dispatch(getCommentsThunk({movieId, skip: comments.list.length}));
-		console.log(commentBottomRef.current?.offsetTop);
-		console.log(lastCommentRef);
-		return () => {
-			promise.abort();
-			dispatch(setCommentsAction({count: 0, list: []}));
-		};
-	}, [lastCommentRef, commentBottomRef]);
+	// useEffect(() => {
+	// 	const promise = dispatch(getCommentsThunk({movieId, skip: comments.list.length}));
+	// 	return () => {
+	// 		promise.abort();
+	// 		dispatch(setCommentsAction({count: 0, list: []}));
+	// 	};
+	// }, []);
 
 	// react hook form
 	const {
@@ -45,15 +41,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 		reset,
 	} = useForm<{text: string}>();
 
-	const scrollToBottom = () => {
-		if (commentBottomRef.current) {
-			commentBottomRef.current.scrollIntoView({
-				behavior: 'smooth',
-				block: 'end',
-			});
-		}
-	};
-
 	const onSubmit = async ({text}: {text: string}) => {
 		if (user) {
 			if (text.trim()) {
@@ -62,7 +49,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 				);
 				if (isSent) {
 					reset();
-					scrollToBottom();
 				}
 			}
 		} else {
@@ -75,12 +61,8 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 			return (
 				<div className='movie-comments__body'>
 					<div className='movie-comments__list'>
-						{comments.list.map((c, index) => (
-							<div
-								className='movie-comments__item'
-								key={c.id}
-								ref={index === 0 ? lastCommentRef : null}
-							>
+						{comments.list.map((c) => (
+							<div className='movie-comments__item' key={c.id}>
 								<div className='movie-comments__name'>
 									<div className='movie-comments__name-ava'>{c.user.name.charAt(0)}</div>
 									{c.user.name}
@@ -91,7 +73,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 								<div className='movie-comments__comment'>{c.text}</div>
 							</div>
 						))}
-						<div ref={commentBottomRef} />
 					</div>
 				</div>
 			);
@@ -100,9 +81,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 
 	const changeModalVisibility = (flag: boolean) => () => {
 		setShow(flag);
-		setTimeout(() => {
-			scrollToBottom();
-		}, 100);
 	};
 
 	return (
