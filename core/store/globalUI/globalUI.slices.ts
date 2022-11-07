@@ -11,6 +11,9 @@ const initialState = {
 		search: {
 			isShown: false,
 		},
+		comment: {
+			isShown: false,
+		},
 	},
 };
 
@@ -23,7 +26,7 @@ export const {
 	reducers: {
 		setIsShownModalAction: (
 			state,
-			action: PayloadAction<{modalName: 'login' | 'signup' | 'search'; flag: boolean}>
+			action: PayloadAction<{modalName: keyof typeof initialState['modals']; flag: boolean}>
 		) => ({
 			...state,
 			modals: {
