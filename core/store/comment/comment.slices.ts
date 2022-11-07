@@ -19,11 +19,18 @@ export const {
 	initialState,
 	reducers: {
 		setCommentsAction: (state, action: PayloadAction<IState | null>) => {
-			if (action.payload) {
-				return {
-					...state,
-					...action.payload,
-				};
+			if (action.payload && state) {
+				const isExist = action.payload.list.some((newItem) =>
+					state.list.some((existsItem) => newItem.id === existsItem.id)
+				);
+
+				if (!isExist) {
+					return {
+						...state,
+						list: [...state.list, ...action.payload.list],
+						count: action.payload.count,
+					};
+				}
 			} else {
 				return {count: 0, list: []};
 			}
@@ -31,7 +38,7 @@ export const {
 		setCommentAction: (state, action: PayloadAction<CommentModel>) => ({
 			...state,
 			count: state.count + 1,
-			list: [...state.list, action.payload],
+			list: [action.payload, ...state.list],
 		}),
 	},
 });

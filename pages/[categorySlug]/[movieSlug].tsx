@@ -18,11 +18,20 @@ import {setCommentsAction} from '../../core/store/comment/comment.slices';
 import {setMovieAction} from '../../core/store/movie/movie.slices';
 import {setIsShownModalAction} from '../../core/store/globalUI/globalUI.slices';
 import Image from 'next/image';
+import {Button} from 'react-bootstrap';
+import {getCommentsThunk} from '../../core/store/comment/comment.thunks';
 
 const Movie = () => {
 	// redux hooks
 	const dispatch = useAppDispatch();
-	const [currentMovie, user] = useAppSelector(({movies, auth}) => [movies.current, auth.user]);
+	const [currentMovie, user, commentsCount, isCommentModalShown] = useAppSelector(
+		({globalUI, movies, auth, comments}) => [
+			movies.current,
+			auth.user,
+			comments.count,
+			globalUI.modals.comment.isShown,
+		]
+	);
 
 	// next hooks
 	const {
@@ -43,10 +52,16 @@ const Movie = () => {
 			return () => {
 				promise.abort();
 				dispatch(setMovieAction(null));
-				dispatch(setCommentsAction({count: 0, list: []}));
+				dispatch(setCommentsAction(null));
 			};
 		}
 	}, [movieSlug]);
+
+	useEffect(() => {
+		if (currentMovie?.id) {
+			dispatch(getCommentsThunk({movieId: currentMovie.id}));
+		}
+	}, [currentMovie?.id]);
 
 	const changeQuality = (quality: typeof currentQuality) => () => {
 		if (user) {
@@ -73,6 +88,10 @@ const Movie = () => {
 		} else {
 			dispatch(setIsShownModalAction({modalName: 'login', flag: true}));
 		}
+	};
+
+	const changeModalVisibility = (flag: boolean) => () => {
+		dispatch(setIsShownModalAction({modalName: 'comment', flag}));
 	};
 
 	const onAddToHistory = (id: number) => () => {
@@ -127,6 +146,7 @@ const Movie = () => {
 			<Header />
 			{currentMovie ? (
 				<main className='content'>
+					{isCommentModalShown && <CommentModal movieId={currentMovie.id} />}
 					<section className='page-movie-card margin-under-header'>
 						<Image
 							src={currentMovie.poster?.url ?? ''}
@@ -175,7 +195,16 @@ const Movie = () => {
 												смотреть<span className='icon icon-play_circle'></span>
 											</button>
 										)}
-										<CommentModal movieId={currentMovie.id} />
+										<Button
+											onClick={changeModalVisibility(true)}
+											variant='outline-light'
+											className='btn-icon rounded-pill position-relative'
+										>
+											отзывы<span className='icon icon-sms'></span>
+											<span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary'>
+												{commentsCount}
+											</span>
+										</Button>
 										<AddToFavoritesBtn
 											movieId={currentMovie.id}
 											className='btn-secondary rounded-pill'
