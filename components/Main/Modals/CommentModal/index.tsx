@@ -4,7 +4,6 @@ import {useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../../../core/hooks';
 import {getCommentsThunk, postCommentThunk} from '../../../../core/store/comment/comment.thunks';
 import Moment from 'react-moment';
-import {setCommentsAction} from '../../../../core/store/comment/comment.slices';
 import {setIsShownModalAction} from '../../../../core/store/globalUI/globalUI.slices';
 
 export const CommentModal = ({movieId}: {movieId: number}) => {
@@ -24,7 +23,6 @@ export const CommentModal = ({movieId}: {movieId: number}) => {
 
 		return () => {
 			promise.abort();
-			dispatch(setCommentsAction(null));
 		};
 	}, []);
 

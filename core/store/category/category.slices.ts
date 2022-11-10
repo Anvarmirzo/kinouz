@@ -44,13 +44,25 @@ export const {
 		setMainCategoriesWithVideoAction: (
 			state,
 			action: PayloadAction<{list: CategoryModel[]; count: number}>
-		) => ({
-			...state,
-			mainVideo: {
-				list: [...state.mainVideo.list, ...action.payload.list],
-				count: state.mainVideo.count + action.payload.count,
-			},
-		}),
+		) => {
+			if (action.payload && state) {
+				const isExist = action.payload.list.some((newItem) =>
+					state.mainVideo.list.some((existsItem) => newItem.id === existsItem.id)
+				);
+
+				if (!isExist) {
+					return {
+						...state,
+						mainVideo: {
+							list: [...state.mainVideo.list, ...action.payload.list],
+							count: action.payload.count,
+						},
+					};
+				}
+			} else {
+				return {...state, mainVideo: {count: 0, list: []}};
+			}
+		},
 		setCategoryAction: (state, action: PayloadAction<CategoryModel | null>) => ({
 			...state,
 			current: action.payload,

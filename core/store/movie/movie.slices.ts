@@ -32,11 +32,23 @@ export const {
 	name: 'movies',
 	initialState,
 	reducers: {
-		setMoviesAction: (state, action: PayloadAction<{list: MovieModel[]; count: number}>) => ({
-			...state,
-			list: [...state.list, ...action.payload.list],
-			count: state.count + action.payload.count,
-		}),
+		setMoviesAction: (state, action: PayloadAction<{list: MovieModel[]; count: number}>) => {
+			if (action.payload && state) {
+				const isExist = action.payload.list.some((newItem) =>
+					state.list.some((existsItem) => newItem.id === existsItem.id)
+				);
+
+				if (!isExist) {
+					return {
+						...state,
+						list: [...state.list, ...action.payload.list],
+						count: action.payload.count,
+					};
+				}
+			} else {
+				return {...state, count: 0, list: []};
+			}
+		},
 		setMovieAction: (state, action: PayloadAction<MovieModel | null>) => ({
 			...state,
 			current: action.payload,
@@ -46,19 +58,43 @@ export const {
 			...state,
 			newMoviesList: action.payload,
 		}),
-		setFavoriteMoviesAction: (state, action: PayloadAction<IState['favoritesList']>) => ({
-			...state,
-			favoritesList: {
-				list: [...state.favoritesList.list, ...action.payload.list],
-				count: state.favoritesList.count + action.payload.count,
-			},
-		}),
-		setHistoryMoviesAction: (state, action: PayloadAction<IState['historyMovies']>) => ({
-			...state,
-			historyMovies: {
-				list: [...state.historyMovies.list, ...action.payload.list],
-				count: state.historyMovies.count + action.payload.count,
-			},
-		}),
+		setFavoriteMoviesAction: (state, action: PayloadAction<IState['favoritesList']>) => {
+			if (action.payload && state) {
+				const isExist = action.payload.list.some((newItem) =>
+					state.favoritesList.list.some((existsItem) => newItem.id === existsItem.id)
+				);
+
+				if (!isExist) {
+					return {
+						...state,
+						favoritesList: {
+							list: [...state.list, ...action.payload.list],
+							count: action.payload.count,
+						},
+					};
+				}
+			} else {
+				return {...state, favoritesList: {count: 0, list: []}};
+			}
+		},
+		setHistoryMoviesAction: (state, action: PayloadAction<IState['historyMovies']>) => {
+			if (action.payload && state) {
+				const isExist = action.payload.list.some((newItem) =>
+					state.historyMovies.list.some((existsItem) => newItem.id === existsItem.id)
+				);
+
+				if (!isExist) {
+					return {
+						...state,
+						historyMovies: {
+							list: [...state.list, ...action.payload.list],
+							count: action.payload.count,
+						},
+					};
+				}
+			} else {
+				return {...state, historyMovies: {count: 0, list: []}};
+			}
+		},
 	},
 });
