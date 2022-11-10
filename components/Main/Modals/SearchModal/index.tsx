@@ -179,7 +179,7 @@ export const SearchModal = () => {
 		return (
 			<div className='modal-search-result__list row gx-4 gx-lg-5 gy-3'>
 				{searchResults.hits.map((movie) => (
-					<div key={movie.id} className='col-12 col-sm-6 col-md-4'>
+					<div key={movie.id} className='col-12 col-sm-6 col-md-4' onClick={onShowModal(false)}>
 						<div className='movie-card'>
 							<div className='movie-card__body'>
 								<div className='movie-card__img'>
@@ -205,7 +205,7 @@ export const SearchModal = () => {
 								</div>
 							</div>
 							<div className='movie-card__name'>{movie.title}</div>
-							<Link href={`movies/${movie.slug}`}>
+							<Link href={`/movies/${movie.slug}`}>
 								<a className='movie-card__link'></a>
 							</Link>
 						</div>

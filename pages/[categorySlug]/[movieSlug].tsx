@@ -149,7 +149,7 @@ const Movie = () => {
 					{isCommentModalShown && <CommentModal movieId={currentMovie.id} />}
 					<section className='page-movie-card margin-under-header'>
 						<Image
-							src={currentMovie.poster?.url ?? ''}
+							src={currentMovie.posterForPremier?.url ?? currentMovie.poster?.url ?? ''}
 							alt=''
 							layout='fill'
 							className='page-movie-card__img'

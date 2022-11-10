@@ -275,11 +275,11 @@ export class MovieModel {
 	}
 
 	get countriesTitle() {
-		return this.countries?.length ? this.countries.map((c) => c.title) : '';
+		return this.countries?.length ? this.countries.map((c) => c.title).join(', ') : '';
 	}
 
 	get categoriesTitle() {
-		return this.categories?.length ? this.categories.map((c) => c.title) : '';
+		return this.categories?.length ? this.categories.map((c) => c.title).join(', ') : '';
 	}
 }
 
