@@ -24,7 +24,7 @@ export const {
 	name: 'payment',
 	initialState,
 	reducers: {
-		addPaymentAction: (state, action: PayloadAction<IState['payment']['current']>) => ({
+		addPaymentAction: (state: IState, action: PayloadAction<IState['payment']['current']>) => ({
 			...state,
 			payment: {
 				...state.payment,
@@ -33,13 +33,23 @@ export const {
 					: action.payload,
 			},
 		}),
-		setPaymentsAction: (state, action: PayloadAction<Omit<IState['payment'], 'current'>>) => ({
-			...state,
-			payment: {
-				...state.payment,
-				list: action.payload.list,
-				count: action.payload.count,
-			},
-		}),
+
+		setPaymentsAction: (
+			state: IState,
+			action: PayloadAction<Omit<IState['payment'], 'current'> | null>
+		) => {
+			if (action.payload) {
+				return {
+					...state,
+					payment: {
+						...state.payment,
+						list: action.payload.list,
+						count: action.payload.count,
+					},
+				};
+			} else {
+				return {...state, payment: {...state.payment, list: [], count: 0}};
+			}
+		},
 	},
 });

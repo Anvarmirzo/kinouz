@@ -32,8 +32,11 @@ export const {
 	name: 'movies',
 	initialState,
 	reducers: {
-		setMoviesAction: (state, action: PayloadAction<{list: MovieModel[]; count: number}>) => {
-			if (action.payload && state) {
+		setMoviesAction: (
+			state: IState,
+			action: PayloadAction<{list: MovieModel[]; count: number} | null>
+		) => {
+			if (action.payload) {
 				const isExist = action.payload.list.some((newItem) =>
 					state.list.some((existsItem) => newItem.id === existsItem.id)
 				);
@@ -49,17 +52,23 @@ export const {
 				return {...state, count: 0, list: []};
 			}
 		},
-		setMovieAction: (state, action: PayloadAction<MovieModel | null>) => ({
+
+		setMovieAction: (state: IState, action: PayloadAction<MovieModel | null>) => ({
 			...state,
 			current: action.payload,
 		}),
+
 		// TODO: need to make it as object and add field count?
-		setNewMoviesAction: (state, action: PayloadAction<IState['list']>) => ({
+		setNewMoviesAction: (state: IState, action: PayloadAction<IState['list']>) => ({
 			...state,
 			newMoviesList: action.payload,
 		}),
-		setFavoriteMoviesAction: (state, action: PayloadAction<IState['favoritesList']>) => {
-			if (action.payload && state) {
+
+		setFavoriteMoviesAction: (
+			state: IState,
+			action: PayloadAction<IState['favoritesList'] | null>
+		) => {
+			if (action.payload) {
 				const isExist = action.payload.list.some((newItem) =>
 					state.favoritesList.list.some((existsItem) => newItem.id === existsItem.id)
 				);
@@ -77,8 +86,12 @@ export const {
 				return {...state, favoritesList: {count: 0, list: []}};
 			}
 		},
-		setHistoryMoviesAction: (state, action: PayloadAction<IState['historyMovies']>) => {
-			if (action.payload && state) {
+
+		setHistoryMoviesAction: (
+			state: IState,
+			action: PayloadAction<IState['historyMovies'] | null>
+		) => {
+			if (action.payload) {
 				const isExist = action.payload.list.some((newItem) =>
 					state.historyMovies.list.some((existsItem) => newItem.id === existsItem.id)
 				);

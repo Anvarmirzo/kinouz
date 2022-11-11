@@ -30,7 +30,7 @@ const DynamicPage: NextPage = () => {
 
 			return () => {
 				promises.forEach((p) => p.abort());
-				dispatch(setMoviesAction({list: [], count: 0}));
+				dispatch(setMoviesAction(null));
 				dispatch(setNewMoviesAction([]));
 			};
 		}

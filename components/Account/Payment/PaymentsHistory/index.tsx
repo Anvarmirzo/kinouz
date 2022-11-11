@@ -18,7 +18,7 @@ export const PaymentsHistory = () => {
 			// TODO: use this strategy to all subscriptions to avoid memory leak
 			return () => {
 				promise.abort();
-				dispatch(setPaymentsAction({list: [], count: 0}));
+				dispatch(setPaymentsAction(null));
 			};
 		}
 	}, [userId]);

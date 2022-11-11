@@ -100,11 +100,11 @@ export const SearchModal = () => {
 
 		return () => {
 			promises.forEach((p) => p.abort());
-			dispatch(setGenresAction({count: 0, list: []}));
-			dispatch(setAllCategoriesAction({count: 0, list: []}));
-			dispatch(setActorsAction({count: 0, list: []}));
-			dispatch(setDirectorsAction({count: 0, list: []}));
-			dispatch(setCountriesAction({count: 0, list: []}));
+			dispatch(setGenresAction(null));
+			dispatch(setAllCategoriesAction(null));
+			dispatch(setActorsAction(null));
+			dispatch(setDirectorsAction(null));
+			dispatch(setCountriesAction(null));
 
 			subscribe.unsubscribe();
 

@@ -28,24 +28,26 @@ export const {
 	initialState,
 	reducers: {
 		setAllCategoriesAction: (
-			state,
-			action: PayloadAction<{list: CategoryModel[]; count: number}>
+			state: IState,
+			action: PayloadAction<{list: CategoryModel[]; count: number} | null>
 		) => ({
 			...state,
-			all: action.payload,
+			all: action.payload ?? {list: [], count: 0},
 		}),
+
 		setMainCategoriesAction: (
-			state,
-			action: PayloadAction<{list: CategoryModel[]; count: number}>
+			state: IState,
+			action: PayloadAction<{list: CategoryModel[]; count: number} | null>
 		) => ({
 			...state,
-			main: action.payload,
+			main: action.payload ?? {list: [], count: 0},
 		}),
+
 		setMainCategoriesWithVideoAction: (
-			state,
-			action: PayloadAction<{list: CategoryModel[]; count: number}>
+			state: IState,
+			action: PayloadAction<{list: CategoryModel[]; count: number} | null>
 		) => {
-			if (action.payload && state) {
+			if (action.payload) {
 				const isExist = action.payload.list.some((newItem) =>
 					state.mainVideo.list.some((existsItem) => newItem.id === existsItem.id)
 				);
@@ -63,7 +65,8 @@ export const {
 				return {...state, mainVideo: {count: 0, list: []}};
 			}
 		},
-		setCategoryAction: (state, action: PayloadAction<CategoryModel | null>) => ({
+
+		setCategoryAction: (state: IState, action: PayloadAction<CategoryModel | null>) => ({
 			...state,
 			current: action.payload,
 		}),

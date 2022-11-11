@@ -16,7 +16,7 @@ const MyFavorites = () => {
 
 		return () => {
 			promise.abort();
-			dispatch(setFavoriteMoviesAction({count: 0, list: []}));
+			dispatch(setFavoriteMoviesAction(null));
 		};
 	}, []);
 

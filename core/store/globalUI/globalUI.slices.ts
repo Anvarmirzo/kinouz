@@ -25,7 +25,7 @@ export const {
 	initialState,
 	reducers: {
 		setIsShownModalAction: (
-			state,
+			state: typeof initialState,
 			action: PayloadAction<{modalName: keyof typeof initialState['modals']; flag: boolean}>
 		) => ({
 			...state,
