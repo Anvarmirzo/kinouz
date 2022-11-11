@@ -22,7 +22,6 @@ export const getMoviesThunk = createAsyncThunk(
 			},
 			thunkAPI.signal
 		);
-
 		if (movies) {
 			thunkAPI.dispatch(setMoviesAction({list: movies.data, count: movies.count}));
 		}

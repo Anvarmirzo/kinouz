@@ -24,12 +24,12 @@ export const {
 	name: 'user',
 	initialState,
 	reducers: {
-		setUserAction: (state, action: PayloadAction<UserModel | null>) => ({
+		setUserAction: (state: IState, action: PayloadAction<UserModel | null>) => ({
 			...state,
 			user: action.payload,
 		}),
 
-		addSubUserAction: (state, action: PayloadAction<UserModel>) => {
+		addSubUserAction: (state: IState, action: PayloadAction<UserModel>) => {
 			if (state.user) {
 				return {
 					...state,
@@ -45,7 +45,7 @@ export const {
 			return state;
 		},
 
-		patchSubUserAction: (state, action: PayloadAction<UserModel>) => {
+		patchSubUserAction: (state: IState, action: PayloadAction<UserModel>) => {
 			if (state.user?.subUsers) {
 				return {
 					...state,
@@ -57,7 +57,7 @@ export const {
 			}
 		},
 
-		patchUserAction: (state, action: PayloadAction<UserModel>) => {
+		patchUserAction: (state: IState, action: PayloadAction<UserModel>) => {
 			if (state.user) {
 				return {
 					...state,
@@ -66,7 +66,7 @@ export const {
 			}
 		},
 
-		deleteSubUserAction: (state, action: PayloadAction<{id: number}>) => {
+		deleteSubUserAction: (state: IState, action: PayloadAction<{id: number}>) => {
 			if (state.user?.subUsers) {
 				return {
 					...state,
@@ -79,7 +79,7 @@ export const {
 			return state;
 		},
 
-		subscribeAction: (state, action: PayloadAction<SubscriptionModel>) => {
+		subscribeAction: (state: IState, action: PayloadAction<SubscriptionModel>) => {
 			if (state.user) {
 				return {
 					...state,
@@ -92,7 +92,7 @@ export const {
 
 			return state;
 		},
-		unsubscribeAction: (state, action: PayloadAction<SubscriptionModel>) => {
+		unsubscribeAction: (state: IState, action: PayloadAction<SubscriptionModel>) => {
 			if (state.user) {
 				return {
 					...state,

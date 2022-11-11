@@ -16,7 +16,7 @@ const MyHistory = () => {
 
 		return () => {
 			promise.abort();
-			dispatch(setHistoryMoviesAction({count: 0, list: []}));
+			dispatch(setHistoryMoviesAction(null));
 		};
 	}, []);
 

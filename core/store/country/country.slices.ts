@@ -14,10 +14,13 @@ export const {
 	name: 'country',
 	initialState,
 	reducers: {
-		setCountriesAction: (state, action: PayloadAction<{list: CountryModel[]; count: number}>) => ({
+		setCountriesAction: (
+			state: IState,
+			action: PayloadAction<{list: CountryModel[]; count: number} | null>
+		) => ({
 			...state,
-			list: action.payload.list,
-			count: action.payload.count,
+			list: action.payload?.list ?? [],
+			count: action.payload?.count ?? 0,
 		}),
 	},
 });

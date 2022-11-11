@@ -35,7 +35,7 @@ export const Subscriptions = () => {
 
 		return () => {
 			promise.abort();
-			dispatch(setSubscriptionTypesAction({list: [], count: 0}));
+			dispatch(setSubscriptionTypesAction(null));
 		};
 	}, []);
 

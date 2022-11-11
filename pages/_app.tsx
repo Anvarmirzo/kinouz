@@ -30,7 +30,7 @@ function MyApp({Component, pageProps}: AppProps) {
 
 		return () => {
 			promises.forEach((p) => p.abort());
-			dispatch(setMainCategoriesAction({count: 0, list: []}));
+			dispatch(setMainCategoriesAction(null));
 		};
 	}, []);
 

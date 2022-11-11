@@ -20,12 +20,16 @@ export const {
 	name: 'genres',
 	initialState,
 	reducers: {
-		setGenresAction: (state, action: PayloadAction<{list: GenreModel[]; count: number}>) => ({
+		setGenresAction: (
+			state: IState,
+			action: PayloadAction<{list: GenreModel[]; count: number} | null>
+		) => ({
 			...state,
-			list: action.payload.list,
-			count: action.payload.count,
+			list: action.payload?.list ?? [],
+			count: action.payload?.count ?? 0,
 		}),
-		setGenreAction: (state, action: PayloadAction<GenreModel | null>) => ({
+
+		setGenreAction: (state: IState, action: PayloadAction<GenreModel | null>) => ({
 			...state,
 			current: action.payload,
 		}),

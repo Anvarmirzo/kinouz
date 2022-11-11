@@ -18,9 +18,9 @@ export const {
 	name: 'subscription',
 	initialState,
 	reducers: {
-		setSubscriptionTypesAction: (state, action: PayloadAction<IState>) => ({
-			list: action.payload.list,
-			count: action.payload.count,
+		setSubscriptionTypesAction: (state: IState, action: PayloadAction<IState | null>) => ({
+			list: action.payload?.list ?? [],
+			count: action.payload?.count ?? 0,
 		}),
 	},
 });

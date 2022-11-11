@@ -32,22 +32,30 @@ export const {
 	name: 'participant',
 	initialState,
 	reducers: {
-		setActorsAction: (state, action: PayloadAction<{list: ActorModel[]; count: number}>) => ({
+		setActorsAction: (
+			state: IState,
+			action: PayloadAction<{list: ActorModel[]; count: number} | null>
+		) => ({
 			...state,
 			actors: {
 				...state.actors,
-				count: action.payload.count,
-				list: action.payload.list,
+				count: action.payload?.count ?? 0,
+				list: action.payload?.list ?? [],
 			},
 		}),
-		setDirectorsAction: (state, action: PayloadAction<{list: DirectorModel[]; count: number}>) => ({
+
+		setDirectorsAction: (
+			state: IState,
+			action: PayloadAction<{list: DirectorModel[]; count: number} | null>
+		) => ({
 			...state,
 			directors: {
 				...state.directors,
-				count: action.payload.count,
-				list: action.payload.list,
+				count: action.payload?.count ?? 0,
+				list: action.payload?.list ?? [],
 			},
 		}),
+
 		setActorAction: (state, action: PayloadAction<ActorModel | null>) => ({
 			...state,
 			current: action.payload,

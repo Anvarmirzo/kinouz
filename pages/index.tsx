@@ -25,7 +25,7 @@ const Home: NextPage = () => {
 
 		return () => {
 			promises.forEach((p) => p.abort());
-			dispatch(setMainCategoriesWithVideoAction({list: [], count: 0}));
+			dispatch(setMainCategoriesWithVideoAction(null));
 		};
 	}, []);
 
