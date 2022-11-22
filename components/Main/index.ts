@@ -12,6 +12,7 @@ export * from './Modals/AuthModals/SignUpModal';
 export * from './Modals/SearchModal';
 export * from './Modals/CommentModal';
 export * from './Modals/FilterModal';
+export * from './Modals/SubscribeModal';
 
 export * from './Sliders/PremierSlider';
 export * from './Sliders/EpisodeSlider';

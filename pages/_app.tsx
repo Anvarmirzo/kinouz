@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/sass/main.sass';
 import {useAppDispatch, useAppSelector} from '../core/hooks';
 import {autoLoginThunk} from '../core/store/auth/auth.thunks';
-import {LoginModal, SearchModal, SignUpModal} from '../components/Main';
+import {LoginModal, SearchModal, SignUpModal, SubscribeModal} from '../components/Main';
 import {getMainCategoriesThunk} from '../core/store/category/category.thunks';
 import {setMainCategoriesAction} from '../core/store/category/category.slices';
 
@@ -45,6 +45,7 @@ function MyApp({Component, pageProps}: AppProps) {
 			<ToastContainer />
 			<LoginModal />
 			<SignUpModal />
+			<SubscribeModal />
 			{isSearchModalShown && <SearchModal />}
 			<NextNProgress />
 			<Component {...pageProps} />

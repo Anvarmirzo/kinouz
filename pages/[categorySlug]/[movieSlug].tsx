@@ -65,16 +65,20 @@ const Movie = () => {
 
 	const changeQuality = (quality: typeof currentQuality) => () => {
 		if (user) {
-			if (!currentQuality && currentMovie && currentMovie.file?.qualitiesList[0].quality) {
-				setCurrentQuality(currentMovie.file?.qualitiesList[0].quality);
-			} else {
-				setIsPlayerVisible(false);
+			if (currentMovie?.bySubscription) {
+				if (!currentQuality && currentMovie.file?.qualitiesList[0].quality) {
+					setCurrentQuality(currentMovie.file?.qualitiesList[0].quality);
+				} else {
+					setIsPlayerVisible(false);
 
-				setTimeout(() => {
-					setCurrentQuality(quality);
-					setIsPlayerVisible(true);
-					scrollToPlayer();
-				}, 10);
+					setTimeout(() => {
+						setCurrentQuality(quality);
+						setIsPlayerVisible(true);
+						scrollToPlayer();
+					}, 10);
+				}
+			} else {
+				dispatch(setIsShownModalAction({modalName: 'subscribe', flag: true}));
 			}
 		} else {
 			dispatch(setIsShownModalAction({modalName: 'login', flag: true}));
@@ -83,8 +87,12 @@ const Movie = () => {
 
 	const togglePlayerVisibility = () => {
 		if (user) {
-			scrollToPlayer();
-			setIsPlayerVisible((prev) => !prev);
+			if (currentMovie?.bySubscription) {
+				dispatch(setIsShownModalAction({modalName: 'subscribe', flag: true}));
+			} else {
+				scrollToPlayer();
+				setIsPlayerVisible((prev) => !prev);
+			}
 		} else {
 			dispatch(setIsShownModalAction({modalName: 'login', flag: true}));
 		}

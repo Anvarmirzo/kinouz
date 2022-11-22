@@ -49,7 +49,8 @@ export const {
 					};
 				}
 			} else {
-				return {...state, count: 0, list: []};
+				state.count = 0;
+				state.list = [];
 			}
 		},
 

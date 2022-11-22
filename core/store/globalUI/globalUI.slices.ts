@@ -14,6 +14,9 @@ const initialState = {
 		comment: {
 			isShown: false,
 		},
+		subscribe: {
+			isShown: false,
+		},
 	},
 };
 

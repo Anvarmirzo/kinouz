@@ -83,6 +83,12 @@ const Account = () => {
 						<nav>
 							{user.parent ? (
 								<Tabs
+									activeKey={router.query.tab as string}
+									onSelect={(k) => {
+										if (k !== router.query.tab) {
+											router.push({pathname: '/account', query: {tab: k}});
+										}
+									}}
 									variant='pills'
 									defaultActiveKey='profile'
 									id='uncontrolled-tab-example'
@@ -154,6 +160,12 @@ const Account = () => {
 								</Tabs>
 							) : (
 								<Tabs
+									activeKey={router.query.tab as string}
+									onSelect={(k) => {
+										if (k !== router.query.tab) {
+											router.push({pathname: '/account', query: {tab: k}});
+										}
+									}}
 									variant='pills'
 									defaultActiveKey='profile'
 									id='uncontrolled-tab-example'
