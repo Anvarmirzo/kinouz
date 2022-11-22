@@ -70,7 +70,7 @@ const Account = () => {
 			dispatch(patchUserThunk({...data, userId: user.id}));
 		}
 	};
-	console.log(router.query);
+
 	return (
 		<>
 			<Head>
