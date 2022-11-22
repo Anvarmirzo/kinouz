@@ -62,7 +62,7 @@ export const {
 					};
 				}
 			} else {
-				return {...state, mainVideo: {count: 0, list: []}};
+				state.mainVideo = {list: [], count: 0};
 			}
 		},
 
