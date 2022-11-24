@@ -135,10 +135,11 @@ export const SearchModal = () => {
 			for (const stateKey in state) {
 				if (stateKey) {
 					const stateValue = state[stateKey as keyof IFormFields];
+					console.log(stateValue);
 					if (typeof stateValue === 'string') {
 						searchParams.search = stateValue;
 					} else if (stateValue?.value) {
-						searchParams.filter.push(`${stateKey}=${stateValue.value}`);
+						searchParams.filter.push(`${stateKey}=${stateValue.label}`);
 					}
 				}
 			}
