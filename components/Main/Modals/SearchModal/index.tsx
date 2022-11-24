@@ -139,7 +139,7 @@ export const SearchModal = () => {
 					if (typeof stateValue === 'string') {
 						searchParams.search = stateValue;
 					} else if (stateValue?.value) {
-						searchParams.filter.push(`${stateKey}=${stateValue.label}`);
+						searchParams.filter.push(`${stateKey}="${stateValue.label}"`);
 					}
 				}
 			}
