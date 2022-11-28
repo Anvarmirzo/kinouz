@@ -86,6 +86,20 @@ export const LoginButtonWithMenu = () => {
 							</AnimateHeight>
 						</li>
 						<li className='user-sidebar-menu__item'>
+							<Link href='/my-history' className='user-sidebar-menu__link'>
+								<a>
+									<span className='icon icon-play_circle'></span>История просмотров
+								</a>
+							</Link>
+						</li>
+						<li className='user-sidebar-menu__item'>
+							<Link href='/my-favorites' className='user-sidebar-menu__link'>
+								<a>
+									<span className='icon icon-bookmark_border'></span>Моя подборка
+								</a>
+							</Link>
+						</li>
+						<li className='user-sidebar-menu__item'>
 							<a onClick={onLogout} href='#' className='user-sidebar-menu__link'>
 								<span className='icon icon-logout'></span>Выйти из аккаунта
 							</a>

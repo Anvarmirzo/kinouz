@@ -97,31 +97,19 @@ export const Header = () => {
 					</Link>
 					<aside className='header__menus' ref={sidebarRef}>
 						<nav className='header__main-menu main-menu'>
-							<ul className='main-menu__list'>{renderMenu()}</ul>
-						</nav>
-						<nav className='header__user-menu user-menu'>
-							{user && (
-								<ul className='user-menu__list'>
-									<li
-										className={cn('main-menu__item', {
-											'main-menu__item_active': currentPath === '/my-favorites',
-										})}
-									>
-										<Link href='/my-favorites'>
-											<a className='user-menu__link'>Моя подборка</a>
-										</Link>
-									</li>
-									<li
-										className={cn('main-menu__item', {
-											'main-menu__item_active': currentPath === '/my-history',
-										})}
-									>
-										<Link href='/my-history'>
-											<a className='user-menu__link'>История просмотров</a>
-										</Link>
-									</li>
-								</ul>
-							)}
+							<ul className='main-menu__list'>
+								<li
+									className={cn('main-menu__item', {
+										'main-menu__item_active': currentPath === '',
+									})}
+								>
+									<Link href='/'>
+										<a className='main-menu__link'>Домой</a>
+									</Link>
+								</li>
+
+								{renderMenu()}
+							</ul>
 						</nav>
 					</aside>
 					<div className='header__search'>

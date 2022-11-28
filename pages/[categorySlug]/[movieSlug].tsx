@@ -65,7 +65,7 @@ const Movie = () => {
 
 	const changeQuality = (quality: typeof currentQuality) => () => {
 		if (user) {
-			if (currentMovie?.bySubscription) {
+			if (currentMovie?.access) {
 				if (!currentQuality && currentMovie.file?.qualitiesList[0].quality) {
 					setCurrentQuality(currentMovie.file?.qualitiesList[0].quality);
 				} else {
@@ -87,7 +87,7 @@ const Movie = () => {
 
 	const togglePlayerVisibility = () => {
 		if (user) {
-			if (currentMovie?.bySubscription) {
+			if (!currentMovie?.access) {
 				dispatch(setIsShownModalAction({modalName: 'subscribe', flag: true}));
 			} else {
 				scrollToPlayer();

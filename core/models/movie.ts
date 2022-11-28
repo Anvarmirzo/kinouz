@@ -195,6 +195,7 @@ export class MovieModel {
 	isNew: boolean;
 	isSerial: boolean;
 	bySubscription: boolean;
+	access: boolean;
 	poster?: FileModel;
 	posterForPremier?: FileModel;
 	description?: string;
@@ -223,6 +224,7 @@ export class MovieModel {
 		this.isSerial = movie.isSerial;
 		this.ageRemark = movie.ageRemark;
 		this.bySubscription = movie.bySubscription;
+		this.access = movie.access;
 		this.createdAt = new Date(movie.createdAt);
 
 		if (movie.countries) {
@@ -293,6 +295,7 @@ export class MeiliSearchMovieModel {
 	isNew: boolean;
 	isSerial: boolean;
 	bySubscription: boolean;
+	access: boolean;
 	poster?: string;
 	posterForPremier?: FileModel;
 	description?: string;
@@ -321,6 +324,7 @@ export class MeiliSearchMovieModel {
 		this.isSerial = movie.isSerial;
 		this.ageRemark = movie.ageRemark;
 		this.bySubscription = movie.bySubscription;
+		this.access = movie.access;
 		this.createdAt = new Date(movie.createdAt);
 
 		if (movie.countries) {
