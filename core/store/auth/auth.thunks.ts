@@ -69,6 +69,7 @@ export const logoutThunk = createAsyncThunk(
 			thunkAPI.dispatch(setUserAction(null));
 
 			localStorage.removeItem('jwt');
+			window.location.reload();
 		}
 	},
 	{
