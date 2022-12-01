@@ -7,6 +7,7 @@ import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {Button} from 'react-bootstrap';
 import {setIsShownModalAction} from '../../../core/store/globalUI/globalUI.slices';
+import styles from './styles.module.sass';
 
 export const Header = () => {
 	// next router
@@ -20,6 +21,7 @@ export const Header = () => {
 	// react hooks
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isSticky, setIsSticky] = useState(false);
+	const [isSearchInputVisible, setIsSearchInputVisible] = useState(false);
 
 	const headerRef = useRef<HTMLElement>(null);
 	const sidebarRef = useRef<HTMLElement>(null);
@@ -53,6 +55,7 @@ export const Header = () => {
 		() => {
 			dispatch(setIsShownModalAction({modalName, flag: show}));
 		};
+
 	const renderMenu = () => {
 		return categories.main.list.map((c) => (
 			<li
@@ -66,6 +69,10 @@ export const Header = () => {
 				</Link>
 			</li>
 		));
+	};
+
+	const showSearchInput = () => {
+		setIsSearchInputVisible(!isSearchInputVisible);
 	};
 
 	return (
@@ -113,13 +120,25 @@ export const Header = () => {
 						</nav>
 					</aside>
 					<div className='header__search'>
-						<Button
-							variant='secondary'
-							className='rounded-pill'
-							onClick={changeModalIsShown({modalName: 'search', show: true})}
-						>
-							<span className='icon icon-search'></span>
-						</Button>
+						<div className='d-flex'>
+							<input
+								type='text'
+								className={cn('form-control me-2', {
+									[styles['visible-input']]: isSearchInputVisible,
+									[styles['hidden-input']]: !isSearchInputVisible,
+								})}
+								placeholder='Поиск...'
+								autoComplete='off'
+							/>
+							<Button
+								variant='secondary'
+								className='rounded-pill'
+								// onClick={changeModalIsShown({modalName: 'search', show: true})}
+								onClick={showSearchInput}
+							>
+								<span className='icon icon-search'></span>
+							</Button>
+						</div>
 					</div>
 					<div className='header__loginza header-loginza'>
 						{user ? (
