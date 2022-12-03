@@ -1,9 +1,16 @@
 import React, {ReactNode, useState} from 'react';
-import Select, {FormatOptionLabelMeta, GroupBase, OptionsOrGroups} from 'react-select';
+import Select, {
+	ActionMeta,
+	FormatOptionLabelMeta,
+	GroupBase,
+	OptionsOrGroups,
+	SingleValue,
+} from 'react-select';
 import AsyncSelect from 'react-select/async';
 import {IAutoComplete} from '../../../core/models';
 
 interface Option {
+	slug?: boolean;
 	value: string | number;
 	label: string;
 	img?: string;
@@ -28,12 +35,13 @@ interface AppSelectProps extends Partial<State> {
 	formatOptionLabel?:
 		| ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => ReactNode)
 		| undefined;
+	onChange: (newValue: SingleValue<Option>, actionMeta: ActionMeta<Option>) => void;
 }
 
 export const AppSelect = ({
 	options,
 	searchOptions,
-	defaultValue = options[0],
+	defaultValue = options?.[0],
 	formatOptionLabel,
 	className = '',
 	isAsync = false,
@@ -61,7 +69,13 @@ export const AppSelect = ({
 		if (searchOptions) {
 			searchOptions(inputValue)?.then((result) => {
 				if (result) {
-					callback(result.hits.map((h) => ({label: h.title || h.name || '', value: `${h.id}`})));
+					callback(
+						result.hits.map((h) => ({
+							label: h.title || h.name || '',
+							value: `${h.id}`,
+							slug: h.slug,
+						}))
+					);
 				}
 			});
 		}
