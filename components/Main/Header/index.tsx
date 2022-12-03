@@ -1,12 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
-import Image from 'next/image';
-import {LoginButtonWithMenu} from '../index';
 import cn from 'classnames';
-import {useAppDispatch, useAppSelector, useOnClickOutside} from '../../../core/hooks';
+import Image from 'next/image';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
+import React, {useEffect, useRef, useState} from 'react';
 import {Button} from 'react-bootstrap';
+import {useAppDispatch, useAppSelector, useOnClickOutside} from '../../../core/hooks';
 import {setIsShownModalAction} from '../../../core/store/globalUI/globalUI.slices';
+import {AppSelect, LoginButtonWithMenu} from '../index';
+import styles from './styles.module.sass';
+import {IAutoComplete, IAutoCompleteParams} from '../../../core/models';
+import {autoCompleteThunk} from '../../../core/store/globalUI/globalUI.thunks';
+import {Controller, useForm} from 'react-hook-form';
+import {SingleValue} from 'react-select';
 
 export const Header = () => {
 	// next router
@@ -20,6 +25,7 @@ export const Header = () => {
 	// react hooks
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isSticky, setIsSticky] = useState(false);
+	const [isSearchInputVisible, setIsSearchInputVisible] = useState(false);
 
 	const headerRef = useRef<HTMLElement>(null);
 	const sidebarRef = useRef<HTMLElement>(null);
@@ -32,6 +38,9 @@ export const Header = () => {
 			window.removeEventListener('scroll', changeBackground);
 		};
 	}, []);
+
+	// react-hook-form
+	const {register, control, handleSubmit, watch} = useForm<{search: string}>();
 
 	// custom hooks
 	useOnClickOutside(sidebarRef, () => {
@@ -53,6 +62,7 @@ export const Header = () => {
 		() => {
 			dispatch(setIsShownModalAction({modalName, flag: show}));
 		};
+
 	const renderMenu = () => {
 		return categories.main.list.map((c) => (
 			<li
@@ -66,6 +76,18 @@ export const Header = () => {
 				</Link>
 			</li>
 		));
+	};
+
+	const showSearchInput = () => {
+		setIsSearchInputVisible(!isSearchInputVisible);
+	};
+
+	const searchOptions = (index: IAutoCompleteParams['index']) => async (search: string) => {
+		const result = await dispatch(autoCompleteThunk({search, index}));
+
+		if (result) {
+			return result.payload as IAutoComplete;
+		}
 	};
 
 	return (
@@ -113,13 +135,45 @@ export const Header = () => {
 						</nav>
 					</aside>
 					<div className='header__search'>
-						<Button
-							variant='secondary'
-							className='rounded-pill'
-							onClick={changeModalIsShown({modalName: 'search', show: true})}
-						>
-							<span className='icon icon-search'></span>
-						</Button>
+						<div className='d-flex align-items-center'>
+							<div
+								className={cn('form-control me-2 flex-fill', styles['animated-input'], {
+									[styles['visible-input']]: isSearchInputVisible,
+									[styles['hidden-input']]: !isSearchInputVisible,
+								})}
+							>
+								<Controller
+									name='search'
+									control={control}
+									render={({field}) => (
+										<div className={cn('d-flex', styles['select-wrapper'])}>
+											<AppSelect
+												{...field}
+												isAsync
+												isSearchable
+												options={[]}
+												searchOptions={searchOptions('movies')}
+												onChange={(newValue) => {
+													if (newValue?.slug) {
+														void router.replace({...router, pathname: `/movies/${newValue?.slug}`});
+													}
+												}}
+												className='form-select-react'
+											/>
+											<button
+												onClick={changeModalIsShown({modalName: 'search', show: true})}
+												className='rounded-pill btn btn-secondary d-flex align-items-center'
+											>
+												<span className='icon icon-filter_alt' />
+											</button>
+										</div>
+									)}
+								/>
+							</div>
+							<Button variant='secondary' className='rounded-pill' onClick={showSearchInput}>
+								<span className='icon icon-search'></span>
+							</Button>
+						</div>
 					</div>
 					<div className='header__loginza header-loginza'>
 						{user ? (
