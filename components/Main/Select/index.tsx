@@ -10,7 +10,7 @@ import AsyncSelect from 'react-select/async';
 import {IAutoComplete} from '../../../core/models';
 
 interface Option {
-	slug?: boolean;
+	slug?: string;
 	value: string | number;
 	label: string;
 	img?: string;
@@ -35,7 +35,7 @@ interface AppSelectProps extends Partial<State> {
 	formatOptionLabel?:
 		| ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => ReactNode)
 		| undefined;
-	onChange: (newValue: SingleValue<Option>, actionMeta: ActionMeta<Option>) => void;
+	onChange?: (newValue: SingleValue<Option>, actionMeta: ActionMeta<Option>) => void;
 }
 
 export const AppSelect = ({
