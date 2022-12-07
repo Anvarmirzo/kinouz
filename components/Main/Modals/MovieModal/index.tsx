@@ -70,7 +70,6 @@ export const MovieModal = ({movie, buttonIcon, buttonClassName}: MovieModalProps
 											смотреть<span className='icon icon-play_circle'></span>
 										</a>
 									</Link>
-									<AddToFavoritesBtn movieId={movie.id} className='rounded-pill' />
 								</div>
 							</div>
 						</div>

@@ -175,6 +175,7 @@ const DynamicPage: NextPage = () => {
 												<div className='movie-card-more-info__header'>
 													<div className='movie-card-more-info__title'>{movie.title}</div>
 													<AddToFavoritesBtn
+														isFavorite={!!movie.isFavorite}
 														movieId={movie.id}
 														className='movie-card-more-info__bookmark'
 													/>

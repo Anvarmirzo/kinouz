@@ -97,7 +97,6 @@ export const MovieSlider = ({title, list, loadMoreCb, ...props}: MovieSliderProp
 						<div className='movie-card-more-info__body'>
 							<div className='movie-card-more-info__header'>
 								<div className='movie-card-more-info__title'>{movie.title}</div>
-								<AddToFavoritesBtn movieId={movie.id} className='movie-card-more-info__bookmark' />
 							</div>
 							<div className='movie-card-more-info__desc'>
 								<div className='movie-card-more-info__ratings'>

@@ -103,6 +103,9 @@ export const AppSelect = ({
 			defaultOptions={options}
 			styles={styles}
 			formatOptionLabel={formatOptionLabel}
+			placeholder='Поиск'
+			noOptionsMessage={({inputValue}) => (!inputValue ? 'Введите название' : 'Не найдено')}
+			loadingMessage={() => 'Загрузка...'}
 			{...props}
 		/>
 	) : (
@@ -117,6 +120,9 @@ export const AppSelect = ({
 			options={options}
 			styles={styles}
 			formatOptionLabel={formatOptionLabel}
+			placeholder='Поиск'
+			noOptionsMessage={() => 'Не найдено'}
+			loadingMessage={() => 'Загрузка...'}
 			{...props}
 		/>
 	);
