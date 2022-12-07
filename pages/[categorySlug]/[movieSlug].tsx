@@ -7,7 +7,7 @@ import {
 	EpisodeSlider,
 	Footer,
 	Header,
-	Loader,
+	LargeLoader,
 	Player,
 } from '../../components/Main';
 import {ParticipantCarouselSlider} from '../../components/Movie';
@@ -261,7 +261,7 @@ const Movie = () => {
 					) : null}
 				</main>
 			) : (
-				<Loader />
+				<LargeLoader />
 			)}
 
 			<Footer />

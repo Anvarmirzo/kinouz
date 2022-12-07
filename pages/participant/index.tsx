@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import type {NextPage} from 'next';
 import Head from 'next/head';
-import {Footer, Header, Loader, PremierSlider} from '../../components/Main';
+import {Footer, Header, LargeLoader, PremierSlider} from '../../components/Main';
 import {MovieSlider} from '../../components/Main';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {getMoviesThunk, getPremiersThunk} from '../../core/store/movie/movie.thunks';
@@ -69,7 +69,7 @@ const DynamicPage: NextPage = () => {
 					<MovieSlider loadMoreCb={loadMoreCb} title='Все фильмы' list={movies.list} />
 				</main>
 			) : (
-				<Loader />
+				<LargeLoader />
 			)}
 			<Footer />
 		</>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Loader = () => {
+export const LargeLoader = () => {
 	return (
 		<div className='loader-wrapper'>
 			<svg
