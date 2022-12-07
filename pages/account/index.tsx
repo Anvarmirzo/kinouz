@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import Head from 'next/head';
-import {Footer, Header, Loader} from '../../components/Main';
+import {Footer, Header, LargeLoader} from '../../components/Main';
 import {Accordion, Tab, Tabs} from 'react-bootstrap';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {useForm} from 'react-hook-form';
@@ -241,7 +241,7 @@ const Account = () => {
 					</div>
 				</main>
 			) : (
-				<Loader />
+				<LargeLoader />
 			)}
 			<Footer />
 		</>
