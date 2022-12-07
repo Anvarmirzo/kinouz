@@ -9,14 +9,15 @@ import {setIsShownModalAction} from '../../../../core/store/globalUI/globalUI.sl
 interface AddToFavoritesBtnProps
 	extends DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
 	movieId: number;
+	isFavorite: boolean;
 }
-export const AddToFavoritesBtn = ({movieId, className}: AddToFavoritesBtnProps) => {
+export const AddToFavoritesBtn = ({movieId, isFavorite, className}: AddToFavoritesBtnProps) => {
 	// redux hooks
 	const user = useAppSelector(({auth}) => auth.user);
 	const dispatch = useAppDispatch();
 
 	// react hooks
-	const [isDisabled, setIsDisabled] = useState(false);
+	const [isDisabled, setIsDisabled] = useState(isFavorite);
 
 	const onClick = async () => {
 		if (user) {
@@ -48,7 +49,12 @@ export const AddToFavoritesBtn = ({movieId, className}: AddToFavoritesBtnProps) 
 				style={isDisabled ? {pointerEvents: 'none'} : {}}
 				type='button'
 			>
-				<span className='icon icon-bookmark_border'></span>
+				<span
+					className={cn('icon', {
+						'icon-bookmark_border': !isDisabled,
+						'icon-bookmark': isDisabled,
+					})}
+				></span>
 			</button>
 		</OverlayTrigger>
 	);

@@ -194,6 +194,7 @@ export class MovieModel {
 	year: number;
 	isNew: boolean;
 	isSerial: boolean;
+	isFavorite?: boolean;
 	bySubscription: boolean;
 	access: boolean;
 	poster?: FileModel;
@@ -226,6 +227,10 @@ export class MovieModel {
 		this.bySubscription = movie.bySubscription;
 		this.access = movie.access;
 		this.createdAt = new Date(movie.createdAt);
+
+		if (typeof movie.isFavorite === 'boolean') {
+			this.isFavorite = movie.isFavorite;
+		}
 
 		if (movie.countries) {
 			this.countries = movie.countries;
@@ -294,6 +299,7 @@ export class MeiliSearchMovieModel {
 	year: number;
 	isNew: boolean;
 	isSerial: boolean;
+	isFavorite?: boolean;
 	bySubscription: boolean;
 	access: boolean;
 	poster?: string;
@@ -326,6 +332,10 @@ export class MeiliSearchMovieModel {
 		this.bySubscription = movie.bySubscription;
 		this.access = movie.access;
 		this.createdAt = new Date(movie.createdAt);
+
+		if (typeof movie.isFavorite === 'boolean') {
+			this.isFavorite = movie.isFavorite;
+		}
 
 		if (movie.countries) {
 			this.countries = movie.countries;

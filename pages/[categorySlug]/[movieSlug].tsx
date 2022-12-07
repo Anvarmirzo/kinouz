@@ -215,6 +215,7 @@ const Movie = () => {
 										</Button>
 										<AddToFavoritesBtn
 											movieId={currentMovie.id}
+											isFavorite={!!currentMovie.isFavorite}
 											className='btn-secondary rounded-pill'
 										/>
 									</div>
