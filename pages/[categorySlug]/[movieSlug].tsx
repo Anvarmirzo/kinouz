@@ -13,13 +13,14 @@ import {
 import {ParticipantCarouselSlider} from '../../components/Movie';
 import {useAppDispatch, useAppSelector} from '../../core/hooks';
 import {addMovieToHistoryThunk, getMovieThunk} from '../../core/store/movie/movie.thunks';
-import {eMovieQuality} from '../../core/models';
+import {eMovieQuality, EpisodeModel} from '../../core/models';
 import {setCommentsAction} from '../../core/store/comment/comment.slices';
 import {setMovieAction} from '../../core/store/movie/movie.slices';
 import {setIsShownModalAction} from '../../core/store/globalUI/globalUI.slices';
 import Image from 'next/image';
 import {Button} from 'react-bootstrap';
 import {getCommentsThunk} from '../../core/store/comment/comment.thunks';
+import cn from 'classnames';
 
 const Movie = () => {
 	// redux hooks
@@ -43,6 +44,8 @@ const Movie = () => {
 
 	const [isPlayerVisible, setIsPlayerVisible] = useState(false);
 	const [currentQuality, setCurrentQuality] = useState(eMovieQuality.CD);
+	const [currentEpisode, setCurrentEpisode] = useState<undefined | EpisodeModel>(undefined);
+	const [hasVideosAround, setHasVideosAround] = useState({prev: false, next: false});
 	const [currentUrl, setCurrentUrl] = useState('');
 
 	useEffect(() => {
@@ -110,6 +113,66 @@ const Movie = () => {
 		setTimeout(() => {
 			playerRef.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
 		}, 500);
+	};
+
+	const findEpisode = (mode: 'prev' | 'next') => () => {
+		if (currentEpisode) {
+			const currentSeason = currentMovie?.seasons?.find(
+				(x) => x.season === currentEpisode?.season?.season
+			);
+
+			const nearEpisodeNumber =
+				mode === 'prev' ? currentEpisode.episode - 1 : currentEpisode.episode + 1;
+
+			if (currentSeason) {
+				let nearEpisode = currentSeason?.episodes.find((x) => x.episode === nearEpisodeNumber);
+
+				if (nearEpisode) {
+					onSetCurrentEpisode({...nearEpisode, season: {...currentSeason, episodes: []}})();
+				} else {
+					const nearSeasonNumber =
+						mode === 'prev' ? currentSeason.season - 1 : currentSeason.season + 1;
+
+					const nearSeason = currentMovie?.seasons?.find((x) => x.season === nearSeasonNumber);
+
+					if (nearSeason) {
+						nearEpisode = nearSeason.episodes[mode === 'prev' ? nearSeason.episodes.length - 1 : 0];
+
+						if (nearEpisode) {
+							onSetCurrentEpisode({...nearEpisode, season: {...nearSeason, episodes: []}})();
+						} else {
+							setHasVideosAround((prev) => ({...prev, [mode]: false}));
+						}
+					} else {
+						setHasVideosAround((prev) => ({...prev, [mode]: false}));
+					}
+				}
+			}
+		}
+	};
+
+	const onSetCurrentEpisode = (episode: EpisodeModel) => () => {
+		setCurrentUrl('');
+
+		if (currentMovie?.seasons?.length) {
+			const firstSeason = currentMovie.seasons[0];
+			const currentSeason = currentMovie?.seasons?.find((x) => x.season === episode.season?.season);
+			const lastSeason = currentMovie.seasons[currentMovie.seasons.length - 1];
+
+			setHasVideosAround({
+				prev:
+					currentSeason?.episodes[0].episode !== episode.episode ||
+					firstSeason.season !== episode.season?.season,
+				next:
+					currentSeason?.episodes[currentSeason?.episodes.length - 1].episode !== episode.episode ||
+					lastSeason.season !== episode.season?.season,
+			});
+		}
+
+		setTimeout(() => {
+			setCurrentEpisode(episode);
+			setCurrentUrl(episode.file.url);
+		}, 10);
 	};
 
 	const renderQualities = () => {
@@ -237,19 +300,52 @@ const Movie = () => {
 								thumbnail={currentMovie.poster?.url}
 								url={currentMovie.file?.[currentQuality]?.url ?? currentUrl}
 							/>
+							{currentMovie.isSerial && (
+								<div className='movie-player__btns'>
+									<button
+										className={cn(
+											'btn btn-primary btn-icon rounded-pill',
+											!hasVideosAround.prev && 'opacity-0'
+										)}
+										disabled={!hasVideosAround.prev}
+										onClick={findEpisode('prev')}
+									>
+										Пред
+									</button>
+
+									<span>
+										{currentEpisode?.season?.season} Сезон {currentEpisode?.episode} Серия
+									</span>
+
+									<button
+										className={cn(
+											'btn btn-primary btn-icon rounded-pill',
+											!hasVideosAround.next && 'opacity-0'
+										)}
+										disabled={!hasVideosAround.next}
+										onClick={findEpisode('next')}
+									>
+										След
+									</button>
+								</div>
+							)}
 						</div>
 					)}
 					{currentMovie.isSerial &&
-						currentMovie.seasons?.map((season) => (
-							<EpisodeSlider
-								key={season.id}
-								title={`Сезон ${season.season}`}
-								posterUrl={currentMovie.poster?.url}
-								seasonNumber={season.season}
-								list={season.episodes}
-								setCurrentUrl={setCurrentUrl}
-							/>
-						))}
+						currentMovie.seasons?.map((season) => {
+							if (!season.episodes.length) return null;
+
+							return (
+								<EpisodeSlider
+									key={season.id}
+									title={`Сезон ${season.season}`}
+									posterUrl={currentMovie.poster?.url}
+									seasonNumber={season.season}
+									list={season.episodes}
+									setCurrentEpisode={onSetCurrentEpisode}
+								/>
+							);
+						})}
 					{currentMovie?.actors?.length ? (
 						<ParticipantCarouselSlider participants={currentMovie.actors} title='В ролях' />
 					) : null}
@@ -269,3 +365,4 @@ const Movie = () => {
 	);
 };
 export default Movie;
+
