@@ -46,7 +46,11 @@ const Recommendations = () => {
 						<div className='movie-card-more-info__body'>
 							<div className='movie-card-more-info__header'>
 								<div className='movie-card-more-info__title'>{movie.title}</div>
-								<AddToFavoritesBtn movieId={movie.id} className='movie-card-more-info__bookmark' />
+								<AddToFavoritesBtn
+									isFavorite={!!movie.isFavorite}
+									movieId={movie.id}
+									className='movie-card-more-info__bookmark'
+								/>
 							</div>
 							<div className='movie-card-more-info__desc'>
 								<div className='movie-card-more-info__ratings'>
