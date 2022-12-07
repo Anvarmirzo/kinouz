@@ -11,12 +11,12 @@ interface MovieSliderProps extends SwiperProps {
 	title: string;
 	seasonNumber: number;
 	posterUrl?: string;
-	setCurrentUrl: Dispatch<SetStateAction<string>>;
+	setCurrentEpisode: (episode: EpisodeModel) => () => void;
 }
 
 export const EpisodeSlider = ({
 	title,
-	setCurrentUrl,
+	setCurrentEpisode,
 	seasonNumber,
 	posterUrl,
 	list,
@@ -26,13 +26,6 @@ export const EpisodeSlider = ({
 	const [nextEl, nextElRef] = useSwiperRef<HTMLButtonElement>();
 	const [prevEl, prevElRef] = useSwiperRef<HTMLButtonElement>();
 	const [paginationEl, paginationElRef] = useSwiperRef<HTMLDivElement>();
-
-	const onSetUrl = (url: string) => () => {
-		setCurrentUrl('');
-		setTimeout(() => {
-			setCurrentUrl(url);
-		}, 10);
-	};
 
 	const renderSlides = () => {
 		return list.map((movie, index) => (
@@ -50,16 +43,24 @@ export const EpisodeSlider = ({
 								objectFit='cover'
 							/>
 						</div>
-						<div className='movie-card__labels'>
+						{/* <div className='movie-card__labels'>
 							<div className='movie-card__label bg-primary'>Просмотрено</div>
-						</div>
+						</div> */}
 					</div>
 					<div className='movie-card__name'>
 						{seasonNumber} Сезон {movie.episode} Серия
 					</div>
 					<a
 						href='javascript:void(0)'
-						onClick={onSetUrl(movie.file.url)}
+						onClick={setCurrentEpisode({
+							...movie,
+							season: {
+								id: new Date().getTime(),
+								season: seasonNumber,
+								episodes: [],
+								createdAt: new Date(),
+							},
+						})}
 						className='movie-card__link'
 					></a>
 				</div>
@@ -133,3 +134,4 @@ export const EpisodeSlider = ({
 		</section>
 	);
 };
+
