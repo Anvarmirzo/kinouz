@@ -11,7 +11,6 @@ import styles from './styles.module.sass';
 import {IAutoComplete, IAutoCompleteParams} from '../../../core/models';
 import {autoCompleteThunk} from '../../../core/store/globalUI/globalUI.thunks';
 import {Controller, useForm} from 'react-hook-form';
-import {SingleValue} from 'react-select';
 
 export const Header = () => {
 	// next router
