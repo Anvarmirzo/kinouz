@@ -54,7 +54,7 @@ export const SubUserAccordionItem = ({user, eventKey}: SubUserAccordionProps) =>
 							<div className='accordion-profile__text'>
 								<div className='accordion-profile__name'>{user.name}</div>
 								<div className='accordion-profile__desc'>
-									{`Возрастное ограничение: ${user.ageRemark}` ?? 'без возрастных ограничений'}
+									{`Возрастное ограничение: ${user.ageRemark ?? 'без возрастных ограничений'}`}
 								</div>
 							</div>
 						</div>
