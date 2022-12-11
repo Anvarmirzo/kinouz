@@ -1,17 +1,30 @@
 .animated-input
-	transition: 0.3s transform
-	transform: scale(0)
-	visibility: hidden
-	overflow: hidden
+  transition: 0.3s transform
+  transform: scale(0)
+  visibility: hidden
+  overflow: hidden
+
+  @media (max-width: 991px)
+    padding: 0 14px
+
+  @media (max-width: 540px)
+    position: fixed
+    top: 3.9rem
+    width: calc(100vw - 16px) !important
+    left: 8px
 
 .visible-input
-	visibility: visible
-	overflow: visible
-	width: 13rem
-	transform: scale(1)
+  visibility: visible
+  overflow: visible
+  width: 13rem
+  transform: scale(1)
+
+  @media (max-width: 991px)
+    width: 5rem
 
 .select-wrapper
-	gap: 6px
+  gap: 6px
+  align-items: center
 
-	&>div
-		flex: 1
+  & > div
+    flex: 1
