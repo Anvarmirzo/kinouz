@@ -108,14 +108,9 @@ const DynamicPage: NextPage = () => {
 								<span className='icon icon-pending'></span>
 							</a>
 						</div>
-						<div
-							className='gap-4 d-grid'
-							style={{
-								gridTemplateColumns: 'repeat(5,1fr)',
-							}}
-						>
+						<div className='gap-4 movies-grid'>
 							{movies.list.map((movie, index) => (
-								<div className='transform-none' key={movie.id}>
+								<div className='transform-none movie-card-count' key={movie.id}>
 									<div
 										onMouseOver={onMouseOver}
 										onMouseOut={onMouseOut}
@@ -153,7 +148,9 @@ const DynamicPage: NextPage = () => {
 											</div>
 										</div>
 										<div className='movie-card__name'>{movie.title}</div>
-										<a href='#' className='movie-card__link'></a>
+										<Link href={`/movies/${movie.slug}`}>
+											<a href='#' className='movie-card__link'></a>
+										</Link>
 										<div className='movie-card__more-info movie-card-more-info'>
 											<div className='movie-card-more-info__video'>
 												<Player

@@ -76,7 +76,10 @@ export const MovieSlider = ({title, list, loadMoreCb, ...props}: MovieSliderProp
 						</div>
 					</div>
 					<div className='movie-card__name'>{movie.title}</div>
-					<a href='#' className='movie-card__link'></a>
+					<Link href={`/movies/${movie.slug}`}>
+						<a href='#' className='movie-card__link'></a>
+					</Link>
+
 					<div className='movie-card__more-info movie-card-more-info'>
 						<div className='movie-card-more-info__video'>
 							<Player

@@ -39,7 +39,7 @@ export const LoginButtonWithMenu = () => {
 				<ul className='user-sidebar-menu__sub-list' style={{display: 'block'}}>
 					{user.subUsers?.map((s) => (
 						<li className='user-sidebar-menu__sub-item' key={s.id}>
-							<a href='#' className='user-sidebar-menu__sub-link'>
+							<a className='user-sidebar-menu__sub-link'>
 								<span className='ava bg-danger'>{s.name.charAt(0)}</span>
 								{s.name}
 							</a>
