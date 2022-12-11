@@ -134,7 +134,7 @@ export const Header = () => {
 						</nav>
 					</aside>
 					<div className='header__search'>
-						<div className='d-flex align-items-center'>
+						<div className='d-flex align-items-center justify-content-end'>
 							<div
 								className={cn('form-control me-2 flex-fill', styles['animated-input'], {
 									[styles['visible-input']]: isSearchInputVisible,
@@ -161,7 +161,7 @@ export const Header = () => {
 											/>
 											<button
 												onClick={changeModalIsShown({modalName: 'search', show: true})}
-												className='rounded-pill btn btn-secondary d-flex align-items-center'
+												className='rounded-pill btn btn-secondary d-flex align-items-center justify-content-center'
 											>
 												<span className='icon icon-filter_alt' />
 											</button>
