@@ -1,3 +1,22 @@
+export const TelemedicinePlace: {
+  Intenational: 'Intenational',
+  Karakalpak: 'Karakalpak',
+  Tashkent: 'Tashkent',
+  Sirdarya: 'Sirdarya',
+  Jizzah: 'Jizzah',
+  Samarkand: 'Samarkand',
+  Buhara: 'Buhara',
+  Navai: 'Navai',
+  Harezm: 'Harezm',
+  Qashqadarya: 'Qashqadarya',
+  Surhandarya: 'Surhandarya',
+  Namangan: 'Namangan',
+  Fergana: 'Fergana',
+  Andijan: 'Andijan',
+  TashkentCity: 'TashkentCity',
+  Other: 'Other'
+};
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
