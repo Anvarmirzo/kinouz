@@ -2,13 +2,13 @@ version: "3.7"
 
 services:
   front:
-    container_name: kinouz_front
-    image: kinouz_front
+    container_name: front
+    image: front
     volumes:
       - staticbuild:/app/out
     build: .
     ports:
-      - 3002:70
+      - 3000:70
 
 volumes:
   staticbuild:
