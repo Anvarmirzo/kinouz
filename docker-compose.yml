@@ -8,7 +8,9 @@ services:
       - staticbuild:/app/out
     build: .
     ports:
-      - 3000:70
+      - 3000:80
 
 volumes:
   staticbuild:
+
+  
